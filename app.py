@@ -186,7 +186,7 @@ if check_password():
                             # 3. Função para as linhas alternadas com centralização FORÇADA (!important)
                             def cores_alternadas(row):
                                 cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
-                                return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;' for _ in row]
+                                return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 20px;' for _ in row]
 
                             # 4. Aplicando o Estilo Final
                             tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
@@ -196,7 +196,7 @@ if check_password():
                                     # Estilo do Cabeçalho (Primeira Linha)
                                     {'selector': 'th', 'props': [
                                         ('background-color', '#696969'), 
-                                        ('color', 'white'), 
+                                        ('color', 'black'), 
                                         ('text-align', 'center !important'), 
                                         ('font-weight', 'bold'),
                                         ('font-size', '22px'), # FONTE AUMENTADA AQUI
