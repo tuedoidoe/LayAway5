@@ -72,17 +72,23 @@ def carregar_dados():
 # ==========================================
 if check_password():
     
-    # Mantemos a proporção [1.5, 1, 1.5] para deixar tudo estreito e alinhado
     col_t1, col_t2, col_t3 = st.columns([1.5, 1, 1.5])
     
     with col_t2:
-        
         st.markdown("<h2 style='text-align: center;'>🎯 Scanner Lay Away</h2>", unsafe_allow_html=True)
         st.markdown("<p style='text-align: center; color: gray;'>Busca automatizada de oportunidades de valor.</p>", unsafe_allow_html=True)
         
-        # Seletor de Data e Botão alinhados na mesma largura
-        data_consulta = st.date_input("📅 Escolha a data para consulta:", datetime.now())
-        dia_consulta = data_consulta.strftime("%Y-%m-%d")
+        # --- NOVIDADE: Seleção do formato de data ---
+        tipo_filtro = st.radio("Formato de Pesquisa:", ["Data Única", "Intervalo de Datas"], horizontal=True)
+        
+        hoje = datetime.now().date()
+        
+        if tipo_filtro == "Data Única":
+            data_selecionada = st.date_input("📅 Escolha a data para consulta:", value=hoje)
+        else:
+            # Passar uma tupla (hoje, hoje) ativa a seleção de intervalo no calendário
+            data_selecionada = st.date_input("📅 Escolha o período para consulta:", value=(hoje, hoje))
+            
         btn_procurar = st.button("🚀 Iniciar Varredura")
         
     st.divider() # Linha de separação visual
@@ -105,8 +111,20 @@ if check_password():
                 # 2. Carrega Base com Cache
                 df_hist = carregar_dados()
                 
-                # 3. Lógica de Consulta
-                df_alvo = df_hist[df_hist['Date'] == dia_consulta].copy()
+                # --- NOVIDADE: Lógica de Filtro Dinâmico (Única ou Range) ---
+                if tipo_filtro == "Data Única":
+                    texto_data = data_selecionada.strftime('%d/%m/%Y')
+                    # Compara usando dt.date para evitar erros de horário
+                    df_alvo = df_hist[df_hist['Date'].dt.date == data_selecionada].copy()
+                else:
+                    # Tratamento de segurança caso o usuário clique em apenas 1 dia no range
+                    if isinstance(data_selecionada, tuple) and len(data_selecionada) == 2:
+                        d_inicio, d_fim = data_selecionada
+                    else:
+                        d_inicio = d_fim = data_selecionada[0]
+                        
+                    texto_data = f"de {d_inicio.strftime('%d/%m/%Y')} até {d_fim.strftime('%d/%m/%Y')}"
+                    df_alvo = df_hist[(df_hist['Date'].dt.date >= d_inicio) & (df_hist['Date'].dt.date <= d_fim)].copy()
                 
                 tradutor_ligas = {
                     "English Championship": "ENGLAND 2", "Belgian First Division A": "BELGIUM 1",
@@ -122,7 +140,7 @@ if check_password():
                 df_alvo = df_alvo[df_alvo['League'].isin(ligas_autorizadas)].copy()
                 
                 if len(df_alvo) == 0:
-                    st.info(f"O modelo não identificou jogos lucrativos para {dia_consulta}.")
+                    st.info(f"O modelo não identificou jogos cadastrados para {texto_data}.")
                 else:
                     def safe_prob(column):
                         return (1 / pd.to_numeric(column, errors='coerce').replace(0, np.nan)).fillna(0)
@@ -146,7 +164,12 @@ if check_password():
                     df_completo['League_Avg_Goals'] = df_completo.groupby('League')['Goals_H_FT'].transform(lambda x: x.shift(1).expanding().mean()).fillna(df_completo['Goals_H_FT'].mean())
                     df_completo["LIGA_RATE"] = df_completo["League"].map(taxas_ligas).fillna(media_global_treino)
                     
-                    df_hoje = df_completo[df_completo['Date'] == dia_consulta].copy()
+                    # --- NOVIDADE: Puxa os jogos do período selecionado para operar ---
+                    if tipo_filtro == "Data Única":
+                        df_hoje = df_completo[df_completo['Date'].dt.date == data_selecionada].copy()
+                    else:
+                        df_hoje = df_completo[(df_completo['Date'].dt.date >= d_inicio) & (df_completo['Date'].dt.date <= d_fim)].copy()
+                        
                     df_hoje = df_hoje[(df_hoje['Odd_A_Lay'] <= 4.00) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back']) & (abs(df_hoje['Odd_A_Back'] - df_hoje['Odd_A_Lay']) <= 1.00) & (abs(df_hoje['Odd_H_Back'] - df_hoje['Odd_H_Lay']) <= 1.00)].copy()
                     
                     if len(df_hoje) == 0:
@@ -159,10 +182,9 @@ if check_password():
                         df_final = df_hoje[df_hoje["Edge"] > 0.09].copy()
                         
                         if len(df_final) == 0:
-                            st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>0.09) para operar em {dia_consulta}.")
+                            st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>0.09) para operar em {texto_data}.")
                         else:
                             # --- MODO DE EXIBIÇÃO VISUAL ---
-                            # Texto em uma linha com o número de jogos destacado em verde estilo "Badge/Etiqueta"
                             texto_resultado = f"""
                             <div style='text-align: center; font-size: 20px; margin-bottom: 20px;'>
                                 Oportunidades Encontradas: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(df_final)} jogo(s)</span>
@@ -170,7 +192,7 @@ if check_password():
                             """
                             st.markdown(texto_resultado, unsafe_allow_html=True)
                             
-                            # 2. Preparação da Tabela
+                            # Preparação da Tabela
                             tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay']].copy()
                             tabela = tabela.rename(columns={
                                 'Date': 'Data',
@@ -182,20 +204,19 @@ if check_password():
                             })
                             
                             tabela['Data'] = pd.to_datetime(tabela['Data']).dt.strftime('%d/%m/%Y')
-                            tabela = tabela.sort_values(by='Horário', ascending=True).reset_index(drop=True)
+                            tabela = tabela.sort_values(by=['Data', 'Horário'], ascending=[True, True]).reset_index(drop=True)
                             
-                            # 3. Função para as linhas alternadas com centralização FORÇADA (!important)
+                            # Função para as linhas alternadas (Zebrado)
                             def cores_alternadas(row):
                                 cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
-                                return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 18px;' for _ in row]
+                                return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;' for _ in row]
 
-                            # 4. Aplicando o Estilo Final (Com forçamento de largura e centralização)
+                            # Aplicando o Estilo Final
                             tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
                                 .format({'Odd Lay': '{:.2f}'}) \
                                 .hide(axis="index") \
                                 .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
                                 .set_table_styles([
-                                    # Estilo do Cabeçalho (Primeira Linha)
                                     {'selector': 'th', 'props': [
                                         ('background-color', '#696969'), 
                                         ('color', 'white'), 
@@ -204,19 +225,15 @@ if check_password():
                                         ('font-size', '22px'), 
                                         ('padding', '12px')
                                     ]},
-                                    # Reforço de centralização e espaçamento para as células
                                     {'selector': 'td', 'props': [
                                         ('text-align', 'center !important'),
-                                        ('padding', '6px')
+                                        ('padding', '10px')
                                     ]}
                                 ])
                             
-                            # 5. Exibição da Tabela (Ajuste das proporções para centralizar na tela)
-                            # A proporção [1, 4, 1] cria margens iguais dos dois lados, 
-                            # centralizando a tabela e deixando-a bem larga.
                             col_esq, col_central, col_dir = st.columns([1, 4, 1])
                             with col_central:
                                 st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
-                                
+
             except Exception as e:
                 st.error(f"Erro inesperado durante o processamento: {e}")
