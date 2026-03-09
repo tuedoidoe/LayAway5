@@ -47,8 +47,8 @@ def carregar_dados():
 # CÓDIGO DO SCANNER
 # ==========================================
 if check_password():
-    st.success("✅ Acesso Liberado!")
-    st.title("🎯 Scanner de Entradas - Lay Away")
+    # st.success("✅ Acesso Liberado!")
+    st.title("🎯 Entradas - Lay Away")
     
     # Seletor de Data
     data_consulta = st.date_input("📅 Escolha a data para consultar:", datetime.now())
