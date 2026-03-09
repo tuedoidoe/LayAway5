@@ -15,8 +15,8 @@ st.set_page_config(page_title="Entradas Lay Away", page_icon="🤖", layout="wid
 
 def check_password():
     col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        st.image("logo.png", width=600)
+    with col1:
+        st.image("logo.png", width=400)
         def password_entered():
             if st.session_state["password"] == st.secrets["senha_secreta"]:
                 st.session_state["password_correct"] = True
