@@ -243,7 +243,7 @@ if check_password():
                                         ('text-align', 'center !important'), 
                                         ('font-weight', 'bold'),
                                         ('font-size', '22px'), 
-                                        ('padding', '10px')
+                                        ('padding', '6px')
                                     ]},
                                     {'selector': 'td', 'props': [
                                         ('text-align', 'center !important'),
