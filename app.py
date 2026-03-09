@@ -16,11 +16,23 @@ st.set_page_config(page_title="Lay Away", page_icon="🎯", layout="wide")
 # CSS customizado para forçar alinhamento e botões mais bonitos
 st.markdown("""
     <style>
+    /* 1. Centraliza os botões de seleção (Radio: Data Única / Intervalo) */
+    div[role="radiogroup"] {
+        justify-content: center !important;
+    }
+    
+    /* 2. Garante que o contêiner do botão Iniciar Varredura fique centralizado */
+    div.stButton {
+        display: flex;
+        justify-content: center;
+    }
+    
+    /* 3. Estilo e cor do botão principal */
     div.stButton > button:first-child {
         background-color: #0068c9;
         color: white;
         border-radius: 5px;
-        width: 100%;
+        width: 100%; /* Preenche 100% da coluna central, ficando perfeitamente alinhado */
         font-weight: bold;
     }
     div.stButton > button:first-child:hover {
