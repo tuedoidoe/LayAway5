@@ -25,10 +25,10 @@ def check_password():
             st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state:
-        st.text_input("🔑 Digite a senha para acessar o Robô:", type="password", on_change=password_entered, key="password")
+        st.text_input("🔑 Digite a senha para acessar:", type="password", on_change=password_entered, key="password")
         return False
     elif not st.session_state["password_correct"]:
-        st.text_input("🔑 Digite a senha para acessar o Robô:", type="password", on_change=password_entered, key="password")
+        st.text_input("🔑 Digite a senha para acessar:", type="password", on_change=password_entered, key="password")
         st.error("❌ Senha incorreta.")
         return False
     return True
