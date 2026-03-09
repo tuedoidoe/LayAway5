@@ -45,7 +45,7 @@ if check_password():
         with st.spinner('Baixando inteligência e base de dados. Aguarde...'):
             try:
                 # 1. Carrega o Modelo do seu GitHub
-                url_modelo = 'https://github.com/tuedoidoe/Previsao_Entrada/raw/refs/heads/main/Dados_Excel/Modelo_LayAway_5.pkl'
+                url_modelo = 'https://github.com/tuedoidoe/LayAway5/raw/refs/heads/main/Modelo_LayAway_5.pkl'
                 caminho_local = 'Modelo_LayAway_5.pkl'
                 urllib.request.urlretrieve(url_modelo, caminho_local)
                 dados_modelo = joblib.load(caminho_local)
