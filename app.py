@@ -164,11 +164,12 @@ if check_password():
                             # --- MODO DE EXIBIÇÃO VISUAL ---
                             col_met1, col_met2, col_met3 = st.columns([1, 2, 1])
                             with col_met2:
-                                st.metric(label="Oportunidades Encontradas", value=f"{len(df_final)} Jogos", delta="Edge > 0.09")
+                                # 1. Removido o delta verde (Edge > 0.09)
+                                st.metric(label="Oportunidades Encontradas", value=f"{len(df_final)} Jogos")
                             
                             st.markdown("<br>", unsafe_allow_html=True) # Espaçamento
                             
-                            # 1. Preparação da Tabela
+                            # 2. Preparação da Tabela
                             tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay']].copy()
                             tabela = tabela.rename(columns={
                                 'Date': 'Data',
@@ -181,32 +182,35 @@ if check_password():
                             
                             tabela['Data'] = pd.to_datetime(tabela['Data']).dt.strftime('%d/%m/%Y')
                             tabela = tabela.sort_values(by='Horário', ascending=True)
-
-                            # 2. Formatação encadeada (O ERRO ANTIGO ESTAVA AQUI)
-                            tabela_estilizada = tabela.style.format({
-                                'Odd Lay': '{:.2f}'
-                            }).hide(axis="index").set_properties(**{
-                                'text-align': 'center',
-                                'font-size': '15px',
-                                'background-color': '#f8f9fa' # Cor de fundo bem leve nas linhas
-                            }).set_table_styles([
-                                {'selector': 'th', 'props': [
-                                    ('background-color', '#0e1117'), # Cor escura profissional
-                                    ('color', 'white'), 
-                                    ('text-align', 'center'),
-                                    ('font-weight', 'bold'),
-                                    ('font-size', '16px'),
-                                    ('padding', '12px')
-                                ]},
-                                {'selector': 'td', 'props': [
-                                    ('border-bottom', '1px solid #ddd') # Linha sutil separando os dados
-                                ]}
-                            ])
                             
-                            # 3. Exibição da Tabela
-                            col_esq, col_central, col_dir = st.columns([0.2, 5, 0.2])
+                            # 3. O SEGREDO PARA REMOVER O ÍNDICE "2": Resetamos o índice do zero!
+                            tabela = tabela.reset_index(drop=True)
+
+                            # 4. Função para criar as linhas alternadas (Zebrado Estilo Excel)
+                            def cores_alternadas(row):
+                                # Alterna entre dois tons de cinza escuro para combinar com seu modo noturno
+                                cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
+                                return [f'background-color: {cor_fundo}; color: white; text-align: center; font-size: 15px;' for _ in row]
+
+                            # 5. Aplicando o Estilo Final
+                            tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
+                                .format({'Odd Lay': '{:.2f}'}) \
+                                .hide(axis="index") \
+                                .set_table_styles([
+                                    {'selector': 'th', 'props': [
+                                        ('background-color', '#696969'), # Cabeçalho na cor Cinza
+                                        ('color', 'white'), 
+                                        ('text-align', 'center'), # Textos centralizados
+                                        ('font-weight', 'bold'),
+                                        ('font-size', '18px'), # Fonte maior
+                                        ('padding', '12px')
+                                    ]}
+                                ])
+                            
+                            # 6. Exibição da Tabela
+                            col_esq, col_central, col_dir = st.columns([0.1, 5, 0.1])
                             with col_central:
                                 st.table(tabela_estilizada)
-
+                                
             except Exception as e:
                 st.error(f"Erro inesperado durante o processamento: {e}")
