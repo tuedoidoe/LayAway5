@@ -188,30 +188,33 @@ if check_password():
                                 cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
                                 return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 18px;' for _ in row]
 
-                            # 4. Aplicando o Estilo Final
+                            # 4. Aplicando o Estilo Final (Com forçamento de largura e centralização)
                             tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
                                 .format({'Odd Lay': '{:.2f}'}) \
                                 .hide(axis="index") \
+                                .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
                                 .set_table_styles([
                                     # Estilo do Cabeçalho (Primeira Linha)
                                     {'selector': 'th', 'props': [
                                         ('background-color', '#696969'), 
-                                        ('color', 'black'), 
+                                        ('color', 'white'), 
                                         ('text-align', 'center !important'), 
                                         ('font-weight', 'bold'),
-                                        ('font-size', '22px'), # FONTE AUMENTADA AQUI
+                                        ('font-size', '22px'), 
                                         ('padding', '12px')
                                     ]},
-                                    # Reforço de centralização para todas as células de dados
+                                    # Reforço de centralização e espaçamento para as células
                                     {'selector': 'td', 'props': [
-                                        ('text-align', 'center !important')
+                                        ('text-align', 'center !important'),
+                                        ('padding', '10px')
                                     ]}
                                 ])
                             
-                            # 5. Exibição da Tabela (usando HTML para garantir a remoção do Índice)
-                            col_esq, col_central, col_dir = st.columns([0.1, 5, 0.1])
+                            # 5. Exibição da Tabela (Ajuste das proporções para centralizar na tela)
+                            # A proporção [1, 4, 1] cria margens iguais dos dois lados, 
+                            # centralizando a tabela e deixando-a bem larga.
+                            col_esq, col_central, col_dir = st.columns([1, 4, 1])
                             with col_central:
-                                # Renderiza a tabela em HTML puro. O índice '0' desaparece de vez!
                                 st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
                                 
             except Exception as e:
