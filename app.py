@@ -79,7 +79,7 @@ if check_password():
         st.markdown("<p style='text-align: center; color: gray;'>Busca automatizada de oportunidades de valor.</p>", unsafe_allow_html=True)
         
         # --- NOVIDADE: Seleção do formato de data ---
-        tipo_filtro = st.radio("Formato de Pesquisa:", ["Data Única", "Intervalo de Datas"], horizontal=True)
+        tipo_filtro = st.radio(["Data Única", "Intervalo de Datas"], horizontal=True)
         
         hoje = datetime.now().date()
         
