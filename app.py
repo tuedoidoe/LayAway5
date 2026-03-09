@@ -129,9 +129,25 @@ if check_password():
                             st.info(f"Nenhum jogo encontrou Edge > 0.09 para {dia_consulta}.")
                         else:
                             st.success(f"🔥 Encontradas {len(df_final)} entradas!")
-                            tabela = df_final[['Date', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Edge']].copy()
+                            tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay']].copy()
                             tabela['Date'] = pd.to_datetime(tabela['Date']).dt.strftime('%d/%m/%Y')
-                            st.dataframe(tabela.round(4), use_container_width=True, hide_index=True)
+                            tabela = tabela.sort_values(by='Time', ascending=True)
+
+                            tabela_estilizada = tabela.style.set_properties(**{
+                                'text-align': 'center',
+                                'font-size': '14px'
+                            }).set_table_styles([
+                                {'selector': 'th', 'props': [
+                                    ('background-color', '#1f77b4'), # Azul profissional
+                                    ('color', 'white'), 
+                                    ('text-align', 'center'),
+                                    ('font-weight', 'bold'),
+                                    ('padding', '10px')
+                                ]}
+                            ])
+                            col_esq, col_central, col_dir = st.columns([0.5, 5, 0.5])
+                            with col_central:
+                                st.table(tabela_estilizada)
 
             except Exception as e:
                 st.error(f"Erro: {e}")
