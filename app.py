@@ -13,46 +13,39 @@ warnings.filterwarnings("ignore")
 # ==========================================
 st.set_page_config(page_title="Lay Away", page_icon="🎯", layout="wide")
 
-# CSS customizado para forçar alinhamento e botões mais bonitos
+# CSS customizado mais forte para forçar a centralização
 st.markdown("""
     <style>
-    /* 1. Força a centralização absoluta dos botões de rádio (Data Única / Intervalo) */
-    div[data-testid="stRadio"] > div {
-        display: flex;
+    /* 1. Centraliza os botões de rádio (Data Única / Intervalo) */
+    div.stRadio > div[role="radiogroup"] {
         justify-content: center !important;
-        align-items: center !important;
-        width: 100%;
+        margin: 0 auto !important;
     }
     
-    /* 2. Força a centralização da área do Botão de Varredura */
-    div[data-testid="stButton"] {
-        display: flex;
-        justify-content: center !important;
-        width: 100%;
+    /* 2. Centraliza o texto digitado dentro da caixa do calendário */
+    div.stDateInput input {
+        text-align: center !important;
     }
     
-    /* 3. Estilo e tamanho do Botão Principal */
-    div[data-testid="stButton"] > button {
-        background-color: #0068c9;
-        color: white;
-        border-radius: 5px;
-        width: 100%; /* Mantém o botão preenchendo o espaço central */
-        font-weight: bold;
+    /* 3. Cores do Botão Principal (A largura agora é controlada pelo Python) */
+    div.stButton > button {
+        background-color: #0068c9 !important;
+        color: white !important;
+        font-weight: bold !important;
+        border-radius: 5px !important;
     }
-    div[data-testid="stButton"] > button:hover {
-        background-color: #0052a3;
-        border-color: #0052a3;
-        color: white;
+    div.stButton > button:hover {
+        background-color: #0052a3 !important;
+        border-color: #0052a3 !important;
+        color: white !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
 def check_password():
-    # 1. Se já estiver logado, retorna True imediatamente e NÃO desenha a imagem!
     if st.session_state.get("password_correct", False):
         return True
 
-    # 2. Se NÃO estiver logado, desenha a tela de login com a imagem
     col1, col2, col3 = st.columns([1.5, 1, 1.5])
     with col2:
         st.image("logo.png", use_container_width=True)
@@ -93,21 +86,28 @@ if check_password():
     
     with col_t2:
         st.markdown("<h2 style='text-align: center;'>🎯 Scanner Lay Away</h2>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center; color: gray; margin-bottom: 25px;'>Busca automatizada de oportunidades de valor.</p>", unsafe_allow_html=True)
                 
-        # --- NOVIDADE: Seleção do formato de data ---
+        # Seleção do formato de data
         tipo_filtro = st.radio("Formato de Pesquisa:", ["Data Única", "Intervalo de Datas"], horizontal=True, label_visibility="collapsed")
         
         hoje = datetime.now().date()
+        st.markdown("<br>", unsafe_allow_html=True)
         
+        # --- NOVIDADE: Textos centralizados via HTML e Calendário sem título nativo ---
         if tipo_filtro == "Data Única":
-            data_selecionada = st.date_input("📅 Escolha a data para consulta:", value=hoje)
+            st.markdown("<p style='text-align: center; margin-bottom: 5px; font-weight: bold;'>📅 Escolha a data para consulta:</p>", unsafe_allow_html=True)
+            data_selecionada = st.date_input("Data única", value=hoje, label_visibility="collapsed")
         else:
-            # Passar uma tupla (hoje, hoje) ativa a seleção de intervalo no calendário
-            data_selecionada = st.date_input("📅 Escolha o período para consulta:", value=(hoje, hoje))
+            st.markdown("<p style='text-align: center; margin-bottom: 5px; font-weight: bold;'>📅 Escolha o período para consulta:</p>", unsafe_allow_html=True)
+            data_selecionada = st.date_input("Intervalo", value=(hoje, hoje), label_visibility="collapsed")
             
-        btn_procurar = st.button("🚀 Iniciar Varredura")
+        st.markdown("<br>", unsafe_allow_html=True)
         
-    st.divider() # Linha de separação visual
+        # O parâmetro 'use_container_width=True' faz o botão esticar perfeitamente!
+        btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True)
+        
+    st.divider()
 
     if btn_procurar:
         with st.spinner('Baixando inteligência e processando o mercado...'):
@@ -127,13 +127,11 @@ if check_password():
                 # 2. Carrega Base com Cache
                 df_hist = carregar_dados()
                 
-                # --- NOVIDADE: Lógica de Filtro Dinâmico (Única ou Range) ---
+                # Lógica de Filtro Dinâmico
                 if tipo_filtro == "Data Única":
                     texto_data = data_selecionada.strftime('%d/%m/%Y')
-                    # Compara usando dt.date para evitar erros de horário
                     df_alvo = df_hist[df_hist['Date'].dt.date == data_selecionada].copy()
                 else:
-                    # Tratamento de segurança caso o usuário clique em apenas 1 dia no range
                     if isinstance(data_selecionada, tuple) and len(data_selecionada) == 2:
                         d_inicio, d_fim = data_selecionada
                     else:
@@ -180,7 +178,6 @@ if check_password():
                     df_completo['League_Avg_Goals'] = df_completo.groupby('League')['Goals_H_FT'].transform(lambda x: x.shift(1).expanding().mean()).fillna(df_completo['Goals_H_FT'].mean())
                     df_completo["LIGA_RATE"] = df_completo["League"].map(taxas_ligas).fillna(media_global_treino)
                     
-                    # --- NOVIDADE: Puxa os jogos do período selecionado para operar ---
                     if tipo_filtro == "Data Única":
                         df_hoje = df_completo[df_completo['Date'].dt.date == data_selecionada].copy()
                     else:
@@ -208,7 +205,6 @@ if check_password():
                             """
                             st.markdown(texto_resultado, unsafe_allow_html=True)
                             
-                            # Preparação da Tabela
                             tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay']].copy()
                             tabela = tabela.rename(columns={
                                 'Date': 'Data',
@@ -222,12 +218,10 @@ if check_password():
                             tabela['Data'] = pd.to_datetime(tabela['Data']).dt.strftime('%d/%m/%Y')
                             tabela = tabela.sort_values(by=['Data', 'Horário'], ascending=[True, True]).reset_index(drop=True)
                             
-                            # Função para as linhas alternadas (Zebrado)
                             def cores_alternadas(row):
                                 cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
                                 return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;' for _ in row]
 
-                            # Aplicando o Estilo Final
                             tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
                                 .format({'Odd Lay': '{:.2f}'}) \
                                 .hide(axis="index") \
