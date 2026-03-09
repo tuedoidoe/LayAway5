@@ -169,6 +169,8 @@ if check_password():
                             
                             st.markdown("<br>", unsafe_allow_html=True) # Espaçamento
                             
+                            st.markdown("<br>", unsafe_allow_html=True) # Espaçamento
+                            
                             # 2. Preparação da Tabela
                             tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay']].copy()
                             tabela = tabela.rename(columns={
