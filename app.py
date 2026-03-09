@@ -17,12 +17,12 @@ def check_password():
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.image("logo.png", width=600)
-    def password_entered():
-        if st.session_state["password"] == st.secrets["senha_secreta"]:
-            st.session_state["password_correct"] = True
-            del st.session_state["password"]
-        else:
-            st.session_state["password_correct"] = False
+        def password_entered():
+            if st.session_state["password"] == st.secrets["senha_secreta"]:
+                st.session_state["password_correct"] = True
+                del st.session_state["password"]
+            else:
+                st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state:
         st.text_input("🔑 Digite a senha para acessar:", type="password", on_change=password_entered, key="password")
