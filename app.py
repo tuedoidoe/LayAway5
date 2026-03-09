@@ -239,11 +239,11 @@ if check_password():
                                 .set_table_styles([
                                     {'selector': 'th', 'props': [
                                         ('background-color', '#696969'), 
-                                        ('color', 'white'), 
+                                        ('color', 'black'), 
                                         ('text-align', 'center !important'), 
                                         ('font-weight', 'bold'),
                                         ('font-size', '22px'), 
-                                        ('padding', '12px')
+                                        ('padding', '10px')
                                     ]},
                                     {'selector': 'td', 'props': [
                                         ('text-align', 'center !important'),
