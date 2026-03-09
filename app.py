@@ -14,12 +14,10 @@ warnings.filterwarnings("ignore")
 st.set_page_config(page_title="Entradas Lay Away", page_icon="🤖", layout="wide")
 
 def check_password():
-    """Retorna True se o usuário digitou a senha correta."""
     def password_entered():
-        # st.secrets pega a senha que vamos configurar no servidor do Streamlit escondida
         if st.session_state["password"] == st.secrets["senha_secreta"]:
             st.session_state["password_correct"] = True
-            del st.session_state["password"]  # Limpa a senha da memória
+            del st.session_state["password"]
         else:
             st.session_state["password_correct"] = False
 
@@ -33,18 +31,30 @@ def check_password():
     return True
 
 # ==========================================
-# CÓDIGO DO SCANNER (SÓ RODA SE A SENHA ESTIVER CERTA)
+# FUNÇÃO DE CARREGAMENTO (COM CACHE)
+# ==========================================
+@st.cache_data(ttl=3600) # O cache limpa a cada 1 hora para pegar dados novos
+def carregar_dados():
+    url_base_mae = "https://github.com/futpythontrader/Bases_de_Dados/raw/refs/heads/main/Base_de_Dados_BetfairExchange.csv"
+    df = pd.read_csv(url_base_mae)
+    df['Date'] = pd.to_datetime(df['Date'])
+    return df
+
+# ==========================================
+# CÓDIGO DO SCANNER
 # ==========================================
 if check_password():
     st.success("✅ Acesso Liberado!")
     st.title("🎯 Scanner de Entradas - Lay Away")
     
-    # Botão para iniciar a varredura
-    if st.button("🚀 Rodar Scanner de Hoje"):
-        
-        with st.spinner('Baixando inteligência e base de dados. Aguarde...'):
+    # Seletor de Data
+    data_consulta = st.date_input("📅 Escolha a data para consultar:", datetime.now())
+    dia_consulta = data_consulta.strftime("%Y-%m-%d")
+    
+    if st.button("🚀 Rodar Scanner"):
+        with st.spinner('Processando dados...'):
             try:
-                # 1. Carrega o Modelo do seu GitHub
+                # 1. Carrega Modelo
                 url_modelo = 'https://github.com/tuedoidoe/LayAway5/raw/refs/heads/main/Modelo_LayAway_5.pkl'
                 caminho_local = 'Modelo_LayAway_5.pkl'
                 urllib.request.urlretrieve(url_modelo, caminho_local)
@@ -56,16 +66,11 @@ if check_password():
                 X_cols_treino = dados_modelo['features']
                 ligas_autorizadas = dados_modelo.get('ligas_autorizadas', [])
                 
-                # 2. Carrega a Base Mãe
-                url_base_mae = "https://github.com/futpythontrader/Bases_de_Dados/raw/refs/heads/main/Base_de_Dados_BetfairExchange.csv"
-                df_hist = pd.read_csv(url_base_mae)
-                df_hist['Date'] = pd.to_datetime(df_hist['Date'])
+                # 2. Carrega Base com Cache
+                df_hist = carregar_dados()
                 
-                st.write("✅ Dados carregados com sucesso! Processando variáveis...")
-                
-                # 3. Lógica para pegar os jogos do dia (Simplificado para hoje)
-                dia_hoje = datetime.now().strftime("%Y-%m-%d")
-                df_alvo = df_hist[df_hist['Date'] == dia_hoje].copy()
+                # 3. Lógica de Consulta
+                df_alvo = df_hist[df_hist['Date'] == dia_consulta].copy()
                 
                 tradutor_ligas = {
                     "English Championship": "ENGLAND 2", "Belgian First Division A": "BELGIUM 1",
@@ -81,12 +86,11 @@ if check_password():
                 df_alvo = df_alvo[df_alvo['League'].isin(ligas_autorizadas)].copy()
                 
                 if len(df_alvo) == 0:
-                    st.warning(f"Nenhum jogo lucrativo encontrado para hoje ({dia_hoje}).")
+                    st.warning(f"Nenhum jogo encontrado para {dia_consulta}.")
                 else:
                     def safe_prob(column):
                         return (1 / pd.to_numeric(column, errors='coerce').replace(0, np.nan)).fillna(0)
                         
-                    # Mescla Histórico + Alvo
                     data_limite = df_alvo['Date'].min()
                     df_hist_passado = df_hist[df_hist['Date'] < data_limite].copy()
                     df_completo = pd.concat([df_hist_passado, df_alvo], ignore_index=True)
@@ -106,12 +110,11 @@ if check_password():
                     df_completo['League_Avg_Goals'] = df_completo.groupby('League')['Goals_H_FT'].transform(lambda x: x.shift(1).expanding().mean()).fillna(df_completo['Goals_H_FT'].mean())
                     df_completo["LIGA_RATE"] = df_completo["League"].map(taxas_ligas).fillna(media_global_treino)
                     
-                    # Isola jogos de hoje e Filtra
-                    df_hoje = df_completo[df_completo['Date'] == dia_hoje].copy()
+                    df_hoje = df_completo[df_completo['Date'] == dia_consulta].copy()
                     df_hoje = df_hoje[(df_hoje['Odd_A_Lay'] <= 4.00) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back']) & (abs(df_hoje['Odd_A_Back'] - df_hoje['Odd_A_Lay']) <= 1.00) & (abs(df_hoje['Odd_H_Back'] - df_hoje['Odd_H_Lay']) <= 1.00)].copy()
                     
                     if len(df_hoje) == 0:
-                        st.warning("Nenhum jogo passou nos filtros iniciais de Odd (Máx 4.00).")
+                        st.warning("Nenhum jogo passou nos filtros de Odd.")
                     else:
                         df_hoje = df_hoje.dropna().reset_index(drop=True)
                         df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
@@ -120,18 +123,12 @@ if check_password():
                         df_final = df_hoje[df_hoje["Edge"] > 0.09].copy()
                         
                         if len(df_final) == 0:
-                            st.info("Nenhum jogo encontrou Edge > 0.09 hoje.")
+                            st.info(f"Nenhum jogo encontrou Edge > 0.09 para {dia_consulta}.")
                         else:
-                            st.success(f"🔥 Encontradas {len(df_final)} entradas para hoje!")
-                            
-                            # Prepara a tabela bonita para a tela
-                            tabela_exibicao = df_final[['Date', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Edge']].copy()
-                            tabela_exibicao['Date'] = pd.to_datetime(tabela_exibicao['Date']).dt.strftime('%d/%m/%Y')
-                            tabela_exibicao['Odd_A_Lay'] = tabela_exibicao['Odd_A_Lay'].round(2)
-                            tabela_exibicao['Edge'] = tabela_exibicao['Edge'].round(4)
-                            
-                            # Mostra a tabela interativa
-                            st.dataframe(tabela_exibicao, use_container_width=True, hide_index=True)
+                            st.success(f"🔥 Encontradas {len(df_final)} entradas!")
+                            tabela = df_final[['Date', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Edge']].copy()
+                            tabela['Date'] = pd.to_datetime(tabela['Date']).dt.strftime('%d/%m/%Y')
+                            st.dataframe(tabela.round(4), use_container_width=True, hide_index=True)
 
             except Exception as e:
-                st.error(f"Ocorreu um erro: {e}")
+                st.error(f"Erro: {e}")
