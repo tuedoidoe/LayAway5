@@ -97,9 +97,9 @@ if check_password():
         st.markdown("<h2 style='text-align: center;'>🎯 Scanner Lay Away</h2>", unsafe_allow_html=True)
                 
         # O TRUQUE DEFINITIVO: Sub-colunas para forçar o alinhamento nativo no centro
-        col_rad1, col_rad2, col_rad3 = st.columns([0.5, 4, 0.5])
+        col_rad1, col_rad2, col_rad3 = st.columns([0.5, 5, 0.5])
         with col_rad2:
-            tipo_filtro = st.radio("Formato de Pesquisa:", ["Data Única  ", "  Intervalo de Datas"], horizontal=True, label_visibility="collapsed")
+            tipo_filtro = st.radio("Formato de Pesquisa:", ["Data Única", "Intervalo de Datas"], horizontal=True, label_visibility="collapsed")
         
         hoje = datetime.now().date()
         st.markdown("<br>", unsafe_allow_html=True)
