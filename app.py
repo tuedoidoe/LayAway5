@@ -133,12 +133,12 @@ if check_password():
                             tabela['Date'] = pd.to_datetime(tabela['Date']).dt.strftime('%d/%m/%Y')
                             tabela = tabela.sort_values(by='Time', ascending=True)
 
-                            tabela_estilizada = tabela.style.set_properties(**{
+                            tabela_estilizada = tabela.style.hide(axis="index").set_properties(**{
                                 'text-align': 'center',
                                 'font-size': '14px'
                             }).set_table_styles([
                                 {'selector': 'th', 'props': [
-                                    ('background-color', '#1f77b4'), # Azul profissional
+                                    ('background-color', '#1f77b4'),
                                     ('color', 'white'), 
                                     ('text-align', 'center'),
                                     ('font-weight', 'bold'),
