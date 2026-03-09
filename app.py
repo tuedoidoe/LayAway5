@@ -70,18 +70,25 @@ def carregar_dados():
 # ==========================================
 if check_password():
     
-    # Cabeçalho Principal Centralizado
-    col_t1, col_t2, col_t3 = st.columns([1, 2, 1])
+    # Usando a mesma proporção [1.5, 1, 1.5] para espremer o conteúdo central
+    col_t1, col_t2, col_t3 = st.columns([1.5, 1, 1.5])
+    
     with col_t2:
-        st.markdown("<h1 style='text-align: center;'>🎯 Scanner Lay Away</h1>", unsafe_allow_html=True)
+        # Pela sua foto, a imagem também aparece aqui. Se sim, coloque-a aqui dentro:
+        # st.image("logo.png", use_container_width=True)
+        
+        st.markdown("<h2 style='text-align: center;'>🎯 Scanner Lay Away</h2>", unsafe_allow_html=True)
         st.markdown("<p style='text-align: center; color: gray;'>Busca automatizada de oportunidades de valor.</p>", unsafe_allow_html=True)
         
-        # Seletor de Data e Botão alinhados
+        # Seletor de Data e Botão agora vão respeitar a largura estreita da col_t2
         data_consulta = st.date_input("📅 Escolha a data para consulta:", datetime.now())
         dia_consulta = data_consulta.strftime("%Y-%m-%d")
         btn_procurar = st.button("🚀 Iniciar Varredura")
         
     st.divider() # Linha de separação visual
+
+    if btn_procurar:
+        with st.spinner('Baixando inteligência e processando o mercado...'):
 
     if btn_procurar:
         with st.spinner('Baixando inteligência e processando o mercado...'):
