@@ -48,7 +48,7 @@ def carregar_dados():
 # ==========================================
 if check_password():
     # st.success("✅ Acesso Liberado!")
-    st.title("🎯 Entradas - Lay Away")
+    st.title("🎯Lay Away")
     
     # Seletor de Data
     data_consulta = st.date_input("📅 Escolha a data para consultar:", datetime.now())
