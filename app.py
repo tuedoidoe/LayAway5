@@ -76,8 +76,7 @@ if check_password():
     
     with col_t2:
         st.markdown("<h2 style='text-align: center;'>🎯 Scanner Lay Away</h2>", unsafe_allow_html=True)
-        st.markdown("<p style='text-align: center; color: gray;'>Busca automatizada de oportunidades de valor.</p>", unsafe_allow_html=True)
-        
+                
         # --- NOVIDADE: Seleção do formato de data ---
         tipo_filtro = st.radio("Formato de Pesquisa:", ["Data Única", "Intervalo de Datas"], horizontal=True, label_visibility="collapsed")
         
