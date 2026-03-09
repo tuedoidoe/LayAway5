@@ -11,7 +11,7 @@ warnings.filterwarnings("ignore")
 # ==========================================
 # CONFIGURAÇÃO DA PÁGINA E LOGIN
 # ==========================================
-st.set_page_config(page_title="Entradas Lay Away", page_icon="🤖", layout="wide")
+st.set_page_config(page_title="Lay Away", page_icon="🤖", layout="wide")
 
 def check_password():
     col1, col2, col3 = st.columns([0.5, 2, 0.5])
@@ -36,7 +36,7 @@ def check_password():
 # ==========================================
 # FUNÇÃO DE CARREGAMENTO (COM CACHE)
 # ==========================================
-@st.cache_data(ttl=3600) # O cache limpa a cada 1 hora para pegar dados novos
+@st.cache_data(ttl=900) # O cache limpa a cada 15 minutos para pegar dados novos
 def carregar_dados():
     url_base_mae = "https://github.com/futpythontrader/Bases_de_Dados/raw/refs/heads/main/Base_de_Dados_BetfairExchange.csv"
     df = pd.read_csv(url_base_mae)
