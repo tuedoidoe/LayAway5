@@ -13,28 +13,37 @@ warnings.filterwarnings("ignore")
 # ==========================================
 st.set_page_config(page_title="Lay Away", page_icon="🎯", layout="wide")
 
-# CSS customizado mais forte para forçar a centralização
+# CSS customizado SUPER agressivo para forçar a centralização
 st.markdown("""
     <style>
-    /* 1. Centraliza os botões de rádio (Data Única / Intervalo) */
-    div.stRadio > div[role="radiogroup"] {
+    /* 1. Força a centralização absoluta dos botões de rádio (Data Única / Intervalo) */
+    div[data-testid="stRadio"] {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+    
+    div[data-testid="stRadio"] > div[role="radiogroup"] {
+        display: flex !important;
         justify-content: center !important;
         margin: 0 auto !important;
+        width: max-content !important;
     }
     
     /* 2. Centraliza o texto digitado dentro da caixa do calendário */
-    div.stDateInput input {
+    div[data-testid="stDateInput"] input {
         text-align: center !important;
     }
     
-    /* 3. Cores do Botão Principal (A largura agora é controlada pelo Python) */
-    div.stButton > button {
+    /* 3. Cores e Tamanho do Botão Principal */
+    div[data-testid="stButton"] > button {
         background-color: #0068c9 !important;
         color: white !important;
         font-weight: bold !important;
         border-radius: 5px !important;
     }
-    div.stButton > button:hover {
+    div[data-testid="stButton"] > button:hover {
         background-color: #0052a3 !important;
         border-color: #0052a3 !important;
         color: white !important;
@@ -86,6 +95,7 @@ if check_password():
     
     with col_t2:
         st.markdown("<h2 style='text-align: center;'>🎯 Scanner Lay Away</h2>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center; color: gray; margin-bottom: 25px;'>Busca automatizada de oportunidades de valor.</p>", unsafe_allow_html=True)
                 
         # Seleção do formato de data
         tipo_filtro = st.radio("Formato de Pesquisa:", ["Data Única", "Intervalo de Datas"], horizontal=True, label_visibility="collapsed")
@@ -93,7 +103,7 @@ if check_password():
         hoje = datetime.now().date()
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # --- NOVIDADE: Textos centralizados via HTML e Calendário sem título nativo ---
+        # Textos centralizados via HTML e Calendário sem título nativo
         if tipo_filtro == "Data Única":
             st.markdown("<p style='text-align: center; margin-bottom: 5px; font-weight: bold;'>📅 Escolha a data para consulta:</p>", unsafe_allow_html=True)
             data_selecionada = st.date_input("Data única", value=hoje, label_visibility="collapsed")
