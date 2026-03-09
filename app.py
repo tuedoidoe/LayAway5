@@ -133,6 +133,11 @@ if check_password():
                             tabela['Date'] = pd.to_datetime(tabela['Date']).dt.strftime('%d/%m/%Y')
                             tabela = tabela.sort_values(by='Time', ascending=True)
 
+                            tabela_formatada = tabela.style.format({
+                                'Odd_A_Lay': '{:.2f}',
+                                'Edge': '{:.4f}'  # Mantemos o Edge com 4 casas para precisão
+                            })
+
                             tabela_estilizada = tabela.style.hide(axis="index").set_properties(**{
                                 'text-align': 'center',
                                 'font-size': '14px'
