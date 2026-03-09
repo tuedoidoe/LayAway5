@@ -181,36 +181,38 @@ if check_password():
                             })
                             
                             tabela['Data'] = pd.to_datetime(tabela['Data']).dt.strftime('%d/%m/%Y')
-                            tabela = tabela.sort_values(by='Horário', ascending=True)
+                            tabela = tabela.sort_values(by='Horário', ascending=True).reset_index(drop=True)
                             
-                            # 3. O SEGREDO PARA REMOVER O ÍNDICE "2": Resetamos o índice do zero!
-                            tabela = tabela.reset_index(drop=True)
-
-                            # 4. Função para criar as linhas alternadas (Zebrado Estilo Excel)
+                            # 3. Função para as linhas alternadas com centralização FORÇADA (!important)
                             def cores_alternadas(row):
-                                # Alterna entre dois tons de cinza escuro para combinar com seu modo noturno
                                 cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
-                                return [f'background-color: {cor_fundo}; color: white; text-align: center; font-size: 15px;' for _ in row]
+                                return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;' for _ in row]
 
-                            # 5. Aplicando o Estilo Final
+                            # 4. Aplicando o Estilo Final
                             tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
                                 .format({'Odd Lay': '{:.2f}'}) \
                                 .hide(axis="index") \
                                 .set_table_styles([
+                                    # Estilo do Cabeçalho (Primeira Linha)
                                     {'selector': 'th', 'props': [
-                                        ('background-color', '#696969'), # Cabeçalho na cor Cinza
+                                        ('background-color', '#696969'), 
                                         ('color', 'white'), 
-                                        ('text-align', 'center'), # Textos centralizados
+                                        ('text-align', 'center !important'), 
                                         ('font-weight', 'bold'),
-                                        ('font-size', '18px'), # Fonte maior
+                                        ('font-size', '22px'), # FONTE AUMENTADA AQUI
                                         ('padding', '12px')
+                                    ]},
+                                    # Reforço de centralização para todas as células de dados
+                                    {'selector': 'td', 'props': [
+                                        ('text-align', 'center !important')
                                     ]}
                                 ])
                             
-                            # 6. Exibição da Tabela
+                            # 5. Exibição da Tabela (usando HTML para garantir a remoção do Índice)
                             col_esq, col_central, col_dir = st.columns([0.1, 5, 0.1])
                             with col_central:
-                                st.table(tabela_estilizada)
+                                # Renderiza a tabela em HTML puro. O índice '0' desaparece de vez!
+                                st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
                                 
             except Exception as e:
                 st.error(f"Erro inesperado durante o processamento: {e}")
