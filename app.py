@@ -14,7 +14,7 @@ warnings.filterwarnings("ignore")
 st.set_page_config(page_title="Entradas Lay Away", page_icon="🤖", layout="wide")
 
 def check_password():
-    col1, col2, col3 = st.columns([0.5, 4, 0.5])
+    col1, col2, col3 = st.columns([0.5, 3, 0.5])
     with col1:
         st.image("logo.png", width=380)
         def password_entered():
