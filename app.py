@@ -31,12 +31,13 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 def check_password():
-    # As margens (1.5) são maiores que o centro (1), deixando o centro estreito.
+    # 1. Se já estiver logado, retorna True imediatamente e NÃO desenha a imagem!
+    if st.session_state.get("password_correct", False):
+        return True
+
+    # 2. Se NÃO estiver logado, desenha a tela de login com a imagem
     col1, col2, col3 = st.columns([1.5, 1, 1.5])
-    
     with col2:
-        # A imagem e o campo de senha agora dividem a mesma coluna, 
-        # então terão exata mesma largura.
         st.image("logo.png", use_container_width=True)
         
         def password_entered():
@@ -53,6 +54,7 @@ def check_password():
             st.text_input("🔑 Digite a senha para acessar:", type="password", on_change=password_entered, key="password")
             st.error("❌ Senha incorreta.")
             return False
+            
     return True
 
 # ==========================================
