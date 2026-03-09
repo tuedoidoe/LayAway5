@@ -206,7 +206,7 @@ if check_password():
                                     # Reforço de centralização e espaçamento para as células
                                     {'selector': 'td', 'props': [
                                         ('text-align', 'center !important'),
-                                        ('padding', '10px')
+                                        ('padding', '6px')
                                     ]}
                                 ])
                             
