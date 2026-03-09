@@ -31,15 +31,14 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 def check_password():
-    # Colunas principais: controlam a largura do campo de senha (mantém a proporção atual)
-    col1, col2, col3 = st.columns([1, 2, 1])
+    # As margens (1.5) são maiores que o centro (1), deixando o centro estreito.
+    col1, col2, col3 = st.columns([1.5, 1, 1.5])
     
     with col2:
-        # Sub-colunas: criadas APENAS para espremer e centralizar a imagem
-        img_col1, img_col2, img_col3 = st.columns([1, 2, 1])
-        with img_col2:
-            st.image("logo.png", use_container_width=True)
-            
+        # A imagem e o campo de senha agora dividem a mesma coluna, 
+        # então terão exata mesma largura.
+        st.image("logo.png", use_container_width=True)
+        
         def password_entered():
             if st.session_state["password"] == st.secrets["senha_secreta"]:
                 st.session_state["password_correct"] = True
