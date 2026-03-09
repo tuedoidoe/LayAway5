@@ -11,11 +11,28 @@ warnings.filterwarnings("ignore")
 # ==========================================
 # CONFIGURAÇÃO DA PÁGINA E LOGIN
 # ==========================================
-st.set_page_config(page_title="Lay Away", page_icon="🤖", layout="wide")
+st.set_page_config(page_title="Lay Away", page_icon="🎯", layout="wide")
+
+# CSS customizado para forçar alinhamento e botões mais bonitos
+st.markdown("""
+    <style>
+    div.stButton > button:first-child {
+        background-color: #0068c9;
+        color: white;
+        border-radius: 5px;
+        width: 100%;
+        font-weight: bold;
+    }
+    div.stButton > button:first-child:hover {
+        background-color: #0052a3;
+        border-color: #0052a3;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 def check_password():
-    col1, col2, col3 = st.columns([0.5, 2, 0.5])
-    with col1:
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
         st.image("logo.png", use_container_width=True)
         def password_entered():
             if st.session_state["password"] == st.secrets["senha_secreta"]:
@@ -36,7 +53,7 @@ def check_password():
 # ==========================================
 # FUNÇÃO DE CARREGAMENTO (COM CACHE)
 # ==========================================
-@st.cache_data(ttl=900) # O cache limpa a cada 15 minutos para pegar dados novos
+@st.cache_data(ttl=900)
 def carregar_dados():
     url_base_mae = "https://github.com/futpythontrader/Bases_de_Dados/raw/refs/heads/main/Base_de_Dados_BetfairExchange.csv"
     df = pd.read_csv(url_base_mae)
@@ -47,15 +64,22 @@ def carregar_dados():
 # CÓDIGO DO SCANNER
 # ==========================================
 if check_password():
-    # st.success("✅ Acesso Liberado!")
-    st.title("🎯Lay Away")
     
-    # Seletor de Data
-    data_consulta = st.date_input("📅 Escolha a data para consultar:", datetime.now())
-    dia_consulta = data_consulta.strftime("%Y-%m-%d")
-    
-    if st.button("🚀 Procurar Entradas"):
-        with st.spinner('Processando dados...'):
+    # Cabeçalho Principal Centralizado
+    col_t1, col_t2, col_t3 = st.columns([1, 2, 1])
+    with col_t2:
+        st.markdown("<h1 style='text-align: center;'>🎯 Scanner Lay Away</h1>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center; color: gray;'>Busca automatizada de oportunidades de valor.</p>", unsafe_allow_html=True)
+        
+        # Seletor de Data e Botão alinhados
+        data_consulta = st.date_input("📅 Escolha a data para consulta:", datetime.now())
+        dia_consulta = data_consulta.strftime("%Y-%m-%d")
+        btn_procurar = st.button("🚀 Iniciar Varredura")
+        
+    st.divider() # Linha de separação visual
+
+    if btn_procurar:
+        with st.spinner('Baixando inteligência e processando o mercado...'):
             try:
                 # 1. Carrega Modelo
                 url_modelo = 'https://github.com/tuedoidoe/LayAway5/raw/refs/heads/main/Modelo_LayAway_5.pkl'
@@ -89,7 +113,7 @@ if check_password():
                 df_alvo = df_alvo[df_alvo['League'].isin(ligas_autorizadas)].copy()
                 
                 if len(df_alvo) == 0:
-                    st.warning(f"Nenhum jogo encontrado para {dia_consulta}.")
+                    st.info(f"O modelo não identificou jogos lucrativos para {dia_consulta}.")
                 else:
                     def safe_prob(column):
                         return (1 / pd.to_numeric(column, errors='coerce').replace(0, np.nan)).fillna(0)
@@ -117,7 +141,7 @@ if check_password():
                     df_hoje = df_hoje[(df_hoje['Odd_A_Lay'] <= 4.00) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back']) & (abs(df_hoje['Odd_A_Back'] - df_hoje['Odd_A_Lay']) <= 1.00) & (abs(df_hoje['Odd_H_Back'] - df_hoje['Odd_H_Lay']) <= 1.00)].copy()
                     
                     if len(df_hoje) == 0:
-                        st.warning("Nenhum jogo passou nos filtros de Odd.")
+                        st.info("Nenhum jogo passou nos filtros iniciais de Odd (Máx 4.00).")
                     else:
                         df_hoje = df_hoje.dropna().reset_index(drop=True)
                         df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
@@ -126,33 +150,54 @@ if check_password():
                         df_final = df_hoje[df_hoje["Edge"] > 0.09].copy()
                         
                         if len(df_final) == 0:
-                            st.info(f"Nenhum jogo encontrou Edge > 0.09 para {dia_consulta}.")
+                            st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>0.09) para operar em {dia_consulta}.")
                         else:
-                            st.success(f"🔥 Encontradas {len(df_final)} entradas!")
+                            # --- MODO DE EXIBIÇÃO VISUAL ---
+                            col_met1, col_met2, col_met3 = st.columns([1, 2, 1])
+                            with col_met2:
+                                st.metric(label="Oportunidades Encontradas", value=f"{len(df_final)} Jogos", delta="Edge > 0.09")
+                            
+                            st.markdown("<br>", unsafe_allow_html=True) # Espaçamento
+                            
+                            # 1. Preparação da Tabela
                             tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay']].copy()
-                            tabela['Date'] = pd.to_datetime(tabela['Date']).dt.strftime('%d/%m/%Y')
-                            tabela = tabela.sort_values(by='Time', ascending=True)
-
-                            tabela_formatada = tabela.style.format({
-                                'Odd_A_Lay': '{:.2f}',
-                                'Edge': '{:.4f}'  # Mantemos o Edge com 4 casas para precisão
+                            tabela = tabela.rename(columns={
+                                'Date': 'Data',
+                                'Time': 'Horário',
+                                'League': 'Liga',
+                                'Home': 'Time Casa',
+                                'Away': 'Time Fora',
+                                'Odd_A_Lay': 'Odd Lay'
                             })
+                            
+                            tabela['Data'] = pd.to_datetime(tabela['Data']).dt.strftime('%d/%m/%Y')
+                            tabela = tabela.sort_values(by='Horário', ascending=True)
 
-                            tabela_estilizada = tabela.style.hide(axis="index").set_properties(**{
+                            # 2. Formatação encadeada (O ERRO ANTIGO ESTAVA AQUI)
+                            tabela_estilizada = tabela.style.format({
+                                'Odd Lay': '{:.2f}'
+                            }).hide(axis="index").set_properties(**{
                                 'text-align': 'center',
-                                'font-size': '14px'
+                                'font-size': '15px',
+                                'background-color': '#f8f9fa' # Cor de fundo bem leve nas linhas
                             }).set_table_styles([
                                 {'selector': 'th', 'props': [
-                                    ('background-color', '#1f77b4'),
+                                    ('background-color', '#0e1117'), # Cor escura profissional
                                     ('color', 'white'), 
                                     ('text-align', 'center'),
                                     ('font-weight', 'bold'),
-                                    ('padding', '10px')
+                                    ('font-size', '16px'),
+                                    ('padding', '12px')
+                                ]},
+                                {'selector': 'td', 'props': [
+                                    ('border-bottom', '1px solid #ddd') # Linha sutil separando os dados
                                 ]}
                             ])
-                            col_esq, col_central, col_dir = st.columns([0.5, 5, 0.5])
+                            
+                            # 3. Exibição da Tabela
+                            col_esq, col_central, col_dir = st.columns([0.2, 5, 0.2])
                             with col_central:
                                 st.table(tabela_estilizada)
 
             except Exception as e:
-                st.error(f"Erro: {e}")
+                st.error(f"Erro inesperado durante o processamento: {e}")
