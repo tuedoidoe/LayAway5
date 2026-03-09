@@ -54,7 +54,7 @@ if check_password():
     data_consulta = st.date_input("📅 Escolha a data para consultar:", datetime.now())
     dia_consulta = data_consulta.strftime("%Y-%m-%d")
     
-    if st.button("🚀 Rodar Scanner"):
+    if st.button("🚀 Procurar Entradas"):
         with st.spinner('Processando dados...'):
             try:
                 # 1. Carrega Modelo
