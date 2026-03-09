@@ -162,14 +162,13 @@ if check_password():
                             st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>0.09) para operar em {dia_consulta}.")
                         else:
                             # --- MODO DE EXIBIÇÃO VISUAL ---
-                            col_met1, col_met2, col_met3 = st.columns([1, 2, 1])
-                            with col_met2:
-                                # 1. Removido o delta verde (Edge > 0.09)
-                                st.metric(label="Oportunidades Encontradas", value=f"{len(df_final)} Jogos")
-                            
-                            st.markdown("<br>", unsafe_allow_html=True) # Espaçamento
-                            
-                            st.markdown("<br>", unsafe_allow_html=True) # Espaçamento
+                            # Texto em uma linha com o número de jogos destacado em verde estilo "Badge/Etiqueta"
+                            texto_resultado = f"""
+                            <div style='text-align: center; font-size: 20px; margin-bottom: 20px;'>
+                                Oportunidades Encontradas: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(df_final)} jogo(s)</span>
+                            </div>
+                            """
+                            st.markdown(texto_resultado, unsafe_allow_html=True)
                             
                             # 2. Preparação da Tabela
                             tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay']].copy()
