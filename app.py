@@ -3,10 +3,10 @@ import pandas as pd
 import numpy as np
 import joblib
 import urllib.request
-import requests
-import io
 import warnings
 from datetime import datetime
+import requests 
+import io      
 
 warnings.filterwarnings("ignore")
 
@@ -79,7 +79,7 @@ def check_password():
     return True
 
 # ==========================================
-# FUNÇÃO DE CARREGAMENTO (COM CACHE)
+# FUNÇÕES DE CARREGAMENTO (COM CACHE)
 # ==========================================
 @st.cache_data(ttl=900)
 def carregar_dados():
@@ -87,6 +87,31 @@ def carregar_dados():
     df = pd.read_csv(url_base_mae)
     df['Date'] = pd.to_datetime(df['Date'])
     return df
+
+# --- INTEGRAÇÃO DA API AQUI ---
+TOKEN = "b9f385cc07be27e7b04fe3a68c15120dd633d109"
+headers = {"Authorization": f"Token {TOKEN}"}
+
+@st.cache_data(ttl=300) # Evita sobrecarregar a API caso clique várias vezes
+def baixar_jogos_do_dia(data):
+    """Função adaptada para buscar o CSV via API usando o Token"""
+    url = f"https://api.futpythontrader.com/api/dados/jogos-do-dia/betfair/{data}/download/"
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            # Transforma o conteúdo binário em um DataFrame
+            df_api = pd.read_csv(io.BytesIO(response.content))
+            # Garantir formato datetime para evitar erros nas junções
+            if not df_api.empty and 'Date' in df_api.columns:
+                df_api['Date'] = pd.to_datetime(df_api['Date'])
+            return df_api
+        else:
+            st.warning(f"⚠️ API retornou Status {response.status_code} para a data {data}")
+            return pd.DataFrame()
+    except Exception as e:
+        st.error(f"❌ Erro ao processar a data {data}: {e}")
+        return pd.DataFrame()
+# ------------------------------
 
 # ==========================================
 # CÓDIGO DO SCANNER
@@ -136,13 +161,18 @@ if check_password():
                 X_cols_treino = dados_modelo['features']
                 ligas_autorizadas = dados_modelo.get('ligas_autorizadas', [])
                 
-                # 2. Carrega Base com Cache
+                # 2. Carrega Base Histórica (Para contexto e médias)
                 df_hist = carregar_dados()
                 
-                # Lógica de Filtro Dinâmico
+                # 3. Lógica de Filtro Dinâmico (AGORA USANDO A API)
+                df_alvo_lista = []
+                
                 if tipo_filtro == "Data Única":
                     texto_data = data_selecionada.strftime('%d/%m/%Y')
-                    df_alvo = df_hist[df_hist['Date'].dt.date == data_selecionada].copy()
+                    data_api = data_selecionada.strftime('%Y-%m-%d')
+                    df_dia = baixar_jogos_do_dia(data_api)
+                    if not df_dia.empty:
+                        df_alvo_lista.append(df_dia)
                 else:
                     if isinstance(data_selecionada, tuple) and len(data_selecionada) == 2:
                         d_inicio, d_fim = data_selecionada
@@ -150,8 +180,22 @@ if check_password():
                         d_inicio = d_fim = data_selecionada[0]
                         
                     texto_data = f"de {d_inicio.strftime('%d/%m/%Y')} até {d_fim.strftime('%d/%m/%Y')}"
-                    df_alvo = df_hist[(df_hist['Date'].dt.date >= d_inicio) & (df_hist['Date'].dt.date <= d_fim)].copy()
+                    
+                    # Cria um loop para varrer todas as datas do intervalo na API
+                    datas_intervalo = pd.date_range(start=d_inicio, end=d_fim)
+                    for data_atual in datas_intervalo:
+                        data_api = data_atual.strftime('%Y-%m-%d')
+                        df_dia = baixar_jogos_do_dia(data_api)
+                        if not df_dia.empty:
+                            df_alvo_lista.append(df_dia)
                 
+                # Junta tudo o que veio da API
+                if df_alvo_lista:
+                    df_alvo = pd.concat(df_alvo_lista, ignore_index=True)
+                else:
+                    df_alvo = pd.DataFrame()
+                
+                # --- DAQUI PARA BAIXO O CÓDIGO PERMANECE 100% IGUAL ---
                 tradutor_ligas = {
                     "English Championship": "ENGLAND 2", "Belgian First Division A": "BELGIUM 1",
                     "French Ligue 1": "FRANCE 1", "Italian Serie B": "ITALY 2",
@@ -162,11 +206,13 @@ if check_password():
                     "English League 2": "ENGLAND 4", "Slovakian Super League": "SLOVAKIA 1",
                     "Irish Premier Division": "IRELAND 1"
                 }
-                df_alvo['League'] = df_alvo['League'].replace(tradutor_ligas)
-                df_alvo = df_alvo[df_alvo['League'].isin(ligas_autorizadas)].copy()
+                
+                if not df_alvo.empty and 'League' in df_alvo.columns:
+                    df_alvo['League'] = df_alvo['League'].replace(tradutor_ligas)
+                    df_alvo = df_alvo[df_alvo['League'].isin(ligas_autorizadas)].copy()
                 
                 if len(df_alvo) == 0:
-                    st.info(f"O modelo não identificou jogos cadastrados para {texto_data}.")
+                    st.info(f"A API/Modelo não identificou jogos cadastrados para {texto_data}.")
                 else:
                     def safe_prob(column):
                         return (1 / pd.to_numeric(column, errors='coerce').replace(0, np.nan)).fillna(0)
