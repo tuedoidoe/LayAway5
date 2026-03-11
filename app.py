@@ -249,14 +249,15 @@ if check_password():
                                 """
                                 st.markdown(texto_resultado, unsafe_allow_html=True)
                                 
-                                tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay']].copy()
+                                tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Edge']].copy()
                                 tabela = tabela.rename(columns={
                                     'Date': 'Data',
                                     'Time': 'Horário',
                                     'League': 'Liga',
                                     'Home': 'Time Casa',
                                     'Away': 'Time Fora',
-                                    'Odd_A_Lay': 'Odd Lay'
+                                    'Odd_A_Lay': 'Odd Lay',
+                                    'Edge': 'Vantagem'
                                 })
                                 
                                 tabela['Data'] = pd.to_datetime(tabela['Data']).dt.strftime('%d/%m/%Y')
