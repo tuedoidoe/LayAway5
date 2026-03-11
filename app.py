@@ -6,7 +6,7 @@ import urllib.request
 import warnings
 from datetime import datetime
 import requests 
-import io      
+import io       
 
 warnings.filterwarnings("ignore")
 
@@ -247,61 +247,67 @@ if check_password():
                         st.info("Nenhum jogo passou nos filtros iniciais de Odd (Máx 4.00).")
                     else:
                         df_hoje = df_hoje.dropna().reset_index(drop=True)
-                        df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
-                        df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
                         
-                        df_final = df_hoje[df_hoje["Edge"] > 0.09].copy()
-                        
-                        if len(df_final) == 0:
-                            st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>0.09) para operar em {texto_data}.")
+                        # --- INÍCIO DA MODIFICAÇÃO (TRAVA DE SEGURANÇA) ---
+                        if len(df_hoje) == 0:
+                            st.warning(f"Foram encontrados jogos para {texto_data}, mas eles foram descartados pois não possuem histórico estatístico suficiente para o modelo analisar.")
                         else:
-                            # --- MODO DE EXIBIÇÃO VISUAL ---
-                            texto_resultado = f"""
-                            <div style='text-align: center; font-size: 20px; margin-bottom: 20px;'>
-                                Oportunidades Encontradas: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(df_final)} jogo(s)</span>
-                            </div>
-                            """
-                            st.markdown(texto_resultado, unsafe_allow_html=True)
+                            df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
+                            df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
                             
-                            tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay']].copy()
-                            tabela = tabela.rename(columns={
-                                'Date': 'Data',
-                                'Time': 'Horário',
-                                'League': 'Liga',
-                                'Home': 'Time Casa',
-                                'Away': 'Time Fora',
-                                'Odd_A_Lay': 'Odd Lay'
-                            })
+                            df_final = df_hoje[df_hoje["Edge"] > 0.09].copy()
                             
-                            tabela['Data'] = pd.to_datetime(tabela['Data']).dt.strftime('%d/%m/%Y')
-                            tabela = tabela.sort_values(by=['Data', 'Horário'], ascending=[True, True]).reset_index(drop=True)
-                            
-                            def cores_alternadas(row):
-                                cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
-                                return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;' for _ in row]
+                            if len(df_final) == 0:
+                                st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>0.09) para operar em {texto_data}.")
+                            else:
+                                # --- MODO DE EXIBIÇÃO VISUAL ---
+                                texto_resultado = f"""
+                                <div style='text-align: center; font-size: 20px; margin-bottom: 20px;'>
+                                    Oportunidades Encontradas: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(df_final)} jogo(s)</span>
+                                </div>
+                                """
+                                st.markdown(texto_resultado, unsafe_allow_html=True)
+                                
+                                tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay']].copy()
+                                tabela = tabela.rename(columns={
+                                    'Date': 'Data',
+                                    'Time': 'Horário',
+                                    'League': 'Liga',
+                                    'Home': 'Time Casa',
+                                    'Away': 'Time Fora',
+                                    'Odd_A_Lay': 'Odd Lay'
+                                })
+                                
+                                tabela['Data'] = pd.to_datetime(tabela['Data']).dt.strftime('%d/%m/%Y')
+                                tabela = tabela.sort_values(by=['Data', 'Horário'], ascending=[True, True]).reset_index(drop=True)
+                                
+                                def cores_alternadas(row):
+                                    cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
+                                    return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;' for _ in row]
 
-                            tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
-                                .format({'Odd Lay': '{:.2f}'}) \
-                                .hide(axis="index") \
-                                .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
-                                .set_table_styles([
-                                    {'selector': 'th', 'props': [
-                                        ('background-color', '#696969'), 
-                                        ('color', 'black'), 
-                                        ('text-align', 'center !important'), 
-                                        ('font-weight', 'bold'),
-                                        ('font-size', '22px'), 
-                                        ('padding', '6px')
-                                    ]},
-                                    {'selector': 'td', 'props': [
-                                        ('text-align', 'center !important'),
-                                        ('padding', '10px')
-                                    ]}
-                                ])
-                            
-                            col_esq, col_central, col_dir = st.columns([1, 4, 1])
-                            with col_central:
-                                st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
+                                tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
+                                    .format({'Odd Lay': '{:.2f}'}) \
+                                    .hide(axis="index") \
+                                    .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
+                                    .set_table_styles([
+                                        {'selector': 'th', 'props': [
+                                            ('background-color', '#696969'), 
+                                            ('color', 'black'), 
+                                            ('text-align', 'center !important'), 
+                                            ('font-weight', 'bold'),
+                                            ('font-size', '22px'), 
+                                            ('padding', '6px')
+                                        ]},
+                                        {'selector': 'td', 'props': [
+                                            ('text-align', 'center !important'),
+                                            ('padding', '10px')
+                                        ]}
+                                    ])
+                                
+                                col_esq, col_central, col_dir = st.columns([1, 4, 1])
+                                with col_central:
+                                    st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
+                        # --- FIM DA MODIFICAÇÃO ---
 
             except Exception as e:
                 st.error(f"Erro inesperado durante o processamento: {e}")
