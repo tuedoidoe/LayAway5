@@ -268,7 +268,10 @@ if check_password():
                                     return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;' for _ in row]
 
                                 tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
-                                    .format({'Odd Lay': '{:.2f}'}) \
+                                    .format({
+                                        'Odd Lay': '{:.2f}',
+                                        'Vantagem': '{:.1%}'
+                                    }) \
                                     .hide(axis="index") \
                                     .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
                                     .set_table_styles([
