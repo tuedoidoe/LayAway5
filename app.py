@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import joblib
 import urllib.request
+import requests
+import io
 import warnings
 from datetime import datetime
 
