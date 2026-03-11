@@ -257,7 +257,7 @@ if check_password():
                                     'Home': 'Time Casa',
                                     'Away': 'Time Fora',
                                     'Odd_A_Lay': 'Odd Lay',
-                                    'Edge': 'Vantagem'
+                                    'Edge': 'Vantagem (>= 9.0%)'
                                 })
                                 
                                 tabela['Data'] = pd.to_datetime(tabela['Data']).dt.strftime('%d/%m/%Y')
