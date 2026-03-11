@@ -270,7 +270,7 @@ if check_password():
                                 tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
                                     .format({
                                         'Odd Lay': '{:.2f}',
-                                        'Vantagem': '{:.1%}'
+                                        'Vantagem (>= 9.0%)': '{:.1%}'
                                     }) \
                                     .hide(axis="index") \
                                     .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
