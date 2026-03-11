@@ -15,30 +15,23 @@ warnings.filterwarnings("ignore")
 # ==========================================
 st.set_page_config(page_title="Lay Away", page_icon="🎯", layout="wide")
 
-# CSS customizado SUPER agressivo para forçar a centralização
 st.markdown("""
     <style>
-    /* 1. Força a centralização absoluta dos botões de rádio (Data Única / Intervalo) */
     div[data-testid="stRadio"] {
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
         width: 100% !important;
     }
-    
     div[data-testid="stRadio"] > div[role="radiogroup"] {
         display: flex !important;
         justify-content: center !important;
         margin: 0 auto !important;
         width: max-content !important;
     }
-    
-    /* 2. Centraliza o texto digitado dentro da caixa do calendário */
     div[data-testid="stDateInput"] input {
         text-align: center !important;
     }
-    
-    /* 3. Cores e Tamanho do Botão Principal */
     div[data-testid="stButton"] > button {
         background-color: #0068c9 !important;
         color: white !important;
@@ -88,30 +81,24 @@ def carregar_dados():
     df['Date'] = pd.to_datetime(df['Date'])
     return df
 
-# --- INTEGRAÇÃO DA API AQUI ---
 TOKEN = "b9f385cc07be27e7b04fe3a68c15120dd633d109"
 headers = {"Authorization": f"Token {TOKEN}"}
 
-@st.cache_data(ttl=300) # Evita sobrecarregar a API caso clique várias vezes
+@st.cache_data(ttl=300) 
 def baixar_jogos_do_dia(data):
-    """Função adaptada para buscar o CSV via API usando o Token"""
     url = f"https://api.futpythontrader.com/api/dados/jogos-do-dia/betfair/{data}/download/"
     try:
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
-            # Transforma o conteúdo binário em um DataFrame
             df_api = pd.read_csv(io.BytesIO(response.content))
-            # Garantir formato datetime para evitar erros nas junções
             if not df_api.empty and 'Date' in df_api.columns:
                 df_api['Date'] = pd.to_datetime(df_api['Date'])
             return df_api
         else:
-            st.warning(f"⚠️ API retornou Status {response.status_code} para a data {data}")
+            # Removido o st.warning aqui para não poluir a tela ao varrer muitos dias sem jogos
             return pd.DataFrame()
     except Exception as e:
-        st.error(f"❌ Erro ao processar a data {data}: {e}")
         return pd.DataFrame()
-# ------------------------------
 
 # ==========================================
 # CÓDIGO DO SCANNER
@@ -123,7 +110,6 @@ if check_password():
     with col_t2:
         st.markdown("<h2 style='text-align: center;'>🎯 Scanner Lay Away</h2>", unsafe_allow_html=True)
                 
-        # O TRUQUE DEFINITIVO: Sub-colunas para forçar o alinhamento nativo no centro
         col_rad1, col_rad2, col_rad3 = st.columns([0.4, 2, 0.4])
         with col_rad2:
             tipo_filtro = st.radio("Formato de Pesquisa:", ["Data Única", "Intervalo de Datas"], horizontal=True, label_visibility="collapsed")
@@ -131,7 +117,6 @@ if check_password():
         hoje = datetime.now().date()
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Textos centralizados via HTML e Calendário sem título nativo
         if tipo_filtro == "Data Única":
             st.markdown("<p style='text-align: center; margin-bottom: 5px; font-weight: bold;'>📅 Escolha a data para consulta:</p>", unsafe_allow_html=True)
             data_selecionada = st.date_input("Data única", value=hoje, label_visibility="collapsed")
@@ -140,8 +125,6 @@ if check_password():
             data_selecionada = st.date_input("Intervalo", value=(hoje, hoje), label_visibility="collapsed")
             
         st.markdown("<br>", unsafe_allow_html=True)
-        
-        # O parâmetro 'use_container_width=True' faz o botão esticar perfeitamente!
         btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True)
         
     st.divider()
@@ -149,7 +132,6 @@ if check_password():
     if btn_procurar:
         with st.spinner('Baixando inteligência e processando o mercado...'):
             try:
-                # 1. Carrega Modelo
                 url_modelo = 'https://github.com/tuedoidoe/LayAway5/raw/refs/heads/main/Modelo_LayAway_5.pkl'
                 caminho_local = 'Modelo_LayAway_5.pkl'
                 urllib.request.urlretrieve(url_modelo, caminho_local)
@@ -161,10 +143,7 @@ if check_password():
                 X_cols_treino = dados_modelo['features']
                 ligas_autorizadas = dados_modelo.get('ligas_autorizadas', [])
                 
-                # 2. Carrega Base Histórica (Para contexto e médias)
                 df_hist = carregar_dados()
-                
-                # 3. Lógica de Filtro Dinâmico (AGORA USANDO A API)
                 df_alvo_lista = []
                 
                 if tipo_filtro == "Data Única":
@@ -181,7 +160,6 @@ if check_password():
                         
                     texto_data = f"de {d_inicio.strftime('%d/%m/%Y')} até {d_fim.strftime('%d/%m/%Y')}"
                     
-                    # Cria um loop para varrer todas as datas do intervalo na API
                     datas_intervalo = pd.date_range(start=d_inicio, end=d_fim)
                     for data_atual in datas_intervalo:
                         data_api = data_atual.strftime('%Y-%m-%d')
@@ -189,13 +167,11 @@ if check_password():
                         if not df_dia.empty:
                             df_alvo_lista.append(df_dia)
                 
-                # Junta tudo o que veio da API
                 if df_alvo_lista:
                     df_alvo = pd.concat(df_alvo_lista, ignore_index=True)
                 else:
                     df_alvo = pd.DataFrame()
                 
-                # --- DAQUI PARA BAIXO O CÓDIGO PERMANECE 100% IGUAL ---
                 tradutor_ligas = {
                     "English Championship": "ENGLAND 2", "Belgian First Division A": "BELGIUM 1",
                     "French Ligue 1": "FRANCE 1", "Italian Serie B": "ITALY 2",
@@ -212,7 +188,7 @@ if check_password():
                     df_alvo = df_alvo[df_alvo['League'].isin(ligas_autorizadas)].copy()
                 
                 if len(df_alvo) == 0:
-                    st.info(f"A API/Modelo não identificou jogos cadastrados para {texto_data}.")
+                    st.info(f"A API não identificou jogos cadastrados e autorizados para {texto_data}.")
                 else:
                     def safe_prob(column):
                         return (1 / pd.to_numeric(column, errors='coerce').replace(0, np.nan)).fillna(0)
@@ -222,7 +198,6 @@ if check_password():
                     df_completo = pd.concat([df_hist_passado, df_alvo], ignore_index=True)
                     df_completo = df_completo.sort_values(["Date", "Home"]).reset_index(drop=True)
                     
-                    # Feature Engineering
                     df_completo['Prob_1x2_A'] = safe_prob(df_completo['Odd_A_Back'])
                     df_completo['Prob_CS_Resistance'] = safe_prob(df_completo['Odd_CS_1x0_Lay']) + safe_prob(df_completo['Odd_CS_2x1_Lay'])
                     df_completo['Market_Asymmetry'] = (df_completo['Prob_CS_Resistance'] - df_completo['Prob_1x2_A'])
@@ -246,9 +221,16 @@ if check_password():
                     if len(df_hoje) == 0:
                         st.info("Nenhum jogo passou nos filtros iniciais de Odd (Máx 4.00).")
                     else:
-                        df_hoje = df_hoje.dropna().reset_index(drop=True)
+                        # --- MODIFICAÇÃO CHAVE AQUI ---
+                        # Criamos uma lista contendo APENAS as colunas essenciais para o modelo
+                        colunas_vitais = list(X_cols_treino) + ['Odd_A_Lay', 'Home', 'Away', 'League', 'Date']
+                        # Prevenção: Garante que só vai checar as colunas que realmente existem no df_hoje
+                        colunas_vitais = [col for col in colunas_vitais if col in df_hoje.columns]
                         
-                        # --- INÍCIO DA MODIFICAÇÃO (TRAVA DE SEGURANÇA) ---
+                        # Agora o dropna() SÓ apaga se faltar dados matemáticos do modelo, ignorando a falta de gols.
+                        df_hoje = df_hoje.dropna(subset=colunas_vitais).reset_index(drop=True)
+                        # ------------------------------
+                        
                         if len(df_hoje) == 0:
                             st.warning(f"Foram encontrados jogos para {texto_data}, mas eles foram descartados pois não possuem histórico estatístico suficiente para o modelo analisar.")
                         else:
@@ -260,7 +242,6 @@ if check_password():
                             if len(df_final) == 0:
                                 st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>0.09) para operar em {texto_data}.")
                             else:
-                                # --- MODO DE EXIBIÇÃO VISUAL ---
                                 texto_resultado = f"""
                                 <div style='text-align: center; font-size: 20px; margin-bottom: 20px;'>
                                     Oportunidades Encontradas: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(df_final)} jogo(s)</span>
@@ -307,7 +288,6 @@ if check_password():
                                 col_esq, col_central, col_dir = st.columns([1, 4, 1])
                                 with col_central:
                                     st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
-                        # --- FIM DA MODIFICAÇÃO ---
 
             except Exception as e:
                 st.error(f"Erro inesperado durante o processamento: {e}")
