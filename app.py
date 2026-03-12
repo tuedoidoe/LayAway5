@@ -318,6 +318,24 @@ if check_password():
                                 col_esq, col_central, col_dir = st.columns([1, 4, 1])
                                 with col_central:
                                     st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
+                                    
+                                    # --- INÍCIO DO BOTÃO DE DOWNLOAD ---
+                                    st.markdown("<br>", unsafe_allow_html=True) # Dá um espacinho da tabela
+                                    
+                                    # Transforma o DataFrame em um arquivo Excel na memória
+                                    buffer = io.BytesIO()
+                                    with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+                                        tabela.to_excel(writer, index=False, sheet_name='Lay_Away')
+                                    
+                                    # Renderiza o botão
+                                    st.download_button(
+                                        label="📥 Baixar Jogos",
+                                        data=buffer.getvalue(),
+                                        file_name=f"Jogos_LayAway.xlsx",
+                                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                        use_container_width=True
+                                    )
+                                    # --- FIM DO BOTÃO DE DOWNLOAD ---
 
             except Exception as e:
                 st.error(f"Erro inesperado durante o processamento: {e}")
