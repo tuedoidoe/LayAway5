@@ -31,6 +31,8 @@ st.markdown("""
     div[data-testid="stDateInput"] input {
         text-align: center !important;
     }
+    
+    /* Cor do Botão Principal (Azul) */
     div[data-testid="stButton"] > button {
         background-color: #0068c9 !important;
         color: white !important;
@@ -40,6 +42,21 @@ st.markdown("""
     div[data-testid="stButton"] > button:hover {
         background-color: #0052a3 !important;
         border-color: #0052a3 !important;
+        color: white !important;
+    }
+
+    /* Cor do Botão de Download (Fúcsia) */
+    div[data-testid="stDownloadButton"] > button {
+        background-color: #FF00FF !important;
+        color: white !important;
+        font-weight: bold !important;
+        border-radius: 5px !important;
+        width: 100% !important;
+        margin-top: 5px !important;
+    }
+    div[data-testid="stDownloadButton"] > button:hover {
+        background-color: #CC00CC !important;
+        border-color: #CC00CC !important;
         color: white !important;
     }
     </style>
@@ -94,7 +111,6 @@ def baixar_jogos_do_dia(data):
                 df_api['Date'] = pd.to_datetime(df_api['Date'])
             return df_api
         else:
-            # Removido o st.warning aqui para não poluir a tela ao varrer muitos dias sem jogos
             return pd.DataFrame()
     except Exception as e:
         return pd.DataFrame()
@@ -128,9 +144,13 @@ if check_password():
         
     st.divider()
 
+    # Se clicar em procurar, ele apaga a memória antiga
     if btn_procurar:
+        st.session_state['mostrar_tabela'] = False 
+        
         with st.spinner('Baixando inteligência e processando o mercado...'):
             try:
+                # Carregamento LOCAL do modelo (Muito mais rápido e seguro)
                 dados_modelo = joblib.load('Modelo_LayAway_5.pkl')
                 
                 model = dados_modelo['modelo']
@@ -247,15 +267,10 @@ if check_password():
                     if len(df_hoje) == 0:
                         st.info("Nenhum jogo passou nos filtros iniciais de Odd (Máx 5.00).")
                     else:
-                        # --- MODIFICAÇÃO CHAVE AQUI ---
-                        # Criamos uma lista contendo APENAS as colunas essenciais para o modelo
                         colunas_vitais = list(X_cols_treino) + ['Odd_A_Lay', 'Home', 'Away', 'League', 'Date']
-                        # Prevenção: Garante que só vai checar as colunas que realmente existem no df_hoje
                         colunas_vitais = [col for col in colunas_vitais if col in df_hoje.columns]
                         
-                        # Agora o dropna() SÓ apaga se faltar dados matemáticos do modelo, ignorando a falta de gols.
                         df_hoje = df_hoje.dropna(subset=colunas_vitais).reset_index(drop=True)
-                        # ------------------------------
                         
                         if len(df_hoje) == 0:
                             st.warning(f"Foram encontrados jogos para {texto_data}, mas eles foram descartados pois não possuem histórico estatístico suficiente para o modelo analisar.")
@@ -268,74 +283,82 @@ if check_password():
                             if len(df_final) == 0:
                                 st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>0.05) para operar em {texto_data}.")
                             else:
-                                texto_resultado = f"""
-                                <div style='text-align: center; font-size: 20px; margin-bottom: 20px;'>
-                                    Oportunidades Encontradas: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(df_final)} jogo(s)</span>
-                                </div>
-                                """
-                                st.markdown(texto_resultado, unsafe_allow_html=True)
-                                
-                                tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Edge']].copy()
-                                tabela = tabela.rename(columns={
-                                    'Date': 'Data',
-                                    'Time': 'Horário',
-                                    'League': 'Liga',
-                                    'Home': 'Time Casa',
-                                    'Away': 'Time Fora',
-                                    'Odd_A_Lay': 'Odd Lay',
-                                    'Edge': 'Vantagem (> 5.0%)'
-                                })
-                                
-                                tabela['Data'] = pd.to_datetime(tabela['Data']).dt.strftime('%d/%m/%Y')
-                                tabela = tabela.sort_values(by=['Data', 'Horário'], ascending=[True, True]).reset_index(drop=True)
-                                
-                                def cores_alternadas(row):
-                                    cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
-                                    return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;' for _ in row]
-
-                                tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
-                                    .format({
-                                        'Odd Lay': '{:.2f}',
-                                        'Vantagem (> 5.0%)': '{:.1%}'
-                                    }) \
-                                    .hide(axis="index") \
-                                    .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
-                                    .set_table_styles([
-                                        {'selector': 'th', 'props': [
-                                            ('background-color', '#696969'), 
-                                            ('color', 'black'), 
-                                            ('text-align', 'center !important'), 
-                                            ('font-weight', 'bold'),
-                                            ('font-size', '22px'), 
-                                            ('padding', '6px')
-                                        ]},
-                                        {'selector': 'td', 'props': [
-                                            ('text-align', 'center !important'),
-                                            ('padding', '10px')
-                                        ]}
-                                    ])
-                                
-                                col_esq, col_central, col_dir = st.columns([1, 4, 1])
-                                with col_central:
-                                    st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
-                                    
-                                    # --- INÍCIO DO BOTÃO DE DOWNLOAD ---
-                                    st.markdown("<br>", unsafe_allow_html=True) # Dá um espacinho da tabela
-                                    
-                                    # Transforma o DataFrame em um arquivo Excel na memória
-                                    buffer = io.BytesIO()
-                                    with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
-                                        tabela.to_excel(writer, index=False, sheet_name='Lay_Away')
-                                    
-                                    # Renderiza o botão
-                                    st.download_button(
-                                        label="📥 Baixar Jogos",
-                                        data=buffer.getvalue(),
-                                        file_name=f"Jogos_LayAway.xlsx",
-                                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                                        use_container_width=True
-                                    )
-                                    # --- FIM DO BOTÃO DE DOWNLOAD ---
+                                # SALVA OS RESULTADOS NA MEMÓRIA DO STREAMLIT
+                                st.session_state['mostrar_tabela'] = True
+                                st.session_state['df_final'] = df_final
 
             except Exception as e:
                 st.error(f"Erro inesperado durante o processamento: {e}")
+
+    # ==========================================
+    # EXIBIÇÃO VISUAL E BOTÃO DE DOWNLOAD
+    # (Fica fora do btn_procurar para não sumir)
+    # ==========================================
+    if st.session_state.get('mostrar_tabela', False):
+        df_final = st.session_state['df_final']
+        
+        # Prepara os dados brutos e renomeia
+        tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Edge']].copy()
+        tabela = tabela.rename(columns={
+            'Date': 'Data', 'Time': 'Horário', 'League': 'Liga',
+            'Home': 'Time Casa', 'Away': 'Time Fora',
+            'Odd_A_Lay': 'Odd Lay', 'Edge': 'Vantagem (> 5.0%)'
+        })
+        tabela['Data'] = pd.to_datetime(tabela['Data']).dt.strftime('%d/%m/%Y')
+        tabela = tabela.sort_values(by=['Data', 'Horário'], ascending=[True, True]).reset_index(drop=True)
+
+        col_esq, col_central, col_dir = st.columns([1, 4, 1])
+        
+        with col_central:
+            # Layout Superior: Texto na esquerda, Botão na direita
+            col_texto, col_botao = st.columns([2.5, 1])
+            
+            with col_texto:
+                texto_resultado = f"""
+                <div style='text-align: left; font-size: 20px; margin-top: 15px; margin-bottom: 10px;'>
+                    Oportunidades Encontradas: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(tabela)} jogo(s)</span>
+                </div>
+                """
+                st.markdown(texto_resultado, unsafe_allow_html=True)
+                
+            with col_botao:
+                # Transforma para Excel em Memória
+                buffer = io.BytesIO()
+                with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+                    tabela.to_excel(writer, index=False, sheet_name='Lay_Away')
+                
+                st.download_button(
+                    label="📥 Baixar Jogos",
+                    data=buffer.getvalue(),
+                    file_name="Jogos_LayAway.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
+            
+            # Monta o visual da Tabela
+            def cores_alternadas(row):
+                cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
+                return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;' for _ in row]
+
+            tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
+                .format({
+                    'Odd Lay': '{:.2f}',
+                    'Vantagem (> 5.0%)': '{:.1%}'
+                }) \
+                .hide(axis="index") \
+                .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
+                .set_table_styles([
+                    {'selector': 'th', 'props': [
+                        ('background-color', '#696969'), 
+                        ('color', 'black'), 
+                        ('text-align', 'center !important'), 
+                        ('font-weight', 'bold'),
+                        ('font-size', '22px'), 
+                        ('padding', '6px')
+                    ]},
+                    {'selector': 'td', 'props': [
+                        ('text-align', 'center !important'),
+                        ('padding', '10px')
+                    ]}
+                ])
+                
+            st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
