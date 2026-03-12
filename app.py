@@ -45,20 +45,24 @@ st.markdown("""
         color: white !important;
     }
 
-    /* Cor do Botão de Download (Fúcsia) */
+    /* Cor do Botão de Download (Fúcsia com texto Preto em Extra-Negrito) */
     div[data-testid="stDownloadButton"] > button {
         background-color: #FF00FF !important;
-        color: black !important;
-        font-weight: bold !important;
         border-radius: 5px !important;
         width: 100% !important;
         margin-top: 5px !important;
     }
+    div[data-testid="stDownloadButton"] > button p {
+        color: black !important;
+        font-weight: 900 !important; /* Força o negrito máximo no texto */
+        font-size: 16px !important;
+        margin: 0 !important;
+    }
     div[data-testid="stDownloadButton"] > button:hover {
         background-color: #CC00CC !important;
         border-color: #CC00CC !important;
-        color: black !important;
     }
+    
     </style>
 """, unsafe_allow_html=True)
 
