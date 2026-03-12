@@ -48,7 +48,7 @@ st.markdown("""
     /* Cor do Botão de Download (Fúcsia) */
     div[data-testid="stDownloadButton"] > button {
         background-color: #FF00FF !important;
-        color: white !important;
+        color: black !important;
         font-weight: bold !important;
         border-radius: 5px !important;
         width: 100% !important;
@@ -57,7 +57,7 @@ st.markdown("""
     div[data-testid="stDownloadButton"] > button:hover {
         background-color: #CC00CC !important;
         border-color: #CC00CC !important;
-        color: white !important;
+        color: black !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -310,8 +310,8 @@ if check_password():
         col_esq, col_central, col_dir = st.columns([1, 4, 1])
         
         with col_central:
-            # Layout Superior: Texto na esquerda, Botão na direita
-            col_texto, col_botao = st.columns([2.5, 1])
+            # Layout Superior: Texto, Espaço vazio no meio, Botão na ponta direita
+            col_texto, col_vazia, col_botao = st.columns([3, 4, 1.5])
             
             with col_texto:
                 texto_resultado = f"""
@@ -320,6 +320,8 @@ if check_password():
                 </div>
                 """
                 st.markdown(texto_resultado, unsafe_allow_html=True)
+                
+            # A col_vazia fica sem código nenhum para gerar o espaço invisível
                 
             with col_botao:
                 # Transforma para Excel em Memória
