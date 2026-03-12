@@ -173,14 +173,44 @@ if check_password():
                     df_alvo = pd.DataFrame()
                 
                 tradutor_ligas = {
-                    "English Championship": "ENGLAND 2", "Belgian First Division A": "BELGIUM 1",
-                    "French Ligue 1": "FRANCE 1", "Italian Serie B": "ITALY 2",
-                    "Spanish Segunda Division": "SPAIN 2", "Dutch Eredivisie": "NETHERLANDS 1",
-                    "Swiss Super League": "SWITZERLAND 1", "Chilean Primera Division": "CHILE 1",
-                    "Chinese Super League": "CHINA 1", "South Korean K League 2": "SOUTH KOREA 2",
-                    "Scottish Championship": "SCOTLAND 2", "Danish Superliga": "DENMARK 1",
-                    "English League 2": "ENGLAND 4", "Slovakian Super League": "SLOVAKIA 1",
-                    "Irish Premier Division": "IRELAND 1"
+                    "Argentinian Primera Division": "ARGENTINA 1",
+                    "Argentinian Primera B Nacional": "ARGENTINA 2",
+                    "Australian A-League Men": "AUSTRALIA 1",
+                    "Austrian Bundesliga": "AUSTRIA 1",
+                    "Austrian Erste Liga": "AUSTRIA 2",
+                    "Belgian First Division A": "BELGIUM 1",
+                    "Brazilian Serie A": "BRAZIL 1",
+                    "Chilean Primera Division": "CHILE 1",
+                    "Chinese Super League": "CHINA 1",
+                    "Czech 1 Liga": "CZECH 1",
+                    "Danish Superliga": "DENMARK 1",
+                    "Ecuadorian Serie A": "ECUADOR 1",
+                    "English Premier League": "ENGLAND 1",
+                    "English Championship": "ENGLAND 2",
+                    "English League 2": "ENGLAND 4",
+                    "UEFA Europa Conference League": "EUROPA CONFERENCE LEAGUE",
+                    "UEFA Europa League": "EUROPA LEAGUE",
+                    "French National": "FRANCE 3",
+                    "German Bundesliga": "GERMANY 1",
+                    "German 3 Liga": "GERMANY 3",
+                    "Icelandic Urvalsdeild": "ICELAND 1",
+                    "Irish Premier Division": "IRELAND 1",
+                    "Irish Division 1": "IRELAND 2",
+                    "Italian Serie B": "ITALY 2",
+                    "Italian Serie C": "ITALY 3",
+                    "Japanese J League": "JAPAN 1",
+                    "Mexican Liga MX": "MEXICO 1",
+                    "Norwegian Eliteserien": "NORWAY 1",
+                    "Paraguayan Primera Division": "PARAGUAY 1",
+                    "Portuguese Segunda Liga": "PORTUGAL 2",
+                    "Romanian Liga I": "ROMANIA 1",
+                    "Saudi Professional League": "SAUDI ARABIA 1",
+                    "South Korean K League 2": "SOUTH KOREA 2",
+                    "Spanish La Liga": "SPAIN 1",
+                    "Spanish Segunda Division": "SPAIN 2",
+                    "Swiss Super League": "SWITZERLAND 1",
+                    "Turkish Super League": "TURKEY 1",
+                    "US MLS": "USA 1"
                 }
                 
                 if not df_alvo.empty and 'League' in df_alvo.columns:
@@ -216,10 +246,10 @@ if check_password():
                     else:
                         df_hoje = df_completo[(df_completo['Date'].dt.date >= d_inicio) & (df_completo['Date'].dt.date <= d_fim)].copy()
                         
-                    df_hoje = df_hoje[(df_hoje['Odd_A_Lay'] <= 4.00) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back']) & (abs(df_hoje['Odd_A_Back'] - df_hoje['Odd_A_Lay']) <= 1.00) & (abs(df_hoje['Odd_H_Back'] - df_hoje['Odd_H_Lay']) <= 1.00)].copy()
+                    df_hoje = df_hoje[(df_hoje['Odd_A_Lay'] <= 5.00) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back']) & (abs(df_hoje['Odd_A_Back'] - df_hoje['Odd_A_Lay']) <= 1.00) & (abs(df_hoje['Odd_H_Back'] - df_hoje['Odd_H_Lay']) <= 1.00)].copy()
                     
                     if len(df_hoje) == 0:
-                        st.info("Nenhum jogo passou nos filtros iniciais de Odd (Máx 4.00).")
+                        st.info("Nenhum jogo passou nos filtros iniciais de Odd (Máx 5.00).")
                     else:
                         # --- MODIFICAÇÃO CHAVE AQUI ---
                         # Criamos uma lista contendo APENAS as colunas essenciais para o modelo
@@ -237,10 +267,10 @@ if check_password():
                             df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
                             df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
                             
-                            df_final = df_hoje[df_hoje["Edge"] > 0.09].copy()
+                            df_final = df_hoje[df_hoje["Edge"] > 0.05].copy()
                             
                             if len(df_final) == 0:
-                                st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>0.09) para operar em {texto_data}.")
+                                st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>0.05) para operar em {texto_data}.")
                             else:
                                 texto_resultado = f"""
                                 <div style='text-align: center; font-size: 20px; margin-bottom: 20px;'>
@@ -257,7 +287,7 @@ if check_password():
                                     'Home': 'Time Casa',
                                     'Away': 'Time Fora',
                                     'Odd_A_Lay': 'Odd Lay',
-                                    'Edge': 'Vantagem (>= 9.0%)'
+                                    'Edge': 'Vantagem (> 5.0%)'
                                 })
                                 
                                 tabela['Data'] = pd.to_datetime(tabela['Data']).dt.strftime('%d/%m/%Y')
@@ -270,7 +300,7 @@ if check_password():
                                 tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
                                     .format({
                                         'Odd Lay': '{:.2f}',
-                                        'Vantagem (>= 9.0%)': '{:.1%}'
+                                        'Vantagem (> 5.0%)': '{:.1%}'
                                     }) \
                                     .hide(axis="index") \
                                     .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
