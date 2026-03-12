@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
-import urllib.request
 import warnings
 from datetime import datetime
 import requests 
@@ -132,10 +131,7 @@ if check_password():
     if btn_procurar:
         with st.spinner('Baixando inteligência e processando o mercado...'):
             try:
-                url_modelo = 'https://github.com/tuedoidoe/LayAway5/raw/refs/heads/main/Modelo_LayAway_5.pkl'
-                caminho_local = 'Modelo_LayAway_5.pkl'
-                urllib.request.urlretrieve(url_modelo, caminho_local)
-                dados_modelo = joblib.load(caminho_local)
+                dados_modelo = joblib.load('Modelo_LayAway_5.pkl')
                 
                 model = dados_modelo['modelo']
                 taxas_ligas = dados_modelo['liga_rates']
