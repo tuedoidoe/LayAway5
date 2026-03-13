@@ -315,7 +315,7 @@ if check_password():
         
         with col_central:
             # Layout Superior: Texto, Espaço vazio no meio, Botão na ponta direita
-            col_texto, col_vazia, col_botao = st.columns([3, 5.2, 1.1])
+            col_texto, col_vazia, col_botao = st.columns([3, 5.2, 1.2])
             
             with col_texto:
                 texto_resultado = f"""
