@@ -319,7 +319,7 @@ if check_password():
             
             with col_texto:
                 texto_resultado = f"""
-                <div style='text-align: left; font-size: 20px; margin-top: 15px; margin-bottom: 10px;'>
+                <div style='text-align: left; font-size: 18px; margin-top: 15px; margin-bottom: 10px;'>
                     Oportunidades Encontradas: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(tabela)} jogo(s)</span>
                 </div>
                 """
