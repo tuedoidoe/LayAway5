@@ -308,8 +308,15 @@ if check_password():
             'Home': 'Time Casa', 'Away': 'Time Fora',
             'Odd_A_Lay': 'Odd Lay', 'Edge': 'Vantagem (> 5.0%)'
         })
-        tabela['Data'] = pd.to_datetime(tabela['Data']).dt.strftime('%d/%m/%Y')
+        
+        # 1. Garante que a coluna é interpretada como data real
+        tabela['Data'] = pd.to_datetime(tabela['Data'])
+        
+        # 2. Ordena cronologicamente (agora vai respeitar os meses e anos corretamente)
         tabela = tabela.sort_values(by=['Data', 'Horário'], ascending=[True, True]).reset_index(drop=True)
+        
+        # 3. Transforma no formato de texto para ficar bonito na tela (DD/MM/YYYY)
+        tabela['Data'] = tabela['Data'].dt.strftime('%d/%m/%Y')
 
         col_esq, col_central, col_dir = st.columns([1, 4, 1])
         
