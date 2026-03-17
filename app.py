@@ -94,15 +94,23 @@ def check_password():
 # ==========================================
 # FUNÇÕES DE CARREGAMENTO (COM CACHE)
 # ==========================================
-@st.cache_data(ttl=900)
-def carregar_dados():
-    url_base_mae = "https://github.com/futpythontrader/Bases_de_Dados/raw/refs/heads/main/Base_de_Dados_BetfairExchange.csv"
-    df = pd.read_csv(url_base_mae)
-    df['Date'] = pd.to_datetime(df['Date'])
-    return df
-
 TOKEN = "b9f385cc07be27e7b04fe3a68c15120dd633d109"
 headers = {"Authorization": f"Token {TOKEN}"}
+
+@st.cache_data(ttl=900)
+def baixar_base_dados():
+    url = "https://api.futpythontrader.com/api/dados/betfair/download/"
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            df = pd.read_csv(io.BytesIO(response.content))
+            if not df.empty and 'Date' in df.columns:
+                df['Date'] = pd.to_datetime(df['Date'])
+            return df
+        else:
+            return pd.DataFrame()
+    except Exception as e:
+        return pd.DataFrame()
 
 @st.cache_data(ttl=300) 
 def baixar_jogos_do_dia(data):
@@ -163,7 +171,8 @@ if check_password():
                 X_cols_treino = dados_modelo['features']
                 ligas_autorizadas = dados_modelo.get('ligas_autorizadas', [])
                 
-                df_hist = carregar_dados()
+                # Chamando a nova função da API para a base principal
+                df_hist = baixar_base_dados()
                 df_alvo_lista = []
                 
                 if tipo_filtro == "Data Única":
@@ -244,8 +253,15 @@ if check_password():
                         return (1 / pd.to_numeric(column, errors='coerce').replace(0, np.nan)).fillna(0)
                         
                     data_limite = df_alvo['Date'].min()
-                    df_hist_passado = df_hist[df_hist['Date'] < data_limite].copy()
-                    df_completo = pd.concat([df_hist_passado, df_alvo], ignore_index=True)
+                    
+                    # Como a base nova inteira é puxada via API, garantimos que ela só será mesclada
+                    # com as informações anteriores ao limite pesquisado.
+                    if not df_hist.empty:
+                        df_hist_passado = df_hist[df_hist['Date'] < data_limite].copy()
+                        df_completo = pd.concat([df_hist_passado, df_alvo], ignore_index=True)
+                    else:
+                        df_completo = df_alvo.copy()
+                        
                     df_completo = df_completo.sort_values(["Date", "Home"]).reset_index(drop=True)
                     
                     df_completo['Prob_1x2_A'] = safe_prob(df_completo['Odd_A_Back'])
