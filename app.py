@@ -161,7 +161,23 @@ if check_password():
     if btn_procurar:
         st.session_state['mostrar_tabela'] = False 
         
-        with st.spinner('Baixando inteligência e processando o mercado...'):
+        # Novo painel interativo de Status
+        with st.status('Processando sua varredura...', expanded=True) as status:
+            try:
+                st.write("🧠 Carregando inteligência artificial...")
+                dados_modelo = joblib.load('Modelo_LayAway_5.pkl')
+                
+                model = dados_modelo['modelo']
+                taxas_ligas = dados_modelo['liga_rates']
+                media_global_treino = dados_modelo['media_global']
+                X_cols_treino = dados_modelo['features']
+                ligas_autorizadas = dados_modelo.get('ligas_autorizadas', [])
+                
+                st.write("📥 Baixando base histórica (Demora apenas na 1ª vez do dia)...")
+                df_hist = baixar_base_dados()
+                df_alvo_lista = []
+                
+                st.write("🔎 Buscando os jogos no FutPythonTrader...")
             try:
                 # Carregamento LOCAL do modelo (Muito mais rápido e seguro)
                 dados_modelo = joblib.load('Modelo_LayAway_5.pkl')
@@ -307,6 +323,18 @@ if check_password():
                                 # SALVA OS RESULTADOS NA MEMÓRIA DO STREAMLIT
                                 st.session_state['mostrar_tabela'] = True
                                 st.session_state['df_final'] = df_final
+
+                            else:
+                                # SALVA OS RESULTADOS NA MEMÓRIA DO STREAMLIT
+                                st.session_state['mostrar_tabela'] = True
+                                st.session_state['df_final'] = df_final
+
+                # --- ADICIONE ESTA LINHA AQUI ---
+                status.update(label="Varredura concluída com sucesso!", state="complete", expanded=False)
+
+            except Exception as e:
+                status.update(label="Erro no processamento!", state="error", expanded=True)
+                st.error(f"Erro inesperado durante o processamento: {e}")
 
             except Exception as e:
                 st.error(f"Erro inesperado durante o processamento: {e}")
