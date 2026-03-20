@@ -96,7 +96,8 @@ def check_password():
 TOKEN = "b9f385cc07be27e7b04fe3a68c15120dd633d109"
 headers = {"Authorization": f"Token {TOKEN}"}
 
-@st.cache_data(ttl=1800)
+# Cache alterado para 24h (86400 segundos) para acabar com a lentidão
+@st.cache_data(ttl=86400)
 def baixar_base_dados():
     url = "https://api.futpythontrader.com/api/dados/betfair/download/"
     try:
@@ -264,6 +265,23 @@ if check_password():
                         df_completo = df_alvo.copy()
                         
                     df_completo = df_completo.sort_values(["Date", "Home"]).reset_index(drop=True)
+                    
+                    # --- INÍCIO DO BLOCO DE PROTEÇÃO ---
+                    # Garante que as colunas existam para não quebrar a matemática (ex: jogos futuros não têm gols ainda)
+                    colunas_protecao = [
+                        'Goals_A_HT', 'Goals_H_FT', 'Goals_A_FT', 'Odd_A_Back', 'Odd_A_Lay',
+                        'Odd_H_Back', 'Odd_H_Lay', 'Odd_CS_1x0_Lay', 'Odd_CS_2x1_Lay', 
+                        'Odd_CS_0x0_Lay', 'Odd_CS_1x1_Lay', 'Odd_Over25_FT_Back'
+                    ]
+                    
+                    # Prevenção extra: caso a API adote os nomes originais em inglês
+                    tradutor_colunas = {'HTAG': 'Goals_A_HT', 'HTHG': 'Goals_H_HT', 'FTHG': 'Goals_H_FT', 'FTAG': 'Goals_A_FT'}
+                    df_completo = df_completo.rename(columns=tradutor_colunas)
+
+                    for col in colunas_protecao:
+                        if col not in df_completo.columns:
+                            df_completo[col] = np.nan
+                    # --- FIM DO BLOCO DE PROTEÇÃO ---
                     
                     df_completo['Prob_1x2_A'] = safe_prob(df_completo['Odd_A_Back'])
                     df_completo['Prob_CS_Resistance'] = safe_prob(df_completo['Odd_CS_1x0_Lay']) + safe_prob(df_completo['Odd_CS_2x1_Lay'])
