@@ -100,7 +100,7 @@ def check_password():
 TOKEN = "b9f385cc07be27e7b04fe3a68c15120dd633d109"
 headers = {"Authorization": f"Token {TOKEN}"}
 
-@st.cache_data(ttl=900)
+@st.cache_data(ttl=1800)
 def baixar_base_dados():
     url = "https://api.futpythontrader.com/api/dados/betfair/download/"
     try:
