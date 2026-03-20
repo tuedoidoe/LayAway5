@@ -96,8 +96,7 @@ def check_password():
 TOKEN = "b9f385cc07be27e7b04fe3a68c15120dd633d109"
 headers = {"Authorization": f"Token {TOKEN}"}
 
-# Cache alterado para 24h (86400 segundos) para acabar com a lentidão
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=1800)
 def baixar_base_dados():
     url = "https://api.futpythontrader.com/api/dados/betfair/download/"
     try:
@@ -172,7 +171,7 @@ if check_password():
                 X_cols_treino = dados_modelo['features']
                 ligas_autorizadas = dados_modelo.get('ligas_autorizadas', [])
                 
-                st.write("📥 Baixando base histórica (Demora apenas na 1ª vez do dia)...")
+                st.write("📥 Baixando base histórica...")
                 df_hist = baixar_base_dados()
                 df_alvo_lista = []
                 
