@@ -9,7 +9,6 @@ import io
 
 warnings.filterwarnings("ignore")
 
-
 # ==========================================
 # CONFIGURAÇÃO DA PÁGINA E LOGIN
 # ==========================================
@@ -63,7 +62,6 @@ st.markdown("""
         background-color: #CC00CC !important;
         border-color: #CC00CC !important;
     }
-    
     </style>
 """, unsafe_allow_html=True)
 
@@ -178,19 +176,6 @@ if check_password():
                 df_alvo_lista = []
                 
                 st.write("🔎 Buscando os jogos no FutPythonTrader...")
-            try:
-                # Carregamento LOCAL do modelo (Muito mais rápido e seguro)
-                dados_modelo = joblib.load('Modelo_LayAway_5.pkl')
-                
-                model = dados_modelo['modelo']
-                taxas_ligas = dados_modelo['liga_rates']
-                media_global_treino = dados_modelo['media_global']
-                X_cols_treino = dados_modelo['features']
-                ligas_autorizadas = dados_modelo.get('ligas_autorizadas', [])
-                
-                # Chamando a nova função da API para a base principal
-                df_hist = baixar_base_dados()
-                df_alvo_lista = []
                 
                 if tipo_filtro == "Data Única":
                     texto_data = data_selecionada.strftime('%d/%m/%Y')
@@ -259,6 +244,7 @@ if check_password():
                     "US MLS": "USA 1"
                 }
                 
+                st.write("⚙️ Calculando tendências matemáticas e prevendo probabilidades...")
                 if not df_alvo.empty and 'League' in df_alvo.columns:
                     df_alvo['League'] = df_alvo['League'].replace(tradutor_ligas)
                     df_alvo = df_alvo[df_alvo['League'].isin(ligas_autorizadas)].copy()
@@ -271,8 +257,6 @@ if check_password():
                         
                     data_limite = df_alvo['Date'].min()
                     
-                    # Como a base nova inteira é puxada via API, garantimos que ela só será mesclada
-                    # com as informações anteriores ao limite pesquisado.
                     if not df_hist.empty:
                         df_hist_passado = df_hist[df_hist['Date'] < data_limite].copy()
                         df_completo = pd.concat([df_hist_passado, df_alvo], ignore_index=True)
@@ -324,19 +308,11 @@ if check_password():
                                 st.session_state['mostrar_tabela'] = True
                                 st.session_state['df_final'] = df_final
 
-                            else:
-                                # SALVA OS RESULTADOS NA MEMÓRIA DO STREAMLIT
-                                st.session_state['mostrar_tabela'] = True
-                                st.session_state['df_final'] = df_final
-
-                # --- ADICIONE ESTA LINHA AQUI ---
+                # Atualiza o painel visual avisando que terminou
                 status.update(label="Varredura concluída com sucesso!", state="complete", expanded=False)
 
             except Exception as e:
                 status.update(label="Erro no processamento!", state="error", expanded=True)
-                st.error(f"Erro inesperado durante o processamento: {e}")
-
-            except Exception as e:
                 st.error(f"Erro inesperado durante o processamento: {e}")
 
     # ==========================================
