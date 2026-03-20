@@ -392,5 +392,3 @@ if check_password():
                 ])
                 
             st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
-
-No meu site no Streamlit eu clico no botão "Iniciar Varredura" e está demorando muito para mostrar algo. Fica de acordo com a foto em anexo, está demorando muito.
