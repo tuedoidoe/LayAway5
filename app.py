@@ -9,6 +9,7 @@ import io
 
 warnings.filterwarnings("ignore")
 
+
 # ==========================================
 # CONFIGURAÇÃO DA PÁGINA E LOGIN
 # ==========================================
