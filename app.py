@@ -4,8 +4,8 @@ import numpy as np
 import joblib
 import warnings
 from datetime import datetime
-import requests
-import io
+import requests 
+import io       
 
 warnings.filterwarnings("ignore")
 
@@ -28,7 +28,8 @@ st.markdown("""
         margin: 0 auto !important;
         width: max-content !important;
     }
-    div[data-testid="stDateInput"] input {
+    /* Centraliza o texto nas caixas de input (Data e Número) */
+    div[data-testid="stDateInput"] input, div[data-testid="stNumberInput"] input {
         text-align: center !important;
     }
     
@@ -62,7 +63,6 @@ st.markdown("""
         background-color: #CC00CC !important;
         border-color: #CC00CC !important;
     }
-    
     </style>
 """, unsafe_allow_html=True)
 
@@ -97,7 +97,7 @@ def check_password():
 TOKEN = "b9f385cc07be27e7b04fe3a68c15120dd633d109"
 headers = {"Authorization": f"Token {TOKEN}"}
 
-@st.cache_data(ttl=1800)
+@st.cache_data(ttl=86400)
 def baixar_base_dados():
     url = "https://api.futpythontrader.com/api/dados/betfair/download/"
     try:
@@ -128,7 +128,7 @@ def baixar_jogos_do_dia(data):
         return pd.DataFrame()
 
 # ==========================================
-# CÓDIGO DO SCANNER
+# CÓDIGO DO SCANNER E UI
 # ==========================================
 if check_password():
     
@@ -151,6 +151,13 @@ if check_password():
             st.markdown("<p style='text-align: center; margin-bottom: 5px; font-weight: bold;'>📅 Escolha o período para consulta:</p>", unsafe_allow_html=True)
             data_selecionada = st.date_input("Intervalo", value=(hoje, hoje), label_visibility="collapsed")
             
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        # --- NOVO CAMPO: FILTRO DE EDGE ---
+        st.markdown("<p style='text-align: center; margin-bottom: 5px; font-weight: bold;'>📈 Filtro de Vantagem (Edge) Mínimo %:</p>", unsafe_allow_html=True)
+        edge_selecionado = st.number_input("Filtro Edge", min_value=0.0, max_value=100.0, value=0.0, step=1.0, format="%.1f", label_visibility="collapsed")
+        # ----------------------------------
+        
         st.markdown("<br>", unsafe_allow_html=True)
         btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True)
         
@@ -259,6 +266,20 @@ if check_password():
                         
                     df_completo = df_completo.sort_values(["Date", "Home"]).reset_index(drop=True)
                     
+                    # Bloco de proteção contra colunas ausentes
+                    colunas_protecao = [
+                        'Goals_A_HT', 'Goals_H_FT', 'Goals_A_FT', 'Odd_A_Back', 'Odd_A_Lay',
+                        'Odd_H_Back', 'Odd_H_Lay', 'Odd_CS_1x0_Lay', 'Odd_CS_2x1_Lay', 
+                        'Odd_CS_0x0_Lay', 'Odd_CS_1x1_Lay', 'Odd_Over25_FT_Back'
+                    ]
+                    
+                    tradutor_colunas = {'HTAG': 'Goals_A_HT', 'HTHG': 'Goals_H_HT', 'FTHG': 'Goals_H_FT', 'FTAG': 'Goals_A_FT'}
+                    df_completo = df_completo.rename(columns=tradutor_colunas)
+
+                    for col in colunas_protecao:
+                        if col not in df_completo.columns:
+                            df_completo[col] = np.nan
+                            
                     df_completo['Prob_1x2_A'] = safe_prob(df_completo['Odd_A_Back'])
                     df_completo['Prob_CS_Resistance'] = safe_prob(df_completo['Odd_CS_1x0_Lay']) + safe_prob(df_completo['Odd_CS_2x1_Lay'])
                     df_completo['Market_Asymmetry'] = (df_completo['Prob_CS_Resistance'] - df_completo['Prob_1x2_A'])
@@ -293,13 +314,16 @@ if check_password():
                             df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
                             df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
                             
-                            df_final = df_hoje[df_hoje["Edge"] > 0.05].copy()
+                            # --- APLICAÇÃO DO FILTRO MATEMÁTICO DIGITADO PELO USUÁRIO ---
+                            edge_decimal = edge_selecionado / 100.0
+                            df_final = df_hoje[df_hoje["Edge"] > edge_decimal].copy()
                             
                             if len(df_final) == 0:
-                                st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>0.05) para operar em {texto_data}.")
+                                st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>{edge_selecionado}%) para operar em {texto_data}.")
                             else:
                                 st.session_state['mostrar_tabela'] = True
                                 st.session_state['df_final'] = df_final
+                                st.session_state['edge_exibicao'] = edge_selecionado # Salva para o cabeçalho da tabela
 
             except Exception as e:
                 st.error(f"Erro inesperado durante o processamento: {e}")
@@ -309,12 +333,16 @@ if check_password():
     # ==========================================
     if st.session_state.get('mostrar_tabela', False):
         df_final = st.session_state['df_final']
+        edge_exibicao = st.session_state.get('edge_exibicao', 0.0)
+        
+        # Cria dinamicamente o nome da coluna baseado na escolha do usuário
+        nome_coluna_edge = f'Vantagem (> {edge_exibicao}%)'
         
         tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Edge']].copy()
         tabela = tabela.rename(columns={
             'Date': 'Data', 'Time': 'Horário', 'League': 'Liga',
             'Home': 'Time Casa', 'Away': 'Time Fora',
-            'Odd_A_Lay': 'Odd Lay', 'Edge': 'Vantagem (> 5.0%)'
+            'Odd_A_Lay': 'Odd Lay', 'Edge': nome_coluna_edge
         })
         
         tabela['Data'] = pd.to_datetime(tabela['Data'])
@@ -353,7 +381,7 @@ if check_password():
             tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
                 .format({
                     'Odd Lay': '{:.2f}',
-                    'Vantagem (> 5.0%)': '{:.1%}'
+                    nome_coluna_edge: '{:.1%}'
                 }) \
                 .hide(axis="index") \
                 .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
