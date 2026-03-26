@@ -4,8 +4,8 @@ import numpy as np
 import joblib
 import warnings
 from datetime import datetime
-import requests 
-import io       
+import requests
+import io
 
 warnings.filterwarnings("ignore")
 
@@ -28,12 +28,8 @@ st.markdown("""
         margin: 0 auto !important;
         width: max-content !important;
     }
-    div[data-testid="stDateInput"] input {
-        text-align: center !important;
-    }
-    
-    /* Centraliza o texto do input de número do Edge */
-    div[data-testid="stNumberInput"] input {
+    /* Centraliza o input de datas e o número do Edge */
+    div[data-testid="stDateInput"] input, div[data-testid="stNumberInput"] input {
         text-align: center !important;
     }
     
@@ -55,7 +51,7 @@ st.markdown("""
         background-color: #FF00FF !important;
         border-radius: 5px !important;
         width: 100% !important;
-        margin-top: 15px !important; /* Ajustado para alinhar com o input de Edge */
+        margin-top: 5px !important;
     }
     div[data-testid="stDownloadButton"] > button p {
         color: black !important;
@@ -157,6 +153,9 @@ if check_password():
             
         st.markdown("<br>", unsafe_allow_html=True)
         btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True)
+        
+        # Espaço reservado para o botão de download aparecer AQUI depois
+        espaco_download = st.empty()
         
     st.divider()
 
@@ -297,14 +296,14 @@ if check_password():
                             df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
                             df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
                             
-                            # Mantém TUDO que for maior que 0 na memória para filtrar dinamicamente
-                            df_final = df_hoje[df_hoje["Edge"] > 0.0].copy()
+                            # Salva tudo acima de 0.0 na memória bruta
+                            df_bruto = df_hoje[df_hoje["Edge"] >= 0.0].copy()
                             
-                            if len(df_final) == 0:
-                                st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>0%) para operar em {texto_data}.")
+                            if len(df_bruto) == 0:
+                                st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>0.0%) para operar em {texto_data}.")
                             else:
                                 st.session_state['mostrar_tabela'] = True
-                                st.session_state['df_bruto'] = df_final # Salva os dados brutos
+                                st.session_state['df_bruto'] = df_bruto
 
             except Exception as e:
                 st.error(f"Erro inesperado durante o processamento: {e}")
@@ -318,20 +317,28 @@ if check_password():
         col_esq, col_central, col_dir = st.columns([1, 4, 1])
         
         with col_central:
-            # Layout Superior: [Texto] [Espaço] [Input Edge] [Botão Baixar]
-            col_texto, col_vazia, col_filtro, col_botao = st.columns([2.5, 3.5, 1.2, 1.5])
+            # Layout Superior adaptado para dar mais espaço ao texto
+            col_texto, col_vazia, col_filtro = st.columns([5, 1, 2.5])
             
             with col_filtro:
-                edge_selecionado = st.number_input("Edge Mínimo (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f")
+                st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Edge Mínimo (%)</div>", unsafe_allow_html=True)
+                edge_selecionado = st.number_input("Edge Mínimo (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f", label_visibility="collapsed")
             
-            # Filtra os dados com base no valor digitado no input
+            # Filtro interativo sendo aplicado em tempo real
             edge_decimal = edge_selecionado / 100.0
-            df_final = df_bruto[df_bruto["Edge"] >= edge_decimal].copy()
+            df_final_filtrado = df_bruto[df_bruto["Edge"] >= edge_decimal].copy()
             
-            tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Edge']].copy()
-            
+            with col_texto:
+                texto_resultado = f"""
+                <div style='text-align: left; font-size: 18px; margin-top: 40px; margin-bottom: 10px; white-space: nowrap;'>
+                    Oportunidades Encontradas: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(df_final_filtrado)} jogo(s)</span>
+                </div>
+                """
+                st.markdown(texto_resultado, unsafe_allow_html=True)
+
             nome_coluna_edge = f'Vantagem (> {edge_selecionado:.1f}%)'
-            
+
+            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Edge']].copy()
             tabela = tabela.rename(columns={
                 'Date': 'Data', 'Time': 'Horário', 'League': 'Liga',
                 'Home': 'Time Casa', 'Away': 'Time Fora',
@@ -342,26 +349,20 @@ if check_password():
                 tabela['Data'] = pd.to_datetime(tabela['Data'])
                 tabela = tabela.sort_values(by=['Data', 'Horário'], ascending=[True, True]).reset_index(drop=True)
                 tabela['Data'] = tabela['Data'].dt.strftime('%d/%m/%Y')
+
+                # Criando o Excel para download
+                buffer = io.BytesIO()
+                with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+                    tabela.to_excel(writer, index=False, sheet_name='Lay_Away')
                 
-                with col_texto:
-                    texto_resultado = f"""
-                    <div style='text-align: left; font-size: 18px; margin-top: 25px; margin-bottom: 10px;'>
-                        Oportunidades Encontradas: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(tabela)} jogo(s)</span>
-                    </div>
-                    """
-                    st.markdown(texto_resultado, unsafe_allow_html=True)
-                    
-                with col_botao:
-                    buffer = io.BytesIO()
-                    with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
-                        tabela.to_excel(writer, index=False, sheet_name='Lay_Away')
-                    
-                    st.markdown("<div style='margin-top: 15px;'></div>", unsafe_allow_html=True) # Alinhamento vertical
+                # Injetando o botão de download NAQUELE ESPAÇO lá em cima
+                with espaco_download:
                     st.download_button(
                         label="📥 Baixar Jogos",
                         data=buffer.getvalue(),
                         file_name="Jogos_LayAway.xlsx",
-                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        use_container_width=True
                     )
                 
                 def cores_alternadas(row):
@@ -392,5 +393,7 @@ if check_password():
                     
                 st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
             else:
-                with col_texto:
-                    st.info(f"Nenhum jogo encontrado com Edge maior que {edge_selecionado:.1f}%.")
+                st.info(f"Nenhum jogo encontrado com Edge maior ou igual a {edge_selecionado:.1f}%.")
+                # Limpa o botão de download se a tabela ficar vazia
+                with espaco_download:
+                    st.empty()
