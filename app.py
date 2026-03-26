@@ -28,7 +28,6 @@ st.markdown("""
         margin: 0 auto !important;
         width: max-content !important;
     }
-    /* Centraliza o texto nas caixas de input (Data e Número) */
     div[data-testid="stDateInput"] input, div[data-testid="stNumberInput"] input {
         text-align: center !important;
     }
@@ -51,7 +50,7 @@ st.markdown("""
         background-color: #FF00FF !important;
         border-radius: 5px !important;
         width: 100% !important;
-        margin-top: 5px !important;
+        margin-top: 1px !important;
     }
     div[data-testid="stDownloadButton"] > button p {
         color: black !important;
@@ -152,13 +151,6 @@ if check_password():
             data_selecionada = st.date_input("Intervalo", value=(hoje, hoje), label_visibility="collapsed")
             
         st.markdown("<br>", unsafe_allow_html=True)
-        
-        # --- NOVO CAMPO: FILTRO DE EDGE ---
-        st.markdown("<p style='text-align: center; margin-bottom: 5px; font-weight: bold;'>📈 Filtro de Vantagem (Edge) Mínimo %:</p>", unsafe_allow_html=True)
-        edge_selecionado = st.number_input("Filtro Edge", min_value=0.0, max_value=100.0, value=0.0, step=1.0, format="%.1f", label_visibility="collapsed")
-        # ----------------------------------
-        
-        st.markdown("<br>", unsafe_allow_html=True)
         btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True)
         
     st.divider()
@@ -166,8 +158,9 @@ if check_password():
     if btn_procurar:
         st.session_state['mostrar_tabela'] = False 
         
-        with st.spinner('Baixando inteligência e processando o mercado...'):
+        with st.status('Processando sua varredura...', expanded=True) as status:
             try:
+                st.write("🧠 Carregando inteligência artificial...")
                 dados_modelo = joblib.load('Modelo_LayAway_5.pkl')
                 
                 model = dados_modelo['modelo']
@@ -176,9 +169,11 @@ if check_password():
                 X_cols_treino = dados_modelo['features']
                 ligas_autorizadas = dados_modelo.get('ligas_autorizadas', [])
                 
+                st.write("📥 Baixando base histórica (Demora apenas na 1ª vez do dia)...")
                 df_hist = baixar_base_dados()
                 df_alvo_lista = []
                 
+                st.write("🔎 Buscando os jogos no FutPythonTrader...")
                 if tipo_filtro == "Data Única":
                     texto_data = data_selecionada.strftime('%d/%m/%Y')
                     data_api = data_selecionada.strftime('%Y-%m-%d')
@@ -246,6 +241,7 @@ if check_password():
                     "US MLS": "USA 1"
                 }
                 
+                st.write("⚙️ Calculando tendências matemáticas e prevendo probabilidades...")
                 if not df_alvo.empty and 'League' in df_alvo.columns:
                     df_alvo['League'] = df_alvo['League'].replace(tradutor_ligas)
                     df_alvo = df_alvo[df_alvo['League'].isin(ligas_autorizadas)].copy()
@@ -314,90 +310,103 @@ if check_password():
                             df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
                             df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
                             
-                            # --- APLICAÇÃO DO FILTRO MATEMÁTICO DIGITADO PELO USUÁRIO ---
-                            edge_decimal = edge_selecionado / 100.0
-                            df_final = df_hoje[df_hoje["Edge"] > edge_decimal].copy()
+                            # Agora salva TUDO maior que 0 na memória para filtrar dinamicamente depois
+                            df_bruto_resultados = df_hoje[df_hoje["Edge"] >= 0.0].copy()
                             
-                            if len(df_final) == 0:
-                                st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>{edge_selecionado}%) para operar em {texto_data}.")
+                            if len(df_bruto_resultados) == 0:
+                                st.warning(f"O modelo filtrou o mercado, mas não encontrou jogos com Edge positivo para operar em {texto_data}.")
                             else:
                                 st.session_state['mostrar_tabela'] = True
-                                st.session_state['df_final'] = df_final
-                                st.session_state['edge_exibicao'] = edge_selecionado # Salva para o cabeçalho da tabela
+                                st.session_state['df_bruto_resultados'] = df_bruto_resultados
+                
+                status.update(label="Varredura concluída com sucesso!", state="complete", expanded=False)
 
             except Exception as e:
+                status.update(label="Erro no processamento!", state="error", expanded=True)
                 st.error(f"Erro inesperado durante o processamento: {e}")
 
     # ==========================================
     # EXIBIÇÃO VISUAL E BOTÃO DE DOWNLOAD
     # ==========================================
     if st.session_state.get('mostrar_tabela', False):
-        df_final = st.session_state['df_final']
-        edge_exibicao = st.session_state.get('edge_exibicao', 0.0)
+        df_bruto = st.session_state['df_bruto_resultados']
         
-        # Cria dinamicamente o nome da coluna baseado na escolha do usuário
-        nome_coluna_edge = f'Vantagem (> {edge_exibicao}%)'
-        
-        tabela = df_final[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Edge']].copy()
-        tabela = tabela.rename(columns={
-            'Date': 'Data', 'Time': 'Horário', 'League': 'Liga',
-            'Home': 'Time Casa', 'Away': 'Time Fora',
-            'Odd_A_Lay': 'Odd Lay', 'Edge': nome_coluna_edge
-        })
-        
-        tabela['Data'] = pd.to_datetime(tabela['Data'])
-        tabela = tabela.sort_values(by=['Data', 'Horário'], ascending=[True, True]).reset_index(drop=True)
-        tabela['Data'] = tabela['Data'].dt.strftime('%d/%m/%Y')
-
         col_esq, col_central, col_dir = st.columns([1, 4, 1])
         
         with col_central:
-            col_texto, col_vazia, col_botao = st.columns([3, 5.2, 1.3])
+            # Layout Superior: [Texto Oportunidades] [Espaço] [Input de Edge] [Botão Baixar]
+            col_texto, col_vazia, col_filtro, col_botao = st.columns([2.5, 2.5, 1.3, 1.5])
+            
+            with col_filtro:
+                st.markdown("<p style='text-align: center; margin: 0; font-size: 13px; font-weight: bold;'>Edge Mínimo (%)</p>", unsafe_allow_html=True)
+                edge_selecionado = st.number_input("Edge Mínimo (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f", label_visibility="collapsed")
+            
+            # Filtra o Dataframe NA HORA, sem precisar recalcular tudo
+            edge_decimal = edge_selecionado / 100.0
+            df_final_filtrado = df_bruto[df_bruto["Edge"] >= edge_decimal].copy()
             
             with col_texto:
                 texto_resultado = f"""
                 <div style='text-align: left; font-size: 18px; margin-top: 15px; margin-bottom: 10px;'>
-                    Oportunidades Encontradas: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(tabela)} jogo(s)</span>
+                    Oportunidades: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(df_final_filtrado)} jogo(s)</span>
                 </div>
                 """
                 st.markdown(texto_resultado, unsafe_allow_html=True)
                 
-            with col_botao:
-                buffer = io.BytesIO()
-                with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
-                    tabela.to_excel(writer, index=False, sheet_name='Lay_Away')
-                
-                st.download_button(
-                    label="📥 Baixar Jogos",
-                    data=buffer.getvalue(),
-                    file_name="Jogos_LayAway.xlsx",
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                )
+            # Prepara os dados para tela e para baixar
+            nome_coluna_edge = f'Vantagem (> {edge_selecionado:.1f}%)'
             
-            def cores_alternadas(row):
-                cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
-                return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;' for _ in row]
+            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Edge']].copy()
+            tabela = tabela.rename(columns={
+                'Date': 'Data', 'Time': 'Horário', 'League': 'Liga',
+                'Home': 'Time Casa', 'Away': 'Time Fora',
+                'Odd_A_Lay': 'Odd Lay', 'Edge': nome_coluna_edge
+            })
+            
+            if not tabela.empty:
+                tabela['Data'] = pd.to_datetime(tabela['Data'])
+                tabela = tabela.sort_values(by=['Data', 'Horário'], ascending=[True, True]).reset_index(drop=True)
+                tabela['Data'] = tabela['Data'].dt.strftime('%d/%m/%Y')
 
-            tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
-                .format({
-                    'Odd Lay': '{:.2f}',
-                    nome_coluna_edge: '{:.1%}'
-                }) \
-                .hide(axis="index") \
-                .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
-                .set_table_styles([
-                    {'selector': 'th', 'props': [
-                        ('background-color', '#696969'), 
-                        ('color', 'black'), 
-                        ('text-align', 'center !important'), 
-                        ('font-weight', 'bold'),
-                        ('font-size', '22px'), 
-                        ('padding', '6px')
-                    ]},
-                    {'selector': 'td', 'props': [
-                        ('text-align', 'center !important'),
-                        ('padding', '10px')
-                    ]}
-                ])
+                with col_botao:
+                    buffer = io.BytesIO()
+                    with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+                        tabela.to_excel(writer, index=False, sheet_name='Lay_Away')
+                    
+                    st.markdown("<p style='margin: 0; font-size: 13px; visibility: hidden;'>.</p>", unsafe_allow_html=True) # Alinhamento
+                    st.download_button(
+                        label="📥 Baixar Jogos",
+                        data=buffer.getvalue(),
+                        file_name="Jogos_LayAway.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    )
                 
-            st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
+                def cores_alternadas(row):
+                    cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
+                    return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;' for _ in row]
+
+                tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
+                    .format({
+                        'Odd Lay': '{:.2f}',
+                        nome_coluna_edge: '{:.1%}'
+                    }) \
+                    .hide(axis="index") \
+                    .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
+                    .set_table_styles([
+                        {'selector': 'th', 'props': [
+                            ('background-color', '#696969'), 
+                            ('color', 'black'), 
+                            ('text-align', 'center !important'), 
+                            ('font-weight', 'bold'),
+                            ('font-size', '22px'), 
+                            ('padding', '6px')
+                        ]},
+                        {'selector': 'td', 'props': [
+                            ('text-align', 'center !important'),
+                            ('padding', '10px')
+                        ]}
+                    ])
+                    
+                st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
+            else:
+                st.info(f"Não há jogos com Edge maior que {edge_selecionado:.1f}% neste período.")
