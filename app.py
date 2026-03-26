@@ -146,10 +146,12 @@ if check_password():
         
         if tipo_filtro == "Data Única":
             st.markdown("<p style='text-align: center; margin-bottom: 5px; font-weight: bold;'>📅 Escolha a data para consulta:</p>", unsafe_allow_html=True)
-            data_selecionada = st.date_input("Data única", value=hoje, label_visibility="collapsed")
+            # Adicionado o parâmetro format="DD/MM/YYYY"
+            data_selecionada = st.date_input("Data única", value=hoje, format="DD/MM/YYYY", label_visibility="collapsed")
         else:
             st.markdown("<p style='text-align: center; margin-bottom: 5px; font-weight: bold;'>📅 Escolha o período para consulta:</p>", unsafe_allow_html=True)
-            data_selecionada = st.date_input("Intervalo", value=(hoje, hoje), label_visibility="collapsed")
+            # Adicionado o parâmetro format="DD/MM/YYYY"
+            data_selecionada = st.date_input("Intervalo", value=(hoje, hoje), format="DD/MM/YYYY", label_visibility="collapsed")
             
         st.markdown("<br>", unsafe_allow_html=True)
         btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True)
@@ -296,7 +298,6 @@ if check_password():
                             df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
                             df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
                             
-                            # Salva tudo acima de 0.0 na memória bruta
                             df_bruto = df_hoje[df_hoje["Edge"] >= 0.0].copy()
                             
                             if len(df_bruto) == 0:
@@ -317,15 +318,13 @@ if check_password():
         col_esq, col_central, col_dir = st.columns([1, 4, 1])
         
         with col_central:
-            # Layout Superior ajustado: O campo do filtro agora ocupa bem menos espaço
-            # As proporções são [Texto: 5] [Vazio: 2.2] [Filtro Edge: 1.3]
-            col_texto, col_vazia, col_filtro = st.columns([5, 2.2, 1.3])
+            # Proporções ajustadas: Texto manteve 5, margem invisível reduziu para 2.0 (puxando pra esquerda) e filtro reduziu para 1.0 (caixa menor)
+            col_texto, col_vazia, col_filtro = st.columns([5.0, 2.0, 1.0])
             
             with col_filtro:
                 st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Edge Mínimo (%)</div>", unsafe_allow_html=True)
                 edge_selecionado = st.number_input("Edge Mínimo (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f", label_visibility="collapsed")
             
-            # Filtro interativo sendo aplicado em tempo real
             edge_decimal = edge_selecionado / 100.0
             df_final_filtrado = df_bruto[df_bruto["Edge"] >= edge_decimal].copy()
             
@@ -351,12 +350,10 @@ if check_password():
                 tabela = tabela.sort_values(by=['Data', 'Horário'], ascending=[True, True]).reset_index(drop=True)
                 tabela['Data'] = tabela['Data'].dt.strftime('%d/%m/%Y')
 
-                # Criando o Excel para download
                 buffer = io.BytesIO()
                 with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
                     tabela.to_excel(writer, index=False, sheet_name='Lay_Away')
                 
-                # Injetando o botão de download NAQUELE ESPAÇO lá em cima
                 with espaco_download:
                     st.download_button(
                         label="📥 Baixar Jogos",
@@ -395,6 +392,5 @@ if check_password():
                 st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
             else:
                 st.info(f"Nenhum jogo encontrado com Edge maior ou igual a {edge_selecionado:.1f}%.")
-                # Limpa o botão de download se a tabela ficar vazia
                 with espaco_download:
                     st.empty()
