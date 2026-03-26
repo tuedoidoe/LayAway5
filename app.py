@@ -317,8 +317,9 @@ if check_password():
         col_esq, col_central, col_dir = st.columns([1, 4, 1])
         
         with col_central:
-            # Layout Superior adaptado para dar mais espaço ao texto
-            col_texto, col_vazia, col_filtro = st.columns([5, 1, 2.5])
+            # Layout Superior ajustado: O campo do filtro agora ocupa bem menos espaço
+            # As proporções são [Texto: 5] [Vazio: 2.2] [Filtro Edge: 1.3]
+            col_texto, col_vazia, col_filtro = st.columns([5, 2.2, 1.3])
             
             with col_filtro:
                 st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Edge Mínimo (%)</div>", unsafe_allow_html=True)
