@@ -342,8 +342,8 @@ if check_password():
             col_texto, col_vazia, col_filtro_odd, col_filtro_edge = st.columns([4.0, 0.5, 1.25, 1.25])
             
             with col_filtro_odd:
-                st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Odd Lay</div>", unsafe_allow_html=True)
-                odd_selecionada = st.number_input("Máx Odd Lay", min_value=2.00, max_value=5.0, value=3.90, step=0.10, format="%.2f", label_visibility="collapsed")
+                st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Mín Odd Lay</div>", unsafe_allow_html=True)
+                odd_selecionada = st.number_input("Máx Odd Lay", min_value=2.50, max_value=5.0, value=3.90, step=0.10, format="%.2f", label_visibility="collapsed")
 
             with col_filtro_edge:
                 st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Edge Mínimo (%)</div>", unsafe_allow_html=True)
@@ -351,7 +351,7 @@ if check_password():
             
             # ORDEM DOS FILTROS APLICADOS
             # 1º Filtra os jogos com Odd A Lay MENOR OU IGUAL a odd selecionada
-            df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] <= odd_selecionada].copy()
+            df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
             
             # 2º Filtra os jogos (já passados pelo 1º filtro) pelo Edge Mínimo
             edge_decimal = edge_selecionado / 100.0
@@ -420,6 +420,6 @@ if check_password():
                     
                 st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
             else:
-                st.info(f"Nenhum jogo atende aos critérios (Máx Odd Lay: {odd_selecionada:.2f} e Edge: {edge_selecionado:.1f}%).")
+                st.info(f"Nenhum jogo atende aos critérios (Mín Odd Lay: {odd_selecionada:.2f} e Edge: {edge_selecionado:.1f}%).")
                 with espaco_download:
                     st.empty()
