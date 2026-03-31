@@ -365,7 +365,7 @@ if check_password():
                 """
                 st.markdown(texto_resultado, unsafe_allow_html=True)
 
-            nome_coluna_edge = f'Vantagem (> {edge_selecionado:.1f}%)'
+            nome_coluna_edge = f'Vantagem'
 
             tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Edge']].copy()
             tabela = tabela.rename(columns={
