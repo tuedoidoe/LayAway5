@@ -318,8 +318,8 @@ if check_password():
         col_esq, col_central, col_dir = st.columns([1, 4, 1])
         
         with col_central:
-            # Proporções ajustadas: Texto manteve 5, margem invisível reduziu para 2.0 (puxando pra esquerda) e filtro reduziu para 1.0 (caixa menor)
-            col_texto, col_vazia, col_filtro = st.columns([5.0, 2.0, 1.0])
+            # Removida a coluna vazia e ajustada as proporções para garantir o funcionamento em telas menores
+            col_texto, col_filtro = st.columns([4.0, 1.5])
             
             with col_filtro:
                 st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Edge Mínimo (%)</div>", unsafe_allow_html=True)
