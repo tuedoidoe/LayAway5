@@ -28,10 +28,33 @@ st.markdown("""
         margin: 0 auto !important;
         width: max-content !important;
     }
-    /* Centraliza o input de datas e o número do Edge */
-    div[data-testid="stDateInput"] input, div[data-testid="stNumberInput"] input {
+    /* Centraliza o input de datas */
+    div[data-testid="stDateInput"] input {
         text-align: center !important;
     }
+    
+    /* ========================================= */
+    /* CUSTOMIZAÇÃO DAS CAIXAS DE NÚMERO (- e +) */
+    /* ========================================= */
+    div[data-testid="stNumberInputContainer"] {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        height: 32px !important; /* Diminui a altura da caixa */
+        min-height: 32px !important;
+    }
+    div[data-testid="stNumberInputStepDown"] {
+        order: 1 !important; /* Joga o - para a esquerda */
+    }
+    div[data-testid="stNumberInputContainer"] input {
+        order: 2 !important; /* Mantém o texto no meio */
+        text-align: center !important;
+    }
+    div[data-testid="stNumberInputStepUp"] {
+        order: 3 !important; /* Joga o + para a direita */
+    }
+    /* ========================================= */
     
     /* Cor do Botão Principal (Azul) */
     div[data-testid="stButton"] > button {
@@ -146,17 +169,14 @@ if check_password():
         
         if tipo_filtro == "Data Única":
             st.markdown("<p style='text-align: center; margin-bottom: 5px; font-weight: bold;'>📅 Escolha a data para consulta:</p>", unsafe_allow_html=True)
-            # Adicionado o parâmetro format="DD/MM/YYYY"
             data_selecionada = st.date_input("Data única", value=hoje, format="DD/MM/YYYY", label_visibility="collapsed")
         else:
             st.markdown("<p style='text-align: center; margin-bottom: 5px; font-weight: bold;'>📅 Escolha o período para consulta:</p>", unsafe_allow_html=True)
-            # Adicionado o parâmetro format="DD/MM/YYYY"
             data_selecionada = st.date_input("Intervalo", value=(hoje, hoje), format="DD/MM/YYYY", label_visibility="collapsed")
             
         st.markdown("<br>", unsafe_allow_html=True)
         btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True)
         
-        # Espaço reservado para o botão de download aparecer AQUI depois
         espaco_download = st.empty()
         
     st.divider()
@@ -318,15 +338,24 @@ if check_password():
         col_esq, col_central, col_dir = st.columns([1, 4, 1])
         
         with col_central:
-            # Removida a coluna vazia e ajustada as proporções para garantir o funcionamento em telas menores
-            col_texto, col_filtro = st.columns([4.0, 1.5])
+            # Proporções reajustadas para caberem os DOIS filtros em telas pequenas
+            col_texto, col_vazia, col_filtro_odd, col_filtro_edge = st.columns([4.0, 0.5, 1.25, 1.25])
             
-            with col_filtro:
+            with col_filtro_odd:
+                st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Odd Lay</div>", unsafe_allow_html=True)
+                odd_selecionada = st.number_input("Máx Odd Lay", min_value=2.00, max_value=5.0, value=3.90, step=0.10, format="%.2f", label_visibility="collapsed")
+
+            with col_filtro_edge:
                 st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Edge Mínimo (%)</div>", unsafe_allow_html=True)
-                edge_selecionado = st.number_input("Edge Mínimo (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f", label_visibility="collapsed")
+                edge_selecionado = st.number_input("Edge Mínimo (%)", min_value=0.0, max_value=100.0, value=2.0, step=0.5, format="%.1f", label_visibility="collapsed")
             
+            # ORDEM DOS FILTROS APLICADOS
+            # 1º Filtra os jogos com Odd A Lay MENOR OU IGUAL a odd selecionada
+            df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] <= odd_selecionada].copy()
+            
+            # 2º Filtra os jogos (já passados pelo 1º filtro) pelo Edge Mínimo
             edge_decimal = edge_selecionado / 100.0
-            df_final_filtrado = df_bruto[df_bruto["Edge"] >= edge_decimal].copy()
+            df_final_filtrado = df_filtrado_odd[df_filtrado_odd["Edge"] >= edge_decimal].copy()
             
             with col_texto:
                 texto_resultado = f"""
@@ -391,6 +420,6 @@ if check_password():
                     
                 st.markdown(tabela_estilizada.to_html(), unsafe_allow_html=True)
             else:
-                st.info(f"Nenhum jogo encontrado com Edge maior ou igual a {edge_selecionado:.1f}%.")
+                st.info(f"Nenhum jogo atende aos critérios (Máx Odd Lay: {odd_selecionada:.2f} e Edge: {edge_selecionado:.1f}%).")
                 with espaco_download:
                     st.empty()
