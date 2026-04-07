@@ -343,11 +343,11 @@ if check_password():
             
             with col_filtro_odd:
                 st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Mín Odd Lay</div>", unsafe_allow_html=True)
-                odd_selecionada = st.number_input("Máx Odd Lay", min_value=2.50, max_value=5.0, value=3.90, step=0.10, format="%.2f", label_visibility="collapsed")
+                odd_selecionada = st.number_input("Máx Odd Lay", min_value=2.50, max_value=5.0, value=2.50, step=0.10, format="%.2f", label_visibility="collapsed")
 
             with col_filtro_edge:
                 st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Edge Mínimo (%)</div>", unsafe_allow_html=True)
-                edge_selecionado = st.number_input("Edge Mínimo (%)", min_value=0.0, max_value=100.0, value=2.0, step=0.5, format="%.1f", label_visibility="collapsed")
+                edge_selecionado = st.number_input("Edge Mínimo (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f", label_visibility="collapsed")
             
             # ORDEM DOS FILTROS APLICADOS
             # 1º Filtra os jogos com Odd A Lay MENOR OU IGUAL a odd selecionada
