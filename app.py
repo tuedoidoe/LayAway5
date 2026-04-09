@@ -402,7 +402,7 @@ if check_password():
 
             nome_coluna_edge = f'Vantagem'
 
-            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Pontos Casa', 'Pontos Fora', 'Odd_A_Lay', 'Edge']].copy()
+            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Pontos Casa', 'Away', 'Pontos Fora', 'Odd_A_Lay', 'Edge']].copy()
             tabela = tabela.rename(columns={
                 'Date': 'Data', 'Time': 'Horário', 'League': 'Liga',
                 'Home': 'Time Casa', 'Pontos Casa': 'Pts Casa (5j)',
@@ -429,7 +429,7 @@ if check_password():
                     )
                 
                 # ========================================================
-                # NOVA FUNÇÃO DE ESTILIZAÇÃO COM DESTAQUE CONDICIONAL
+                # NOVA LÓGICA DE CORES: VERDE, VERMELHO E AMARELO
                 # ========================================================
                 def estilizar_linhas_e_destacar_pontos(row):
                     cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
@@ -445,14 +445,22 @@ if check_password():
                         pts_casa = int(val_casa) if val_casa.isdigit() else -1
                         pts_fora = int(val_fora) if val_fora.isdigit() else -1
                         
-                        # Estilo vencedor: Verde brilhante e texto um pouco maior/mais grosso
-                        estilo_destaque = f'background-color: {cor_fundo}; color: #00d26a; font-weight: 900; text-align: center !important; font-size: 18px;'
+                        # Definição das cores
+                        estilo_maior = f'background-color: {cor_fundo}; color: #00d26a; font-weight: 900; text-align: center !important; font-size: 18px;' # Verde
+                        estilo_menor = f'background-color: {cor_fundo}; color: #ff4b4b; font-weight: 900; text-align: center !important; font-size: 18px;' # Vermelho
+                        estilo_empate = f'background-color: {cor_fundo}; color: #ffd700; font-weight: 900; text-align: center !important; font-size: 18px;' # Amarelo
                         
-                        if pts_casa > pts_fora and pts_casa >= 0:
-                            estilos[idx_casa] = estilo_destaque
-                        elif pts_fora > pts_casa and pts_fora >= 0:
-                            estilos[idx_fora] = estilo_destaque
-                            
+                        if pts_casa >= 0 and pts_fora >= 0: # Garante que ambos têm pontuação
+                            if pts_casa == pts_fora:
+                                estilos[idx_casa] = estilo_empate
+                                estilos[idx_fora] = estilo_empate
+                            elif pts_casa > pts_fora:
+                                estilos[idx_casa] = estilo_maior
+                                estilos[idx_fora] = estilo_menor
+                            else: # pts_fora > pts_casa
+                                estilos[idx_casa] = estilo_menor
+                                estilos[idx_fora] = estilo_maior
+                                
                     except ValueError:
                         pass # Continua normalmente se as colunas não forem encontradas
                         
