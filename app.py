@@ -284,6 +284,27 @@ if check_password():
                         
                     df_completo = df_completo.sort_values(["Date", "Home"]).reset_index(drop=True)
                     
+                    # ========================================================
+                    # NOVA LÓGICA: CÁLCULO DE PONTOS (ÚLTIMOS 5 JOGOS)
+                    # ========================================================
+                    # Define a pontuação histórica (Vitória = 3, Empate = 1, Derrota = 0)
+                    df_completo['Pts_H'] = np.where(df_completo['Goals_H_FT'] > df_completo['Goals_A_FT'], 3, 
+                                           np.where(df_completo['Goals_H_FT'] == df_completo['Goals_A_FT'], 1, 0))
+                    
+                    df_completo['Pts_A'] = np.where(df_completo['Goals_A_FT'] > df_completo['Goals_H_FT'], 3, 
+                                           np.where(df_completo['Goals_A_FT'] == df_completo['Goals_H_FT'], 1, 0))
+                    
+                    # Soma dos últimos 5 jogos do Time Casa como Mandante
+                    df_completo['Pontos Casa'] = df_completo.groupby('Home')['Pts_H'].transform(
+                        lambda x: x.shift(1).rolling(5, min_periods=1).sum()
+                    ).fillna(0)
+                    
+                    # Soma dos últimos 5 jogos do Time Fora como Visitante
+                    df_completo['Pontos Fora'] = df_completo.groupby('Away')['Pts_A'].transform(
+                        lambda x: x.shift(1).rolling(5, min_periods=1).sum()
+                    ).fillna(0)
+                    # ========================================================
+                    
                     df_completo['Prob_1x2_A'] = safe_prob(df_completo['Odd_A_Back'])
                     df_completo['Prob_CS_Resistance'] = safe_prob(df_completo['Odd_CS_1x0_Lay']) + safe_prob(df_completo['Odd_CS_2x1_Lay'])
                     df_completo['Market_Asymmetry'] = (df_completo['Prob_CS_Resistance'] - df_completo['Prob_1x2_A'])
@@ -338,22 +359,19 @@ if check_password():
         col_esq, col_central, col_dir = st.columns([1, 4, 1])
         
         with col_central:
-            # Proporções reajustadas para caberem os DOIS filtros em telas pequenas
             col_texto, col_vazia, col_filtro_odd, col_filtro_edge = st.columns([4.0, 0.5, 1.25, 1.25])
             
             with col_filtro_odd:
                 st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Mín Odd Lay</div>", unsafe_allow_html=True)
-                odd_selecionada = st.number_input("Máx Odd Lay", min_value=2.50, max_value=5.0, value=2.50, step=0.10, format="%.2f", label_visibility="collapsed")
+                odd_selecionada = st.number_input("Mín Odd Lay", min_value=2.50, max_value=5.0, value=2.50, step=0.10, format="%.2f", label_visibility="collapsed")
 
             with col_filtro_edge:
                 st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Edge Mínimo (%)</div>", unsafe_allow_html=True)
                 edge_selecionado = st.number_input("Edge Mínimo (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f", label_visibility="collapsed")
             
             # ORDEM DOS FILTROS APLICADOS
-            # 1º Filtra os jogos com Odd A Lay MENOR OU IGUAL a odd selecionada
             df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
             
-            # 2º Filtra os jogos (já passados pelo 1º filtro) pelo Edge Mínimo
             edge_decimal = edge_selecionado / 100.0
             df_final_filtrado = df_filtrado_odd[df_filtrado_odd["Edge"] >= edge_decimal].copy()
             
@@ -367,10 +385,12 @@ if check_password():
 
             nome_coluna_edge = f'Vantagem'
 
-            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Edge']].copy()
+            # Nova estrutura da tabela para incluir a pontuação
+            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Pontos Casa', 'Away', 'Pontos Fora', 'Odd_A_Lay', 'Edge']].copy()
             tabela = tabela.rename(columns={
                 'Date': 'Data', 'Time': 'Horário', 'League': 'Liga',
-                'Home': 'Time Casa', 'Away': 'Time Fora',
+                'Home': 'Time Casa', 'Pontos Casa': 'Pts Casa (5)',
+                'Away': 'Time Fora', 'Pontos Fora': 'Pts Fora (5)',
                 'Odd_A_Lay': 'Odd Lay', 'Edge': nome_coluna_edge
             })
             
@@ -396,8 +416,11 @@ if check_password():
                     cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
                     return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;' for _ in row]
 
+                # Aplica as formatações e estilizações (sem casas decimais na pontuação)
                 tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
                     .format({
+                        'Pts Casa (5)': '{:.0f}',
+                        'Pts Fora (5)': '{:.0f}',
                         'Odd Lay': '{:.2f}',
                         nome_coluna_edge: '{:.1%}'
                     }) \
