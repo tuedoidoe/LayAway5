@@ -279,11 +279,6 @@ if check_password():
                     if not df_hist.empty:
                         df_hist_passado = df_hist[df_hist['Date'] < data_limite].copy()
                         
-                        # ========================================================
-                        # MATCHING INTELIGENTE (RAPIDFUZZ)
-                        # Combina os times do dia com os times da base histórica usando similaridade,
-                        # filtrando apenas dentro da própria liga.
-                        # ========================================================
                         df_hist_h = df_hist_passado[['League', 'Home']].rename(columns={'Home': 'Team'})
                         df_hist_a = df_hist_passado[['League', 'Away']].rename(columns={'Away': 'Team'})
                         df_hist_all_teams = pd.concat([df_hist_h, df_hist_a]).drop_duplicates()
@@ -299,16 +294,13 @@ if check_password():
                             
                             for time in times_hoje_liga:
                                 if time not in times_hist_liga:
-                                    # Usa o WRatio (excelente para variações de nomes e siglas) com corte de 80%
                                     match = process.extractOne(time, times_hist_liga, scorer=fuzz.WRatio)
                                     if match and match[1] >= 80:
                                         dicionario_times[(liga, time)] = match[0]
                         
-                        # Aplica a tradução inteligente
                         if dicionario_times:
                             df_alvo['Home'] = df_alvo.apply(lambda r: dicionario_times.get((r['League'], r['Home']), r['Home']), axis=1)
                             df_alvo['Away'] = df_alvo.apply(lambda r: dicionario_times.get((r['League'], r['Away']), r['Away']), axis=1)
-                        # ========================================================
                         
                         df_completo = pd.concat([df_hist_passado, df_alvo], ignore_index=True)
                     else:
@@ -316,26 +308,20 @@ if check_password():
                         
                     df_completo = df_completo.sort_values(["Date", "Home"]).reset_index(drop=True)
                     
-                    # ========================================================
-                    # CÁLCULO DE PONTOS BLINDADO (ÚLTIMOS 5 JOGOS)
-                    # ========================================================
                     df_completo['Pts_H'] = np.where(df_completo['Goals_H_FT'] > df_completo['Goals_A_FT'], 3, 
                                            np.where(df_completo['Goals_H_FT'] == df_completo['Goals_A_FT'], 1, 0))
                     
                     df_completo['Pts_A'] = np.where(df_completo['Goals_A_FT'] > df_completo['Goals_H_FT'], 3, 
                                            np.where(df_completo['Goals_A_FT'] == df_completo['Goals_H_FT'], 1, 0))
                     
-                    # Calcula a SOMA e a QUANTIDADE de jogos na janela de 5
                     soma_pts_casa = df_completo.groupby('Home')['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
                     qtd_jogos_casa = df_completo.groupby('Home')['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
                     
                     soma_pts_fora = df_completo.groupby('Away')['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
                     qtd_jogos_fora = df_completo.groupby('Away')['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
                     
-                    # Se tiver histórico (count > 0), mostra a soma (0, 1, 2...). Se não tiver, mostra "-"
                     df_completo['Pontos Casa'] = np.where(qtd_jogos_casa > 0, soma_pts_casa.fillna(0).astype(int).astype(str), "-")
                     df_completo['Pontos Fora'] = np.where(qtd_jogos_fora > 0, soma_pts_fora.fillna(0).astype(int).astype(str), "-")
-                    # ========================================================
                     
                     df_completo['Prob_1x2_A'] = safe_prob(df_completo['Odd_A_Back'])
                     df_completo['Prob_CS_Resistance'] = safe_prob(df_completo['Odd_CS_1x0_Lay']) + safe_prob(df_completo['Odd_CS_2x1_Lay'])
@@ -442,11 +428,37 @@ if check_password():
                         use_container_width=True
                     )
                 
-                def cores_alternadas(row):
+                # ========================================================
+                # NOVA FUNÇÃO DE ESTILIZAÇÃO COM DESTAQUE CONDICIONAL
+                # ========================================================
+                def estilizar_linhas_e_destacar_pontos(row):
                     cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
-                    return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;' for _ in row]
+                    estilos = [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;'] * len(row)
+                    
+                    try:
+                        idx_casa = list(row.index).index('Pts Casa (5j)')
+                        idx_fora = list(row.index).index('Pts Fora (5j)')
+                        
+                        val_casa = str(row['Pts Casa (5j)'])
+                        val_fora = str(row['Pts Fora (5j)'])
+                        
+                        pts_casa = int(val_casa) if val_casa.isdigit() else -1
+                        pts_fora = int(val_fora) if val_fora.isdigit() else -1
+                        
+                        # Estilo vencedor: Verde brilhante e texto um pouco maior/mais grosso
+                        estilo_destaque = f'background-color: {cor_fundo}; color: #00d26a; font-weight: 900; text-align: center !important; font-size: 18px;'
+                        
+                        if pts_casa > pts_fora and pts_casa >= 0:
+                            estilos[idx_casa] = estilo_destaque
+                        elif pts_fora > pts_casa and pts_fora >= 0:
+                            estilos[idx_fora] = estilo_destaque
+                            
+                    except ValueError:
+                        pass # Continua normalmente se as colunas não forem encontradas
+                        
+                    return estilos
 
-                tabela_estilizada = tabela.style.apply(cores_alternadas, axis=1) \
+                tabela_estilizada = tabela.style.apply(estilizar_linhas_e_destacar_pontos, axis=1) \
                     .format({
                         'Odd Lay': '{:.2f}',
                         nome_coluna_edge: '{:.1%}'
