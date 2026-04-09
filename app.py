@@ -6,6 +6,7 @@ import warnings
 from datetime import datetime
 import requests
 import io
+from rapidfuzz import process, fuzz
 
 warnings.filterwarnings("ignore")
 
@@ -41,20 +42,19 @@ st.markdown("""
         flex-direction: row !important;
         align-items: center !important;
         justify-content: space-between !important;
-        height: 32px !important; /* Diminui a altura da caixa */
+        height: 32px !important;
         min-height: 32px !important;
     }
     div[data-testid="stNumberInputStepDown"] {
-        order: 1 !important; /* Joga o - para a esquerda */
+        order: 1 !important; 
     }
     div[data-testid="stNumberInputContainer"] input {
-        order: 2 !important; /* Mantém o texto no meio */
+        order: 2 !important; 
         text-align: center !important;
     }
     div[data-testid="stNumberInputStepUp"] {
-        order: 3 !important; /* Joga o + para a direita */
+        order: 3 !important; 
     }
-    /* ========================================= */
     
     /* Cor do Botão Principal (Azul) */
     div[data-testid="stButton"] > button {
@@ -278,45 +278,63 @@ if check_password():
                     
                     if not df_hist.empty:
                         df_hist_passado = df_hist[df_hist['Date'] < data_limite].copy()
+                        
+                        # ========================================================
+                        # MATCHING INTELIGENTE (RAPIDFUZZ)
+                        # Combina os times do dia com os times da base histórica usando similaridade,
+                        # filtrando apenas dentro da própria liga.
+                        # ========================================================
+                        df_hist_h = df_hist_passado[['League', 'Home']].rename(columns={'Home': 'Team'})
+                        df_hist_a = df_hist_passado[['League', 'Away']].rename(columns={'Away': 'Team'})
+                        df_hist_all_teams = pd.concat([df_hist_h, df_hist_a]).drop_duplicates()
+                        
+                        dicionario_times = {}
+                        for liga in df_alvo['League'].unique():
+                            times_hist_liga = df_hist_all_teams[df_hist_all_teams['League'] == liga]['Team'].tolist()
+                            if not times_hist_liga:
+                                continue
+                            
+                            times_hoje_liga = set(df_alvo[df_alvo['League'] == liga]['Home']).union(
+                                              set(df_alvo[df_alvo['League'] == liga]['Away']))
+                            
+                            for time in times_hoje_liga:
+                                if time not in times_hist_liga:
+                                    # Usa o WRatio (excelente para variações de nomes e siglas) com corte de 80%
+                                    match = process.extractOne(time, times_hist_liga, scorer=fuzz.WRatio)
+                                    if match and match[1] >= 80:
+                                        dicionario_times[(liga, time)] = match[0]
+                        
+                        # Aplica a tradução inteligente
+                        if dicionario_times:
+                            df_alvo['Home'] = df_alvo.apply(lambda r: dicionario_times.get((r['League'], r['Home']), r['Home']), axis=1)
+                            df_alvo['Away'] = df_alvo.apply(lambda r: dicionario_times.get((r['League'], r['Away']), r['Away']), axis=1)
+                        # ========================================================
+                        
                         df_completo = pd.concat([df_hist_passado, df_alvo], ignore_index=True)
                     else:
                         df_completo = df_alvo.copy()
-                    
-                    # ========================================================
-                    # NORMALIZAÇÃO DE NOMES DE TIMES
-                    # Remove hifens e espaços extras para garantir que o 
-                    # cruzamento de dados funcione sempre (ex: "Al-Ettifaq" vira "Al Ettifaq")
-                    # ========================================================
-                    df_completo['Home'] = df_completo['Home'].astype(str).str.replace('-', ' ', regex=False).str.strip()
-                    df_completo['Away'] = df_completo['Away'].astype(str).str.replace('-', ' ', regex=False).str.strip()
                         
                     df_completo = df_completo.sort_values(["Date", "Home"]).reset_index(drop=True)
                     
                     # ========================================================
-                    # LÓGICA BLINDADA: CÁLCULO DE PONTOS (ÚLTIMOS 5 JOGOS)
+                    # CÁLCULO DE PONTOS BLINDADO (ÚLTIMOS 5 JOGOS)
                     # ========================================================
-                    goals_h = pd.to_numeric(df_completo['Goals_H_FT'], errors='coerce')
-                    goals_a = pd.to_numeric(df_completo['Goals_A_FT'], errors='coerce')
-
-                    df_completo['Pts_H'] = 0
-                    df_completo['Pts_A'] = 0
-
-                    # Garante que só conta pontos se houver placar válido registrado
-                    valid_games = goals_h.notnull() & goals_a.notnull()
-                    df_completo.loc[valid_games & (goals_h > goals_a), 'Pts_H'] = 3
-                    df_completo.loc[valid_games & (goals_h == goals_a), 'Pts_H'] = 1
-
-                    df_completo.loc[valid_games & (goals_a > goals_h), 'Pts_A'] = 3
-                    df_completo.loc[valid_games & (goals_h == goals_a), 'Pts_A'] = 1
+                    df_completo['Pts_H'] = np.where(df_completo['Goals_H_FT'] > df_completo['Goals_A_FT'], 3, 
+                                           np.where(df_completo['Goals_H_FT'] == df_completo['Goals_A_FT'], 1, 0))
                     
-                    # Soma e força para INTEIRO (astype(int)) para remover os zeros decimais
-                    df_completo['Pontos Casa'] = df_completo.groupby('Home')['Pts_H'].transform(
-                        lambda x: x.shift(1).rolling(5, min_periods=1).sum()
-                    ).fillna(0).astype(int)
+                    df_completo['Pts_A'] = np.where(df_completo['Goals_A_FT'] > df_completo['Goals_H_FT'], 3, 
+                                           np.where(df_completo['Goals_A_FT'] == df_completo['Goals_H_FT'], 1, 0))
                     
-                    df_completo['Pontos Fora'] = df_completo.groupby('Away')['Pts_A'].transform(
-                        lambda x: x.shift(1).rolling(5, min_periods=1).sum()
-                    ).fillna(0).astype(int)
+                    # Calcula a SOMA e a QUANTIDADE de jogos na janela de 5
+                    soma_pts_casa = df_completo.groupby('Home')['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
+                    qtd_jogos_casa = df_completo.groupby('Home')['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
+                    
+                    soma_pts_fora = df_completo.groupby('Away')['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
+                    qtd_jogos_fora = df_completo.groupby('Away')['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
+                    
+                    # Se tiver histórico (count > 0), mostra a soma (0, 1, 2...). Se não tiver, mostra "-"
+                    df_completo['Pontos Casa'] = np.where(qtd_jogos_casa > 0, soma_pts_casa.fillna(0).astype(int).astype(str), "-")
+                    df_completo['Pontos Fora'] = np.where(qtd_jogos_fora > 0, soma_pts_fora.fillna(0).astype(int).astype(str), "-")
                     # ========================================================
                     
                     df_completo['Prob_1x2_A'] = safe_prob(df_completo['Odd_A_Back'])
@@ -383,7 +401,6 @@ if check_password():
                 st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Edge Mínimo (%)</div>", unsafe_allow_html=True)
                 edge_selecionado = st.number_input("Edge Mínimo (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f", label_visibility="collapsed")
             
-            # ORDEM DOS FILTROS APLICADOS
             df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
             
             edge_decimal = edge_selecionado / 100.0
@@ -399,7 +416,6 @@ if check_password():
 
             nome_coluna_edge = f'Vantagem'
 
-            # Nova estrutura da tabela
             tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Pontos Casa', 'Away', 'Pontos Fora', 'Odd_A_Lay', 'Edge']].copy()
             tabela = tabela.rename(columns={
                 'Date': 'Data', 'Time': 'Horário', 'League': 'Liga',
