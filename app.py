@@ -402,7 +402,7 @@ if check_password():
 
             nome_coluna_edge = f'Vantagem'
 
-            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Pontos Casa', 'Away', 'Pontos Fora', 'Odd_A_Lay', 'Edge']].copy()
+            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Pontos Casa', 'Pontos Fora', 'Odd_A_Lay', 'Edge']].copy()
             tabela = tabela.rename(columns={
                 'Date': 'Data', 'Time': 'Horário', 'League': 'Liga',
                 'Home': 'Time Casa', 'Pontos Casa': 'Pts Casa (5j)',
