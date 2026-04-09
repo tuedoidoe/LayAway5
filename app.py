@@ -281,17 +281,33 @@ if check_password():
                         df_completo = pd.concat([df_hist_passado, df_alvo], ignore_index=True)
                     else:
                         df_completo = df_alvo.copy()
+                    
+                    # ========================================================
+                    # NORMALIZAÇÃO DE NOMES DE TIMES
+                    # Remove hifens e espaços extras para garantir que o 
+                    # cruzamento de dados funcione sempre (ex: "Al-Ettifaq" vira "Al Ettifaq")
+                    # ========================================================
+                    df_completo['Home'] = df_completo['Home'].astype(str).str.replace('-', ' ', regex=False).str.strip()
+                    df_completo['Away'] = df_completo['Away'].astype(str).str.replace('-', ' ', regex=False).str.strip()
                         
                     df_completo = df_completo.sort_values(["Date", "Home"]).reset_index(drop=True)
                     
                     # ========================================================
-                    # NOVA LÓGICA: CÁLCULO DE PONTOS (ÚLTIMOS 5 JOGOS)
+                    # LÓGICA BLINDADA: CÁLCULO DE PONTOS (ÚLTIMOS 5 JOGOS)
                     # ========================================================
-                    df_completo['Pts_H'] = np.where(df_completo['Goals_H_FT'] > df_completo['Goals_A_FT'], 3, 
-                                           np.where(df_completo['Goals_H_FT'] == df_completo['Goals_A_FT'], 1, 0))
-                    
-                    df_completo['Pts_A'] = np.where(df_completo['Goals_A_FT'] > df_completo['Goals_H_FT'], 3, 
-                                           np.where(df_completo['Goals_A_FT'] == df_completo['Goals_H_FT'], 1, 0))
+                    goals_h = pd.to_numeric(df_completo['Goals_H_FT'], errors='coerce')
+                    goals_a = pd.to_numeric(df_completo['Goals_A_FT'], errors='coerce')
+
+                    df_completo['Pts_H'] = 0
+                    df_completo['Pts_A'] = 0
+
+                    # Garante que só conta pontos se houver placar válido registrado
+                    valid_games = goals_h.notnull() & goals_a.notnull()
+                    df_completo.loc[valid_games & (goals_h > goals_a), 'Pts_H'] = 3
+                    df_completo.loc[valid_games & (goals_h == goals_a), 'Pts_H'] = 1
+
+                    df_completo.loc[valid_games & (goals_a > goals_h), 'Pts_A'] = 3
+                    df_completo.loc[valid_games & (goals_h == goals_a), 'Pts_A'] = 1
                     
                     # Soma e força para INTEIRO (astype(int)) para remover os zeros decimais
                     df_completo['Pontos Casa'] = df_completo.groupby('Home')['Pts_H'].transform(
@@ -384,7 +400,7 @@ if check_password():
             nome_coluna_edge = f'Vantagem'
 
             # Nova estrutura da tabela
-            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Pontos Casa', 'Pontos Fora', 'Odd_A_Lay', 'Edge']].copy()
+            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Pontos Casa', 'Away', 'Pontos Fora', 'Odd_A_Lay', 'Edge']].copy()
             tabela = tabela.rename(columns={
                 'Date': 'Data', 'Time': 'Horário', 'League': 'Liga',
                 'Home': 'Time Casa', 'Pontos Casa': 'Pts Casa (5j)',
