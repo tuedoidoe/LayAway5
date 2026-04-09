@@ -386,11 +386,11 @@ if check_password():
             nome_coluna_edge = f'Vantagem'
 
             # Nova estrutura da tabela para incluir a pontuação
-            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Pontos Casa', 'Away', 'Pontos Fora', 'Odd_A_Lay', 'Edge']].copy()
+            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Pontos Casa', 'Pontos Fora', 'Odd_A_Lay', 'Edge']].copy()
             tabela = tabela.rename(columns={
                 'Date': 'Data', 'Time': 'Horário', 'League': 'Liga',
-                'Home': 'Time Casa', 'Pontos Casa': 'Pts Casa (5)',
-                'Away': 'Time Fora', 'Pontos Fora': 'Pts Fora (5)',
+                'Home': 'Time Casa', 'Pontos Casa': 'Pts Casa (5 jogos)',
+                'Away': 'Time Fora', 'Pontos Fora': 'Pts Fora (5 jogos)',
                 'Odd_A_Lay': 'Odd Lay', 'Edge': nome_coluna_edge
             })
             
