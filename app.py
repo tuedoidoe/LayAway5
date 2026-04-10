@@ -294,7 +294,7 @@ if check_password():
                     "Gimnasia La Plata": "Gimnasia L.P.",
                     "Al-Akhdoud": "Al Okhdood",
                     "Athlone Town": "Athlone",
-                    "Kerry FC": "Kerry"
+                    "Kerry FC": "Kerry",
                     "OB": "Odense",
                     "Lask Linz": "LASK",
                     "WSG Wattens": "Tirol",
