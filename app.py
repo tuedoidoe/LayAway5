@@ -271,7 +271,15 @@ if check_password():
                 tradutor_times = {
                     "UCD": "UC Dublin",
                     "KSV 1919": "Kapfenberg", 
-                    
+                    "Al-Jndal": "Al Jandal",
+                    "Jeddah Club": "Jeddah",
+                    "Deportivo": "Dep. La Coruna",
+                    "Nacional (Par)": "Nacional Asuncion",
+                    "Rapid Bucharest": "FC Rapid Bucuresti",
+                    "NEOM Sports Club": "Neom SC",
+                    "Al-Wahda (KSA)": "Al Wehda",
+                    "Erzgebirge": "Aue",
+                    "Zhejiang Greentown": "Zhejiang Professional",
                     # "Time na API Jogos do Dia": "Time na Base de Dados",
                 }
                 
