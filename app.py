@@ -271,7 +271,6 @@ if check_password():
                 tradutor_times = {
                     "UCD": "UC Dublin",
                     "KSV 1919: "Kapfenberg", 
-                    
                     # "Time na API Jogos do Dia": "Time na Base de Dados",
                 }
                 
