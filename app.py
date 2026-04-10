@@ -283,7 +283,7 @@ if check_password():
                     "Al-Raed (KSA)": "Al Raed",
                     "ASD Alcione": "Alcione Milano",
                     "Al-Fateh (KSA)": "Al Fateh",
-                    "Sportivo Luquen": "Sp. Luqueno",
+                    "Sportivo Luqueno": "Sp. Luqueno",
                     "Deportivo Riestra": "Dep. Riestra",
                     "Nottm Forest": "Nottingham",
                     "Al-Hazm (KSA)": "Al Hazem",
@@ -295,7 +295,13 @@ if check_password():
                     "Al-Akhdoud": "Al Okhdood",
                     "Athlone Town": "Athlone",
                     "Kerry FC": "Kerry"
-                    
+                    "OB": "Odense",
+                    "Lask Linz": "LASK",
+                    "WSG Wattens": "Tirol",
+                    "Al-Quadisiya (KSA)": "Al Qadsiah",
+                    "Shenzhen Peng City": "Shenzhen Xinpengcheng",
+                    "Qingdao Youth Island": "Qingdao West Coast"
+
                     # "Time na API Jogos do Dia": "Time na Base de Dados",
                 }
                 
