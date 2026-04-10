@@ -280,6 +280,22 @@ if check_password():
                     "Al-Wahda (KSA)": "Al Wehda",
                     "Erzgebirge": "Aue",
                     "Zhejiang Greentown": "Zhejiang Professional",
+                    "Al-Raed (KSA)": "Al Raed",
+                    "ASD Alcione": "Alcione Milano",
+                    "Al-Fateh (KSA)": "Al Fateh",
+                    "Sportivo Luquen": "Sp. Luqueno",
+                    "Deportivo Riestra": "Dep. Riestra",
+                    "Nottm Forest": "Nottingham",
+                    "Al-Hazm (KSA)": "Al Hazem",
+                    "Deportes Concepcion": "D. Concepcion",
+                    "Dhamk": "Damac",
+                    "Al-Taawoun Buraidah": "Al Taawon",
+                    "RZ Pellets WAC": "Wolfsberger AC",
+                    "Gimnasia La Plata": "Gimnasia L.P.",
+                    "Al-Akhdoud": "Al Okhdood",
+                    "Athlone Town": "Athlone",
+                    "Kerry FC": "Kerry"
+                    
                     # "Time na API Jogos do Dia": "Time na Base de Dados",
                 }
                 
