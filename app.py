@@ -263,10 +263,25 @@ if check_password():
                     "Turkish Super League": "TURKEY 1",
                     "US MLS": "USA 1"
                 }
+
+                # ========================================================
+                # DICIONÁRIO DE TIMES MANUAIS (Exceções que o robô não pega)
+                # Formato: "Nome na API (Jogos do Dia)": "Nome na Base de Dados Histórica"
+                # ========================================================
+                tradutor_times = {
+                    "UCD": "UC Dublin",
+                    "KSV 1919: "Kapfenberg", 
+                    
+                    # "Time na API Jogos do Dia": "Time na Base de Dados",
+                }
                 
                 if not df_alvo.empty and 'League' in df_alvo.columns:
                     df_alvo['League'] = df_alvo['League'].replace(tradutor_ligas)
                     df_alvo = df_alvo[df_alvo['League'].isin(ligas_autorizadas)].copy()
+                    
+                    # Aplica a tradução manual dos times antes de qualquer coisa
+                    df_alvo['Home'] = df_alvo['Home'].replace(tradutor_times)
+                    df_alvo['Away'] = df_alvo['Away'].replace(tradutor_times)
                 
                 if len(df_alvo) == 0:
                     st.info(f"A API não identificou jogos cadastrados e autorizados para {texto_data}.")
@@ -283,7 +298,7 @@ if check_password():
                         df_hist_a = df_hist_passado[['League', 'Away']].rename(columns={'Away': 'Team'})
                         df_hist_all_teams = pd.concat([df_hist_h, df_hist_a]).drop_duplicates()
                         
-                        dicionario_times = {}
+                        dicionario_times_fuzzy = {}
                         for liga in df_alvo['League'].unique():
                             times_hist_liga = df_hist_all_teams[df_hist_all_teams['League'] == liga]['Team'].tolist()
                             if not times_hist_liga:
@@ -296,11 +311,11 @@ if check_password():
                                 if time not in times_hist_liga:
                                     match = process.extractOne(time, times_hist_liga, scorer=fuzz.WRatio)
                                     if match and match[1] >= 80:
-                                        dicionario_times[(liga, time)] = match[0]
+                                        dicionario_times_fuzzy[(liga, time)] = match[0]
                         
-                        if dicionario_times:
-                            df_alvo['Home'] = df_alvo.apply(lambda r: dicionario_times.get((r['League'], r['Home']), r['Home']), axis=1)
-                            df_alvo['Away'] = df_alvo.apply(lambda r: dicionario_times.get((r['League'], r['Away']), r['Away']), axis=1)
+                        if dicionario_times_fuzzy:
+                            df_alvo['Home'] = df_alvo.apply(lambda r: dicionario_times_fuzzy.get((r['League'], r['Home']), r['Home']), axis=1)
+                            df_alvo['Away'] = df_alvo.apply(lambda r: dicionario_times_fuzzy.get((r['League'], r['Away']), r['Away']), axis=1)
                         
                         df_completo = pd.concat([df_hist_passado, df_alvo], ignore_index=True)
                     else:
@@ -429,7 +444,7 @@ if check_password():
                     )
                 
                 # ========================================================
-                # NOVA LÓGICA DE CORES: VERDE, VERMELHO E AMARELO
+                # LÓGICA DE CORES: VERDE, VERMELHO E AMARELO
                 # ========================================================
                 def estilizar_linhas_e_destacar_pontos(row):
                     cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
@@ -445,24 +460,23 @@ if check_password():
                         pts_casa = int(val_casa) if val_casa.isdigit() else -1
                         pts_fora = int(val_fora) if val_fora.isdigit() else -1
                         
-                        # Definição das cores
                         estilo_maior = f'background-color: {cor_fundo}; color: #00d26a; font-weight: 900; text-align: center !important; font-size: 18px;' # Verde
                         estilo_menor = f'background-color: {cor_fundo}; color: #ff4b4b; font-weight: 900; text-align: center !important; font-size: 18px;' # Vermelho
                         estilo_empate = f'background-color: {cor_fundo}; color: #ffd700; font-weight: 900; text-align: center !important; font-size: 18px;' # Amarelo
                         
-                        if pts_casa >= 0 and pts_fora >= 0: # Garante que ambos têm pontuação
+                        if pts_casa >= 0 and pts_fora >= 0: 
                             if pts_casa == pts_fora:
                                 estilos[idx_casa] = estilo_empate
                                 estilos[idx_fora] = estilo_empate
                             elif pts_casa > pts_fora:
                                 estilos[idx_casa] = estilo_maior
                                 estilos[idx_fora] = estilo_menor
-                            else: # pts_fora > pts_casa
+                            else: 
                                 estilos[idx_casa] = estilo_menor
                                 estilos[idx_fora] = estilo_maior
                                 
                     except ValueError:
-                        pass # Continua normalmente se as colunas não forem encontradas
+                        pass
                         
                     return estilos
 
