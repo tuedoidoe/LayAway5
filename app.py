@@ -354,11 +354,9 @@ if check_password():
                     # ========================================================
                     # CÁLCULO DE PONTOS E SALDO DE GOLS
                     # ========================================================
-                    # Converte gols para numérico para evitar erros na subtração
                     gols_h_num = pd.to_numeric(df_completo['Goals_H_FT'], errors='coerce')
                     gols_a_num = pd.to_numeric(df_completo['Goals_A_FT'], errors='coerce')
                     
-                    # Saldo de Gols da Partida (Home e Away)
                     df_completo['GD_H'] = gols_h_num - gols_a_num
                     df_completo['GD_A'] = gols_a_num - gols_h_num
 
@@ -368,7 +366,6 @@ if check_password():
                     df_completo['Pts_A'] = np.where(df_completo['Goals_A_FT'] > df_completo['Goals_H_FT'], 3, 
                                            np.where(df_completo['Goals_A_FT'] == df_completo['Goals_H_FT'], 1, 0))
                     
-                    # Somas e Contagens usando Rolling
                     soma_pts_casa = df_completo.groupby('Home')['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
                     soma_sg_casa = df_completo.groupby('Home')['GD_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
                     qtd_jogos_casa = df_completo.groupby('Home')['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
@@ -377,7 +374,6 @@ if check_password():
                     soma_sg_fora = df_completo.groupby('Away')['GD_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
                     qtd_jogos_fora = df_completo.groupby('Away')['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
                     
-                    # Atribuição formatada, incluindo "traço" se não houver histórico
                     df_completo['Pontos Casa'] = np.where(qtd_jogos_casa > 0, soma_pts_casa.fillna(0).astype(int).astype(str), "-")
                     df_completo['SG Casa'] = np.where(qtd_jogos_casa > 0, soma_sg_casa.fillna(0).astype(int).astype(str), "-")
                     
@@ -463,12 +459,15 @@ if check_password():
 
             nome_coluna_edge = f'Vantagem'
 
-            # Incluindo SG Casa e SG Fora logo após as colunas de Pontos
+            # Aplicação da nova ordem de colunas
             tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Pontos Casa', 'Pontos Fora', 'SG Casa', 'SG Fora', 'Odd_A_Lay', 'Edge']].copy()
+            
+            # Renomeando as colunas mantendo a nova ordem agrupada
             tabela = tabela.rename(columns={
                 'Date': 'Data', 'Time': 'Horário', 'League': 'Liga',
-                'Home': 'Time Casa', 'Pontos Casa': 'Pts Casa (5j)', 'SG Casa': 'SG Casa (5j)',
-                'Away': 'Time Fora', 'Pontos Fora': 'Pts Fora (5j)', 'SG Fora': 'SG Fora (5j)',
+                'Home': 'Time Casa', 'Away': 'Time Fora',
+                'Pontos Casa': 'Pts Casa (5j)', 'Pontos Fora': 'Pts Fora (5j)',
+                'SG Casa': 'SG Casa (5j)', 'SG Fora': 'SG Fora (5j)',
                 'Odd_A_Lay': 'Odd Lay', 'Edge': nome_coluna_edge
             })
             
@@ -491,59 +490,57 @@ if check_password():
                     )
                 
                 # ========================================================
-                # LÓGICA DE CORES: PONTOS E SALDO DE GOLS (SG)
+                # LÓGICA DE CORES: VERDE, VERMELHO E AMARELO
                 # ========================================================
                 def estilizar_linhas_e_destacar_pontos(row):
                     cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
                     estilos = [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;'] * len(row)
                     
                     try:
-                        # Padrões de Cor
-                        estilo_verde = f'background-color: {cor_fundo}; color: #00d26a; font-weight: 900; text-align: center !important; font-size: 18px;'
-                        estilo_vermelho = f'background-color: {cor_fundo}; color: #ff4b4b; font-weight: 900; text-align: center !important; font-size: 18px;'
-                        estilo_amarelo = f'background-color: {cor_fundo}; color: #ffd700; font-weight: 900; text-align: center !important; font-size: 18px;'
+                        estilo_maior = f'background-color: {cor_fundo}; color: #00d26a; font-weight: 900; text-align: center !important; font-size: 18px;' # Verde
+                        estilo_menor = f'background-color: {cor_fundo}; color: #ff4b4b; font-weight: 900; text-align: center !important; font-size: 18px;' # Vermelho
+                        estilo_empate = f'background-color: {cor_fundo}; color: #ffd700; font-weight: 900; text-align: center !important; font-size: 18px;' # Amarelo
                         
-                        # --- 1. Formatação dos Pontos (Comparação Maior/Menor) ---
+                        # --- 1. Formatação dos Pontos ---
                         if 'Pts Casa (5j)' in row.index and 'Pts Fora (5j)' in row.index:
-                            idx_pts_casa = list(row.index).index('Pts Casa (5j)')
-                            idx_pts_fora = list(row.index).index('Pts Fora (5j)')
+                            idx_casa = list(row.index).index('Pts Casa (5j)')
+                            idx_fora = list(row.index).index('Pts Fora (5j)')
                             
-                            val_pts_casa = str(row['Pts Casa (5j)'])
-                            val_pts_fora = str(row['Pts Fora (5j)'])
+                            val_casa = str(row['Pts Casa (5j)'])
+                            val_fora = str(row['Pts Fora (5j)'])
                             
-                            pts_casa = int(val_pts_casa) if val_pts_casa.isdigit() else -1
-                            pts_fora = int(val_pts_fora) if val_pts_fora.isdigit() else -1
+                            pts_casa = int(val_casa) if val_casa.isdigit() else -1
+                            pts_fora = int(val_fora) if val_fora.isdigit() else -1
                             
                             if pts_casa >= 0 and pts_fora >= 0: 
                                 if pts_casa == pts_fora:
-                                    estilos[idx_pts_casa] = estilo_amarelo
-                                    estilos[idx_pts_fora] = estilo_amarelo
+                                    estilos[idx_casa] = estilo_empate
+                                    estilos[idx_fora] = estilo_empate
                                 elif pts_casa > pts_fora:
-                                    estilos[idx_pts_casa] = estilo_verde
-                                    estilos[idx_pts_fora] = estilo_vermelho
+                                    estilos[idx_casa] = estilo_maior
+                                    estilos[idx_fora] = estilo_menor
                                 else: 
-                                    estilos[idx_pts_casa] = estilo_vermelho
-                                    estilos[idx_pts_fora] = estilo_verde
-
-                        # --- 2. Formatação do Saldo de Gols (>0 Verde, <0 Vermelho, =0 Amarelo) ---
+                                    estilos[idx_casa] = estilo_menor
+                                    estilos[idx_fora] = estilo_maior
+                                    
+                        # --- 2. Formatação do Saldo de Gols ---
                         for col_sg in ['SG Casa (5j)', 'SG Fora (5j)']:
                             if col_sg in row.index:
                                 idx_sg = list(row.index).index(col_sg)
                                 val_sg = str(row[col_sg])
                                 
-                                # Verifica se não é o traço de falta de dados
                                 if val_sg != "-":
                                     try:
                                         sg = int(val_sg)
                                         if sg > 0:
-                                            estilos[idx_sg] = estilo_verde
+                                            estilos[idx_sg] = estilo_maior # Verde
                                         elif sg < 0:
-                                            estilos[idx_sg] = estilo_vermelho
+                                            estilos[idx_sg] = estilo_menor # Vermelho
                                         else:
-                                            estilos[idx_sg] = estilo_amarelo
+                                            estilos[idx_sg] = estilo_empate # Amarelo
                                     except ValueError:
                                         pass
-                                        
+
                     except ValueError:
                         pass
                         
