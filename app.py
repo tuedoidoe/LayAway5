@@ -266,7 +266,6 @@ if check_password():
 
                 # ========================================================
                 # DICIONÁRIO DE TIMES MANUAIS (Exceções que o robô não pega)
-                # Formato: "Nome na API (Jogos do Dia)": "Nome na Base de Dados Histórica"
                 # ========================================================
                 tradutor_times = {
                     "UCD": "UC Dublin",
@@ -307,7 +306,6 @@ if check_password():
                     df_alvo['League'] = df_alvo['League'].replace(tradutor_ligas)
                     df_alvo = df_alvo[df_alvo['League'].isin(ligas_autorizadas)].copy()
                     
-                    # Aplica a tradução manual dos times antes de qualquer coisa
                     df_alvo['Home'] = df_alvo['Home'].replace(tradutor_times)
                     df_alvo['Away'] = df_alvo['Away'].replace(tradutor_times)
                 
@@ -379,6 +377,27 @@ if check_password():
                     
                     df_completo['Pontos Fora'] = np.where(qtd_jogos_fora > 0, soma_pts_fora.fillna(0).astype(int).astype(str), "-")
                     df_completo['SG Fora'] = np.where(qtd_jogos_fora > 0, soma_sg_fora.fillna(0).astype(int).astype(str), "-")
+                    
+                    # ========================================================
+                    # EXPECTATIVA DE GOLS DO MERCADO (Pseudo-xG)
+                    # ========================================================
+                    prob_h = safe_prob(df_completo['Odd_H_Back'])
+                    prob_a = safe_prob(df_completo['Odd_A_Back'])
+                    prob_o25 = safe_prob(df_completo['Odd_Over25_FT_Back'])
+                    
+                    # Probabilidade de Empate implícita no mercado
+                    prob_d = np.clip(1.0 - prob_h - prob_a, 0.1, 1.0)
+                    
+                    # Total de Gols Esperados (ExpTG) usando base no Over 2.5
+                    exp_tg = np.where(prob_o25 > 0, 1.25 + (prob_o25 * 2.5), 2.5) 
+                    
+                    soma_probs = prob_h + prob_a + prob_d
+                    
+                    # Distribuição proporcional da força para prever o xG
+                    df_completo['XG_Casa'] = np.where(prob_h > 0, (exp_tg * (prob_h + 0.5 * prob_d) / soma_probs), np.nan)
+                    df_completo['XG_Fora'] = np.where(prob_a > 0, (exp_tg * (prob_a + 0.5 * prob_d) / soma_probs), np.nan)
+                    
+                    # ========================================================
                     
                     df_completo['Prob_1x2_A'] = safe_prob(df_completo['Odd_A_Back'])
                     df_completo['Prob_CS_Resistance'] = safe_prob(df_completo['Odd_CS_1x0_Lay']) + safe_prob(df_completo['Odd_CS_2x1_Lay'])
@@ -459,15 +478,15 @@ if check_password():
 
             nome_coluna_edge = f'Vantagem'
 
-            # Aplicação da nova ordem de colunas
-            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Pontos Casa', 'Pontos Fora', 'SG Casa', 'SG Fora', 'Odd_A_Lay', 'Edge']].copy()
+            # Aplicação da nova ordem com o xG incluído
+            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Pontos Casa', 'Pontos Fora', 'SG Casa', 'SG Fora', 'XG_Casa', 'XG_Fora', 'Odd_A_Lay', 'Edge']].copy()
             
-            # Renomeando as colunas mantendo a nova ordem agrupada
             tabela = tabela.rename(columns={
                 'Date': 'Data', 'Time': 'Horário', 'League': 'Liga',
                 'Home': 'Time Casa', 'Away': 'Time Fora',
                 'Pontos Casa': 'Pts Casa (5j)', 'Pontos Fora': 'Pts Fora (5j)',
                 'SG Casa': 'SG Casa (5j)', 'SG Fora': 'SG Fora (5j)',
+                'XG_Casa': 'xG Casa', 'XG_Fora': 'xG Fora',
                 'Odd_A_Lay': 'Odd Lay', 'Edge': nome_coluna_edge
             })
             
@@ -490,7 +509,7 @@ if check_password():
                     )
                 
                 # ========================================================
-                # LÓGICA DE CORES: VERDE, VERMELHO E AMARELO
+                # LÓGICA DE CORES (Pontos, SG e xG)
                 # ========================================================
                 def estilizar_linhas_e_destacar_pontos(row):
                     cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
@@ -533,24 +552,49 @@ if check_password():
                                     try:
                                         sg = int(val_sg)
                                         if sg > 0:
-                                            estilos[idx_sg] = estilo_maior # Verde
+                                            estilos[idx_sg] = estilo_maior
                                         elif sg < 0:
-                                            estilos[idx_sg] = estilo_menor # Vermelho
+                                            estilos[idx_sg] = estilo_menor
                                         else:
-                                            estilos[idx_sg] = estilo_empate # Amarelo
+                                            estilos[idx_sg] = estilo_empate
                                     except ValueError:
                                         pass
+
+                        # --- 3. Formatação do Pseudo-xG ---
+                        if 'xG Casa' in row.index and 'xG Fora' in row.index:
+                            idx_xg_casa = list(row.index).index('xG Casa')
+                            idx_xg_fora = list(row.index).index('xG Fora')
+                            
+                            if pd.notna(row['xG Casa']) and pd.notna(row['xG Fora']):
+                                try:
+                                    xg_casa = float(row['xG Casa'])
+                                    xg_fora = float(row['xG Fora'])
+                                    
+                                    if xg_casa == xg_fora:
+                                        estilos[idx_xg_casa] = estilo_empate
+                                        estilos[idx_xg_fora] = estilo_empate
+                                    elif xg_casa > xg_fora:
+                                        estilos[idx_xg_casa] = estilo_maior
+                                        estilos[idx_xg_fora] = estilo_menor
+                                    else: 
+                                        estilos[idx_xg_casa] = estilo_menor
+                                        estilos[idx_xg_fora] = estilo_maior
+                                except ValueError:
+                                    pass
 
                     except ValueError:
                         pass
                         
                     return estilos
 
+                # Aplicando formatação nativa para formatar o xG com 2 casas decimais e exibir traço em caso de falta de dados
                 tabela_estilizada = tabela.style.apply(estilizar_linhas_e_destacar_pontos, axis=1) \
                     .format({
                         'Odd Lay': '{:.2f}',
-                        nome_coluna_edge: '{:.1%}'
-                    }) \
+                        nome_coluna_edge: '{:.1%}',
+                        'xG Casa': '{:.2f}',
+                        'xG Fora': '{:.2f}'
+                    }, na_rep="-") \
                     .hide(axis="index") \
                     .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
                     .set_table_styles([
