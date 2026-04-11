@@ -345,6 +345,7 @@ if check_password():
                     "Otelul Galati": "Otelul",
                     "Club 2 de Mayo de Pedro Juan Cab": "2 de Mayo",
                     "Club 2 de Mayo de Pedro Jua": "2 de Mayo",
+                    "Club 2 de Mayo": "2 de Mayo",
                     "Sportivo Luquen": "Sp. Luqueno",
                     "Calcio Avellino SSD": "Avellino",
                     "Olimpia": "Olimpia Asuncion",
@@ -372,24 +373,16 @@ if check_password():
                     "Grasshoppers Zurich": "Grasshoppers",
                     "LASK Linz": "LASK",
                     "First Vienna Fc 1894": "First Vienna",
+                    "First Vienna FC 1894": "First Vienna",
                     "Versailles 78 FC": "Versailles",
-                    "": "",
-                    "": "",
-                    "": "",
-                    "": "",
-                    "": "",
-                    "": "",
-                    "": "",
-                    "": "",
-                    "": "",
-                    "": "",
-                    "": "",
-                    "": "",
-                    "": "",
-                    "": "",
-                    
-                    
-                    
+                    "MFK Chrudim": "Chrudim",
+                    "MFK Karvina": "Karvina",
+                    "FC Blau Weiss Linz": "BW Linz",
+                    "Universidad de Chile": "U. De Chile",
+                    "Sassari Torres": "Torres",
+                    "Al-Khaleej Saihat": "Al Khaleej",
+                    "Inter Milan (Res)": "Inter U23",
+                    "Wexford F.C": "Wexford"                                   
                     
                     #==================================================
                     # "Time no Jogos do Dia": "Time na Base Histórica",
