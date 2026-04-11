@@ -344,7 +344,7 @@ if check_password():
                                 if time not in times_hist_liga:
                                     # CORREÇÃO CRÍTICA AQUI: Trocado fuzz.WRatio por fuzz.ratio e aumentado o limiar para 85
                                     match = process.extractOne(time, times_hist_liga, scorer=fuzz.ratio)
-                                    if match and match[1] >= 80:
+                                    if match and match[1] >= 75:
                                         dicionario_times_fuzzy[(liga, time)] = match[0]
                         
                         if dicionario_times_fuzzy:
