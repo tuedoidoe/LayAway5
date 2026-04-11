@@ -264,9 +264,6 @@ if check_password():
                     "US MLS": "USA 1"
                 }
 
-                # ========================================================
-                # DICIONÁRIO DE TIMES MANUAIS (Exceções que o robô não pega)
-                # ========================================================
                 tradutor_times = {
                     "UCD": "UC Dublin",
                     "KSV 1919": "Kapfenberg", 
@@ -385,15 +382,11 @@ if check_password():
                     prob_a = safe_prob(df_completo['Odd_A_Back'])
                     prob_o25 = safe_prob(df_completo['Odd_Over25_FT_Back'])
                     
-                    # Probabilidade de Empate implícita no mercado
                     prob_d = np.clip(1.0 - prob_h - prob_a, 0.1, 1.0)
-                    
-                    # Total de Gols Esperados (ExpTG) usando base no Over 2.5
                     exp_tg = np.where(prob_o25 > 0, 1.25 + (prob_o25 * 2.5), 2.5) 
                     
                     soma_probs = prob_h + prob_a + prob_d
                     
-                    # Distribuição proporcional da força para prever o xG
                     df_completo['XG_Casa'] = np.where(prob_h > 0, (exp_tg * (prob_h + 0.5 * prob_d) / soma_probs), np.nan)
                     df_completo['XG_Fora'] = np.where(prob_a > 0, (exp_tg * (prob_a + 0.5 * prob_d) / soma_probs), np.nan)
                     
@@ -478,7 +471,6 @@ if check_password():
 
             nome_coluna_edge = f'Vantagem'
 
-            # Aplicação da nova ordem com o xG incluído
             tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Pontos Casa', 'Pontos Fora', 'SG Casa', 'SG Fora', 'XG_Casa', 'XG_Fora', 'Odd_A_Lay', 'Edge']].copy()
             
             tabela = tabela.rename(columns={
@@ -509,7 +501,7 @@ if check_password():
                     )
                 
                 # ========================================================
-                # LÓGICA DE CORES (Pontos, SG e xG)
+                # LÓGICA DE CORES (Pontos, SG e xG por Thresholds)
                 # ========================================================
                 def estilizar_linhas_e_destacar_pontos(row):
                     cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
@@ -520,7 +512,7 @@ if check_password():
                         estilo_menor = f'background-color: {cor_fundo}; color: #ff4b4b; font-weight: 900; text-align: center !important; font-size: 18px;' # Vermelho
                         estilo_empate = f'background-color: {cor_fundo}; color: #ffd700; font-weight: 900; text-align: center !important; font-size: 18px;' # Amarelo
                         
-                        # --- 1. Formatação dos Pontos ---
+                        # --- 1. Formatação dos Pontos (Competição Direta) ---
                         if 'Pts Casa (5j)' in row.index and 'Pts Fora (5j)' in row.index:
                             idx_casa = list(row.index).index('Pts Casa (5j)')
                             idx_fora = list(row.index).index('Pts Fora (5j)')
@@ -542,7 +534,7 @@ if check_password():
                                     estilos[idx_casa] = estilo_menor
                                     estilos[idx_fora] = estilo_maior
                                     
-                        # --- 2. Formatação do Saldo de Gols ---
+                        # --- 2. Formatação do Saldo de Gols (>0, <0, =0) ---
                         for col_sg in ['SG Casa (5j)', 'SG Fora (5j)']:
                             if col_sg in row.index:
                                 idx_sg = list(row.index).index(col_sg)
@@ -560,25 +552,32 @@ if check_password():
                                     except ValueError:
                                         pass
 
-                        # --- 3. Formatação do Pseudo-xG ---
-                        if 'xG Casa' in row.index and 'xG Fora' in row.index:
+                        # --- 3. Formatação do Pseudo-xG por Thresholds (Limites) ---
+                        if 'xG Casa' in row.index:
                             idx_xg_casa = list(row.index).index('xG Casa')
-                            idx_xg_fora = list(row.index).index('xG Fora')
-                            
-                            if pd.notna(row['xG Casa']) and pd.notna(row['xG Fora']):
+                            if pd.notna(row['xG Casa']) and row['xG Casa'] != "-":
                                 try:
                                     xg_casa = float(row['xG Casa'])
+                                    if xg_casa >= 1.50:
+                                        estilos[idx_xg_casa] = estilo_maior # Verde (Forte)
+                                    elif xg_casa < 1.30:
+                                        estilos[idx_xg_casa] = estilo_menor # Vermelho (Fraco)
+                                    else:
+                                        estilos[idx_xg_casa] = estilo_empate # Amarelo (Médio)
+                                except ValueError:
+                                    pass
+
+                        if 'xG Fora' in row.index:
+                            idx_xg_fora = list(row.index).index('xG Fora')
+                            if pd.notna(row['xG Fora']) and row['xG Fora'] != "-":
+                                try:
                                     xg_fora = float(row['xG Fora'])
-                                    
-                                    if xg_casa == xg_fora:
-                                        estilos[idx_xg_casa] = estilo_empate
-                                        estilos[idx_xg_fora] = estilo_empate
-                                    elif xg_casa > xg_fora:
-                                        estilos[idx_xg_casa] = estilo_maior
-                                        estilos[idx_xg_fora] = estilo_menor
-                                    else: 
-                                        estilos[idx_xg_casa] = estilo_menor
-                                        estilos[idx_xg_fora] = estilo_maior
+                                    if xg_fora <= 1.00:
+                                        estilos[idx_xg_fora] = estilo_maior # Verde (Excelente p/ Lay)
+                                    elif xg_fora >= 1.25:
+                                        estilos[idx_xg_fora] = estilo_menor # Vermelho (Perigoso p/ Lay)
+                                    else:
+                                        estilos[idx_xg_fora] = estilo_empate # Amarelo (Atenção)
                                 except ValueError:
                                     pass
 
@@ -587,7 +586,6 @@ if check_password():
                         
                     return estilos
 
-                # Aplicando formatação nativa para formatar o xG com 2 casas decimais e exibir traço em caso de falta de dados
                 tabela_estilizada = tabela.style.apply(estilizar_linhas_e_destacar_pontos, axis=1) \
                     .format({
                         'Odd Lay': '{:.2f}',
