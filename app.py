@@ -298,7 +298,15 @@ if check_password():
                     "Shenzhen Peng City": "Shenzhen Xinpengcheng",
                     "Qingdao Youth Island": "Qingdao West Coast",
                     "Farense": "SC Farense",
-                    "Sporting Lisbon B": "Sporting CP B"
+                    "Sporting Lisbon B": "Sporting CP B",
+                    "Western Sydney Wanderers": "WS Wanderers",
+                    "Leverkusen": "Bayer Leverkusen",
+                    "Botosani": "FC Botosani",
+                    "Andorra CF": "Andorra"
+                    
+                    #==================================================
+                    # "Time no Jogos do Dia": "Time na Base Histórica",
+                    #==================================================
                 }
                 
                 if not df_alvo.empty and 'League' in df_alvo.columns:
@@ -336,7 +344,7 @@ if check_password():
                                 if time not in times_hist_liga:
                                     # CORREÇÃO CRÍTICA AQUI: Trocado fuzz.WRatio por fuzz.ratio e aumentado o limiar para 85
                                     match = process.extractOne(time, times_hist_liga, scorer=fuzz.ratio)
-                                    if match and match[1] >= 85:
+                                    if match and match[1] >= 80:
                                         dicionario_times_fuzzy[(liga, time)] = match[0]
                         
                         if dicionario_times_fuzzy:
