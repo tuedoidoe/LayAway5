@@ -279,7 +279,6 @@ if check_password():
                     "Al-Raed (KSA)": "Al Raed",
                     "ASD Alcione": "Alcione Milano",
                     "Al-Fateh (KSA)": "Al Fateh",
-                    "Sportivo Luqueno": "Sp. Luqueno",
                     "Deportivo Riestra": "Dep. Riestra",
                     "Nottm Forest": "Nottingham",
                     "Al-Hazm (KSA)": "Al Hazem",
@@ -329,11 +328,30 @@ if check_password():
                     "SSV Ulm": "Ulm",
                     "Cavese 1919": "Cavese",
                     "Villefranche Beaujolais": "Villefranche",
+                    "Leonesa": "Cultural Leonesa",
+                    "Al-Shabab (KSA)": "Al Shabab",
+                    "Al-Kholood Club": "Al Kholood",
+                    "Man Utd": "Manchester Utd",
+                    "Sporting Gijon": "Gijon",
+                    "AD Ceuta FC": "Ceuta",
+                    "FC Guidonia Montecelio 1937": "Guidonia",
+                    "Lusitania Futebol Clube": "Lusitania FC",
+                    "US Latina Calcio": "Latina",
+                    "Mgladbach": "B. Monchengladbach",
+                    "ASD Pineto Calcio": "Pineto",
+                    "AZ Picerno ASD": "Picerno",
+                    "Waldhof Mannheim": "Mannheim",
+                    "Otelul Galati": "Otelul",
+                    "Club 2 de Mayo de Pedro Juan Cab": "2 de Mayo",
+                    "Sportivo Luquen": "Sp. Luqueno",
+                    "Calcio Avellino SSD": "Avellino",
+                    "Olimpia": "Olimpia Asuncion",
+                    "Rubio Nu": "",
                     "": "",
                     "": "",
                     "": "",
-                    "": "",
-                    "": "",
+                    
+                    
                     
                     
                     #==================================================
@@ -376,7 +394,7 @@ if check_password():
                                 if time not in times_hist_liga:
                                     # CORREÇÃO CRÍTICA AQUI: Trocado fuzz.WRatio por fuzz.ratio e aumentado o limiar para 85
                                     match = process.extractOne(time, times_hist_liga, scorer=fuzz.ratio)
-                                    if match and match[1] >= 75:
+                                    if match and match[1] >= 80:
                                         dicionario_times_fuzzy[(liga, time)] = match[0]
                         
                         if dicionario_times_fuzzy:
