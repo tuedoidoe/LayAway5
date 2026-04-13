@@ -229,23 +229,23 @@ if check_password():
                     qtd_jogos_casa = df_completo.groupby('Home')['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
                     qtd_jogos_fora = df_completo.groupby('Away')['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
                     
-                    # 2. Clean Sheet Casa e FTS Fora (Frequências)
+                    # 2. Clean Sheet Casa e FTS Fora (Frequências em Formato Natural)
                     df_completo['Is_CS_Casa'] = (df_completo['Goals_A_FT'] == 0).astype(int)
                     df_completo['Is_FTS_Fora'] = (df_completo['Goals_A_FT'] == 0).astype(int)
                     
-                    soma_cs_casa = df_completo.groupby('Home')['Is_CS_Casa'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean()) * 100
-                    soma_fts_fora = df_completo.groupby('Away')['Is_FTS_Fora'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean()) * 100
+                    # REMOVIDO o * 100 daqui para entregar valores entre 0.00 e 1.00
+                    soma_cs_casa = df_completo.groupby('Home')['Is_CS_Casa'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
+                    soma_fts_fora = df_completo.groupby('Away')['Is_FTS_Fora'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
                     
                     # 3. Desvios Padrões (Volatilidade) e Vazamento
                     dp_gs_casa = df_completo.groupby('Home')['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
                     dp_gm_fora = df_completo.groupby('Away')['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
                     vaz_def_fora = df_completo.groupby('Away')['Goals_H_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
 
-                    # Aplicação ao DataFrame (Sem formato %)
+                    # Aplicação ao DataFrame (Formatação limpa c/ 2 decimais)
                     df_completo['Pontos Casa'] = np.where(qtd_jogos_casa > 0, soma_pts_casa.fillna(0).astype(int).astype(str), "-")
                     df_completo['Pontos Fora'] = np.where(qtd_jogos_fora > 0, soma_pts_fora.fillna(0).astype(int).astype(str), "-")
                     
-                    # FTS e CS agora em numérico 2 casas decimais, não como string "%"
                     df_completo['CS Casa'] = np.where(qtd_jogos_casa > 0, soma_cs_casa.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
                     df_completo['FTS Fora'] = np.where(qtd_jogos_fora > 0, soma_fts_fora.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
                     
