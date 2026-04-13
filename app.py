@@ -174,15 +174,14 @@ if check_password():
                 
                 df_alvo = pd.concat(df_alvo_lista, ignore_index=True) if df_alvo_lista else pd.DataFrame()
                 
-                # --- DICIONÁRIOS OMITIDOS AQUI PARA BREVIDADE NA RESPOSTA, MAS MANTENHA OS SEUS TRADUTORES NO CÓDIGO REAL ---
-                tradutor_ligas = {"Argentinian Primera Division": "ARGENTINA 1", "Argentinian Primera B Nacional": "ARGENTINA 2", "Brazilian Serie A": "BRAZIL 1", "US MLS": "USA 1"} # Exemplo curto, mantenha sua lista inteira
-                tradutor_times = {"Vasco Da Gama": "Vasco", "LA Galaxy": "Los Angeles Galaxy"} # Exemplo curto, mantenha sua lista inteira
+                tradutor_ligas = {"Argentinian Primera Division": "ARGENTINA 1", "Argentinian Primera B Nacional": "ARGENTINA 2", "Australian A-League Men": "AUSTRALIA 1", "Austrian Bundesliga": "AUSTRIA 1", "Austrian Erste Liga": "AUSTRIA 2", "Belgian First Division A": "BELGIUM 1", "Brazilian Serie A": "BRAZIL 1", "Chilean Primera Division": "CHILE 1", "Chinese Super League": "CHINA 1", "Czech 1 Liga": "CZECH 1", "Danish Superliga": "DENMARK 1", "Ecuadorian Serie A": "ECUADOR 1", "English Premier League": "ENGLAND 1", "English Championship": "ENGLAND 2", "English League 2": "ENGLAND 4", "UEFA Europa Conference League": "EUROPA CONFERENCE LEAGUE", "UEFA Europa League": "EUROPA LEAGUE", "French National": "FRANCE 3", "German Bundesliga": "GERMANY 1", "German 3 Liga": "GERMANY 3", "Icelandic Urvalsdeild": "ICELAND 1", "Irish Premier Division": "IRELAND 1", "Irish Division 1": "IRELAND 2", "Italian Serie B": "ITALY 2", "Italian Serie C": "ITALY 3", "Japanese J League": "JAPAN 1", "Mexican Liga MX": "MEXICO 1", "Norwegian Eliteserien": "NORWAY 1", "Paraguayan Primera Division": "PARAGUAY 1", "Portuguese Segunda Liga": "PORTUGAL 2", "Romanian Liga I": "ROMANIA 1", "Saudi Professional League": "SAUDI ARABIA 1", "South Korean K League 2": "SOUTH KOREA 2", "Spanish La Liga": "SPAIN 1", "Spanish Segunda Division": "SPAIN 2", "Swiss Super League": "SWITZERLAND 1", "Turkish Super League": "TURKEY 1", "US MLS": "USA 1"}
+                tradutor_times = {"UCD": "UC Dublin", "KSV 1919": "Kapfenberg", "Al-Jndal": "Al Jandal", "Jeddah Club": "Jeddah", "Deportivo": "Dep. La Coruna", "Nacional (Par)": "Nacional Asuncion", "Rapid Bucharest": "FC Rapid Bucuresti", "NEOM Sports Club": "Neom SC", "Al-Wahda (KSA)": "Al Wehda", "Erzgebirge": "Aue", "Zhejiang Greentown": "Zhejiang Professional", "Al-Raed (KSA)": "Al Raed", "ASD Alcione": "Alcione Milano", "Al-Fateh (KSA)": "Al Fateh", "Deportivo Riestra": "Dep. Riestra", "Nottm Forest": "Nottingham", "Al-Hazm (KSA)": "Al Hazem", "Deportes Concepcion": "D. Concepcion", "Dhamk": "Damac", "Al-Taawoun Buraidah": "Al Taawon", "RZ Pellets WAC": "Wolfsberger AC", "Gimnasia La Plata": "Gimnasia L.P.", "Al-Akhdoud": "Al Okhdood", "Athlone Town": "Athlone", "Kerry FC": "Kerry", "OB": "Odense", "Lask Linz": "LASK", "WSG Wattens": "Tirol", "Al-Quadisiya (KSA)": "Al Qadsiah", "Shenzhen Peng City": "Shenzhen Xinpengcheng", "Qingdao Youth Island": "Qingdao West Coast", "Farense": "SC Farense", "Sporting Lisbon B": "Sporting CP B", "Western Sydney Wanderers": "WS Wanderers", "Leverkusen": "Bayer Leverkusen", "Botosani": "FC Botosani", "Andorra CF": "Andorra", "Independiente Rivadavia": "Ind. Rivadavia", "Talleres": "Talleres Cordoba", "SV Austria Salzburg": "A. Salzburg", "Le Puy": "Le Puy-en-Velay", "Bray Wanderers": "Bray", "Colorado": "Colorado Rapids", "Deportes Limache": "Limache", "New England": "New England Revolution", "Vasco Da Gama": "Vasco", "Vasco da Gama": "Vasco", "LA Galaxy": "Los Angeles Galaxy", "Wehen Wiesbaden": "Wehen", "Universitatea Cluj": "U. Cluj", "EC Vitoria Salvador": "Vitoria", "Club Sportivo Ameliano": "Ameliano", "Red Bull Bragantino": "Bragantino", "Guarani (Par)": "Guarani", "Libertad": "Libertad Asuncion", "Rapid Vienna (Am)": "SK Rapid II", "S.S.D. Casarano Calcio": "Casarano", "ACS Petrolul 52": "Petrolul", "Csikszereda": "Csikszereda M. Ciuc", "1860 Munich": "Munich 1860", "SSV Ulm": "Ulm", "Cavese 1919": "Cavese", "Villefranche Beaujolais": "Villefranche", "Leonesa": "Cultural Leonesa", "Al-Shabab (KSA)": "Al Shabab", "Al-Kholood Club": "Al Kholood", "Man Utd": "Manchester Utd", "Sporting Gijon": "Gijon", "AD Ceuta FC": "Ceuta", "FC Guidonia Montecelio 1937": "Guidonia", "Lusitania Futebol Clube": "Lusitania FC", "US Latina Calcio": "Latina", "Mgladbach": "B. Monchengladbach", "ASD Pineto Calcio": "Pineto", "AZ Picerno ASD": "Picerno", "Waldhof Mannheim": "Mannheim", "Otelul Galati": "Otelul", "Club 2 de Mayo de Pedro Juan Cab": "2 de Mayo", "Club 2 de Mayo de Pedro Jua": "2 de Mayo", "Club 2 de Mayo": "2 de Mayo", "Sportivo Luquen": "Sp. Luqueno", "Calcio Avellino SSD": "Avellino", "Olimpia": "Olimpia Asuncion", "Team Altamura": "Altamura", "Slovan Liberec": "Liberec", "FC Basel": "Basel", "Cadiz": "Cadiz CF", "Rot-Weiss Essen": "RW Essen", "Everton De Vina": "Everton", "U. De Concepcion": "D. Concepcion", "Galway Utd": "Galway", "Sportivo San Lorenzo": "San Lorenzo", "Deportivo Recoleta": "Recoleta", "Sportivo Luqueno": "Sp. Luqueno", "Fatih Karagumruk Istanbul": "Karagumruk", "Banik Ostrava": "Ostrava", "SSD Bari": "Bari", "Coquimbo Unido": "Coquimbo", "Rapid Vienna": "SK Rapid", "Arzignanochiampo": "Arzignano", "Nuovo Campobasso": "Campobasso", "Pesaro": "Vis Pesaro", "Bohemians 1905": "Bohemians", "SV Ried": "Ried", "Grasshoppers Zurich": "Grasshoppers", "LASK Linz": "LASK", "First Vienna Fc 1894": "First Vienna", "First Vienna FC 1894": "First Vienna", "Versailles 78 FC": "Versailles", "MFK Chrudim": "Chrudim", "MFK Karvina": "Karvina", "FC Blau Weiss Linz": "BW Linz", "Universidad de Chile": "U. De Chile", "Sassari Torres": "Torres", "Al-Khaleej Saihat": "Al Khaleej", "Inter Milan (Res)": "Inter U23", "Wexford F.C": "Wexford"}
                 
                 if not df_alvo.empty and 'League' in df_alvo.columns:
-                    # df_alvo['League'] = df_alvo['League'].replace(tradutor_ligas) # Descomente na versão final
+                    df_alvo['League'] = df_alvo['League'].replace(tradutor_ligas)
                     df_alvo = df_alvo[df_alvo['League'].isin(ligas_autorizadas)].copy()
-                    # df_alvo['Home'] = df_alvo['Home'].replace(tradutor_times) # Descomente na versão final
-                    # df_alvo['Away'] = df_alvo['Away'].replace(tradutor_times) # Descomente na versão final
+                    df_alvo['Home'] = df_alvo['Home'].replace(tradutor_times)
+                    df_alvo['Away'] = df_alvo['Away'].replace(tradutor_times)
                 
                 if len(df_alvo) == 0:
                     st.info(f"A API não identificou jogos cadastrados e autorizados para {texto_data}.")
@@ -351,7 +350,7 @@ if check_password():
         col_esq, col_central, col_dir = st.columns([0.05, 4.9, 0.05])
         with col_central:
             
-            # FILTROS VISUAIS OCULTADOS DO CÓDIGO (COMENTADOS)
+            # FILTROS VISUAIS OCULTADOS DO CÓDIGO (COMENTADOS MAS ATIVOS)
             odd_selecionada = 2.50
             edge_selecionado = 0.0
             
@@ -366,11 +365,12 @@ if check_password():
             """
             st.markdown(texto_resultado, unsafe_allow_html=True)
 
-            # Nova ordem das colunas, incluindo Score e Alerta
+            # Nova ordem das colunas, incluindo Score e Alerta após XG_Fora
             tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Pontos Casa', 'Pontos Fora', 'FTS Fora', 'DP GM Fora', 'DP GS Casa', 'Vaz Def Fora', 'CS Casa', 'XG_Casa', 'XG_Fora', 'Score', 'Alerta', 'Edge']].copy()
             
             if not tabela.empty:
                 tabela['Date'] = pd.to_datetime(tabela['Date'])
+                # Ordena primeiro pelo Score mais alto, depois data e hora
                 tabela = tabela.sort_values(by=['Score', 'Date', 'Time'], ascending=[False, True, True]).reset_index(drop=True)
                 tabela['Date'] = tabela['Date'].dt.strftime('%d/%m/%Y')
 
@@ -396,7 +396,7 @@ if check_password():
                 # ========================================================
                 def estilizar_linhas_limpas(row):
                     cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
-                    # Mantém o texto sempre branco, mudando apenas a cor de fundo da linha
+                    # Mantém o texto branco, sem colorir individualmente os valores
                     return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;'] * len(row)
 
                 tabela_estilizada = tabela_web.style.apply(estilizar_linhas_limpas, axis=1) \
