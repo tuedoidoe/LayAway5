@@ -31,8 +31,43 @@ st.markdown("""
     div[data-testid="stDownloadButton"] > button p { color: black !important; font-weight: 900 !important; font-size: 16px !important; margin: 0 !important; }
     div[data-testid="stDownloadButton"] > button:hover { background-color: #CC00CC !important; border-color: #CC00CC !important; }
     
-    /* CSS para o Tooltip Customizado na Tabela HTML */
-    .tooltip-header { cursor: help; border-bottom: 1px dotted #ffffff; }
+    /* CSS para o Tooltip Customizado (Caixa Compacta) */
+    .tooltip-header { 
+        position: relative; 
+        cursor: help; 
+        border-bottom: 1px dotted #ffffff; 
+    }
+    .tooltip-header:hover::after {
+        content: attr(data-title);
+        position: absolute;
+        bottom: 140%; 
+        left: 50%; 
+        transform: translateX(-50%);
+        background-color: #1a1a1a; 
+        color: #00d26a; /* Texto verde neon para destacar */
+        padding: 8px 12px; 
+        border-radius: 6px; 
+        font-size: 13px; 
+        font-weight: normal;
+        white-space: normal; 
+        width: max-content; 
+        max-width: 250px; /* Largura compacta máxima */
+        z-index: 999; 
+        border: 1px solid #333; 
+        text-align: left;
+        line-height: 1.3;
+        box-shadow: 0px 4px 6px rgba(0,0,0,0.5);
+    }
+    .tooltip-header:hover::before {
+        content: ""; 
+        position: absolute; 
+        bottom: 100%; 
+        left: 50%; 
+        transform: translateX(-50%);
+        border-width: 5px; 
+        border-style: solid; 
+        border-color: #1a1a1a transparent transparent transparent;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -206,12 +241,13 @@ if check_password():
                     dp_gm_fora = df_completo.groupby('Away')['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
                     vaz_def_fora = df_completo.groupby('Away')['Goals_H_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
 
-                    # Aplicação ao DataFrame
+                    # Aplicação ao DataFrame (Sem formato %)
                     df_completo['Pontos Casa'] = np.where(qtd_jogos_casa > 0, soma_pts_casa.fillna(0).astype(int).astype(str), "-")
                     df_completo['Pontos Fora'] = np.where(qtd_jogos_fora > 0, soma_pts_fora.fillna(0).astype(int).astype(str), "-")
                     
-                    df_completo['CS Casa'] = np.where(qtd_jogos_casa > 0, soma_cs_casa.fillna(0).astype(int).astype(str) + "%", "-")
-                    df_completo['FTS Fora'] = np.where(qtd_jogos_fora > 0, soma_fts_fora.fillna(0).astype(int).astype(str) + "%", "-")
+                    # FTS e CS agora em numérico 2 casas decimais, não como string "%"
+                    df_completo['CS Casa'] = np.where(qtd_jogos_casa > 0, soma_cs_casa.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
+                    df_completo['FTS Fora'] = np.where(qtd_jogos_fora > 0, soma_fts_fora.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
                     
                     df_completo['DP GS Casa'] = np.where(qtd_jogos_casa > 1, dp_gs_casa.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
                     df_completo['DP GM Fora'] = np.where(qtd_jogos_fora > 1, dp_gm_fora.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
@@ -283,44 +319,48 @@ if check_password():
     if st.session_state.get('mostrar_tabela', False):
         df_bruto = st.session_state['df_bruto']
         
-        col_esq, col_central, col_dir = st.columns([1, 4, 1])
+        # Colunas com Layout Alargado [0.05, 4.9, 0.05]
+        col_esq, col_central, col_dir = st.columns([0.05, 4.9, 0.05])
         with col_central:
-            col_texto, col_vazia, col_filtro_odd, col_filtro_edge = st.columns([4.0, 0.5, 1.25, 1.25])
             
-            with col_filtro_odd:
-                st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Mín Odd Lay</div>", unsafe_allow_html=True)
-                odd_selecionada = st.number_input("Mín Odd Lay", min_value=2.50, max_value=5.0, value=2.50, step=0.10, format="%.2f", label_visibility="collapsed")
-
-            with col_filtro_edge:
-                st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Edge Mínimo (%)</div>", unsafe_allow_html=True)
-                edge_selecionado = st.number_input("Edge Mínimo (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f", label_visibility="collapsed")
+            # --- FILTROS VISUAIS OCULTADOS DO CÓDIGO (COMENTADOS) ---
+            # col_texto, col_vazia, col_filtro_odd, col_filtro_edge = st.columns([4.0, 0.5, 1.25, 1.25])
+            #
+            # with col_filtro_odd:
+            #     st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Mín Odd Lay</div>", unsafe_allow_html=True)
+            #     odd_selecionada = st.number_input("Mín Odd Lay", min_value=2.50, max_value=5.0, value=2.50, step=0.10, format="%.2f", label_visibility="collapsed")
+            odd_selecionada = 2.50
+            
+            # with col_filtro_edge:
+            #     st.markdown("<div style='text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; margin-top: 25px;'>Edge Mínimo (%)</div>", unsafe_allow_html=True)
+            #     edge_selecionado = st.number_input("Edge Mínimo (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f", label_visibility="collapsed")
+            edge_selecionado = 0.0
+            # --------------------------------------------------------
             
             df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
             edge_decimal = edge_selecionado / 100.0
             df_final_filtrado = df_filtrado_odd[df_filtrado_odd["Edge"] >= edge_decimal].copy()
             
-            with col_texto:
-                texto_resultado = f"""
-                <div style='text-align: left; font-size: 18px; margin-top: 40px; margin-bottom: 10px; white-space: nowrap;'>
-                    Oportunidades Encontradas: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(df_final_filtrado)} jogo(s)</span>
-                </div>
-                """
-                st.markdown(texto_resultado, unsafe_allow_html=True)
+            texto_resultado = f"""
+            <div style='text-align: left; font-size: 18px; margin-top: 20px; margin-bottom: 10px; white-space: nowrap;'>
+                Oportunidades Encontradas: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(df_final_filtrado)} jogo(s)</span>
+            </div>
+            """
+            st.markdown(texto_resultado, unsafe_allow_html=True)
 
-            # Separa as colunas atualizadas
-            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Pontos Casa', 'Pontos Fora', 'FTS Fora', 'DP GM Fora', 'DP GS Casa', 'Vaz Def Fora', 'CS Casa', 'XG_Casa', 'XG_Fora', 'Odd_A_Lay', 'Edge']].copy()
+            # Nova ordem das colunas e remoção de SG e (5j)
+            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Pontos Casa', 'Pontos Fora', 'FTS Fora', 'DP GM Fora', 'DP GS Casa', 'Vaz Def Fora', 'CS Casa', 'XG_Casa', 'XG_Fora', 'Edge']].copy()
             
-            # Formatação Básica
             if not tabela.empty:
                 tabela['Date'] = pd.to_datetime(tabela['Date'])
                 tabela = tabela.sort_values(by=['Date', 'Time'], ascending=[True, True]).reset_index(drop=True)
                 tabela['Date'] = tabela['Date'].dt.strftime('%d/%m/%Y')
 
-                # Tabela de Exportação Excel (Sem código HTML nos Títulos)
+                # Tabela Original para Exportação Excel (Mantém "Vantagem" para seus registros locais)
                 tabela_excel = tabela.rename(columns={
                     'Date': 'Data', 'Time': 'Horário', 'League': 'Liga', 'Home': 'Time Casa', 'Away': 'Time Fora',
-                    'Pontos Casa': 'Pts Casa', 'Pontos Fora': 'Pts Fora',
-                    'XG_Casa': 'xG Casa', 'XG_Fora': 'xG Fora', 'Odd_A_Lay': 'Odd Lay', 'Edge': 'Vantagem'
+                    'Odd_A_Lay': 'Odd Lay', 'Pontos Casa': 'Pts Casa', 'Pontos Fora': 'Pts Fora',
+                    'XG_Casa': 'xG Casa', 'XG_Fora': 'xG Fora', 'Edge': 'Vantagem'
                 })
 
                 buffer = io.BytesIO()
@@ -330,12 +370,8 @@ if check_password():
                 with espaco_download:
                     st.download_button("📥 Baixar Jogos", data=buffer.getvalue(), file_name="Jogos_LayAway.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=True)
                 
-                # Tabela de Exibição Web (Com Nomes Limpos para o Pandas processar)
-                tabela_web = tabela.rename(columns={
-                    'Date': 'Data', 'Time': 'Horário', 'League': 'Liga', 'Home': 'Time Casa', 'Away': 'Time Fora',
-                    'Pontos Casa': 'Pts Casa', 'Pontos Fora': 'Pts Fora',
-                    'XG_Casa': 'xG Casa', 'XG_Fora': 'xG Fora', 'Odd_A_Lay': 'Odd Lay', 'Edge': 'Vantagem'
-                })
+                # Tabela de Exibição Web (Removendo "Vantagem" da visualização)
+                tabela_web = tabela_excel.drop(columns=['Vantagem'])
 
                 # ========================================================
                 # LÓGICA DE CORES
@@ -384,30 +420,30 @@ if check_password():
                     return estilos
 
                 tabela_estilizada = tabela_web.style.apply(estilizar_linhas_e_destacar_pontos, axis=1) \
-                    .format({'Odd Lay': '{:.2f}', 'Vantagem': '{:.1%}', 'xG Casa': '{:.2f}', 'xG Fora': '{:.2f}'}, na_rep="-") \
+                    .format({'Odd Lay': '{:.2f}', 'xG Casa': '{:.2f}', 'xG Fora': '{:.2f}'}, na_rep="-") \
                     .hide(axis="index") \
                     .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
                     .set_table_styles([
                         {'selector': 'th', 'props': [
                             ('background-color', '#696969'), ('color', 'black'), 
                             ('text-align', 'center !important'), ('font-weight', 'bold'),
-                            ('font-size', '19px'), ('padding', '6px') # Tamanho da fonte levemente reduzido para caber as novas colunas
+                            ('font-size', '19px'), ('padding', '6px')
                         ]},
                         {'selector': 'td', 'props': [('text-align', 'center !important'), ('padding', '10px')]}
                     ])
                     
-                # Substituição das Strings Nativas do Pandas pelos Tooltips HTML Dinâmicos
+                # Substituição das Strings HTML pelas Tooltips Customizadas
                 html_final = tabela_estilizada.to_html()
                 tooltips_dicionario = {
-                    '>xG Casa</th>': '><span class="tooltip-header" title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo.">xG Casa</span></th>',
-                    '>xG Fora</th>': '><span class="tooltip-header" title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo.">xG Fora</span></th>',
-                    '>Pts Casa</th>': '><span class="tooltip-header" title="Embalo (Casa): Garante que estamos confiando o nosso dinheiro em um time que está acostumado a vencer no seu estádio.">Pts Casa</span></th>',
-                    '>Pts Fora</th>': '><span class="tooltip-header" title="Crise (Fora): Confirma a má fase do visitante, mostrando que ele tem o hábito de tropeçar.">Pts Fora</span></th>',
-                    '>FTS Fora</th>': '><span class="tooltip-header" title="Inofensividade: Penaliza fortemente o visitante se ele tem o costume de passar jogos sem marcar nenhum gol.">FTS Fora</span></th>',
-                    '>DP GM Fora</th>': '><span class="tooltip-header" title="Filtro Anti-Zebra: Queremos um número baixo. Evita que a gente aposte contra um time que do nada mete 3 gols num jogo só.">DP GM Fora</span></th>',
-                    '>DP GS Casa</th>': '><span class="tooltip-header" title="Muralha Estável: Queremos um número baixo. Confirma que a zaga do mandante não é de lua (um dia boa, outro dia péssima).">DP GS Casa</span></th>',
-                    '>Vaz Def Fora</th>': '><span class="tooltip-header" title="Caminho Livre: Média de gols sofridos pelo visitante. Se eles sempre tomam gol, a nossa aposta fica muito mais tranquila.">Vaz Def Fora</span></th>',
-                    '>CS Casa</th>': '><span class="tooltip-header" title="Seguro 0x0: Bônus para mandantes que saem de campo sem tomar gols, garantindo o nosso empate protetor.">CS Casa</span></th>'
+                    '>xG Casa</th>': '><span class="tooltip-header" data-title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo.">xG Casa</span></th>',
+                    '>xG Fora</th>': '><span class="tooltip-header" data-title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo.">xG Fora</span></th>',
+                    '>Pts Casa</th>': '><span class="tooltip-header" data-title="Embalo (Casa): Garante que estamos confiando o nosso dinheiro em um time que está acostumado a vencer no seu estádio.">Pts Casa</span></th>',
+                    '>Pts Fora</th>': '><span class="tooltip-header" data-title="Crise (Fora): Confirma a má fase do visitante, mostrando que ele tem o hábito de tropeçar.">Pts Fora</span></th>',
+                    '>FTS Fora</th>': '><span class="tooltip-header" data-title="Inofensividade: Penaliza fortemente o visitante se ele tem o costume de passar jogos sem marcar nenhum gol.">FTS Fora</span></th>',
+                    '>DP GM Fora</th>': '><span class="tooltip-header" data-title="Filtro Anti-Zebra: Queremos um número baixo. Evita que a gente aposte contra um time que do nada mete 3 gols num jogo só.">DP GM Fora</span></th>',
+                    '>DP GS Casa</th>': '><span class="tooltip-header" data-title="Muralha Estável: Queremos um número baixo. Confirma que a zaga do mandante não é de lua (um dia boa, outro dia péssima).">DP GS Casa</span></th>',
+                    '>Vaz Def Fora</th>': '><span class="tooltip-header" data-title="Caminho Livre: Média de gols sofridos pelo visitante. Se eles sempre tomam gol, a nossa aposta fica muito mais tranquila.">Vaz Def Fora</span></th>',
+                    '>CS Casa</th>': '><span class="tooltip-header" data-title="Seguro 0x0: Bônus para mandantes que saem de campo sem tomar gols, garantindo o nosso empate protetor.">CS Casa</span></th>'
                 }
 
                 for string_velha, string_nova in tooltips_dicionario.items():
