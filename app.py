@@ -28,7 +28,7 @@ st.markdown("""
     /* Estilização do Título Impactante (Dourado e Prateado) */
     .titulo-premium {
         font-family: 'Arial Black', Impact, sans-serif;
-        font-size: 60px !important; /* <--- Tamanho gigante, forçado pelo !important */
+        font-size: 60px !important;
         font-weight: 900;
         letter-spacing: -2px;
         background: linear-gradient(135deg, #d4af37 0%, #fff2cd 25%, #c0c0c0 50%, #e5e4e2 75%, #b5952f 100%);
@@ -38,7 +38,7 @@ st.markdown("""
         padding-bottom: 0px;
         line-height: 1.1;
         text-transform: uppercase;
-        display: inline-block; /* Ajuda a não cortar o degradê */
+        display: inline-block;
     }
     
     /* Data da última atualização */
@@ -74,9 +74,10 @@ st.markdown("""
     /* Botão de Download EXATAMENTE alinhado à direita */
     div[data-testid="stDownloadButton"] {
         display: flex;
-        justify-content: flex-end !important; /* Força o botão para a parede direita */
+        justify-content: flex-end !important;
         width: 100% !important;
         margin-bottom: 5px;
+        padding-right: 0px !important; /* Remove qualquer espaço fantasma à direita */
     }
     div[data-testid="stDownloadButton"] > button { 
         background-color: #262730 !important; 
@@ -133,7 +134,6 @@ def check_password():
     col1, col2, col3 = st.columns([1.5, 1, 1.5])
     with col2:
         st.markdown("<br><br>", unsafe_allow_html=True)
-        # Sua LOGO está de volta aqui!
         st.image("logo.png", use_container_width=True)
         
         def password_entered():
@@ -402,8 +402,8 @@ if check_password():
         edge_decimal = edge_selecionado / 100.0
         df_final_filtrado = df_filtrado_odd[df_filtrado_odd["Edge"] >= edge_decimal].copy()
         
-        # Grid para o resultado e o botão de download
-        col_res1, col_res2 = st.columns([4, 1])
+        # Grid com proporção drástica: o texto ocupa quase tudo (0.88), espremendo o botão no canto direito (0.12)
+        col_res1, col_res2 = st.columns([0.88, 0.12])
         
         with col_res1:
             texto_resultado = f"""
@@ -431,7 +431,7 @@ if check_password():
                 tabela_excel.to_excel(writer, index=False, sheet_name='Lay_Away')
             
             with col_res2:
-                # O botão será renderizado com justify-content: flex-end (colado na direita)
+                # Agora o botão ficará perfeitamente encostado na direita!
                 st.download_button("📥 Exportar Excel", data=buffer.getvalue(), file_name="Jogos_LayAway.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=False)
             
             tabela_web = tabela_excel.drop(columns=['Vantagem'])
