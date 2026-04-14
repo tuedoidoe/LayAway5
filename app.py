@@ -13,29 +13,77 @@ warnings.filterwarnings("ignore")
 # ==========================================
 # CONFIGURAÇÃO DA PÁGINA E LOGIN
 # ==========================================
-st.set_page_config(page_title="Lay Away", page_icon="🎯", layout="wide")
+st.set_page_config(page_title="Scanner Lay Away", layout="wide", initial_sidebar_state="collapsed")
 
+# CSS PREMIUM (Estilo Megazord / Dark Mode)
 st.markdown("""
     <style>
-    div[data-testid="stRadio"] { display: flex !important; justify-content: center !important; align-items: center !important; width: 100% !important; }
-    div[data-testid="stRadio"] > div[role="radiogroup"] { display: flex !important; justify-content: center !important; margin: 0 auto !important; width: max-content !important; }
-    div[data-testid="stDateInput"] input { text-align: center !important; }
-    div[data-testid="stNumberInputContainer"] { display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; height: 32px !important; min-height: 32px !important; }
-    div[data-testid="stNumberInputStepDown"] { order: 1 !important; }
-    div[data-testid="stNumberInputContainer"] input { order: 2 !important; text-align: center !important; }
-    div[data-testid="stNumberInputStepUp"] { order: 3 !important; }
+    /* Força o fundo escuro moderno em toda a aplicação */
+    .stApp {
+        background-color: #0e1117;
+        font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
     
-    div[data-testid="stButton"] > button { background-color: #0068c9 !important; color: white !important; font-weight: bold !important; border-radius: 5px !important; }
-    div[data-testid="stButton"] > button:hover { background-color: #0052a3 !important; border-color: #0052a3 !important; color: white !important; }
-    div[data-testid="stDownloadButton"] > button { background-color: #FF00FF !important; border-radius: 5px !important; width: 100% !important; margin-top: 5px !important; }
-    div[data-testid="stDownloadButton"] > button p { color: black !important; font-weight: 900 !important; font-size: 16px !important; margin: 0 !important; }
-    div[data-testid="stDownloadButton"] > button:hover { background-color: #CC00CC !important; border-color: #CC00CC !important; }
+    /* Estilização do Título Impactante */
+    .titulo-premium {
+        font-family: 'Arial Black', Impact, sans-serif;
+        font-size: 3.2rem;
+        font-weight: 900;
+        letter-spacing: -1.5px;
+        color: #ffffff;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        line-height: 1.1;
+    }
     
-    /* CSS para o Tooltip Customizado (Caixa Compacta) */
+    /* Data da última atualização */
+    .data-atualizacao {
+        color: #888888;
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+
+    /* Ajustes dos controles no canto superior direito */
+    div[data-testid="stRadio"] { display: flex !important; justify-content: flex-end !important; }
+    div[data-testid="stRadio"] > div[role="radiogroup"] { display: flex !important; justify-content: flex-end !important; gap: 15px; }
+    div[data-testid="stDateInput"] > div { width: 100% !important; }
+    div[data-testid="stDateInput"] input { text-align: center !important; font-weight: bold; }
+    
+    /* Botão Principal de Varredura */
+    div[data-testid="stButton"] > button { 
+        background-color: #00d26a !important; 
+        color: #121212 !important; 
+        font-weight: 900 !important; 
+        border-radius: 6px !important; 
+        border: none !important;
+        font-size: 16px !important;
+        height: 42px !important;
+        transition: all 0.3s ease;
+    }
+    div[data-testid="stButton"] > button:hover { 
+        background-color: #00b55b !important; 
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 210, 106, 0.4);
+    }
+
+    /* Botão de Download */
+    div[data-testid="stDownloadButton"] > button { 
+        background-color: #262730 !important; 
+        color: white !important; 
+        border-radius: 6px !important; 
+        border: 1px solid #444 !important;
+        width: max-content !important; 
+        padding: 4px 20px !important;
+    }
+    div[data-testid="stDownloadButton"] > button:hover { background-color: #333 !important; border-color: #666 !important; }
+
+    /* CSS para o Tooltip Customizado */
     .tooltip-header { 
         position: relative; 
         cursor: help; 
-        border-bottom: 1px dotted #ffffff; 
+        border-bottom: 1px dotted #888; 
     }
     .tooltip-header:hover::after {
         content: attr(data-title);
@@ -45,8 +93,8 @@ st.markdown("""
         transform: translateX(-50%);
         background-color: #1a1a1a; 
         color: #00d26a; 
-        padding: 8px 12px; 
-        border-radius: 6px; 
+        padding: 10px 14px; 
+        border-radius: 8px; 
         font-size: 13px; 
         font-weight: normal;
         white-space: normal; 
@@ -55,8 +103,8 @@ st.markdown("""
         z-index: 999; 
         border: 1px solid #333; 
         text-align: left;
-        line-height: 1.3;
-        box-shadow: 0px 4px 6px rgba(0,0,0,0.5);
+        line-height: 1.4;
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.7);
     }
     .tooltip-header:hover::before {
         content: ""; 
@@ -64,7 +112,7 @@ st.markdown("""
         bottom: 100%; 
         left: 50%; 
         transform: translateX(-50%);
-        border-width: 5px; 
+        border-width: 6px; 
         border-style: solid; 
         border-color: #1a1a1a transparent transparent transparent;
     }
@@ -75,7 +123,8 @@ def check_password():
     if st.session_state.get("password_correct", False): return True
     col1, col2, col3 = st.columns([1.5, 1, 1.5])
     with col2:
-        st.image("logo.png", use_container_width=True)
+        st.markdown("<br><br>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align: center; color: white;'>Acesso Restrito</h2>", unsafe_allow_html=True)
         def password_entered():
             if st.session_state["password"] == st.secrets["senha_secreta"]:
                 st.session_state["password_correct"] = True
@@ -83,10 +132,10 @@ def check_password():
             else: st.session_state["password_correct"] = False
 
         if "password_correct" not in st.session_state:
-            st.text_input("🔑 Digite a senha para acessar:", type="password", on_change=password_entered, key="password")
+            st.text_input("🔑 Senha:", type="password", on_change=password_entered, key="password")
             return False
         elif not st.session_state["password_correct"]:
-            st.text_input("🔑 Digite a senha para acessar:", type="password", on_change=password_entered, key="password")
+            st.text_input("🔑 Senha:", type="password", on_change=password_entered, key="password")
             st.error("❌ Senha incorreta.")
             return False
     return True
@@ -121,35 +170,40 @@ def baixar_jogos_do_dia(data):
     except: return pd.DataFrame()
 
 # ==========================================
-# CÓDIGO DO SCANNER
+# CÓDIGO DO SCANNER (ESTRUTURA DE CABEÇALHO)
 # ==========================================
 if check_password():
-    col_t1, col_t2, col_t3 = st.columns([1.5, 1, 1.5])
-    with col_t2:
-        st.markdown("<h2 style='text-align: center;'>🎯 Scanner Lay Away</h2>", unsafe_allow_html=True)
-        col_rad1, col_rad2, col_rad3 = st.columns([0.4, 2, 0.4])
-        with col_rad2: tipo_filtro = st.radio("Formato de Pesquisa:", ["Data Única", "Intervalo de Datas"], horizontal=True, label_visibility="collapsed")
-        
+    
+    # CABEÇALHO PREMIUM DIVIDIDO EM 2 COLUNAS
+    col_esquerda, col_direita = st.columns([1.2, 1])
+    
+    with col_esquerda:
+        st.markdown("<p class='titulo-premium'>SCANNER LAY AWAY</p>", unsafe_allow_html=True)
+        agora = datetime.now().strftime("%d/%m/%Y às %H:%M:%S")
+        st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
+
+    with col_direita:
+        st.markdown("<div style='margin-top: 5px;'></div>", unsafe_allow_html=True)
         hoje = datetime.now().date()
-        st.markdown("<br>", unsafe_allow_html=True)
         
-        if tipo_filtro == "Data Única":
-            st.markdown("<p style='text-align: center; margin-bottom: 5px; font-weight: bold;'>📅 Escolha a data para consulta:</p>", unsafe_allow_html=True)
-            data_selecionada = st.date_input("Data única", value=hoje, format="DD/MM/YYYY", label_visibility="collapsed")
-        else:
-            st.markdown("<p style='text-align: center; margin-bottom: 5px; font-weight: bold;'>📅 Escolha o período para consulta:</p>", unsafe_allow_html=True)
-            data_selecionada = st.date_input("Intervalo", value=(hoje, hoje), format="DD/MM/YYYY", label_visibility="collapsed")
-            
-        st.markdown("<br>", unsafe_allow_html=True)
-        btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True)
-        espaco_download = st.empty()
+        # Grid interno para alinhar os controles à direita
+        c1, c2, c3 = st.columns([1, 1, 1])
+        with c1:
+            tipo_filtro = st.radio("Período", ["Data Única", "Intervalo"], horizontal=False, label_visibility="collapsed")
+        with c2:
+            if tipo_filtro == "Data Única":
+                data_selecionada = st.date_input("Data", value=hoje, format="DD/MM/YYYY", label_visibility="collapsed")
+            else:
+                data_selecionada = st.date_input("Data", value=(hoje, hoje), format="DD/MM/YYYY", label_visibility="collapsed")
+        with c3:
+            btn_procurar = st.button("Iniciar Varredura", use_container_width=True)
         
-    st.divider()
+    st.markdown("<hr style='margin-top: 0px; margin-bottom: 25px; border: 1px solid #333;'>", unsafe_allow_html=True)
 
     if btn_procurar:
         st.session_state['mostrar_tabela'] = False 
         
-        with st.spinner('Baixando inteligência e processando o mercado...'):
+        with st.spinner('Analisando o mercado global...'):
             try:
                 dados_modelo = joblib.load('Modelo_LayAway_5.pkl')
                 model = dados_modelo['modelo']
@@ -214,9 +268,7 @@ if check_password():
                         
                     df_completo = df_completo.sort_values(["Date", "Home"]).reset_index(drop=True)
                     
-                    # ========================================================
                     # 1. CÁLCULO DAS MÉTRICAS BASE
-                    # ========================================================
                     df_completo['Goals_H_FT'] = pd.to_numeric(df_completo['Goals_H_FT'], errors='coerce')
                     df_completo['Goals_A_FT'] = pd.to_numeric(df_completo['Goals_A_FT'], errors='coerce')
 
@@ -238,9 +290,7 @@ if check_password():
                     dp_gm_fora = df_completo.groupby('Away')['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
                     vaz_def_fora = df_completo.groupby('Away')['Goals_H_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
 
-                    # ========================================================
                     # 2. EXPECTATIVA DE GOLS (Pseudo-xG)
-                    # ========================================================
                     prob_h = safe_prob(df_completo['Odd_H_Back'])
                     prob_a = safe_prob(df_completo['Odd_A_Back'])
                     prob_o25 = safe_prob(df_completo['Odd_Over25_FT_Back'])
@@ -252,9 +302,7 @@ if check_password():
                     df_completo['XG_Casa'] = np.where(prob_h > 0, (exp_tg * (prob_h + 0.5 * prob_d) / soma_probs), np.nan)
                     df_completo['XG_Fora'] = np.where(prob_a > 0, (exp_tg * (prob_a + 0.5 * prob_d) / soma_probs), np.nan)
 
-                    # ========================================================
                     # 3. NORMALIZAÇÃO E CÁLCULO DO "SCORE" (0 a 100)
-                    # ========================================================
                     xg_total = df_completo['XG_Casa'] + df_completo['XG_Fora']
                     score_xg = np.where(xg_total > 0, (df_completo['XG_Casa'] / xg_total) * 30.0, 15.0)
 
@@ -272,9 +320,7 @@ if check_password():
                     df_completo['Score'] = score_xg + score_pts_casa + score_pts_fora + score_fts + score_cs + score_dp_gm + score_dp_gs + score_vaz
                     df_completo['Score'] = df_completo['Score'].fillna(0).round(0).astype(int)
 
-                    # ========================================================
-                    # Geração do Alerta Visual (CALIBRADO PARA A REALIDADE)
-                    # ========================================================
+                    # Geração do Alerta Visual
                     def definir_alerta(score):
                         if score >= 55: return '🟢'
                         elif score >= 48: return '🟡'
@@ -290,7 +336,6 @@ if check_password():
                     df_completo['DP GM Fora'] = np.where(qtd_jogos_fora > 1, dp_gm_fora.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
                     df_completo['Vaz Def Fora'] = np.where(qtd_jogos_fora > 0, vaz_def_fora.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
                     
-                    # ========================================================
                     # MÉTRICAS EXTRAS DO MODELO
                     df_completo['Prob_1x2_A'] = safe_prob(df_completo['Odd_A_Back'])
                     df_completo['Prob_CS_Resistance'] = safe_prob(df_completo['Odd_CS_1x0_Lay']) + safe_prob(df_completo['Odd_CS_2x1_Lay'])
@@ -321,7 +366,7 @@ if check_password():
                         df_hoje = df_hoje.dropna(subset=colunas_vitais).reset_index(drop=True)
                         
                         if len(df_hoje) == 0:
-                            st.warning(f"Foram encontrados jogos para {texto_data}, mas eles foram descartados pois não possuem histórico estatístico suficiente para o modelo analisar.")
+                            st.warning(f"Foram encontrados jogos para {texto_data}, mas eles foram descartados pois não possuem histórico estatístico suficiente.")
                         else:
                             df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
                             df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
@@ -329,7 +374,7 @@ if check_password():
                             df_bruto = df_hoje[df_hoje["Edge"] >= 0.0].copy()
                             
                             if len(df_bruto) == 0:
-                                st.warning(f"O modelo filtrou o mercado, mas não encontrou Edge suficiente (>0.0%) para operar em {texto_data}.")
+                                st.warning(f"O modelo não encontrou Edge suficiente (>0.0%) em {texto_data}.")
                             else:
                                 st.session_state['mostrar_tabela'] = True
                                 st.session_state['df_bruto'] = df_bruto
@@ -338,87 +383,89 @@ if check_password():
                 st.error(f"Erro inesperado durante o processamento: {e}")
 
     # ==========================================
-    # EXIBIÇÃO VISUAL E BOTÃO DE DOWNLOAD
+    # EXIBIÇÃO VISUAL E TABELA PREMIUM
     # ==========================================
     if st.session_state.get('mostrar_tabela', False):
         df_bruto = st.session_state['df_bruto']
         
-        col_esq, col_central, col_dir = st.columns([0.05, 4.9, 0.05])
-        with col_central:
-            
-            # FILTROS VISUAIS OCULTADOS DO CÓDIGO (COMENTADOS MAS ATIVOS)
-            odd_selecionada = 2.50
-            edge_selecionado = 0.0
-            
-            df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
-            edge_decimal = edge_selecionado / 100.0
-            df_final_filtrado = df_filtrado_odd[df_filtrado_odd["Edge"] >= edge_decimal].copy()
-            
+        # Filtros Ocultos/Ativos
+        odd_selecionada = 2.50
+        edge_selecionado = 0.0
+        
+        df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
+        edge_decimal = edge_selecionado / 100.0
+        df_final_filtrado = df_filtrado_odd[df_filtrado_odd["Edge"] >= edge_decimal].copy()
+        
+        # Grid para o resultado e o botão de download ficarem lado a lado
+        col_res1, col_res2 = st.columns([4, 1])
+        with col_res1:
             texto_resultado = f"""
-            <div style='text-align: left; font-size: 18px; margin-top: 20px; margin-bottom: 10px; white-space: nowrap;'>
-                Oportunidades Encontradas: <span style='color: #00d26a; background-color: rgba(0, 210, 106, 0.1); padding: 4px 12px; border-radius: 6px; font-weight: bold;'>{len(df_final_filtrado)} jogo(s)</span>
+            <div style='text-align: left; font-size: 18px; margin-top: 10px; margin-bottom: 20px;'>
+                <span style='color: #888;'>Oportunidades Encontradas:</span> <span style='color: #00d26a; font-weight: 900;'>{len(df_final_filtrado)} jogo(s)</span>
             </div>
             """
             st.markdown(texto_resultado, unsafe_allow_html=True)
 
-            tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Pontos Casa', 'Pontos Fora', 'FTS Fora', 'DP GM Fora', 'DP GS Casa', 'Vaz Def Fora', 'CS Casa', 'XG_Casa', 'XG_Fora', 'Score', 'Alerta', 'Edge']].copy()
+        tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Pontos Casa', 'Pontos Fora', 'FTS Fora', 'DP GM Fora', 'DP GS Casa', 'Vaz Def Fora', 'CS Casa', 'XG_Casa', 'XG_Fora', 'Score', 'Alerta', 'Edge']].copy()
+        
+        if not tabela.empty:
+            tabela['Date'] = pd.to_datetime(tabela['Date'])
+            tabela = tabela.sort_values(by=['Date', 'Time'], ascending=[True, True]).reset_index(drop=True)
+            tabela['Date'] = tabela['Date'].dt.strftime('%d/%m/%Y')
+
+            tabela_excel = tabela.rename(columns={
+                'Date': 'Data', 'Time': 'Horário', 'League': 'Liga', 'Home': 'Time Casa', 'Away': 'Time Fora',
+                'Odd_A_Lay': 'Odd Lay', 'Pontos Casa': 'Pts Casa', 'Pontos Fora': 'Pts Fora',
+                'XG_Casa': 'xG Casa', 'XG_Fora': 'xG Fora', 'Edge': 'Vantagem'
+            })
+
+            buffer = io.BytesIO()
+            with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+                tabela_excel.to_excel(writer, index=False, sheet_name='Lay_Away')
             
-            if not tabela.empty:
-                tabela['Date'] = pd.to_datetime(tabela['Date'])
-                tabela = tabela.sort_values(by=['Date', 'Time'], ascending=[True, True]).reset_index(drop=True)
-                tabela['Date'] = tabela['Date'].dt.strftime('%d/%m/%Y')
+            with col_res2:
+                st.download_button("📥 Exportar Excel", data=buffer.getvalue(), file_name="Jogos_LayAway.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=True)
+            
+            tabela_web = tabela_excel.drop(columns=['Vantagem'])
 
-                tabela_excel = tabela.rename(columns={
-                    'Date': 'Data', 'Time': 'Horário', 'League': 'Liga', 'Home': 'Time Casa', 'Away': 'Time Fora',
-                    'Odd_A_Lay': 'Odd Lay', 'Pontos Casa': 'Pts Casa', 'Pontos Fora': 'Pts Fora',
-                    'XG_Casa': 'xG Casa', 'XG_Fora': 'xG Fora', 'Edge': 'Vantagem'
-                })
+            # Estilo Dark Mode da Tabela
+            def estilizar_linhas_premium(row):
+                cor_fundo = '#1e1e1e' if row.name % 2 == 0 else '#121212'
+                return [f'background-color: {cor_fundo}; color: #e0e0e0; text-align: center !important; font-size: 15px; border-bottom: 1px solid #333;'] * len(row)
 
-                buffer = io.BytesIO()
-                with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
-                    tabela_excel.to_excel(writer, index=False, sheet_name='Lay_Away')
+            tabela_estilizada = tabela_web.style.apply(estilizar_linhas_premium, axis=1) \
+                .format({'Odd Lay': '{:.2f}', 'xG Casa': '{:.2f}', 'xG Fora': '{:.2f}'}, na_rep="-") \
+                .hide(axis="index") \
+                .set_table_attributes('style="width: 100%; border-collapse: collapse; margin-top: 10px; border: 1px solid #333;"') \
+                .set_table_styles([
+                    {'selector': 'th', 'props': [
+                        ('background-color', '#262730'), ('color', '#ffffff'), 
+                        ('text-align', 'center !important'), ('font-weight', 'bold'),
+                        ('font-size', '16px'), ('padding', '12px 8px'), ('border-bottom', '2px solid #00d26a')
+                    ]},
+                    {'selector': 'td', 'props': [('text-align', 'center !important'), ('padding', '12px 8px')]}
+                ])
                 
-                with espaco_download:
-                    st.download_button("📥 Baixar Jogos", data=buffer.getvalue(), file_name="Jogos_LayAway.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=True)
-                
-                tabela_web = tabela_excel.drop(columns=['Vantagem'])
+            html_final = tabela_estilizada.to_html()
+            
+            tooltips_dicionario = {
+                '>xG Casa</th>': '><span class="tooltip-header" data-title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo.">xG Casa</span></th>',
+                '>xG Fora</th>': '><span class="tooltip-header" data-title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo.">xG Fora</span></th>',
+                '>Pts Casa</th>': '><span class="tooltip-header" data-title="Embalo (Casa): Garante que estamos confiando o nosso dinheiro em um time que está acostumado a vencer no seu estádio.">Pts Casa</span></th>',
+                '>Pts Fora</th>': '><span class="tooltip-header" data-title="Crise (Fora): Confirma a má fase do visitante, mostrando que ele tem o hábito de tropeçar.">Pts Fora</span></th>',
+                '>FTS Fora</th>': '><span class="tooltip-header" data-title="Inofensividade: Penaliza fortemente o visitante se ele tem o costume de passar jogos sem marcar nenhum gol.">FTS Fora</span></th>',
+                '>DP GM Fora</th>': '><span class="tooltip-header" data-title="Filtro Anti-Zebra: Queremos um número baixo. Evita que a gente aposte contra um time que do nada mete 3 gols num jogo só.">DP GM Fora</span></th>',
+                '>DP GS Casa</th>': '><span class="tooltip-header" data-title="Muralha Estável: Queremos um número baixo. Confirma que a zaga do mandante não é de lua (um dia boa, outro dia péssima).">DP GS Casa</span></th>',
+                '>Vaz Def Fora</th>': '><span class="tooltip-header" data-title="Caminho Livre: Média de gols sofridos pelo visitante. Se eles sempre tomam gol, a nossa aposta fica muito mais tranquila.">Vaz Def Fora</span></th>',
+                '>CS Casa</th>': '><span class="tooltip-header" data-title="Seguro 0x0: Bônus para mandantes que saem de campo sem tomar gols, garantindo o nosso empate protetor.">CS Casa</span></th>',
+                '>Score</th>': '><span class="tooltip-header" data-title="Nota de 0 a 100 gerada pela normalização de todos os pesos. Serve como um guia de risco consolidado.">Score</span></th>',
+                '>Alerta</th>': '><span class="tooltip-header" data-title="Visualização Rápida de Risco. Verde >= 55. Amarelo 48 a 54. Vermelho < 48.">Alerta</span></th>'
+            }
 
-                def estilizar_linhas_limpas(row):
-                    cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
-                    return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;'] * len(row)
+            for string_velha, string_nova in tooltips_dicionario.items():
+                html_final = html_final.replace(string_velha, string_nova)
 
-                tabela_estilizada = tabela_web.style.apply(estilizar_linhas_limpas, axis=1) \
-                    .format({'Odd Lay': '{:.2f}', 'xG Casa': '{:.2f}', 'xG Fora': '{:.2f}'}, na_rep="-") \
-                    .hide(axis="index") \
-                    .set_table_attributes('style="width: 100%; margin: 0 auto; border-collapse: collapse;"') \
-                    .set_table_styles([
-                        {'selector': 'th', 'props': [
-                            ('background-color', '#696969'), ('color', 'black'), 
-                            ('text-align', 'center !important'), ('font-weight', 'bold'),
-                            ('font-size', '19px'), ('padding', '6px')
-                        ]},
-                        {'selector': 'td', 'props': [('text-align', 'center !important'), ('padding', '10px')]}
-                    ])
-                    
-                html_final = tabela_estilizada.to_html()
-                tooltips_dicionario = {
-                    '>xG Casa</th>': '><span class="tooltip-header" data-title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo.">xG Casa</span></th>',
-                    '>xG Fora</th>': '><span class="tooltip-header" data-title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo.">xG Fora</span></th>',
-                    '>Pts Casa</th>': '><span class="tooltip-header" data-title="Embalo (Casa): Garante que estamos confiando o nosso dinheiro em um time que está acostumado a vencer no seu estádio.">Pts Casa</span></th>',
-                    '>Pts Fora</th>': '><span class="tooltip-header" data-title="Crise (Fora): Confirma a má fase do visitante, mostrando que ele tem o hábito de tropeçar.">Pts Fora</span></th>',
-                    '>FTS Fora</th>': '><span class="tooltip-header" data-title="Inofensividade: Penaliza fortemente o visitante se ele tem o costume de passar jogos sem marcar nenhum gol.">FTS Fora</span></th>',
-                    '>DP GM Fora</th>': '><span class="tooltip-header" data-title="Filtro Anti-Zebra: Queremos um número baixo. Evita que a gente aposte contra um time que do nada mete 3 gols num jogo só.">DP GM Fora</span></th>',
-                    '>DP GS Casa</th>': '><span class="tooltip-header" data-title="Muralha Estável: Queremos um número baixo. Confirma que a zaga do mandante não é de lua (um dia boa, outro dia péssima).">DP GS Casa</span></th>',
-                    '>Vaz Def Fora</th>': '><span class="tooltip-header" data-title="Caminho Livre: Média de gols sofridos pelo visitante. Se eles sempre tomam gol, a nossa aposta fica muito mais tranquila.">Vaz Def Fora</span></th>',
-                    '>CS Casa</th>': '><span class="tooltip-header" data-title="Seguro 0x0: Bônus para mandantes que saem de campo sem tomar gols, garantindo o nosso empate protetor.">CS Casa</span></th>',
-                    '>Score</th>': '><span class="tooltip-header" data-title="Nota de 0 a 100 gerada pela normalização de todos os pesos. Serve como um guia de risco consolidado.">Score</span></th>',
-                    '>Alerta</th>': '><span class="tooltip-header" data-title="Visualização Rápida de Risco. Verde >= 55. Amarelo 48 a 54. Vermelho < 48.">Alerta</span></th>'
-                }
-
-                for string_velha, string_nova in tooltips_dicionario.items():
-                    html_final = html_final.replace(string_velha, string_nova)
-
-                st.markdown(html_final, unsafe_allow_html=True)
-            else:
-                st.info(f"Nenhum jogo atende aos critérios (Mín Odd Lay: {odd_selecionada:.2f} e Edge: {edge_selecionado:.1f}%).")
-                with espaco_download: st.empty()
+            st.markdown(html_final, unsafe_allow_html=True)
+            st.markdown("<br><br>", unsafe_allow_html=True)
+        else:
+            st.info("Nenhum jogo atende aos critérios do modelo para a data selecionada.")
