@@ -255,33 +255,29 @@ if check_password():
                     # ========================================================
                     # 3. NORMALIZAÇÃO E CÁLCULO DO "SCORE" (0 a 100)
                     # ========================================================
-                    # XG (Peso 30): Proporção do xG Casa sobre o Total (Quanto maior, melhor)
                     xg_total = df_completo['XG_Casa'] + df_completo['XG_Fora']
                     score_xg = np.where(xg_total > 0, (df_completo['XG_Casa'] / xg_total) * 30.0, 15.0)
 
-                    # Pontos (Peso 10 cada): Casa direto, Fora Invertido
                     score_pts_casa = (soma_pts_casa.fillna(0) / 15.0) * 10.0
                     score_pts_fora = ((15.0 - soma_pts_fora.fillna(0)) / 15.0) * 10.0
 
-                    # Frequências (FTS Peso 15, CS Peso 5): Escala direta (0 a 1)
                     score_fts = soma_fts_fora.fillna(0) * 15.0
                     score_cs = soma_cs_casa.fillna(0) * 5.0
 
-                    # Desvios Padrões (Peso 10 cada): Inversos (Teto 2.0 = nota 0)
                     score_dp_gm = (np.maximum(0, 2.0 - dp_gm_fora.fillna(1.0)) / 2.0) * 10.0
                     score_dp_gs = (np.maximum(0, 2.0 - dp_gs_casa.fillna(1.0)) / 2.0) * 10.0
 
-                    # Vazamento (Peso 10): Direto (Visitante vazar é bom pro Lay, Teto 3.0)
                     score_vaz = (np.minimum(3.0, vaz_def_fora.fillna(0)) / 3.0) * 10.0
 
-                    # SOMA FINAL DO SCORE
                     df_completo['Score'] = score_xg + score_pts_casa + score_pts_fora + score_fts + score_cs + score_dp_gm + score_dp_gs + score_vaz
                     df_completo['Score'] = df_completo['Score'].fillna(0).round(0).astype(int)
 
-                    # Geração do Alerta Visual
+                    # ========================================================
+                    # Geração do Alerta Visual (CALIBRADO PARA A REALIDADE)
+                    # ========================================================
                     def definir_alerta(score):
-                        if score > 75: return '🟢'
-                        elif score > 50: return '🟡'
+                        if score >= 55: return '🟢'
+                        elif score >= 48: return '🟡'
                         else: return '🔴'
                     df_completo['Alerta'] = df_completo['Score'].apply(definir_alerta)
 
@@ -365,16 +361,13 @@ if check_password():
             """
             st.markdown(texto_resultado, unsafe_allow_html=True)
 
-            # Nova ordem das colunas, incluindo Score e Alerta após XG_Fora
             tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Pontos Casa', 'Pontos Fora', 'FTS Fora', 'DP GM Fora', 'DP GS Casa', 'Vaz Def Fora', 'CS Casa', 'XG_Casa', 'XG_Fora', 'Score', 'Alerta', 'Edge']].copy()
             
             if not tabela.empty:
                 tabela['Date'] = pd.to_datetime(tabela['Date'])
-                # Ordena primeiro pelo Score mais alto, depois data e hora
-                tabela = tabela.sort_values(by=['Score', 'Date', 'Time'], ascending=[False, True, True]).reset_index(drop=True)
+                tabela = tabela.sort_values(by=['Date', 'Time'], ascending=[True, True]).reset_index(drop=True)
                 tabela['Date'] = tabela['Date'].dt.strftime('%d/%m/%Y')
 
-                # Tabela Original para Exportação Excel
                 tabela_excel = tabela.rename(columns={
                     'Date': 'Data', 'Time': 'Horário', 'League': 'Liga', 'Home': 'Time Casa', 'Away': 'Time Fora',
                     'Odd_A_Lay': 'Odd Lay', 'Pontos Casa': 'Pts Casa', 'Pontos Fora': 'Pts Fora',
@@ -388,15 +381,10 @@ if check_password():
                 with espaco_download:
                     st.download_button("📥 Baixar Jogos", data=buffer.getvalue(), file_name="Jogos_LayAway.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=True)
                 
-                # Tabela de Exibição Web (Removendo "Vantagem" da visualização)
                 tabela_web = tabela_excel.drop(columns=['Vantagem'])
 
-                # ========================================================
-                # LÓGICA DE ESTILIZAÇÃO LIMPA (SEM CORES NO TEXTO)
-                # ========================================================
                 def estilizar_linhas_limpas(row):
                     cor_fundo = '#4a4a4a' if row.name % 2 == 0 else '#333333'
-                    # Mantém o texto branco, sem colorir individualmente os valores
                     return [f'background-color: {cor_fundo}; color: white; text-align: center !important; font-size: 16px;'] * len(row)
 
                 tabela_estilizada = tabela_web.style.apply(estilizar_linhas_limpas, axis=1) \
@@ -412,7 +400,6 @@ if check_password():
                         {'selector': 'td', 'props': [('text-align', 'center !important'), ('padding', '10px')]}
                     ])
                     
-                # Substituição das Strings HTML pelas Tooltips Customizadas
                 html_final = tabela_estilizada.to_html()
                 tooltips_dicionario = {
                     '>xG Casa</th>': '><span class="tooltip-header" data-title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo.">xG Casa</span></th>',
@@ -425,7 +412,7 @@ if check_password():
                     '>Vaz Def Fora</th>': '><span class="tooltip-header" data-title="Caminho Livre: Média de gols sofridos pelo visitante. Se eles sempre tomam gol, a nossa aposta fica muito mais tranquila.">Vaz Def Fora</span></th>',
                     '>CS Casa</th>': '><span class="tooltip-header" data-title="Seguro 0x0: Bônus para mandantes que saem de campo sem tomar gols, garantindo o nosso empate protetor.">CS Casa</span></th>',
                     '>Score</th>': '><span class="tooltip-header" data-title="Nota de 0 a 100 gerada pela normalização de todos os pesos. Serve como um guia de risco consolidado.">Score</span></th>',
-                    '>Alerta</th>': '><span class="tooltip-header" data-title="Visualização Rápida de Risco. Verde > 75. Amarelo 51 a 75. Vermelho <= 50.">Alerta</span></th>'
+                    '>Alerta</th>': '><span class="tooltip-header" data-title="Visualização Rápida de Risco. Verde >= 55. Amarelo 48 a 54. Vermelho < 48.">Alerta</span></th>'
                 }
 
                 for string_velha, string_nova in tooltips_dicionario.items():
