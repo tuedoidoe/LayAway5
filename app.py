@@ -4,6 +4,7 @@ import numpy as np
 import joblib
 import warnings
 from datetime import datetime
+import pytz
 import requests
 import io
 from rapidfuzz import process, fuzz
@@ -15,43 +16,44 @@ warnings.filterwarnings("ignore")
 # ==========================================
 st.set_page_config(page_title="Scanner Lay Away", layout="wide", initial_sidebar_state="collapsed")
 
-# CSS PREMIUM (Estilo Megazord / Dark Mode)
+# CSS PREMIUM (Dark Mode, Título Ouro/Prata e Alinhamentos)
 st.markdown("""
     <style>
-    /* Força o fundo escuro moderno em toda a aplicação */
+    /* Fundo escuro moderno */
     .stApp {
         background-color: #0e1117;
         font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
     
-    /* Estilização do Título Impactante */
+    /* Estilização do Título Impactante (Dourado e Prateado) */
     .titulo-premium {
         font-family: 'Arial Black', Impact, sans-serif;
-        font-size: 3.2rem;
+        font-size: 4.0rem; /* Fonte aumentada */
         font-weight: 900;
-        letter-spacing: -1.5px;
-        color: #ffffff;
+        letter-spacing: -2px;
+        background: linear-gradient(135deg, #d4af37 0%, #fff2cd 25%, #c0c0c0 50%, #e5e4e2 75%, #b5952f 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         margin-bottom: 0px;
         padding-bottom: 0px;
         line-height: 1.1;
+        text-transform: uppercase;
     }
     
     /* Data da última atualização */
     .data-atualizacao {
         color: #888888;
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 600;
         margin-top: 5px;
         margin-bottom: 20px;
     }
 
     /* Ajustes dos controles no canto superior direito */
-    div[data-testid="stRadio"] { display: flex !important; justify-content: flex-end !important; }
-    div[data-testid="stRadio"] > div[role="radiogroup"] { display: flex !important; justify-content: flex-end !important; gap: 15px; }
-    div[data-testid="stDateInput"] > div { width: 100% !important; }
-    div[data-testid="stDateInput"] input { text-align: center !important; font-weight: bold; }
+    div[data-testid="stRadio"] { display: flex !important; justify-content: flex-start !important; align-items: center !important; height: 100%;}
+    div[data-testid="stRadio"] > div[role="radiogroup"] { display: flex !important; gap: 20px; }
     
-    /* Botão Principal de Varredura */
+    /* Ajuste da altura e alinhamento do botão principal */
     div[data-testid="stButton"] > button { 
         background-color: #00d26a !important; 
         color: #121212 !important; 
@@ -59,23 +61,28 @@ st.markdown("""
         border-radius: 6px !important; 
         border: none !important;
         font-size: 16px !important;
-        height: 42px !important;
+        height: 40px !important;
+        margin-top: 24px !important; /* Alinha com o input de data */
         transition: all 0.3s ease;
     }
     div[data-testid="stButton"] > button:hover { 
         background-color: #00b55b !important; 
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 210, 106, 0.4);
     }
 
-    /* Botão de Download */
+    /* Botão de Download Alinhado à Direita */
+    div[data-testid="stDownloadButton"] {
+        display: flex;
+        justify-content: flex-end; /* Empurra para o canto direito */
+        margin-bottom: 5px;
+    }
     div[data-testid="stDownloadButton"] > button { 
         background-color: #262730 !important; 
         color: white !important; 
         border-radius: 6px !important; 
         border: 1px solid #444 !important;
         width: max-content !important; 
-        padding: 4px 20px !important;
+        padding: 6px 20px !important;
     }
     div[data-testid="stDownloadButton"] > button:hover { background-color: #333 !important; border-color: #666 !important; }
 
@@ -170,33 +177,36 @@ def baixar_jogos_do_dia(data):
     except: return pd.DataFrame()
 
 # ==========================================
-# CÓDIGO DO SCANNER (ESTRUTURA DE CABEÇALHO)
+# CÓDIGO DO SCANNER (CABEÇALHO)
 # ==========================================
 if check_password():
     
-    # CABEÇALHO PREMIUM DIVIDIDO EM 2 COLUNAS
-    col_esquerda, col_direita = st.columns([1.2, 1])
+    col_esquerda, col_direita = st.columns([1.3, 1])
     
     with col_esquerda:
         st.markdown("<p class='titulo-premium'>SCANNER LAY AWAY</p>", unsafe_allow_html=True)
-        agora = datetime.now().strftime("%d/%m/%Y às %H:%M:%S")
+        # Horário de Brasília
+        fuso_br = pytz.timezone('America/Sao_Paulo')
+        agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
         st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
 
     with col_direita:
-        st.markdown("<div style='margin-top: 5px;'></div>", unsafe_allow_html=True)
-        hoje = datetime.now().date()
+        st.markdown("<div style='margin-top: 15px;'></div>", unsafe_allow_html=True)
+        hoje = datetime.now(fuso_br).date()
         
-        # Grid interno para alinhar os controles à direita
-        c1, c2, c3 = st.columns([1, 1, 1])
+        c1, c2, c3 = st.columns([1.2, 1, 1])
         with c1:
-            tipo_filtro = st.radio("Período", ["Data Única", "Intervalo"], horizontal=False, label_visibility="collapsed")
+            st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
+            # Radio Horizontal 
+            tipo_filtro = st.radio("Período", ["Data Única", "Intervalo"], horizontal=True, label_visibility="collapsed")
         with c2:
+            st.markdown("<div style='font-size: 14px; font-weight: bold; margin-bottom: 2px;'>Data da Pesquisa</div>", unsafe_allow_html=True)
             if tipo_filtro == "Data Única":
                 data_selecionada = st.date_input("Data", value=hoje, format="DD/MM/YYYY", label_visibility="collapsed")
             else:
                 data_selecionada = st.date_input("Data", value=(hoje, hoje), format="DD/MM/YYYY", label_visibility="collapsed")
         with c3:
-            btn_procurar = st.button("Iniciar Varredura", use_container_width=True)
+            btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True)
         
     st.markdown("<hr style='margin-top: 0px; margin-bottom: 25px; border: 1px solid #333;'>", unsafe_allow_html=True)
 
@@ -268,7 +278,6 @@ if check_password():
                         
                     df_completo = df_completo.sort_values(["Date", "Home"]).reset_index(drop=True)
                     
-                    # 1. CÁLCULO DAS MÉTRICAS BASE
                     df_completo['Goals_H_FT'] = pd.to_numeric(df_completo['Goals_H_FT'], errors='coerce')
                     df_completo['Goals_A_FT'] = pd.to_numeric(df_completo['Goals_A_FT'], errors='coerce')
 
@@ -290,7 +299,6 @@ if check_password():
                     dp_gm_fora = df_completo.groupby('Away')['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
                     vaz_def_fora = df_completo.groupby('Away')['Goals_H_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
 
-                    # 2. EXPECTATIVA DE GOLS (Pseudo-xG)
                     prob_h = safe_prob(df_completo['Odd_H_Back'])
                     prob_a = safe_prob(df_completo['Odd_A_Back'])
                     prob_o25 = safe_prob(df_completo['Odd_Over25_FT_Back'])
@@ -302,7 +310,6 @@ if check_password():
                     df_completo['XG_Casa'] = np.where(prob_h > 0, (exp_tg * (prob_h + 0.5 * prob_d) / soma_probs), np.nan)
                     df_completo['XG_Fora'] = np.where(prob_a > 0, (exp_tg * (prob_a + 0.5 * prob_d) / soma_probs), np.nan)
 
-                    # 3. NORMALIZAÇÃO E CÁLCULO DO "SCORE" (0 a 100)
                     xg_total = df_completo['XG_Casa'] + df_completo['XG_Fora']
                     score_xg = np.where(xg_total > 0, (df_completo['XG_Casa'] / xg_total) * 30.0, 15.0)
 
@@ -320,14 +327,12 @@ if check_password():
                     df_completo['Score'] = score_xg + score_pts_casa + score_pts_fora + score_fts + score_cs + score_dp_gm + score_dp_gs + score_vaz
                     df_completo['Score'] = df_completo['Score'].fillna(0).round(0).astype(int)
 
-                    # Geração do Alerta Visual
                     def definir_alerta(score):
                         if score >= 55: return '🟢'
                         elif score >= 48: return '🟡'
                         else: return '🔴'
                     df_completo['Alerta'] = df_completo['Score'].apply(definir_alerta)
 
-                    # Formatação de Exibição das Colunas Base
                     df_completo['Pontos Casa'] = np.where(qtd_jogos_casa > 0, soma_pts_casa.fillna(0).astype(int).astype(str), "-")
                     df_completo['Pontos Fora'] = np.where(qtd_jogos_fora > 0, soma_pts_fora.fillna(0).astype(int).astype(str), "-")
                     df_completo['CS Casa'] = np.where(qtd_jogos_casa > 0, soma_cs_casa.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
@@ -336,7 +341,6 @@ if check_password():
                     df_completo['DP GM Fora'] = np.where(qtd_jogos_fora > 1, dp_gm_fora.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
                     df_completo['Vaz Def Fora'] = np.where(qtd_jogos_fora > 0, vaz_def_fora.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
                     
-                    # MÉTRICAS EXTRAS DO MODELO
                     df_completo['Prob_1x2_A'] = safe_prob(df_completo['Odd_A_Back'])
                     df_completo['Prob_CS_Resistance'] = safe_prob(df_completo['Odd_CS_1x0_Lay']) + safe_prob(df_completo['Odd_CS_2x1_Lay'])
                     df_completo['Market_Asymmetry'] = (df_completo['Prob_CS_Resistance'] - df_completo['Prob_1x2_A'])
@@ -388,7 +392,6 @@ if check_password():
     if st.session_state.get('mostrar_tabela', False):
         df_bruto = st.session_state['df_bruto']
         
-        # Filtros Ocultos/Ativos
         odd_selecionada = 2.50
         edge_selecionado = 0.0
         
@@ -396,7 +399,6 @@ if check_password():
         edge_decimal = edge_selecionado / 100.0
         df_final_filtrado = df_filtrado_odd[df_filtrado_odd["Edge"] >= edge_decimal].copy()
         
-        # Grid para o resultado e o botão de download ficarem lado a lado
         col_res1, col_res2 = st.columns([4, 1])
         with col_res1:
             texto_resultado = f"""
@@ -424,11 +426,11 @@ if check_password():
                 tabela_excel.to_excel(writer, index=False, sheet_name='Lay_Away')
             
             with col_res2:
-                st.download_button("📥 Exportar Excel", data=buffer.getvalue(), file_name="Jogos_LayAway.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=True)
+                # Botão renderizado na coluna da direita com alinhamento flex-end via CSS
+                st.download_button("📥 Exportar Excel", data=buffer.getvalue(), file_name="Jogos_LayAway.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=False)
             
             tabela_web = tabela_excel.drop(columns=['Vantagem'])
 
-            # Estilo Dark Mode da Tabela
             def estilizar_linhas_premium(row):
                 cor_fundo = '#1e1e1e' if row.name % 2 == 0 else '#121212'
                 return [f'background-color: {cor_fundo}; color: #e0e0e0; text-align: center !important; font-size: 15px; border-bottom: 1px solid #333;'] * len(row)
@@ -436,7 +438,7 @@ if check_password():
             tabela_estilizada = tabela_web.style.apply(estilizar_linhas_premium, axis=1) \
                 .format({'Odd Lay': '{:.2f}', 'xG Casa': '{:.2f}', 'xG Fora': '{:.2f}'}, na_rep="-") \
                 .hide(axis="index") \
-                .set_table_attributes('style="width: 100%; border-collapse: collapse; margin-top: 10px; border: 1px solid #333;"') \
+                .set_table_attributes('style="width: 100%; border-collapse: collapse; margin-top: 5px; border: 1px solid #333;"') \
                 .set_table_styles([
                     {'selector': 'th', 'props': [
                         ('background-color', '#262730'), ('color', '#ffffff'), 
