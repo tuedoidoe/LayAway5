@@ -28,7 +28,7 @@ st.markdown("""
     /* Estilização do Título Impactante (Dourado e Prateado) */
     .titulo-premium {
         font-family: 'Arial Black', Impact, sans-serif;
-        font-size: 4.0rem; /* Fonte aumentada */
+        font-size: 6.0rem; /* Fonte aumentada */
         font-weight: 900;
         letter-spacing: -2px;
         background: linear-gradient(135deg, #d4af37 0%, #fff2cd 25%, #c0c0c0 50%, #e5e4e2 75%, #b5952f 100%);
@@ -131,7 +131,7 @@ def check_password():
     col1, col2, col3 = st.columns([1.5, 1, 1.5])
     with col2:
         st.markdown("<br><br>", unsafe_allow_html=True)
-        st.markdown("<h2 style='text-align: center; color: white;'>Acesso Restrito</h2>", unsafe_allow_html=True)
+        st.image("logo.png", use_container_width=True)
         def password_entered():
             if st.session_state["password"] == st.secrets["senha_secreta"]:
                 st.session_state["password_correct"] = True
