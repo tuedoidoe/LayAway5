@@ -28,7 +28,7 @@ st.markdown("""
     /* Estilização do Título Impactante (Dourado e Prateado) */
     .titulo-premium {
         font-family: 'Arial Black', Impact, sans-serif;
-        font-size: 720px;
+        font-size: 60px !important; /* <--- Tamanho gigante, forçado pelo !important */
         font-weight: 900;
         letter-spacing: -2px;
         background: linear-gradient(135deg, #d4af37 0%, #fff2cd 25%, #c0c0c0 50%, #e5e4e2 75%, #b5952f 100%);
@@ -38,6 +38,7 @@ st.markdown("""
         padding-bottom: 0px;
         line-height: 1.1;
         text-transform: uppercase;
+        display: inline-block; /* Ajuda a não cortar o degradê */
     }
     
     /* Data da última atualização */
@@ -49,9 +50,9 @@ st.markdown("""
         margin-bottom: 20px;
     }
 
-    /* Ajustes dos controles no canto superior direito */
+    /* Ajustes dos controles (Horizontalidade) */
     div[data-testid="stRadio"] { display: flex !important; justify-content: flex-start !important; align-items: center !important; height: 100%;}
-    div[data-testid="stRadio"] > div[role="radiogroup"] { display: flex !important; gap: 20px; }
+    div[data-testid="stRadio"] > div[role="radiogroup"] { display: flex !important; flex-direction: row !important; gap: 20px; }
     
     /* Ajuste da altura e alinhamento do botão principal */
     div[data-testid="stButton"] > button { 
@@ -62,7 +63,7 @@ st.markdown("""
         border: none !important;
         font-size: 16px !important;
         height: 40px !important;
-        margin-top: 24px !important; /* Alinha com o input de data */
+        margin-top: 24px !important; 
         transition: all 0.3s ease;
     }
     div[data-testid="stButton"] > button:hover { 
@@ -70,10 +71,11 @@ st.markdown("""
         transform: translateY(-2px);
     }
 
-    /* Botão de Download Alinhado à Direita */
+    /* Botão de Download EXATAMENTE alinhado à direita */
     div[data-testid="stDownloadButton"] {
         display: flex;
-        justify-content: flex-end; /* Empurra para o canto direito */
+        justify-content: flex-end !important; /* Força o botão para a parede direita */
+        width: 100% !important;
         margin-bottom: 5px;
     }
     div[data-testid="stDownloadButton"] > button { 
@@ -131,7 +133,9 @@ def check_password():
     col1, col2, col3 = st.columns([1.5, 1, 1.5])
     with col2:
         st.markdown("<br><br>", unsafe_allow_html=True)
+        # Sua LOGO está de volta aqui!
         st.image("logo.png", use_container_width=True)
+        
         def password_entered():
             if st.session_state["password"] == st.secrets["senha_secreta"]:
                 st.session_state["password_correct"] = True
@@ -185,7 +189,7 @@ if check_password():
     
     with col_esquerda:
         st.markdown("<p class='titulo-premium'>SCANNER LAY AWAY</p>", unsafe_allow_html=True)
-        # Horário de Brasília
+        # Horário de Brasília Fixo
         fuso_br = pytz.timezone('America/Sao_Paulo')
         agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
         st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
@@ -197,7 +201,6 @@ if check_password():
         c1, c2, c3 = st.columns([1.2, 1, 1])
         with c1:
             st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
-            # Radio Horizontal 
             tipo_filtro = st.radio("Período", ["Data Única", "Intervalo"], horizontal=True, label_visibility="collapsed")
         with c2:
             st.markdown("<div style='font-size: 14px; font-weight: bold; margin-bottom: 2px;'>Data da Pesquisa</div>", unsafe_allow_html=True)
@@ -399,7 +402,9 @@ if check_password():
         edge_decimal = edge_selecionado / 100.0
         df_final_filtrado = df_filtrado_odd[df_filtrado_odd["Edge"] >= edge_decimal].copy()
         
+        # Grid para o resultado e o botão de download
         col_res1, col_res2 = st.columns([4, 1])
+        
         with col_res1:
             texto_resultado = f"""
             <div style='text-align: left; font-size: 18px; margin-top: 10px; margin-bottom: 20px;'>
@@ -426,7 +431,7 @@ if check_password():
                 tabela_excel.to_excel(writer, index=False, sheet_name='Lay_Away')
             
             with col_res2:
-                # Botão renderizado na coluna da direita com alinhamento flex-end via CSS
+                # O botão será renderizado com justify-content: flex-end (colado na direita)
                 st.download_button("📥 Exportar Excel", data=buffer.getvalue(), file_name="Jogos_LayAway.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=False)
             
             tabela_web = tabela_excel.drop(columns=['Vantagem'])
