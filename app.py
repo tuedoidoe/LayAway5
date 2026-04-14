@@ -456,17 +456,17 @@ if check_password():
             html_final = tabela_estilizada.to_html()
             
             tooltips_dicionario = {
-                '>xG Casa</th>': '><span class="tooltip-header" data-title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo.">xG Casa</span></th>',
-                '>xG Fora</th>': '><span class="tooltip-header" data-title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo.">xG Fora</span></th>',
-                '>Pts Casa</th>': '><span class="tooltip-header" data-title="Embalo (Casa): Garante que estamos confiando o nosso dinheiro em um time que está acostumado a vencer no seu estádio.">Pts Casa</span></th>',
-                '>Pts Fora</th>': '><span class="tooltip-header" data-title="Crise (Fora): Confirma a má fase do visitante, mostrando que ele tem o hábito de tropeçar.">Pts Fora</span></th>',
-                '>FTS Fora</th>': '><span class="tooltip-header" data-title="Inofensividade: Penaliza fortemente o visitante se ele tem o costume de passar jogos sem marcar nenhum gol.">FTS Fora</span></th>',
-                '>DP GM Fora</th>': '><span class="tooltip-header" data-title="Filtro Anti-Zebra: Queremos um número baixo. Evita que a gente aposte contra um time que do nada mete 3 gols num jogo só.">DP GM Fora</span></th>',
-                '>DP GS Casa</th>': '><span class="tooltip-header" data-title="Muralha Estável: Queremos um número baixo. Confirma que a zaga do mandante não é de lua (um dia boa, outro dia péssima).">DP GS Casa</span></th>',
-                '>Vaz Def Fora</th>': '><span class="tooltip-header" data-title="Caminho Livre: Média de gols sofridos pelo visitante. Se eles sempre tomam gol, a nossa aposta fica muito mais tranquila.">Vaz Def Fora</span></th>',
-                '>CS Casa</th>': '><span class="tooltip-header" data-title="Seguro 0x0: Bônus para mandantes que saem de campo sem tomar gols, garantindo o nosso empate protetor.">CS Casa</span></th>',
-                '>Score</th>': '><span class="tooltip-header" data-title="Nota de 0 a 100 gerada pela normalização de todos os pesos. Serve como um guia de risco consolidado.">Score</span></th>',
-                '>Alerta</th>': '><span class="tooltip-header" data-title="Visualização Rápida de Risco. Verde >= 55. Amarelo 48 a 54. Vermelho < 48.">Alerta</span></th>'
+                '>xG Casa</th>': '><span class="tooltip-header" data-title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo. | Quanto MAIOR, melhor. (Ideal: > 1.50)">xG Casa</span></th>',
+                '>xG Fora</th>': '><span class="tooltip-header" data-title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo. | Quanto MENOR, melhor. (Ideal: < 1.00)">xG Fora</span></th>',
+                '>Pts Casa</th>': '><span class="tooltip-header" data-title="Embalo (Casa): Garante que estamos confiando o nosso dinheiro em um time que está acostumado a vencer no seu estádio. | Quanto MAIOR, melhor. (Ideal: >= 10 pts)">Pts Casa</span></th>',
+                '>Pts Fora</th>': '><span class="tooltip-header" data-title="Crise (Fora): Confirma a má fase do visitante, mostrando que ele tem o hábito de tropeçar. | Quanto MENOR, melhor. (Ideal: <= 5 pts)">Pts Fora</span></th>',
+                '>FTS Fora</th>': '><span class="tooltip-header" data-title="Inofensividade: Penaliza fortemente o visitante se ele tem o costume de passar jogos sem marcar nenhum gol. | Quanto MAIOR, melhor. (Ideal: >= 0.60)">FTS Fora</span></th>',
+                '>DP GM Fora</th>': '><span class="tooltip-header" data-title="Filtro Anti-Zebra: Evita que a gente aposte contra um time que do nada mete 3 gols num jogo só. | Quanto MENOR, melhor. (Ideal: < 1.00)">DP GM Fora</span></th>',
+                '>DP GS Casa</th>': '><span class="tooltip-header" data-title="Muralha Estável: Confirma que a zaga do mandante não é de lua (um dia boa, outro dia péssima). | Quanto MENOR, melhor. (Ideal: < 1.00)">DP GS Casa</span></th>',
+                '>Vaz Def Fora</th>': '><span class="tooltip-header" data-title="Caminho Livre: Média de gols sofridos pelo visitante. Se eles sempre tomam gol, a nossa aposta fica muito mais tranquila. | Quanto MAIOR, melhor. (Ideal: >= 1.50)">Vaz Def Fora</span></th>',
+                '>CS Casa</th>': '><span class="tooltip-header" data-title="Seguro 0x0: Bônus para mandantes que saem de campo sem tomar gols, garantindo o nosso empate protetor. | Quanto MAIOR, melhor. (Ideal: >= 0.40)">CS Casa</span></th>',
+                '>Score</th>': '><span class="tooltip-header" data-title="Nota de 0 a 100 gerada pela normalização de todos os pesos. Serve como um guia de risco consolidado. | Quanto MAIOR, melhor. (Ideal: >= 55)">Score</span></th>',
+                '>Alerta</th>': '><span class="tooltip-header" data-title="Visualização Rápida de Risco. Verde >= 55. Amarelo 48 a 54. Vermelho < 48. | O ideal é focar nos Verdes e Amarelos.">Alerta</span></th>'
             }
 
             for string_velha, string_nova in tooltips_dicionario.items():
