@@ -28,7 +28,7 @@ st.markdown("""
     /* Estilização do Título Impactante (Dourado e Prateado) */
     .titulo-premium {
         font-family: 'Arial Black', Impact, sans-serif;
-        font-size: 72px;
+        font-size: 720px;
         font-weight: 900;
         letter-spacing: -2px;
         background: linear-gradient(135deg, #d4af37 0%, #fff2cd 25%, #c0c0c0 50%, #e5e4e2 75%, #b5952f 100%);
