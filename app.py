@@ -54,13 +54,14 @@ st.markdown("""
     div[data-testid="stRadio"] { display: flex !important; justify-content: flex-start !important; align-items: center !important; height: 100%;}
     div[data-testid="stRadio"] > div[role="radiogroup"] { display: flex !important; flex-direction: row !important; gap: 20px; }
     
-    /* Estilo dos Inputs Numéricos (Filtros) */
     /* Estilo dos Títulos (Labels) dos Filtros Numéricos */
     div[data-testid="stNumberInput"] label p {
         font-size: 14px !important; 
         font-weight: bold !important;
         color: #e0e0e0 !important;
     }
+
+    /* Estilo dos Inputs Numéricos (Filtros) */
     div[data-testid="stNumberInputContainer"] {
         background-color: #1e1e1e !important;
         border: 1px solid #333 !important;
