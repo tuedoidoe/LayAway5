@@ -423,7 +423,7 @@ if check_password():
             
         with col_edge:
             # Sem label_visibility para o nome voltar
-            edge_selecionado = st.number_input("Vantagem(EV+)(%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f")
+            edge_selecionado = st.number_input("EV+ (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f")
         
         # Aplicação dos Filtros Ativos
         df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
