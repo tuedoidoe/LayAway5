@@ -407,13 +407,16 @@ if check_password():
         df_bruto = st.session_state['df_bruto']
         
         # Grid para alinhar Resultados, Filtros e Botão de Exportar
-        col_res1, col_odd, col_edge, col_btn = st.columns([0.40, 0.15, 0.15, 0.30])
+        # 45% do espaço para o texto da esquerda, empurrando os filtros e botão bem para a direita
+        col_res1, col_odd, col_edge, col_btn = st.columns([0.45, 0.15, 0.15, 0.25])
         
         with col_odd:
-            odd_selecionada = st.number_input("Mín Odd Lay", min_value=2.50, max_value=5.0, value=2.50, step=0.10, format="%.2f", label_visibility="collapsed")
+            # Sem label_visibility para o nome voltar
+            odd_selecionada = st.number_input("Odd Lay Mín.", min_value=2.50, max_value=5.0, value=2.50, step=0.10, format="%.2f")
             
         with col_edge:
-            edge_selecionado = st.number_input("Edge Mínimo (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f", label_visibility="collapsed")
+            # Sem label_visibility para o nome voltar
+            edge_selecionado = st.number_input("Vantagem Mín. (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f")
         
         # Aplicação dos Filtros Ativos
         df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
@@ -422,13 +425,12 @@ if check_password():
         
         with col_res1:
             texto_resultado = f"""
-            <div style='text-align: left; font-size: 18px; margin-top: 28px; margin-bottom: 20px;'>
+            <div style='text-align: left; font-size: 18px; margin-top: 34px; margin-bottom: 20px;'>
                 <span style='color: #888;'>Oportunidades Encontradas:</span> <span style='color: #00d26a; font-weight: 900;'>{len(df_final_filtrado)} jogo(s)</span>
             </div>
             """
             st.markdown(texto_resultado, unsafe_allow_html=True)
 
-        # Repare que 'Edge' (Vantagem) agora foi posicionado logo após o 'XG_Fora'
         tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Pontos Casa', 'Pontos Fora', 'FTS Fora', 'DP GM Fora', 'DP GS Casa', 'Vaz Def Fora', 'CS Casa', 'XG_Casa', 'XG_Fora', 'Edge', 'Score', 'Alerta']].copy()
         
         if not tabela.empty:
@@ -447,7 +449,7 @@ if check_password():
                 tabela_excel.to_excel(writer, index=False, sheet_name='Lay_Away')
             
             with col_btn:
-                # O botão tem um margin-top para ficar alinhado verticalmente com as caixas de texto numéricas
+                # O margin-top de 28px compensa o espaço do título das caixas para que o botão fique perfeitamente alinhado com o input
                 st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
                 st.download_button("📥 Exportar Excel", data=buffer.getvalue(), file_name="Jogos_LayAway.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=False)
             
