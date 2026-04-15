@@ -408,7 +408,7 @@ if check_password():
         
         # Grid para alinhar Resultados, Filtros e Botão de Exportar
         # 45% do espaço para o texto da esquerda, empurrando os filtros e botão bem para a direita
-        col_res1, col_odd, col_edge, col_btn = st.columns([0.95, 0.15, 0.15, 0.25])
+        col_res1, col_odd, col_edge, col_btn = st.columns([1.45, 0.15, 0.15, 0.25])
         
         with col_odd:
             # Sem label_visibility para o nome voltar
