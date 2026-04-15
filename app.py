@@ -55,6 +55,12 @@ st.markdown("""
     div[data-testid="stRadio"] > div[role="radiogroup"] { display: flex !important; flex-direction: row !important; gap: 20px; }
     
     /* Estilo dos Inputs Numéricos (Filtros) */
+    /* Estilo dos Títulos (Labels) dos Filtros Numéricos */
+    div[data-testid="stNumberInput"] label p {
+        font-size: 16px !important; /* 👈 Aumente esse número se quiser ainda maior (ex: 18px, 20px) */
+        font-weight: bold !important;
+        color: #e0e0e0 !important;
+    }
     div[data-testid="stNumberInputContainer"] {
         background-color: #1e1e1e !important;
         border: 1px solid #333 !important;
@@ -408,7 +414,7 @@ if check_password():
         
         # Grid para alinhar Resultados, Filtros e Botão de Exportar
         # 45% do espaço para o texto da esquerda, empurrando os filtros e botão bem para a direita
-        col_res1, col_odd, col_edge, col_btn = st.columns([1.45, 0.15, 0.15, 0.25])
+        col_res1, col_odd, col_edge, col_btn = st.columns([1.45, 0.25, 0.25, 0.25])
         
         with col_odd:
             # Sem label_visibility para o nome voltar
