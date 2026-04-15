@@ -54,6 +54,17 @@ st.markdown("""
     div[data-testid="stRadio"] { display: flex !important; justify-content: flex-start !important; align-items: center !important; height: 100%;}
     div[data-testid="stRadio"] > div[role="radiogroup"] { display: flex !important; flex-direction: row !important; gap: 20px; }
     
+    /* Estilo dos Inputs Numéricos (Filtros) */
+    div[data-testid="stNumberInputContainer"] {
+        background-color: #1e1e1e !important;
+        border: 1px solid #333 !important;
+        border-radius: 6px !important;
+    }
+    div[data-testid="stNumberInputContainer"] input {
+        color: #00d26a !important;
+        font-weight: bold !important;
+    }
+    
     /* Ajuste da altura e alinhamento do botão principal */
     div[data-testid="stButton"] > button { 
         background-color: #00d26a !important; 
@@ -77,7 +88,7 @@ st.markdown("""
         justify-content: flex-end !important;
         width: 100% !important;
         margin-bottom: 5px;
-        padding-right: 0px !important; /* Remove qualquer espaço fantasma à direita */
+        padding-right: 0px !important; 
     }
     div[data-testid="stDownloadButton"] > button { 
         background-color: #262730 !important; 
@@ -395,25 +406,30 @@ if check_password():
     if st.session_state.get('mostrar_tabela', False):
         df_bruto = st.session_state['df_bruto']
         
-        odd_selecionada = 2.50
-        edge_selecionado = 0.0
+        # Grid para alinhar Resultados, Filtros e Botão de Exportar
+        col_res1, col_odd, col_edge, col_btn = st.columns([0.40, 0.15, 0.15, 0.30])
         
+        with col_odd:
+            odd_selecionada = st.number_input("Mín Odd Lay", min_value=2.50, max_value=5.0, value=2.50, step=0.10, format="%.2f", label_visibility="collapsed")
+            
+        with col_edge:
+            edge_selecionado = st.number_input("Edge Mínimo (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f", label_visibility="collapsed")
+        
+        # Aplicação dos Filtros Ativos
         df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
         edge_decimal = edge_selecionado / 100.0
         df_final_filtrado = df_filtrado_odd[df_filtrado_odd["Edge"] >= edge_decimal].copy()
         
-        # Grid com proporção drástica: o texto ocupa quase tudo (0.88), espremendo o botão no canto direito (0.12)
-        col_res1, col_res2 = st.columns([0.88, 0.12])
-        
         with col_res1:
             texto_resultado = f"""
-            <div style='text-align: left; font-size: 18px; margin-top: 10px; margin-bottom: 20px;'>
+            <div style='text-align: left; font-size: 18px; margin-top: 28px; margin-bottom: 20px;'>
                 <span style='color: #888;'>Oportunidades Encontradas:</span> <span style='color: #00d26a; font-weight: 900;'>{len(df_final_filtrado)} jogo(s)</span>
             </div>
             """
             st.markdown(texto_resultado, unsafe_allow_html=True)
 
-        tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Pontos Casa', 'Pontos Fora', 'FTS Fora', 'DP GM Fora', 'DP GS Casa', 'Vaz Def Fora', 'CS Casa', 'XG_Casa', 'XG_Fora', 'Score', 'Alerta', 'Edge']].copy()
+        # Repare que 'Edge' (Vantagem) agora foi posicionado logo após o 'XG_Fora'
+        tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Pontos Casa', 'Pontos Fora', 'FTS Fora', 'DP GM Fora', 'DP GS Casa', 'Vaz Def Fora', 'CS Casa', 'XG_Casa', 'XG_Fora', 'Edge', 'Score', 'Alerta']].copy()
         
         if not tabela.empty:
             tabela['Date'] = pd.to_datetime(tabela['Date'])
@@ -430,18 +446,19 @@ if check_password():
             with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
                 tabela_excel.to_excel(writer, index=False, sheet_name='Lay_Away')
             
-            with col_res2:
-                # Agora o botão ficará perfeitamente encostado na direita!
+            with col_btn:
+                # O botão tem um margin-top para ficar alinhado verticalmente com as caixas de texto numéricas
+                st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
                 st.download_button("📥 Exportar Excel", data=buffer.getvalue(), file_name="Jogos_LayAway.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=False)
             
-            tabela_web = tabela_excel.drop(columns=['Vantagem'])
+            tabela_web = tabela_excel.copy() 
 
             def estilizar_linhas_premium(row):
                 cor_fundo = '#1e1e1e' if row.name % 2 == 0 else '#121212'
                 return [f'background-color: {cor_fundo}; color: #e0e0e0; text-align: center !important; font-size: 15px; border-bottom: 1px solid #333;'] * len(row)
 
             tabela_estilizada = tabela_web.style.apply(estilizar_linhas_premium, axis=1) \
-                .format({'Odd Lay': '{:.2f}', 'xG Casa': '{:.2f}', 'xG Fora': '{:.2f}'}, na_rep="-") \
+                .format({'Odd Lay': '{:.2f}', 'xG Casa': '{:.2f}', 'xG Fora': '{:.2f}', 'Vantagem': '{:.1%}'}, na_rep="-") \
                 .hide(axis="index") \
                 .set_table_attributes('style="width: 100%; border-collapse: collapse; margin-top: 5px; border: 1px solid #333;"') \
                 .set_table_styles([
@@ -465,6 +482,7 @@ if check_password():
                 '>DP GS Casa</th>': '><span class="tooltip-header" data-title="Muralha Estável: Confirma que a zaga do mandante não é de lua (um dia boa, outro dia péssima). | Quanto MENOR, melhor. (Ideal: < 1.00)">DP GS Casa</span></th>',
                 '>Vaz Def Fora</th>': '><span class="tooltip-header" data-title="Caminho Livre: Média de gols sofridos pelo visitante. Se eles sempre tomam gol, a nossa aposta fica muito mais tranquila. | Quanto MAIOR, melhor. (Ideal: >= 1.50)">Vaz Def Fora</span></th>',
                 '>CS Casa</th>': '><span class="tooltip-header" data-title="Seguro 0x0: Bônus para mandantes que saem de campo sem tomar gols, garantindo o nosso empate protetor. | Quanto MAIOR, melhor. (Ideal: >= 0.40)">CS Casa</span></th>',
+                '>Vantagem</th>': '><span class="tooltip-header" data-title="Vantagem (Edge): Margem de valor real encontrada pelo modelo em relação à cotação da casa de apostas. | Quanto MAIOR, melhor.">Vantagem</span></th>',
                 '>Score</th>': '><span class="tooltip-header" data-title="Nota de 0 a 100 gerada pela normalização de todos os pesos. Serve como um guia de risco consolidado. | Quanto MAIOR, melhor. (Ideal: >= 55)">Score</span></th>',
                 '>Alerta</th>': '><span class="tooltip-header" data-title="Visualização Rápida de Risco. Verde >= 55. Amarelo 48 a 54. Vermelho < 48. | O ideal é focar nos Verdes e Amarelos.">Alerta</span></th>'
             }
