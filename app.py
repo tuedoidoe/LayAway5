@@ -56,7 +56,7 @@ st.markdown("""
     
     /* Estilo dos Títulos (Labels) dos Filtros Numéricos */
     div[data-testid="stNumberInput"] label p {
-        font-size: 14px !important; 
+        font-size: 15px !important; 
         font-weight: bold !important;
         color: #e0e0e0 !important;
     }
@@ -419,11 +419,11 @@ if check_password():
         
         with col_odd:
             # Sem label_visibility para o nome voltar
-            odd_selecionada = st.number_input("Odd Lay Mín.", min_value=2.50, max_value=5.0, value=2.50, step=0.10, format="%.2f")
+            odd_selecionada = st.number_input("Odd Lay", min_value=2.50, max_value=5.0, value=2.50, step=0.10, format="%.2f")
             
         with col_edge:
             # Sem label_visibility para o nome voltar
-            edge_selecionado = st.number_input("Vantagem Mín. (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f")
+            edge_selecionado = st.number_input("Vantagem(EV+)(%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f")
         
         # Aplicação dos Filtros Ativos
         df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
