@@ -238,11 +238,23 @@ def abrir_popup_grafico(t_casa, t_fora, df_completo):
             marker=dict(size=10, color='#ff4b4b', symbol='diamond')
         ))
 
+    # ---- LÓGICA DE ESCALA DINÂMICA (O FIX DO EIXO Y) ----
+    # Descobre o maior valor do gráfico para ajustar o teto automaticamente
+    max_casa = hist_casa['MM_Gols_Feitos'].max() if not hist_casa.empty else 0
+    max_fora = hist_fora['MM_Gols_Sofridos'].max() if not hist_fora.empty else 0
+    teto_grafico = max(max_casa, max_fora) + 0.5 # Dá um respiro de 0.5 no topo
+
     fig.update_layout(
         plot_bgcolor='#121212', paper_bgcolor='#121212',
         font=dict(color='#888'),
         xaxis=dict(showgrid=True, gridwidth=1, gridcolor='#333'),
-        yaxis=dict(title='Média Móvel de Gols', showgrid=True, gridwidth=1, gridcolor='#333', range=[None, None]),
+        yaxis=dict(
+            title='Média Móvel de Gols', 
+            showgrid=True, 
+            gridwidth=1, 
+            gridcolor='#333', 
+            range=[-0.5, teto_grafico] # Limites cravados: Piso -0.5 e Teto Dinâmico!
+        ),
         hovermode="x unified",
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
         margin=dict(l=20, r=20, t=30, b=20)
