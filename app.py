@@ -448,7 +448,7 @@ if check_password():
             tabela_excel = tabela.rename(columns={
                 'Date': 'Data', 'Time': 'Horário', 'League': 'Liga', 'Home': 'Time Casa', 'Away': 'Time Fora',
                 'Odd_A_Lay': 'Odd Lay', 'Pontos Casa': 'Pts Casa', 'Pontos Fora': 'Pts Fora',
-                'XG_Casa': 'xG Casa', 'XG_Fora': 'xG Fora', 'Edge': 'Vantagem'
+                'XG_Casa': 'xG Casa', 'XG_Fora': 'xG Fora', 'Edge': 'EV+'
             })
 
             buffer = io.BytesIO()
@@ -467,7 +467,7 @@ if check_password():
                 return [f'background-color: {cor_fundo}; color: #e0e0e0; text-align: center !important; font-size: 15px; border-bottom: 1px solid #333;'] * len(row)
 
             tabela_estilizada = tabela_web.style.apply(estilizar_linhas_premium, axis=1) \
-                .format({'Odd Lay': '{:.2f}', 'xG Casa': '{:.2f}', 'xG Fora': '{:.2f}', 'Vantagem': '{:.1%}'}, na_rep="-") \
+                .format({'Odd Lay': '{:.2f}', 'xG Casa': '{:.2f}', 'xG Fora': '{:.2f}', 'EV+': '{:.1%}'}, na_rep="-") \
                 .hide(axis="index") \
                 .set_table_attributes('style="width: 100%; border-collapse: collapse; margin-top: 5px; border: 1px solid #333;"') \
                 .set_table_styles([
@@ -491,7 +491,7 @@ if check_password():
                 '>DP GS Casa</th>': '><span class="tooltip-header" data-title="Muralha Estável: Confirma que a zaga do mandante não é de lua (um dia boa, outro dia péssima). | Quanto MENOR, melhor. (Ideal: < 1.00)">DP GS Casa</span></th>',
                 '>Vaz Def Fora</th>': '><span class="tooltip-header" data-title="Caminho Livre: Média de gols sofridos pelo visitante. Se eles sempre tomam gol, a nossa aposta fica muito mais tranquila. | Quanto MAIOR, melhor. (Ideal: >= 1.50)">Vaz Def Fora</span></th>',
                 '>CS Casa</th>': '><span class="tooltip-header" data-title="Seguro 0x0: Bônus para mandantes que saem de campo sem tomar gols, garantindo o nosso empate protetor. | Quanto MAIOR, melhor. (Ideal: >= 0.40)">CS Casa</span></th>',
-                '>Vantagem</th>': '><span class="tooltip-header" data-title="Vantagem (Edge): Margem de valor real encontrada pelo modelo em relação à cotação da casa de apostas. | Quanto MAIOR, melhor.">Vantagem</span></th>',
+                '>EV+</th>': '><span class="tooltip-header" data-title="Vantagem (Edge): Margem de valor real encontrada pelo modelo em relação à cotação da casa de apostas. | Quanto MAIOR, melhor.">EV+</span></th>',
                 '>Score</th>': '><span class="tooltip-header" data-title="Nota de 0 a 100 gerada pela normalização de todos os pesos. Serve como um guia de risco consolidado. | Quanto MAIOR, melhor. (Ideal: >= 55)">Score</span></th>',
                 '>Alerta</th>': '><span class="tooltip-header" data-title="Visualização Rápida de Risco. Verde >= 55. Amarelo 48 a 54. Vermelho < 48. | O ideal é focar nos Verdes e Amarelos.">Alerta</span></th>'
             }
