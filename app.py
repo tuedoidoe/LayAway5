@@ -230,7 +230,7 @@ def abrir_popup_grafico(t_casa, t_fora, df_completo):
         plot_bgcolor='#121212', paper_bgcolor='#121212',
         font=dict(color='#888'),
         xaxis=dict(showgrid=True, gridwidth=1, gridcolor='#333'),
-        yaxis=dict(title='Gols', showgrid=True, gridwidth=1, gridcolor='#333', rangemode='tozero'),
+        yaxis=dict(title='Gols', showgrid=True, gridwidth=1, gridcolor='#333', range=[-0.5, None]),
         hovermode="x unified",
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
     )
