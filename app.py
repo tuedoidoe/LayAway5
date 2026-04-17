@@ -82,7 +82,6 @@ st.markdown("""
         border: none !important;
         font-size: 16px !important;
         height: 40px !important;
-        /* A margem global foi removida para não quebrar o botão do popup! */
         transition: all 0.3s ease;
     }
     div[data-testid="stButton"] > button:hover { 
@@ -200,41 +199,107 @@ def baixar_jogos_do_dia(data):
     except: return pd.DataFrame()
 
 # ==========================================
-# JANELA POP-UP DO GRÁFICO (DIÁLOGO)
+# JANELA POP-UP DO GRÁFICO (RAIO-X: BOCA DE JACARÉ)
 # ==========================================
-@st.dialog("📊 Análise de Tendência (Raio-X)", width="large")
+@st.dialog("📊 Raio-X do Confronto: Boca de Jacaré", width="large")
 def abrir_popup_grafico(t_casa, t_fora, df_completo):
-    hist_casa = df_completo[(df_completo['Home'] == t_casa)].tail(8).copy()
-    hist_fora = df_completo[(df_completo['Away'] == t_fora)].tail(8).copy()
+    # Pega os últimos 10 jogos para calcular a média móvel corretamente
+    hist_casa = df_completo[(df_completo['Home'] == t_casa)].tail(10).copy()
+    hist_fora = df_completo[(df_completo['Away'] == t_fora)].tail(10).copy()
     
-    eixo_x = [f"Jogo {i+1}" for i in range(8)]
+    # Média Móvel de 3 jogos
+    if not hist_casa.empty:
+        hist_casa['MM_Gols_Feitos'] = hist_casa['Goals_H_FT'].rolling(window=3, min_periods=1).mean()
+    if not hist_fora.empty:
+        # Gols_H_FT quando o time é Away = Gols Sofridos
+        hist_fora['MM_Gols_Sofridos'] = hist_fora['Goals_H_FT'].rolling(window=3, min_periods=1).mean()
+    
+    # Foco nos últimos 6 jogos
+    hist_casa = hist_casa.tail(6)
+    hist_fora = hist_fora.tail(6)
+    
+    eixo_x = [f"Jogo {i+1}" for i in range(6)]
     fig = go.Figure()
 
     if not hist_casa.empty:
         fig.add_trace(go.Scatter(
-            x=eixo_x[:len(hist_casa)], y=hist_casa['Goals_H_FT'].values,
-            mode='lines+markers', name=f"{t_casa} (Gols Feitos)",
-            line=dict(color='#00d26a', width=3, shape='spline'),
-            marker=dict(size=8, color='#00d26a')
+            x=eixo_x[:len(hist_casa)], y=hist_casa['MM_Gols_Feitos'].values,
+            mode='lines+markers', name=f"📈 Poder de Fogo ({t_casa})",
+            line=dict(color='#00d26a', width=4, shape='spline'),
+            marker=dict(size=10, color='#00d26a', symbol='circle'),
+            fill='tozeroy', fillcolor='rgba(0, 210, 106, 0.05)' # Sombra verde
         ))
 
     if not hist_fora.empty:
         fig.add_trace(go.Scatter(
-            x=eixo_x[:len(hist_fora)], y=hist_fora['Goals_H_FT'].values, 
-            mode='lines+markers', name=f"{t_fora} (Gols Sofridos)",
-            line=dict(color='#ff4b4b', width=3, shape='spline'),
-            marker=dict(size=8, color='#ff4b4b')
+            x=eixo_x[:len(hist_fora)], y=hist_fora['MM_Gols_Sofridos'].values, 
+            mode='lines+markers', name=f"📉 Crise Defensiva ({t_fora})",
+            line=dict(color='#ff4b4b', width=4, shape='spline', dash='dot'), # Pontilhado
+            marker=dict(size=10, color='#ff4b4b', symbol='diamond')
         ))
 
     fig.update_layout(
         plot_bgcolor='#121212', paper_bgcolor='#121212',
         font=dict(color='#888'),
         xaxis=dict(showgrid=True, gridwidth=1, gridcolor='#333'),
-        yaxis=dict(title='Gols', showgrid=True, gridwidth=1, gridcolor='#333', range=[-0.5, None]),
+        yaxis=dict(title='Média Móvel de Gols', showgrid=True, gridwidth=1, gridcolor='#333', range=[-0.2, None]),
         hovermode="x unified",
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        margin=dict(l=20, r=20, t=30, b=20)
     )
     st.plotly_chart(fig, use_container_width=True)
+
+    # ==========================================
+    # INTELIGÊNCIA DO CONFRONTO (MENSAGENS)
+    # ==========================================
+    st.markdown("<hr style='border: 1px solid #333; margin-top: -15px; margin-bottom: 15px;'>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 18px; color: #e0e0e0; font-weight: bold;'>💡 Inteligência do Confronto</p>", unsafe_allow_html=True)
+    
+    # Análise do Momento (último valor da média)
+    momento_ataque_casa = hist_casa['MM_Gols_Feitos'].iloc[-1] if not hist_casa.empty else 0
+    momento_defesa_fora = hist_fora['MM_Gols_Sofridos'].iloc[-1] if not hist_fora.empty else 0
+    
+    col_msg1, col_msg2 = st.columns(2)
+    
+    with col_msg1:
+        if momento_ataque_casa >= 1.5:
+            st.success(f"🔥 **Ataque Feroz:** A tendência atual do {t_casa} é marcar {momento_ataque_casa:.1f} gols/jogo.")
+        elif momento_ataque_casa >= 1.0:
+            st.info(f"⚖️ **Ataque Regular:** A tendência atual do {t_casa} é marcar {momento_ataque_casa:.1f} gols/jogo.")
+        else:
+            st.error(f"⚠️ **Ataque Inofensivo:** O {t_casa} vem sofrendo para marcar (tendência de {momento_ataque_casa:.1f} gols/jogo).")
+            
+    with col_msg2:
+        if momento_defesa_fora >= 1.5:
+            st.success(f"🚨 **Defesa em Crise:** A zaga do {t_fora} está vazando! Sofrendo {momento_defesa_fora:.1f} gols/jogo.")
+        elif momento_defesa_fora >= 1.0:
+            st.info(f"⚖️ **Defesa Regular:** A tendência atual do {t_fora} é sofrer {momento_defesa_fora:.1f} gols/jogo.")
+        else:
+            st.error(f"🛡️ **Defesa Intransponível:** O {t_fora} ajustou a zaga e vem sofrendo apenas {momento_defesa_fora:.1f} gols/jogo.")
+
+    # Veredito Final
+    if momento_ataque_casa >= 1.5 and momento_defesa_fora >= 1.5:
+        veredito = "🐊 <b>BOCA DE JACARÉ DETECTADA:</b> Cenário PERFEITO para Lay Away! O ataque do mandante está crescendo na mesma proporção em que a defesa do visitante está afundando."
+        cor_borda = "#00d26a"
+    elif momento_ataque_casa < 1.0 and momento_defesa_fora < 1.0:
+        veredito = "🧱 <b>CENÁRIO PERIGOSO:</b> Mandante com ataque inoperante contra uma defesa visitante ajustada. Risco alto de jogo truncado ou 0x0. Evite o Lay Away."
+        cor_borda = "#ff4b4b"
+    elif momento_ataque_casa >= 1.5 and momento_defesa_fora < 1.0:
+        veredito = "⚔️ <b>JOGO DE PACIÊNCIA:</b> O mandante tem muito volume, mas o visitante sabe se defender. A linha de gols dependerá da quebra dessa retranca."
+        cor_borda = "#fada5e"
+    elif momento_ataque_casa < 1.0 and momento_defesa_fora >= 1.5:
+        veredito = "🎲 <b>CENÁRIO IMPREVISÍVEL:</b> A defesa visitante é terrível, mas o ataque mandante não aproveita. Jogo com alta chance de zebras."
+        cor_borda = "#fada5e"
+    else:
+        veredito = "⚖️ <b>CENÁRIO NEUTRO:</b> As médias móveis estão estáveis. Não há padrão claro de Boca de Jacaré neste momento."
+        cor_borda = "#3b82f6"
+
+    st.markdown(f"""
+        <div style='background-color: #1e1e1e; border-left: 5px solid {cor_borda}; padding: 15px; border-radius: 5px; margin-top: 5px;'>
+            <span style='color: #e0e0e0; font-size: 15px;'>{veredito}</span>
+        </div>
+    """, unsafe_allow_html=True)
+
 
 # ==========================================
 # CÓDIGO DO SCANNER (CABEÇALHO)
@@ -563,14 +628,11 @@ if check_password():
             col_sel, col_btn, col_vazia = st.columns([0.8, 0.6, 3])
             
             with col_sel:
-                # 1. Ajuste da Caixa: Se ela estiver muito alta, coloque um valor positivo (ex: 'margin-top: 5px;')
                 st.markdown("<div style='margin-top: 0px;'></div>", unsafe_allow_html=True)
                 lista_confrontos = tabela['Home'] + " x " + tabela['Away']
                 jogo_alvo = st.selectbox("Selecione o Jogo:", lista_confrontos, label_visibility="collapsed")
                 
             with col_btn:
-                # 2. Ajuste do Botão: Como ele geralmente fica mais baixo, usamos um valor negativo para puxá-lo para cima.
-                # Vá mudando esse número (-10px, -15px, -20px) até ele colar perfeitamente com a caixa ao lado!
                 st.markdown("<div style='margin-top: -14px;'></div>", unsafe_allow_html=True)
                 if st.button("📈 Ver Gráfico na Janela", use_container_width=True):
                     if jogo_alvo:
