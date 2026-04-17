@@ -525,7 +525,7 @@ if check_password():
                 col_sel, col_vazia = st.columns([1, 1])
                 with col_sel:
                     # Cria a lista de jogos disponíveis hoje
-                    lista_confrontos = tabela['Time Casa'] + " x " + tabela['Time Fora']
+                    lista_confrontos = tabela['Home'] + " x " + tabela['Away']
                     jogo_alvo = st.selectbox("Selecione o Jogo:", lista_confrontos)
                 
                 if jogo_alvo:
