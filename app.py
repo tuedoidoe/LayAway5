@@ -8,6 +8,7 @@ import pytz
 import requests
 import io
 from rapidfuzz import process, fuzz
+import plotly.graph_objects as go
 
 warnings.filterwarnings("ignore")
 
