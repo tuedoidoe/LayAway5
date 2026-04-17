@@ -563,11 +563,15 @@ if check_password():
             col_sel, col_btn, col_vazia = st.columns([0.8, 0.6, 3])
             
             with col_sel:
+                # 1. Ajuste da Caixa: Se ela estiver muito alta, coloque um valor positivo (ex: 'margin-top: 5px;')
+                st.markdown("<div style='margin-top: 0px;'></div>", unsafe_allow_html=True)
                 lista_confrontos = tabela['Home'] + " x " + tabela['Away']
                 jogo_alvo = st.selectbox("Selecione o Jogo:", lista_confrontos, label_visibility="collapsed")
                 
             with col_btn:
-                # Agora, sem aquela margem global engessada, este botão vai colar perfeitamente no topo!
+                # 2. Ajuste do Botão: Como ele geralmente fica mais baixo, usamos um valor negativo para puxá-lo para cima.
+                # Vá mudando esse número (-10px, -15px, -20px) até ele colar perfeitamente com a caixa ao lado!
+                st.markdown("<div style='margin-top: -14px;'></div>", unsafe_allow_html=True)
                 if st.button("📈 Ver Gráfico na Janela", use_container_width=True):
                     if jogo_alvo:
                         t_casa, t_fora = jogo_alvo.split(" x ")
