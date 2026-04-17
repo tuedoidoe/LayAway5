@@ -82,7 +82,7 @@ st.markdown("""
         border: none !important;
         font-size: 16px !important;
         height: 40px !important;
-        margin-top: 24px !important; 
+        /* A margem global foi removida para não quebrar o botão do popup! */
         transition: all 0.3s ease;
     }
     div[data-testid="stButton"] > button:hover { 
@@ -265,6 +265,8 @@ if check_password():
             else:
                 data_selecionada = st.date_input("Data", value=(hoje, hoje), format="DD/MM/YYYY", label_visibility="collapsed")
         with c3:
+            # Novo espaçador exclusivo para alinhar apenas ESTE botão com as datas
+            st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
             btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True)
         
     st.markdown("<hr style='margin-top: 0px; margin-bottom: 25px; border: 1px solid #333;'>", unsafe_allow_html=True)
@@ -441,7 +443,7 @@ if check_password():
                             else:
                                 st.session_state['mostrar_tabela'] = True
                                 st.session_state['df_bruto'] = df_bruto
-                                st.session_state['df_completo'] = df_completo # Salvando histórico gigantesco na sessão
+                                st.session_state['df_completo'] = df_completo
 
             except Exception as e:
                 st.error(f"Erro inesperado durante o processamento: {e}")
@@ -451,9 +453,8 @@ if check_password():
     # ==========================================
     if st.session_state.get('mostrar_tabela', False):
         df_bruto = st.session_state['df_bruto']
-        df_completo = st.session_state['df_completo'] # Resgatando da sessão
+        df_completo = st.session_state['df_completo']
         
-        # Grid para alinhar Resultados, Filtros, Ordenação e Botão de Exportar
         col_res1, col_sort, col_ordem, col_odd, col_edge, col_btn = st.columns([3.8, 0.8, 0.8, 0.8, 0.8, 0.8])
         
         with col_sort:
@@ -468,7 +469,6 @@ if check_password():
         with col_edge:
             edge_selecionado = st.number_input("EV+ (%)", min_value=0.0, max_value=50.0, value=0.0, step=0.50, format="%.1f")
         
-        # Aplicação dos Filtros Ativos
         df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
         edge_decimal = edge_selecionado / 100.0
         df_final_filtrado = df_filtrado_odd[df_filtrado_odd["Edge"] >= edge_decimal].copy()
@@ -486,7 +486,6 @@ if check_password():
         if not tabela.empty:
             tabela['Date'] = pd.to_datetime(tabela['Date'])
             
-            # --- LÓGICA DE ORDENAÇÃO APLICADA AQUI ---
             is_ascending = (direcao_ordem == "Crescente")
             
             if coluna_ordem == "Horário":
@@ -509,7 +508,6 @@ if check_password():
                 tabela_excel.to_excel(writer, index=False, sheet_name='Lay_Away')
             
             with col_btn:
-                # O margin-top de 28px compensa o espaço do título das caixas para que o botão fique perfeitamente alinhado com o input
                 st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
                 st.download_button("📥 Exportar Excel", data=buffer.getvalue(), file_name="Jogos_LayAway.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=False)
             
@@ -569,6 +567,7 @@ if check_password():
                 jogo_alvo = st.selectbox("Selecione o Jogo:", lista_confrontos, label_visibility="collapsed")
                 
             with col_btn:
+                # Agora, sem aquela margem global engessada, este botão vai colar perfeitamente no topo!
                 if st.button("📈 Ver Gráfico na Janela", use_container_width=True):
                     if jogo_alvo:
                         t_casa, t_fora = jogo_alvo.split(" x ")
