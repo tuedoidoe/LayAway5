@@ -560,9 +560,9 @@ if check_password():
             # ==========================================
             st.markdown("<hr style='margin-top: 10px; margin-bottom: 20px; border: 1px solid #333;'>", unsafe_allow_html=True)
             
-            st.markdown("<p style='font-size: 16px; color: #e0e0e0; font-weight: bold; margin-top: 5px;'>📊 Gráfico de Tendência (Pop-up)</p>", unsafe_allow_html=True)
+            st.markdown("<p style='font-size: 16px; color: #e0e0e0; font-weight: bold; <div style='margin-top: 5px;'></div>;'>📊 Gráfico de Tendência (Pop-up)</p>", unsafe_allow_html=True)
             
-            col_sel, col_btn, col_vazia = st.columns([2, 1, 2])
+            col_sel, col_btn, col_vazia = st.columns([1, 1, 2])
             
             with col_sel:
                 lista_confrontos = tabela['Home'] + " x " + tabela['Away']
