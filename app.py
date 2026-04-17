@@ -562,7 +562,7 @@ if check_password():
             
             st.markdown("<p style='font-size: 16px; color: #e0e0e0; font-weight: bold; margin-bottom: 5px;'>📊 Abrir Gráfico de Tendência (Pop-up)</p>", unsafe_allow_html=True)
             
-            col_sel, col_btn, col_vazia = st.columns([1.0, 1, 2])
+            col_sel, col_btn, col_vazia = st.columns([0.8, 1, 1])
             
             with col_sel:
                 lista_confrontos = tabela['Home'] + " x " + tabela['Away']
