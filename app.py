@@ -414,7 +414,7 @@ if check_password():
         df_bruto = st.session_state['df_bruto']
         
         # Grid para alinhar Resultados, Filtros, Ordenação e Botão de Exportar
-        col_res1, col_sort, col_ordem, col_odd, col_edge, col_btn = st.columns([3.2, 0.7, 0.6, 0.5, 0.5, 0.8])
+        col_res1, col_sort, col_ordem, col_odd, col_edge, col_btn = st.columns([3.8, 0.7, 0.6, 0.5, 0.5, 0.8])
         
         with col_sort:
             coluna_ordem = st.selectbox("Ordenar por", ["Horário", "EV+", "Score"])
