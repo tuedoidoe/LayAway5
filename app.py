@@ -54,8 +54,8 @@ st.markdown("""
     div[data-testid="stRadio"] { display: flex !important; justify-content: flex-start !important; align-items: center !important; height: 100%;}
     div[data-testid="stRadio"] > div[role="radiogroup"] { display: flex !important; flex-direction: row !important; gap: 20px; }
     
-    /* Estilo dos Títulos (Labels) dos Filtros Numéricos */
-    div[data-testid="stNumberInput"] label p {
+    /* Estilo dos Títulos (Labels) dos Filtros e Selects */
+    div[data-testid="stNumberInput"] label p, div[data-testid="stSelectbox"] label p {
         font-size: 15px !important; 
         font-weight: bold !important;
         color: #e0e0e0 !important;
@@ -413,16 +413,19 @@ if check_password():
     if st.session_state.get('mostrar_tabela', False):
         df_bruto = st.session_state['df_bruto']
         
-        # Grid para alinhar Resultados, Filtros e Botão de Exportar
-        # 45% do espaço para o texto da esquerda, empurrando os filtros e botão bem para a direita
-        col_res1, col_odd, col_edge, col_btn = st.columns([1.65, 0.25, 0.25, 0.25])
+        # Grid para alinhar Resultados, Filtros, Ordenação e Botão de Exportar
+        col_res1, col_sort, col_ordem, col_odd, col_edge, col_btn = st.columns([1.2, 0.7, 0.6, 0.5, 0.5, 0.8])
         
+        with col_sort:
+            coluna_ordem = st.selectbox("Ordenar por", ["Horário", "EV+", "Score"])
+            
+        with col_ordem:
+            direcao_ordem = st.selectbox("Ordem", ["Crescente", "Decrescente"])
+
         with col_odd:
-            # Sem label_visibility para o nome voltar
             odd_selecionada = st.number_input("Odd Lay", min_value=2.50, max_value=5.0, value=2.50, step=0.10, format="%.2f")
             
         with col_edge:
-            # Sem label_visibility para o nome voltar
             edge_selecionado = st.number_input("EV+ (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f")
         
         # Aplicação dos Filtros Ativos
@@ -442,7 +445,17 @@ if check_password():
         
         if not tabela.empty:
             tabela['Date'] = pd.to_datetime(tabela['Date'])
-            tabela = tabela.sort_values(by=['Date', 'Time'], ascending=[True, True]).reset_index(drop=True)
+            
+            # --- LÓGICA DE ORDENAÇÃO APLICADA AQUI ---
+            is_ascending = (direcao_ordem == "Crescente")
+            
+            if coluna_ordem == "Horário":
+                tabela = tabela.sort_values(by=['Date', 'Time'], ascending=[is_ascending, is_ascending]).reset_index(drop=True)
+            elif coluna_ordem == "EV+":
+                tabela = tabela.sort_values(by=['Edge'], ascending=is_ascending).reset_index(drop=True)
+            elif coluna_ordem == "Score":
+                tabela = tabela.sort_values(by=['Score'], ascending=is_ascending).reset_index(drop=True)
+
             tabela['Date'] = tabela['Date'].dt.strftime('%d/%m/%Y')
 
             tabela_excel = tabela.rename(columns={
