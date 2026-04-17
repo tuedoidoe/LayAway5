@@ -565,7 +565,7 @@ if check_password():
             col_sel, col_btn, col_vazia = st.columns([1.5, 1, 3])
             
             with col_sel:
-                lista_confrontos = tabela['Time Casa'] + " x " + tabela['Time Fora']
+                lista_confrontos = tabela['Home'] + " x " + tabela['Away']
                 jogo_alvo = st.selectbox("Selecione o Jogo:", lista_confrontos, label_visibility="collapsed")
                 
             with col_btn:
