@@ -200,6 +200,43 @@ def baixar_jogos_do_dia(data):
     except: return pd.DataFrame()
 
 # ==========================================
+# JANELA POP-UP DO GRÁFICO (DIÁLOGO)
+# ==========================================
+@st.dialog("📊 Análise de Tendência (Raio-X)", width="large")
+def abrir_popup_grafico(t_casa, t_fora, df_completo):
+    hist_casa = df_completo[(df_completo['Home'] == t_casa)].tail(8).copy()
+    hist_fora = df_completo[(df_completo['Away'] == t_fora)].tail(8).copy()
+    
+    eixo_x = [f"Jogo {i+1}" for i in range(8)]
+    fig = go.Figure()
+
+    if not hist_casa.empty:
+        fig.add_trace(go.Scatter(
+            x=eixo_x[:len(hist_casa)], y=hist_casa['Goals_H_FT'].values,
+            mode='lines+markers', name=f"{t_casa} (Gols Feitos)",
+            line=dict(color='#00d26a', width=3, shape='spline'),
+            marker=dict(size=8, color='#00d26a')
+        ))
+
+    if not hist_fora.empty:
+        fig.add_trace(go.Scatter(
+            x=eixo_x[:len(hist_fora)], y=hist_fora['Goals_H_FT'].values, 
+            mode='lines+markers', name=f"{t_fora} (Gols Sofridos)",
+            line=dict(color='#ff4b4b', width=3, shape='spline'),
+            marker=dict(size=8, color='#ff4b4b')
+        ))
+
+    fig.update_layout(
+        plot_bgcolor='#121212', paper_bgcolor='#121212',
+        font=dict(color='#888'),
+        xaxis=dict(showgrid=True, gridwidth=1, gridcolor='#333'),
+        yaxis=dict(title='Gols', showgrid=True, gridwidth=1, gridcolor='#333', rangemode='tozero'),
+        hovermode="x unified",
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+# ==========================================
 # CÓDIGO DO SCANNER (CABEÇALHO)
 # ==========================================
 if check_password():
@@ -404,6 +441,7 @@ if check_password():
                             else:
                                 st.session_state['mostrar_tabela'] = True
                                 st.session_state['df_bruto'] = df_bruto
+                                st.session_state['df_completo'] = df_completo # Salvando histórico gigantesco na sessão
 
             except Exception as e:
                 st.error(f"Erro inesperado durante o processamento: {e}")
@@ -413,9 +451,10 @@ if check_password():
     # ==========================================
     if st.session_state.get('mostrar_tabela', False):
         df_bruto = st.session_state['df_bruto']
+        df_completo = st.session_state['df_completo'] # Resgatando da sessão
         
         # Grid para alinhar Resultados, Filtros, Ordenação e Botão de Exportar
-        col_res1, col_sort, col_ordem, col_odd, col_edge, col_btn = st.columns([4.0, 0.8, 0.8, 0.8, 0.8, 0.8])
+        col_res1, col_sort, col_ordem, col_odd, col_edge, col_btn = st.columns([3.4, 0.8, 0.8, 1.0, 1.0, 0.8])
         
         with col_sort:
             coluna_ordem = st.selectbox("Ordenar por", ["Horário", "EV+", "Score"])
@@ -424,10 +463,10 @@ if check_password():
             direcao_ordem = st.selectbox("Ordem", ["Crescente", "Decrescente"])
 
         with col_odd:
-            odd_selecionada = st.number_input("Odd Lay", min_value=2.50, max_value=5.0, value=2.50, step=0.10, format="%.2f")
+            odd_selecionada = st.number_input("Odd Lay", min_value=2.50, max_value=5.00, value=2.50, step=0.10, format="%.2f")
             
         with col_edge:
-            edge_selecionado = st.number_input("EV+ (%)", min_value=0.0, max_value=100.0, value=0.0, step=0.5, format="%.1f")
+            edge_selecionado = st.number_input("EV+ (%)", min_value=0.0, max_value=50.0, value=0.0, step=0.50, format="%.1f")
         
         # Aplicação dos Filtros Ativos
         df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
@@ -517,65 +556,23 @@ if check_password():
             st.markdown("<br><br>", unsafe_allow_html=True)
 
             # ==========================================
-            # PAINEL DE TENDÊNCIAS (RAIO-X DO CONFRONTO)
+            # BOTÃO PARA O POPUP DE TENDÊNCIAS
             # ==========================================
             st.markdown("<hr style='margin-top: 10px; margin-bottom: 20px; border: 1px solid #333;'>", unsafe_allow_html=True)
             
-            with st.expander("📊 Visualizar Tendência (Raio-X do Confronto)", expanded=False):
-                col_sel, col_vazia = st.columns([1, 1])
-                with col_sel:
-                    # Cria a lista de jogos disponíveis hoje
-                    lista_confrontos = tabela['Home'] + " x " + tabela['Away']
-                    jogo_alvo = st.selectbox("Selecione o Jogo:", lista_confrontos)
+            st.markdown("<p style='font-size: 16px; color: #e0e0e0; font-weight: bold; margin-bottom: 5px;'>📊 Abrir Gráfico de Tendência (Pop-up)</p>", unsafe_allow_html=True)
+            
+            col_sel, col_btn, col_vazia = st.columns([1.5, 1, 3])
+            
+            with col_sel:
+                lista_confrontos = tabela['Time Casa'] + " x " + tabela['Time Fora']
+                jogo_alvo = st.selectbox("Selecione o Jogo:", lista_confrontos, label_visibility="collapsed")
                 
-                if jogo_alvo:
-                    t_casa, t_fora = jogo_alvo.split(" x ")
-                    
-                    # Filtra os últimos 8 jogos em casa do Mandante e fora do Visitante no df_completo
-                    hist_casa = df_completo[(df_completo['Home'] == t_casa)].tail(8).copy()
-                    hist_fora = df_completo[(df_completo['Away'] == t_fora)].tail(8).copy()
-                    
-                    # Eixo X simulado (Jogos recentes -> Mais antigos para o gráfico ficar intuitivo)
-                    eixo_x = [f"Jogo {i+1}" for i in range(8)]
-                    
-                    fig = go.Figure()
-
-                    # Linha do Mandante (Gols Marcados)
-                    if not hist_casa.empty:
-                        fig.add_trace(go.Scatter(
-                            x=eixo_x[:len(hist_casa)], 
-                            y=hist_casa['Goals_H_FT'].values,
-                            mode='lines+markers',
-                            name=f"{t_casa} (Gols Feitos)",
-                            line=dict(color='#00d26a', width=3, shape='spline'),
-                            marker=dict(size=8, color='#00d26a')
-                        ))
-
-                    # Linha do Visitante (Gols Sofridos)
-                    if not hist_fora.empty:
-                        fig.add_trace(go.Scatter(
-                            x=eixo_x[:len(hist_fora)], 
-                            y=hist_fora['Goals_H_FT'].values, # É Goals_H_FT porque ele era o Away, e o Home marcou neles
-                            mode='lines+markers',
-                            name=f"{t_fora} (Gols Sofridos)",
-                            line=dict(color='#ff4b4b', width=3, shape='spline'),
-                            marker=dict(size=8, color='#ff4b4b')
-                        ))
-
-                    # Estilização Premium do Gráfico
-                    fig.update_layout(
-                        title=f"Tendência de Gols (Últimos Jogos)",
-                        title_font=dict(size=20, color="#e0e0e0"),
-                        plot_bgcolor='#121212',
-                        paper_bgcolor='#0e1117',
-                        font=dict(color='#888'),
-                        xaxis=dict(showgrid=True, gridwidth=1, gridcolor='#333'),
-                        yaxis=dict(title='Quantidade de Gols', showgrid=True, gridwidth=1, gridcolor='#333', rangemode='tozero'),
-                        hovermode="x unified",
-                        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
-                    )
-
-                    st.plotly_chart(fig, use_container_width=True)
-                    
+            with col_btn:
+                if st.button("📈 Ver Gráfico na Janela", use_container_width=True):
+                    if jogo_alvo:
+                        t_casa, t_fora = jogo_alvo.split(" x ")
+                        abrir_popup_grafico(t_casa, t_fora, df_completo)
+                        
         else:
             st.info("Nenhum jogo atende aos critérios do modelo para a data selecionada.")
