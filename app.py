@@ -560,7 +560,7 @@ if check_password():
             # ==========================================
             st.markdown("<hr style='margin-top: 10px; margin-bottom: 20px; border: 1px solid #333;'>", unsafe_allow_html=True)
             
-            st.markdown("<p style='font-size: 16px; color: #e0e0e0; font-weight: bold; margin-top: 5px; 📊 Gráfico de Tendência (Pop-up)</p>", unsafe_allow_html=True)
+            st.markdown("<p style='font-size: 16px; color: #e0e0e0; font-weight: bold; margin-bottom: 5px;'>📊 Abrir Gráfico de Tendência (Pop-up)</p>", unsafe_allow_html=True)
             
             col_sel, col_btn, col_vazia = st.columns([0.8, 0.6, 3])
             
