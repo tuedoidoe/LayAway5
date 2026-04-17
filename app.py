@@ -515,5 +515,67 @@ if check_password():
 
             st.markdown(html_final, unsafe_allow_html=True)
             st.markdown("<br><br>", unsafe_allow_html=True)
+
+            # ==========================================
+            # PAINEL DE TENDÊNCIAS (RAIO-X DO CONFRONTO)
+            # ==========================================
+            st.markdown("<hr style='margin-top: 10px; margin-bottom: 20px; border: 1px solid #333;'>", unsafe_allow_html=True)
+            
+            with st.expander("📊 Visualizar Tendência (Raio-X do Confronto)", expanded=False):
+                col_sel, col_vazia = st.columns([1, 1])
+                with col_sel:
+                    # Cria a lista de jogos disponíveis hoje
+                    lista_confrontos = tabela['Time Casa'] + " x " + tabela['Time Fora']
+                    jogo_alvo = st.selectbox("Selecione o Jogo:", lista_confrontos)
+                
+                if jogo_alvo:
+                    t_casa, t_fora = jogo_alvo.split(" x ")
+                    
+                    # Filtra os últimos 8 jogos em casa do Mandante e fora do Visitante no df_completo
+                    hist_casa = df_completo[(df_completo['Home'] == t_casa)].tail(8).copy()
+                    hist_fora = df_completo[(df_completo['Away'] == t_fora)].tail(8).copy()
+                    
+                    # Eixo X simulado (Jogos recentes -> Mais antigos para o gráfico ficar intuitivo)
+                    eixo_x = [f"Jogo {i+1}" for i in range(8)]
+                    
+                    fig = go.Figure()
+
+                    # Linha do Mandante (Gols Marcados)
+                    if not hist_casa.empty:
+                        fig.add_trace(go.Scatter(
+                            x=eixo_x[:len(hist_casa)], 
+                            y=hist_casa['Goals_H_FT'].values,
+                            mode='lines+markers',
+                            name=f"{t_casa} (Gols Feitos)",
+                            line=dict(color='#00d26a', width=3, shape='spline'),
+                            marker=dict(size=8, color='#00d26a')
+                        ))
+
+                    # Linha do Visitante (Gols Sofridos)
+                    if not hist_fora.empty:
+                        fig.add_trace(go.Scatter(
+                            x=eixo_x[:len(hist_fora)], 
+                            y=hist_fora['Goals_H_FT'].values, # É Goals_H_FT porque ele era o Away, e o Home marcou neles
+                            mode='lines+markers',
+                            name=f"{t_fora} (Gols Sofridos)",
+                            line=dict(color='#ff4b4b', width=3, shape='spline'),
+                            marker=dict(size=8, color='#ff4b4b')
+                        ))
+
+                    # Estilização Premium do Gráfico
+                    fig.update_layout(
+                        title=f"Tendência de Gols (Últimos Jogos)",
+                        title_font=dict(size=20, color="#e0e0e0"),
+                        plot_bgcolor='#121212',
+                        paper_bgcolor='#0e1117',
+                        font=dict(color='#888'),
+                        xaxis=dict(showgrid=True, gridwidth=1, gridcolor='#333'),
+                        yaxis=dict(title='Quantidade de Gols', showgrid=True, gridwidth=1, gridcolor='#333', rangemode='tozero'),
+                        hovermode="x unified",
+                        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+                    )
+
+                    st.plotly_chart(fig, use_container_width=True)
+                    
         else:
             st.info("Nenhum jogo atende aos critérios do modelo para a data selecionada.")
