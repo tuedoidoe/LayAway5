@@ -1,0 +1,40 @@
+name: Automação Diária LayAway5
+
+on:
+  schedule:
+    # Roda todos os dias às 03:00 da manhã no horário UTC (Meia-noite no Brasil)
+    - cron: '0 3 * * *'
+  workflow_dispatch: 
+    # Esse comando cria um botão no GitHub para você rodar o script manualmente quando quiser testar!
+
+jobs:
+  atualizar-base:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Puxar os arquivos do repositório
+        uses: actions/checkout@v4
+
+      - name: Preparar o computador virtual com Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Instalar as ferramentas (Pandas e Requests)
+        run: pip install pandas requests
+
+      - name: Executar o Robô de Scraping e Telegram
+        env:
+          # É aqui que o código pega as senhas do cofre
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python update_scores.py
+
+      - name: Salvar a planilha de volta no GitHub
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add base_livescore_api_2025_hoje.csv
+          # O comando || echo evita que o robô dê erro se nenhum jogo for encontrado no dia
+          git commit -m "Atualização automática: Novos jogos adicionados" || echo "Nenhuma mudança para commitar"
+          git push
