@@ -2,8 +2,9 @@ import requests
 import pandas as pd
 from datetime import datetime, timedelta
 import sys
+import os
 
-# Pega as senhas diretamente da linha de comando do GitHub
+# Pega as senhas do Telegram injetadas pelo GitHub Actions
 try:
     TELEGRAM_TOKEN = sys.argv[1]
     TELEGRAM_CHAT_ID = sys.argv[2]
@@ -32,7 +33,7 @@ def enviar_mensagem_telegram(mensagem):
         print(f"Erro ao enviar mensagem pro Telegram: {e}")
 
 def atualizar_banco_de_dados():
-    print("Iniciando rotina de atualização diária...")
+    print("Iniciando rotina de atualização diária (com verificação de duplicatas)...")
     
     ontem = datetime.now() - timedelta(days=1)
     data_str = ontem.strftime('%Y%m%d')
@@ -82,18 +83,48 @@ def atualizar_banco_de_dados():
         enviar_mensagem_telegram(erro_msg)
         return
 
-    # Adicionar os dados novos ao arquivo existente
+    # Processamento e Lógica Anti-Duplicidade
     if novos_jogos:
         df_novos = pd.DataFrame(novos_jogos)
         nome_arquivo = 'base_livescore_api_2025_hoje.csv'
         
         try:
-            df_novos.to_csv(nome_arquivo, mode='a', header=False, index=False)
-            sucesso_msg = f"✅ <b>LayAway5:</b> Base atualizada com sucesso!\n⚽ <b>{len(novos_jogos)}</b> jogos do dia {data_legivel} foram adicionados."
-            print(sucesso_msg)
-            enviar_mensagem_telegram(sucesso_msg)
+            if os.path.exists(nome_arquivo):
+                # 1. Lê a base existente
+                df_existente = pd.read_csv(nome_arquivo)
+                tamanho_antes = len(df_existente)
+                
+                # 2. Junta a base antiga com a nova
+                df_completo = pd.concat([df_existente, df_novos], ignore_index=True)
+                
+                # 3. Remove as duplicatas (Chave de verificação: Data, Mandante e Visitante)
+                # keep='last' garante que se houver uma atualização de placar, ele mantém a mais recente.
+                df_completo.drop_duplicates(subset=['Data', 'HomeTeam', 'AwayTeam'], keep='last', inplace=True)
+                
+                tamanho_depois = len(df_completo)
+                jogos_reais_adicionados = tamanho_depois - tamanho_antes
+                
+                # 4. Salva sobrescrevendo o arquivo (agora limpo)
+                df_completo.to_csv(nome_arquivo, index=False)
+                
+                # Prepara a mensagem pro Telegram baseada no que realmente foi adicionado
+                if jogos_reais_adicionados > 0:
+                    sucesso_msg = f"✅ <b>LayAway5:</b> Base atualizada!\n⚽ <b>{jogos_reais_adicionados}</b> novos jogos adicionados.\n🛡️ Duplicatas removidas.\n📊 Total na base: {tamanho_depois}"
+                else:
+                    sucesso_msg = f"⚠️ <b>LayAway5:</b> Automação rodou, mas os {len(df_novos)} jogos rastreados hoje já estavam na base. Nenhuma duplicata foi gerada!"
+                
+                print(sucesso_msg)
+                enviar_mensagem_telegram(sucesso_msg)
+                
+            else:
+                # Se o arquivo não existir (primeira vez rodando), apenas salva
+                df_novos.to_csv(nome_arquivo, index=False)
+                msg_primeira_vez = f"✅ <b>LayAway5:</b> Arquivo criado!\n⚽ <b>{len(df_novos)}</b> jogos adicionados."
+                print(msg_primeira_vez)
+                enviar_mensagem_telegram(msg_primeira_vez)
+                
         except Exception as e:
-            erro_csv = f"❌ <b>LayAway5:</b> Erro ao salvar o CSV: {e}"
+            erro_csv = f"❌ <b>LayAway5:</b> Erro ao processar o CSV: {e}"
             print(erro_csv)
             enviar_mensagem_telegram(erro_csv)
     else:
