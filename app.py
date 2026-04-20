@@ -578,7 +578,7 @@ if check_password():
             edge_selecionado = st.number_input("EV+ (%)", min_value=0.0, max_value=50.0, value=0.0, step=0.50, format="%.1f")
 
         with col_score:
-            score_selecionado = st.number_input("Score Min", min_value=0, max_value=100, value=0, step=1)
+            score_selecionado = st.number_input("Score", min_value=0, max_value=100, value=0, step=1)
         
         df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
         edge_decimal = edge_selecionado / 100.0
