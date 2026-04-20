@@ -562,7 +562,8 @@ if check_password():
         df_bruto = st.session_state['df_bruto']
         df_completo = st.session_state['df_completo']
         
-        col_res1, col_sort, col_ordem, col_odd, col_edge, col_btn = st.columns([3.8, 0.8, 0.8, 0.8, 0.8, 0.8])
+        # Ajustei as proporções para acomodar o novo filtro de Score
+        col_res1, col_sort, col_ordem, col_odd, col_edge, col_score, col_btn = st.columns([3.0, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8])
         
         with col_sort:
             coluna_ordem = st.selectbox("Ordenar por", ["Horário", "EV+", "Score"])
@@ -575,10 +576,15 @@ if check_password():
             
         with col_edge:
             edge_selecionado = st.number_input("EV+ (%)", min_value=0.0, max_value=50.0, value=0.0, step=0.50, format="%.1f")
+
+        with col_score:
+            score_selecionado = st.number_input("Score Min", min_value=0, max_value=100, value=0, step=1)
         
         df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
         edge_decimal = edge_selecionado / 100.0
-        df_final_filtrado = df_filtrado_odd[df_filtrado_odd["Edge"] >= edge_decimal].copy()
+        df_filtrado_edge = df_filtrado_odd[df_filtrado_odd["Edge"] >= edge_decimal].copy()
+        # Aplica o novo filtro de Score
+        df_final_filtrado = df_filtrado_edge[df_filtrado_edge["Score"] >= score_selecionado].copy()
         
         with col_res1:
             texto_resultado = f"""
