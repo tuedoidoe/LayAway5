@@ -8,27 +8,19 @@ on:
 jobs:
   atualizar-base:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Puxar os arquivos do repositório
-        uses: actions/checkout@v4
-
-      - name: Preparar o computador virtual com Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-
-      - name: Instalar as ferramentas (Pandas e Requests)
-        run: pip install pandas requests
-
-      - name: Executar o Robô de Scraping e Telegram
-        # Injeta as senhas diretamente como parâmetros pro Python
+      - run: pip install pandas requests
+      - name: Executar Script
+        # AQUI ESTÁ O SEGREDO: Passando os secrets como argumentos
         run: python update_scores.py "${{ secrets.TELEGRAM_TOKEN }}" "${{ secrets.TELEGRAM_CHAT_ID }}"
-
-      - name: Salvar a planilha de volta no GitHub
+      - name: Salvar Mudanças
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action Bot"
           git add base_livescore_api_2025_hoje.csv
-          git commit -m "Atualização automática: Novos jogos adicionados" || echo "Nenhuma mudança para commitar"
+          git commit -m "Update scores" || echo "No changes"
           git push
