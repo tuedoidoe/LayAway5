@@ -20,7 +20,7 @@ def drop_reset_index(df):
 # ==========================================
 mapeamento_torneios = {
     "Argentina - Primera Division: Apertura": "ARGENTINA 1",
-    "Australia - A-League 1": "AUSTRALIA 1",
+    "Australia - A-League": "AUSTRALIA 1",
     "Austria - Bundesliga": "AUSTRIA 1",
     "Austria - 2. Liga": "AUSTRIA 2",
     "Belgium - Belgian Pro League": "BELGIUM 1",
