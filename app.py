@@ -12,6 +12,9 @@ import plotly.graph_objects as go
 
 warnings.filterwarnings("ignore")
 
+def drop_reset_index(df):
+    return df.reset_index(drop=True)
+
 # ==========================================
 # CONFIGURAÇÃO DA PÁGINA E LOGIN
 # ==========================================
@@ -203,18 +206,14 @@ def baixar_jogos_do_dia(data):
 # ==========================================
 @st.dialog("📊 Raio-X do Confronto: Boca de Jacaré", width="large")
 def abrir_popup_grafico(t_casa, t_fora, df_completo):
-    # Pega os últimos 10 jogos para calcular a média móvel corretamente
     hist_casa = df_completo[(df_completo['Home'] == t_casa)].tail(10).copy()
     hist_fora = df_completo[(df_completo['Away'] == t_fora)].tail(10).copy()
     
-    # Média Móvel de 3 jogos
     if not hist_casa.empty:
         hist_casa['MM_Gols_Feitos'] = hist_casa['Goals_H_FT'].rolling(window=3, min_periods=1).mean()
     if not hist_fora.empty:
-        # Gols_H_FT quando o time é Away = Gols Sofridos
         hist_fora['MM_Gols_Sofridos'] = hist_fora['Goals_H_FT'].rolling(window=3, min_periods=1).mean()
     
-    # Foco nos últimos 6 jogos
     hist_casa = hist_casa.tail(6)
     hist_fora = hist_fora.tail(6)
     
@@ -227,22 +226,20 @@ def abrir_popup_grafico(t_casa, t_fora, df_completo):
             mode='lines+markers', name=f"📈 Poder de Fogo ({t_casa})",
             line=dict(color='#00d26a', width=4, shape='spline'),
             marker=dict(size=10, color='#00d26a', symbol='circle'),
-            fill='tozeroy', fillcolor='rgba(0, 210, 106, 0.05)' # Sombra verde
+            fill='tozeroy', fillcolor='rgba(0, 210, 106, 0.05)'
         ))
 
     if not hist_fora.empty:
         fig.add_trace(go.Scatter(
             x=eixo_x[:len(hist_fora)], y=hist_fora['MM_Gols_Sofridos'].values, 
             mode='lines+markers', name=f"📉 Crise Defensiva ({t_fora})",
-            line=dict(color='#ff4b4b', width=4, shape='spline', dash='dot'), # Pontilhado
+            line=dict(color='#ff4b4b', width=4, shape='spline', dash='dot'),
             marker=dict(size=10, color='#ff4b4b', symbol='diamond')
         ))
 
-    # ---- LÓGICA DE ESCALA DINÂMICA (O FIX DO EIXO Y) ----
-    # Descobre o maior valor do gráfico para ajustar o teto automaticamente
     max_casa = hist_casa['MM_Gols_Feitos'].max() if not hist_casa.empty else 0
     max_fora = hist_fora['MM_Gols_Sofridos'].max() if not hist_fora.empty else 0
-    teto_grafico = max(max_casa, max_fora) + 0.5 # Dá um respiro de 0.5 no topo
+    teto_grafico = max(max_casa, max_fora) + 0.5
 
     fig.update_layout(
         plot_bgcolor='#121212', paper_bgcolor='#121212',
@@ -253,7 +250,7 @@ def abrir_popup_grafico(t_casa, t_fora, df_completo):
             showgrid=True, 
             gridwidth=1, 
             gridcolor='#333', 
-            range=[-0.5, teto_grafico] # Limites cravados: Piso -0.5 e Teto Dinâmico!
+            range=[-0.5, teto_grafico]
         ),
         hovermode="x unified",
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
@@ -267,7 +264,6 @@ def abrir_popup_grafico(t_casa, t_fora, df_completo):
     st.markdown("<hr style='border: 1px solid #333; margin-top: -15px; margin-bottom: 15px;'>", unsafe_allow_html=True)
     st.markdown("<p style='font-size: 18px; color: #e0e0e0; font-weight: bold;'>💡 Inteligência do Confronto</p>", unsafe_allow_html=True)
     
-    # Análise do Momento (último valor da média)
     momento_ataque_casa = hist_casa['MM_Gols_Feitos'].iloc[-1] if not hist_casa.empty else 0
     momento_defesa_fora = hist_fora['MM_Gols_Sofridos'].iloc[-1] if not hist_fora.empty else 0
     
@@ -289,7 +285,6 @@ def abrir_popup_grafico(t_casa, t_fora, df_completo):
         else:
             st.error(f"🛡️ **Defesa Intransponível:** O {t_fora} ajustou a zaga e vem sofrendo apenas {momento_defesa_fora:.1f} gols/jogo.")
 
-    # Veredito Final
     if momento_ataque_casa >= 1.5 and momento_defesa_fora >= 1.5:
         veredito = "🐊 <b>BOCA DE JACARÉ DETECTADA:</b> Cenário PERFEITO para Lay Away! O ataque do mandante está crescendo na mesma proporção em que a defesa do visitante está afundando."
         cor_borda = "#00d26a"
@@ -322,7 +317,6 @@ if check_password():
     
     with col_esquerda:
         st.markdown("<p class='titulo-premium'>SCANNER LAY AWAY</p>", unsafe_allow_html=True)
-        # Horário de Brasília Fixo
         fuso_br = pytz.timezone('America/Sao_Paulo')
         agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
         st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
@@ -342,7 +336,6 @@ if check_password():
             else:
                 data_selecionada = st.date_input("Data", value=(hoje, hoje), format="DD/MM/YYYY", label_visibility="collapsed")
         with c3:
-            # Novo espaçador exclusivo para alinhar apenas ESTE botão com as datas
             st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
             btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True)
         
@@ -353,12 +346,11 @@ if check_password():
         
         with st.spinner('Analisando o mercado global...'):
             try:
-                dados_modelo = joblib.load('Modelo_LayAway_5.pkl')
+                dados_modelo = joblib.load('Modelo_LayAway_6.pkl')
                 model = dados_modelo['modelo']
                 taxas_ligas = dados_modelo['liga_rates']
                 media_global_treino = dados_modelo['media_global']
                 X_cols_treino = dados_modelo['features']
-                ligas_autorizadas = dados_modelo.get('ligas_autorizadas', [])
                 
                 df_hist = baixar_base_dados()
                 df_alvo_lista = []
@@ -411,7 +403,6 @@ if check_password():
                 
                 if not df_alvo.empty and 'League' in df_alvo.columns:
                     df_alvo['League'] = df_alvo['League'].replace(tradutor_ligas)
-                    df_alvo = df_alvo[df_alvo['League'].isin(ligas_autorizadas)].copy()
                     df_alvo['Home'] = df_alvo['Home'].replace(tradutor_times)
                     df_alvo['Away'] = df_alvo['Away'].replace(tradutor_times)
                 
@@ -444,7 +435,7 @@ if check_password():
                     else:
                         df_completo = df_alvo.copy()
                         
-                    df_completo = df_completo.sort_values(["Date", "Home"]).reset_index(drop=True)
+                    df_completo = drop_reset_index(df_completo.sort_values(["Date", "Home"]))
                     
                     df_completo['Goals_H_FT'] = pd.to_numeric(df_completo['Goals_H_FT'], errors='coerce')
                     df_completo['Goals_A_FT'] = pd.to_numeric(df_completo['Goals_A_FT'], errors='coerce')
@@ -527,15 +518,15 @@ if check_password():
                     else:
                         df_hoje = df_completo[(df_completo['Date'].dt.date >= d_inicio) & (df_completo['Date'].dt.date <= d_fim)].copy()
                         
-                    df_hoje = df_hoje[(df_hoje['Odd_A_Lay'] <= 5.00) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back']) & (abs(df_hoje['Odd_A_Back'] - df_hoje['Odd_A_Lay']) <= 1.00) & (abs(df_hoje['Odd_H_Back'] - df_hoje['Odd_H_Lay']) <= 1.00)].copy()
+                    df_hoje = df_hoje[(df_hoje['Odd_A_Lay'] <= 3.50) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back']) & (abs(df_hoje['Odd_A_Back'] - df_hoje['Odd_A_Lay']) <= 0.50) & (abs(df_hoje['Odd_H_Back'] - df_hoje['Odd_H_Lay']) <= 0.50)].copy()
                     
                     if len(df_hoje) == 0:
-                        st.info("Nenhum jogo passou nos filtros iniciais de Odd (Máx 5.00).")
+                        st.info("Nenhum jogo passou nos filtros iniciais de Odd (Máx 3.50) e Spread (Máx 0.50).")
                     else:
                         colunas_vitais = list(X_cols_treino) + ['Odd_A_Lay', 'Home', 'Away', 'League', 'Date']
                         colunas_vitais = [col for col in colunas_vitais if col in df_hoje.columns]
                         
-                        df_hoje = df_hoje.dropna(subset=colunas_vitais).reset_index(drop=True)
+                        df_hoje = drop_reset_index(df_hoje.dropna(subset=colunas_vitais))
                         
                         if len(df_hoje) == 0:
                             st.warning(f"Foram encontrados jogos para {texto_data}, mas eles foram descartados pois não possuem histórico estatístico suficiente.")
@@ -562,7 +553,6 @@ if check_password():
         df_bruto = st.session_state['df_bruto']
         df_completo = st.session_state['df_completo']
         
-        # Ajustei as proporções para acomodar o novo filtro de Score
         col_res1, col_sort, col_ordem, col_odd, col_edge, col_score, col_btn = st.columns([3.0, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8])
         
         with col_sort:
@@ -583,7 +573,6 @@ if check_password():
         df_filtrado_odd = df_bruto[df_bruto["Odd_A_Lay"] >= odd_selecionada].copy()
         edge_decimal = edge_selecionado / 100.0
         df_filtrado_edge = df_filtrado_odd[df_filtrado_odd["Edge"] >= edge_decimal].copy()
-        # Aplica o novo filtro de Score
         df_final_filtrado = df_filtrado_edge[df_filtrado_edge["Score"] >= score_selecionado].copy()
         
         with col_res1:
@@ -602,11 +591,11 @@ if check_password():
             is_ascending = (direcao_ordem == "Crescente")
             
             if coluna_ordem == "Horário":
-                tabela = tabela.sort_values(by=['Date', 'Time'], ascending=[is_ascending, is_ascending]).reset_index(drop=True)
+                tabela = drop_reset_index(tabela.sort_values(by=['Date', 'Time'], ascending=[is_ascending, is_ascending]))
             elif coluna_ordem == "EV+":
-                tabela = tabela.sort_values(by=['Edge'], ascending=is_ascending).reset_index(drop=True)
+                tabela = drop_reset_index(tabela.sort_values(by=['Edge'], ascending=is_ascending))
             elif coluna_ordem == "Score":
-                tabela = tabela.sort_values(by=['Score'], ascending=is_ascending).reset_index(drop=True)
+                tabela = drop_reset_index(tabela.sort_values(by=['Score'], ascending=is_ascending))
 
             tabela['Date'] = tabela['Date'].dt.strftime('%d/%m/%Y')
 
@@ -652,7 +641,7 @@ if check_password():
                 '>Pts Fora</th>': '><span class="tooltip-header" data-title="Soma os pontos do time jogando fora de casa nos últimos 5 jogos. | Quanto MENOR, melhor. (Ideal: <= 5 pts)">Pts Fora</span></th>',
                 '>FTS Fora</th>': '><span class="tooltip-header" data-title="Quantas vezes o time visitante não marcou nenhum gol nos seus últimos 5 jogos fora de casa e tira a média. | Quanto MAIOR, melhor. (Ideal: >= 0.60)">FTS Fora</span></th>',
                 '>DP GM Fora</th>': '><span class="tooltip-header" data-title="(Desvio Padrão Gols Marcados) Calcula a oscilação de gols marcados pelo visitante nos últimos 5 jogos. | Quanto MENOR, melhor. (Ideal: < 1.00)">DP GM Fora</span></th>',
-                '>DP GS Casa</th>': '><span class="tooltip-header" data-title="A mesma lógica do desvio padrão, mas aplicada aos gols que o mandante sofreu nos últimos 5 jogos em casa, para medir a estabilidade da zaga. | Quanto MENOR, melhor. (Ideal: < 1.00)">DP GS Casa</span></th>',
+                '>DP GS Casa</th>': '><span class="tooltip-header" data-title="(Desvio Padrão Gols Sofridos) A mesma lógica do desvio padrão, mas aplicada aos gols que o mandante sofreu nos últimos 5 jogos em casa, para medir a estabilidade da zaga. | Quanto MENOR, melhor. (Ideal: < 1.00)">DP GS Casa</span></th>',
                 '>Vaz Def Fora</th>': '><span class="tooltip-header" data-title="Pega a média de gols sofridos pelo time visitante nos últimos 5 jogos fora de casa. | Quanto MAIOR, melhor. (Ideal: >= 1.50)">Vaz Def Fora</span></th>',
                 '>CS Casa</th>': '><span class="tooltip-header" data-title="Verifica quantas vezes o time da casa não sofreu gols nos seus últimos 5 jogos em casa e tira a média. | Quanto MAIOR, melhor. (Ideal: >= 0.40)">CS Casa</span></th>',
                 '>EV+</th>': '><span class="tooltip-header" data-title="Vantagem (Edge): Margem de valor real encontrada pelo modelo em relação à cotação da casa de apostas. | Quanto MAIOR, melhor.">EV+</span></th>',
