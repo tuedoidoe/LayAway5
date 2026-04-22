@@ -254,7 +254,8 @@ def baixar_base_dados():
 @st.cache_data(ttl=1800)
 def carregar_base_livescore():
     try:
-        df = pd.read_csv("base_livescore_api_2025_hoje.csv")
+        # Modificação: Lendo arquivo JSON ao invés de CSV
+        df = pd.read_json("base_livescore_api.json")
         if not df.empty and 'Data' in df.columns:
             df['Date'] = pd.to_datetime(df['Data'], errors='coerce')
         return df
