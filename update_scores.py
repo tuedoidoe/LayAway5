@@ -23,7 +23,6 @@ def atualizar_banco_de_dados():
     novos_jogos = []
     headers = {'User-Agent': 'Mozilla/5.0', 'Origin': 'https://www.livescore.com'}
     
-    # Pega dados de Ontem e Hoje
     for d in [1, 0]: 
         data_obj = datetime.now() - timedelta(days=d)
         data_str = data_obj.strftime('%Y%m%d')
@@ -54,36 +53,28 @@ def atualizar_banco_de_dados():
         nome_arquivo = 'base_livescore_api_2025_hoje.csv'
         colunas_padrao = ['Data', 'Hora', 'Liga', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG']
         
-        # BLINDAGEM 1: Tipagem dos dados NOVOS imediatamente
         for col in ['FTHG', 'FTAG']:
             df_novos[col] = pd.to_numeric(df_novos[col], errors='coerce').fillna(0).astype(int)
         
         if os.path.exists(nome_arquivo):
             try:
-                # BLINDAGEM 2: sep=None faz o Pandas identificar sozinho se é vírgula ou ponto-e-vírgula
                 df_existente = pd.read_csv(nome_arquivo, sep=None, engine='python', encoding='utf-8', quoting=csv.QUOTE_NONE, on_bad_lines='skip')
-                
-                # BLINDAGEM 3: Força os nomes exatos removendo espaços invisíveis
                 df_existente.columns = df_existente.columns.str.strip()
                 
-                # Se as colunas sumiram no passado por arquivo corrompido, recria elas antes que o código quebre
                 for col in colunas_padrao:
                     if col not in df_existente.columns:
                         df_existente[col] = 0 if col in ['FTHG', 'FTAG'] else ""
 
-                # BLINDAGEM 4: Força os tipos nos dados ANTIGOS ANTES do concat
+                # --- LIMPEZA BRUTAL ---
                 for col in ['FTHG', 'FTAG']:
+                    # 1. Converte pra texto e destrói absolutamente TUDO que não for número puro (O r'\D' faz isso)
+                    df_existente[col] = df_existente[col].astype(str).str.replace(r'\D', '', regex=True)
+                    # 2. Agora sim, com o número limpo, converte para Inteiro.
                     df_existente[col] = pd.to_numeric(df_existente[col], errors='coerce').fillna(0).astype(int)
                 
                 tamanho_antes = len(df_existente)
-                
-                # BLINDAGEM 5: Concatena passando apenas as colunas mapeadas (evita colunas fantasmas)
                 df_completo = pd.concat([df_existente[colunas_padrao], df_novos[colunas_padrao]], ignore_index=True)
-                
-                # Remove duplicatas
                 df_completo.drop_duplicates(subset=['Data', 'Hora', 'HomeTeam', 'AwayTeam'], keep='last', inplace=True)
-                
-                # BLINDAGEM 6: Salva forçando explicitamente a vírgula e removendo a formatação estranha
                 df_completo.to_csv(nome_arquivo, index=False, sep=',', encoding='utf-8')
                 
                 jogos_add = len(df_completo) - tamanho_antes
@@ -95,7 +86,6 @@ def atualizar_banco_de_dados():
                 print(msg_erro)
                 enviar_mensagem_telegram(msg_erro)
         else:
-            # Primeiro salvamento
             df_novos = df_novos[colunas_padrao]
             df_novos.to_csv(nome_arquivo, index=False, sep=',', encoding='utf-8')
             enviar_mensagem_telegram("✅ Arquivo base criado com sucesso!")
