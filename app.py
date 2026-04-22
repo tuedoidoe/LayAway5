@@ -16,6 +16,85 @@ def drop_reset_index(df):
     return df.reset_index(drop=True)
 
 # ==========================================
+# DICIONÁRIO LIVESCORE
+# ==========================================
+mapeamento_torneios = {
+    "Argentina - Primera Division: Apertura": "ARGENTINA 1",
+    "Australia - A-League 1": "AUSTRALIA 1",
+    "Austria - Bundesliga": "AUSTRIA 1",
+    "Austria - 2. Liga": "AUSTRIA 2",
+    "Belgium - Belgian Pro League": "BELGIUM 1",
+    "Belgium - Challenger Pro League": "BELGIUM 2",
+    "Bosnia and Herzegovina - Premier League": "BOSNIA 1",
+    "Brazil - Serie A": "BRAZIL 1",
+    "Brazil - Serie B": "BRAZIL 2",
+    "Bulgaria - Parva Liga": "BULGARIA 1",
+    "Chile - Primera DivisiÃ³n": "CHILE 1",
+    "China - Super League": "CHINA 1",
+    "Croatia - HNL": "CROATIA 1",
+    "Czech Republic - 1st League": "CZECH 1",
+    "Denmark - Superliga": "DENMARK 1",
+    "Egypt - Premier League": "EGYPT 1",
+    "England - Premier League": "ENGLAND 1",
+    "England - Championship": "ENGLAND 2",
+    "England - League 1": "ENGLAND 3",
+    "England - League 2": "ENGLAND 4",
+    "Estonia - Meistriliiga": "ESTONIA 1",
+    "Champions League": "EUROPA CHAMPIONS LEAGUE",
+    "Finland - Veikkausliiga": "FINLAND 1",
+    "France - Ligue 1": "FRANCE 1",
+    "France - Ligue 2": "FRANCE 2",
+    "France - Championnat National": "FRANCE 3",
+    "Germany - Bundesliga": "GERMANY 1",
+    "Germany - 2. Bundesliga": "GERMANY 2",
+    "Germany - 3. Liga": "GERMANY 3",
+    "Greece - Super League": "GREECE 1",
+    "Iceland - Besta deildin": "ICELAND 1",
+    "Ireland - League of Ireland Premier Division": "IRELAND 1",
+    "Ireland - 1st Division": "IRELAND 2",
+    "Israel - Premier League": "ISRAEL 1",
+    "Italy - Serie A": "ITALY 1",
+    "Italy - Serie B": "ITALY 2",
+    "Italy - Serie C": "ITALY 3",
+    "Japan - J1 League": "JAPAN 1",
+    "Japan - J2 League": "JAPAN 2",
+    "Netherlands - Eredivisie": "NETHERLANDS 1",
+    "Netherlands - Eerste Divisie": "NETHERLANDS 2",
+    "Northern Ireland - Premiership": "NORTHERN IRELAND 1",
+    "Norway - Eliteserien": "NORWAY 1",
+    "Norway - 1. Division": "NORWAY 2",
+    "Paraguay - Division Profesional: Apertura": "PARAGUAY 1",
+    "Poland - Ekstraklasa": "POLAND 1",
+    "Portugal - Primeira Liga": "PORTUGAL 1",
+    "Portugal - Liga Portugal 2": "PORTUGAL 2",
+    "Romania - Liga 1": "ROMANIA 1",
+    "Saudi Arabia - Saudi Professional League": "SAUDI ARABIA 1",
+    "Scotland - Premiership": "SCOTLAND 1",
+    "Scotland - Championship": "SCOTLAND 2",
+    "Serbia - Super Liga": "SERBIA 1",
+    "Slovakia - Super Liga": "SLOVAKIA 1",
+    "Slovenia - Prva Liga": "SLOVENIA 1",
+    "South Africa - Premier League": "SOUTH AFRICA 1",
+    "Republic of Korea - K-League 1": "SOUTH KOREA 1",
+    "Republic of Korea - K League 2": "SOUTH KOREA 2",
+    "Spain - LaLiga": "SPAIN 1",
+    "Spain - LaLiga 2": "SPAIN 2",
+    "Sweden - Allsvenskan": "SWEDEN 1",
+    "Sweden - Superettan": "SWEDEN 2",
+    "Switzerland - Super League": "SWITZERLAND 1",
+    "Turkiye - SÃ¼per Lig": "TURKEY 1",
+    "Ukraine - Premier League": "UKRAINE 1",
+    "USA - MLS": "USA 1",
+    "Wales - JD Cymru Premier": "WALES 1"
+}
+
+def identificar_torneio(nome_sujo):
+    for raiz, codigo in mapeamento_torneios.items():
+        if str(nome_sujo).startswith(raiz):
+            return codigo
+    return nome_sujo
+
+# ==========================================
 # CONFIGURAÇÃO DA PÁGINA E LOGIN
 # ==========================================
 st.set_page_config(page_title="Scanner Lay Away", layout="wide", initial_sidebar_state="collapsed")
@@ -23,13 +102,10 @@ st.set_page_config(page_title="Scanner Lay Away", layout="wide", initial_sidebar
 # CSS PREMIUM (Dark Mode, Título Ouro/Prata e Alinhamentos)
 st.markdown("""
     <style>
-    /* Fundo escuro moderno */
     .stApp {
         background-color: #0e1117;
         font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
-    
-    /* Estilização do Título Impactante (Dourado e Prateado) */
     .titulo-premium {
         font-family: 'Arial Black', Impact, sans-serif;
         font-size: 60px !important;
@@ -44,8 +120,6 @@ st.markdown("""
         text-transform: uppercase;
         display: inline-block;
     }
-    
-    /* Data da última atualização */
     .data-atualizacao {
         color: #888888;
         font-size: 15px;
@@ -53,19 +127,13 @@ st.markdown("""
         margin-top: 5px;
         margin-bottom: 20px;
     }
-
-    /* Ajustes dos controles (Horizontalidade) */
     div[data-testid="stRadio"] { display: flex !important; justify-content: flex-start !important; align-items: center !important; height: 100%;}
     div[data-testid="stRadio"] > div[role="radiogroup"] { display: flex !important; flex-direction: row !important; gap: 20px; }
-    
-    /* Estilo dos Títulos (Labels) dos Filtros e Selects */
     div[data-testid="stNumberInput"] label p, div[data-testid="stSelectbox"] label p {
         font-size: 15px !important; 
         font-weight: bold !important;
         color: #e0e0e0 !important;
     }
-
-    /* Estilo dos Inputs Numéricos (Filtros) */
     div[data-testid="stNumberInputContainer"] {
         background-color: #1e1e1e !important;
         border: 1px solid #333 !important;
@@ -75,8 +143,6 @@ st.markdown("""
         color: #00d26a !important;
         font-weight: bold !important;
     }
-    
-    /* Ajuste da altura e alinhamento do botão principal */
     div[data-testid="stButton"] > button { 
         background-color: #00d26a !important; 
         color: #121212 !important; 
@@ -91,8 +157,6 @@ st.markdown("""
         background-color: #00b55b !important; 
         transform: translateY(-2px);
     }
-
-    /* Botão de Download EXATAMENTE alinhado à direita */
     div[data-testid="stDownloadButton"] {
         display: flex;
         justify-content: flex-end !important;
@@ -109,8 +173,6 @@ st.markdown("""
         padding: 6px 20px !important;
     }
     div[data-testid="stDownloadButton"] > button:hover { background-color: #333 !important; border-color: #666 !important; }
-
-    /* CSS para o Tooltip Customizado */
     .tooltip-header { 
         position: relative; 
         cursor: help; 
@@ -189,6 +251,16 @@ def baixar_base_dados():
         return pd.DataFrame()
     except: return pd.DataFrame()
 
+@st.cache_data(ttl=1800)
+def carregar_base_livescore():
+    try:
+        df = pd.read_csv("base_livescore_api_2025_hoje.csv")
+        if not df.empty and 'Data' in df.columns:
+            df['Date'] = pd.to_datetime(df['Data'], errors='coerce')
+        return df
+    except:
+        return pd.DataFrame()
+
 @st.cache_data(ttl=300) 
 def baixar_jogos_do_dia(data):
     try:
@@ -258,9 +330,6 @@ def abrir_popup_grafico(t_casa, t_fora, df_completo):
     )
     st.plotly_chart(fig, use_container_width=True)
 
-    # ==========================================
-    # INTELIGÊNCIA DO CONFRONTO (MENSAGENS)
-    # ==========================================
     st.markdown("<hr style='border: 1px solid #333; margin-top: -15px; margin-bottom: 15px;'>", unsafe_allow_html=True)
     st.markdown("<p style='font-size: 18px; color: #e0e0e0; font-weight: bold;'>💡 Inteligência do Confronto</p>", unsafe_allow_html=True)
     
@@ -346,6 +415,7 @@ if check_password():
         
         with st.spinner('Analisando o mercado global...'):
             try:
+                # 1. Carregamento do Modelo
                 dados_modelo = joblib.load('Modelo_LayAway_6.pkl')
                 model = dados_modelo['modelo']
                 taxas_ligas = dados_modelo['liga_rates']
@@ -367,6 +437,10 @@ if check_password():
                         if not df_dia.empty: df_alvo_lista.append(df_dia)
                 
                 df_alvo = pd.concat(df_alvo_lista, ignore_index=True) if df_alvo_lista else pd.DataFrame()
+                
+                # Injetar uma CHAVE DE IDENTIFICAÇÃO para fazer o Merge posterior com as Estatísticas
+                if not df_alvo.empty:
+                    df_alvo['id_jogo'] = range(1, len(df_alvo) + 1)
                 
                 tradutor_ligas = {"Argentinian Primera Division": "ARGENTINA 1", "Argentinian Primera B Nacional": "ARGENTINA 2", "Australian A-League Men": "AUSTRALIA 1", 
                                   "Austrian Bundesliga": "AUSTRIA 1", "Austrian Erste Liga": "AUSTRIA 2", "Belgian First Division A": "BELGIUM 1", "Brazilian Serie A": "BRAZIL 1", 
@@ -399,7 +473,7 @@ if check_password():
                                   "Coquimbo Unido": "Coquimbo", "Rapid Vienna": "SK Rapid", "Arzignanochiampo": "Arzignano", "Nuovo Campobasso": "Campobasso", "Pesaro": "Vis Pesaro", "Bohemians 1905": "Bohemians", 
                                   "SV Ried": "Ried", "Grasshoppers Zurich": "Grasshoppers", "LASK Linz": "LASK", "First Vienna Fc 1894": "First Vienna", "First Vienna FC 1894": "First Vienna", 
                                   "Versailles 78 FC": "Versailles", "MFK Chrudim": "Chrudim", "MFK Karvina": "Karvina", "FC Blau Weiss Linz": "BW Linz", "Universidad de Chile": "U. De Chile", "Sassari Torres": "Torres", 
-                                  "Al-Khaleej Saihat": "Al Khaleej", "Inter Milan (Res)": "Inter U23", "Wexford F.C": "Wexford"}
+                                  "Al-Khaleej Saihat": "Al Khaleej", "Inter Milan (Res)": "Inter U23", "Wexford F.C": "Wexford", "CERÁ": "CEARÁ"}
                 
                 if not df_alvo.empty and 'League' in df_alvo.columns:
                     df_alvo['League'] = df_alvo['League'].replace(tradutor_ligas)
@@ -412,6 +486,10 @@ if check_password():
                     def safe_prob(column): return (1 / pd.to_numeric(column, errors='coerce').replace(0, np.nan)).fillna(0)
                         
                     data_limite = df_alvo['Date'].min()
+
+                    # ==========================================
+                    # 2. CAMADA DE ODDs (BASE BETFAIR -> df_completo)
+                    # ==========================================
                     if not df_hist.empty:
                         df_hist_passado = df_hist[df_hist['Date'] < data_limite].copy()
                         df_hist_h = df_hist_passado[['League', 'Home']].rename(columns={'Home': 'Team'})
@@ -428,10 +506,11 @@ if check_password():
                                     match = process.extractOne(time, times_hist_liga, scorer=fuzz.ratio)
                                     if match and match[1] >= 80: dicionario_times_fuzzy[(liga, time)] = match[0]
                         
+                        df_alvo_odd = df_alvo.copy()
                         if dicionario_times_fuzzy:
-                            df_alvo['Home'] = df_alvo.apply(lambda r: dicionario_times_fuzzy.get((r['League'], r['Home']), r['Home']), axis=1)
-                            df_alvo['Away'] = df_alvo.apply(lambda r: dicionario_times_fuzzy.get((r['League'], r['Away']), r['Away']), axis=1)
-                        df_completo = pd.concat([df_hist_passado, df_alvo], ignore_index=True)
+                            df_alvo_odd['Home'] = df_alvo_odd.apply(lambda r: dicionario_times_fuzzy.get((r['League'], r['Home']), r['Home']), axis=1)
+                            df_alvo_odd['Away'] = df_alvo_odd.apply(lambda r: dicionario_times_fuzzy.get((r['League'], r['Away']), r['Away']), axis=1)
+                        df_completo = pd.concat([df_hist_passado, df_alvo_odd], ignore_index=True)
                     else:
                         df_completo = df_alvo.copy()
                         
@@ -439,25 +518,7 @@ if check_password():
                     
                     df_completo['Goals_H_FT'] = pd.to_numeric(df_completo['Goals_H_FT'], errors='coerce')
                     df_completo['Goals_A_FT'] = pd.to_numeric(df_completo['Goals_A_FT'], errors='coerce')
-
-                    df_completo['Pts_H'] = np.where(df_completo['Goals_H_FT'] > df_completo['Goals_A_FT'], 3, np.where(df_completo['Goals_H_FT'] == df_completo['Goals_A_FT'], 1, 0))
-                    df_completo['Pts_A'] = np.where(df_completo['Goals_A_FT'] > df_completo['Goals_H_FT'], 3, np.where(df_completo['Goals_A_FT'] == df_completo['Goals_H_FT'], 1, 0))
                     
-                    soma_pts_casa = df_completo.groupby('Home')['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
-                    soma_pts_fora = df_completo.groupby('Away')['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
-                    qtd_jogos_casa = df_completo.groupby('Home')['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
-                    qtd_jogos_fora = df_completo.groupby('Away')['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
-                    
-                    df_completo['Is_CS_Casa'] = (df_completo['Goals_A_FT'] == 0).astype(int)
-                    df_completo['Is_FTS_Fora'] = (df_completo['Goals_A_FT'] == 0).astype(int)
-                    
-                    soma_cs_casa = df_completo.groupby('Home')['Is_CS_Casa'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
-                    soma_fts_fora = df_completo.groupby('Away')['Is_FTS_Fora'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
-                    
-                    dp_gs_casa = df_completo.groupby('Home')['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
-                    dp_gm_fora = df_completo.groupby('Away')['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
-                    vaz_def_fora = df_completo.groupby('Away')['Goals_H_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
-
                     prob_h = safe_prob(df_completo['Odd_H_Back'])
                     prob_a = safe_prob(df_completo['Odd_A_Back'])
                     prob_o25 = safe_prob(df_completo['Odd_Over25_FT_Back'])
@@ -468,68 +529,141 @@ if check_password():
                     
                     df_completo['XG_Casa'] = np.where(prob_h > 0, (exp_tg * (prob_h + 0.5 * prob_d) / soma_probs), np.nan)
                     df_completo['XG_Fora'] = np.where(prob_a > 0, (exp_tg * (prob_a + 0.5 * prob_d) / soma_probs), np.nan)
-
-                    xg_total = df_completo['XG_Casa'] + df_completo['XG_Fora']
-                    score_xg = np.where(xg_total > 0, (df_completo['XG_Casa'] / xg_total) * 30.0, 15.0)
-
-                    score_pts_casa = (soma_pts_casa.fillna(0) / 15.0) * 10.0
-                    score_pts_fora = ((15.0 - soma_pts_fora.fillna(0)) / 15.0) * 10.0
-
-                    score_fts = soma_fts_fora.fillna(0) * 15.0
-                    score_cs = soma_cs_casa.fillna(0) * 5.0
-
-                    score_dp_gm = (np.maximum(0, 2.0 - dp_gm_fora.fillna(1.0)) / 2.0) * 10.0
-                    score_dp_gs = (np.maximum(0, 2.0 - dp_gs_casa.fillna(1.0)) / 2.0) * 10.0
-
-                    score_vaz = (np.minimum(3.0, vaz_def_fora.fillna(0)) / 3.0) * 10.0
-
-                    df_completo['Score'] = score_xg + score_pts_casa + score_pts_fora + score_fts + score_cs + score_dp_gm + score_dp_gs + score_vaz
-                    df_completo['Score'] = df_completo['Score'].fillna(0).round(0).astype(int)
-
-                    def definir_alerta(score):
-                        if score >= 55: return '🟢'
-                        elif score >= 48: return '🟡'
-                        else: return '🔴'
-                    df_completo['Alerta'] = df_completo['Score'].apply(definir_alerta)
-
-                    df_completo['Pontos Casa'] = np.where(qtd_jogos_casa > 0, soma_pts_casa.fillna(0).astype(int).astype(str), "-")
-                    df_completo['Pontos Fora'] = np.where(qtd_jogos_fora > 0, soma_pts_fora.fillna(0).astype(int).astype(str), "-")
-                    df_completo['CS Casa'] = np.where(qtd_jogos_casa > 0, soma_cs_casa.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
-                    df_completo['FTS Fora'] = np.where(qtd_jogos_fora > 0, soma_fts_fora.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
-                    df_completo['DP GS Casa'] = np.where(qtd_jogos_casa > 1, dp_gs_casa.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
-                    df_completo['DP GM Fora'] = np.where(qtd_jogos_fora > 1, dp_gm_fora.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
-                    df_completo['Vaz Def Fora'] = np.where(qtd_jogos_fora > 0, vaz_def_fora.apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
                     
                     df_completo['Prob_1x2_A'] = safe_prob(df_completo['Odd_A_Back'])
                     df_completo['Prob_CS_Resistance'] = safe_prob(df_completo['Odd_CS_1x0_Lay']) + safe_prob(df_completo['Odd_CS_2x1_Lay'])
+                    
                     df_completo['Market_Asymmetry'] = (df_completo['Prob_CS_Resistance'] - df_completo['Prob_1x2_A'])
                     df_completo['Draw_Density'] = safe_prob(df_completo['Odd_CS_0x0_Lay']) + safe_prob(df_completo['Odd_CS_1x1_Lay'])
                     df_completo['Volatility_Risk'] = np.clip((df_completo['Odd_Over25_FT_Back'] / (df_completo['Odd_A_Back'].replace(0, np.nan))), 0, 50)
                     df_completo['Away_Odd_Trend'] = df_completo.groupby('Away')['Odd_A_Back'].transform(lambda x: x.shift(1).rolling(3, min_periods=1).mean() - x.shift(1)).fillna(0)
-                    df_completo['Home_HT_Def_Power'] = df_completo.groupby('Home')['Goals_A_HT'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean()).fillna(0)
-                    df_completo['Home_Attack_Strength'] = df_completo.groupby('Home')['Goals_H_FT'].transform(lambda x: x.shift(1).rolling(8, min_periods=1).mean()).fillna(0)
-                    df_completo['Away_Attack_Strength'] = df_completo.groupby('Away')['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(8, min_periods=1).mean()).fillna(0)
-                    df_completo['Power_Diff'] = df_completo['Home_Attack_Strength'] - df_completo['Away_Attack_Strength']
-                    df_completo['League_Avg_Goals'] = df_completo.groupby('League')['Goals_H_FT'].transform(lambda x: x.shift(1).expanding().mean()).fillna(df_completo['Goals_H_FT'].mean())
                     df_completo["LIGA_RATE"] = df_completo["League"].map(taxas_ligas).fillna(media_global_treino)
+
+
+                    # ==========================================
+                    # 3. CAMADA DE ESTATÍSTICAS (BASE LIVESCORE -> df_stats)
+                    # ==========================================
+                    df_livescore = carregar_base_livescore()
                     
-                    if tipo_filtro == "Data Única":
-                        df_hoje = df_completo[df_completo['Date'].dt.date == data_selecionada].copy()
-                    else:
-                        df_hoje = df_completo[(df_completo['Date'].dt.date >= d_inicio) & (df_completo['Date'].dt.date <= d_fim)].copy()
+                    if not df_livescore.empty:
+                        df_livescore['League'] = df_livescore['Liga'].apply(identificar_torneio)
+                        df_livescore = df_livescore.rename(columns={'HomeTeam': 'Home', 'AwayTeam': 'Away', 'FTHG': 'Goals_H_FT', 'FTAG': 'Goals_A_FT'})
                         
+                        df_ls_passado = df_livescore[df_livescore['Date'] < data_limite].copy()
+                        
+                        # Fuzzy Match do df_alvo com a nova base do LiveScore
+                        df_ls_h = df_ls_passado[['League', 'Home']].rename(columns={'Home': 'Team'})
+                        df_ls_a = df_ls_passado[['League', 'Away']].rename(columns={'Away': 'Team'})
+                        df_ls_teams = pd.concat([df_ls_h, df_ls_a]).drop_duplicates()
+                        
+                        dic_fuzzy_ls = {}
+                        for liga in df_alvo['League'].unique():
+                            hist_teams = df_ls_teams[df_ls_teams['League'] == liga]['Team'].tolist()
+                            if not hist_teams: continue
+                            hoje_teams = set(df_alvo[df_alvo['League'] == liga]['Home']).union(set(df_alvo[df_alvo['League'] == liga]['Away']))
+                            for time in hoje_teams:
+                                match = process.extractOne(time, hist_teams, scorer=fuzz.ratio)
+                                if match and match[1] >= 80: dic_fuzzy_ls[(liga, time)] = match[0]
+                        
+                        df_alvo_ls = df_alvo.copy()
+                        if dic_fuzzy_ls:
+                            df_alvo_ls['Home'] = df_alvo_ls.apply(lambda r: dic_fuzzy_ls.get((r['League'], r['Home']), r['Home']), axis=1)
+                            df_alvo_ls['Away'] = df_alvo_ls.apply(lambda r: dic_fuzzy_ls.get((r['League'], r['Away']), r['Away']), axis=1)
+                            
+                        df_stats = pd.concat([df_ls_passado, df_alvo_ls], ignore_index=True)
+                    else:
+                        # Se não encontrar o arquivo, o código é à prova de falhas e cai para o df_completo
+                        df_stats = df_completo.copy()
+                        
+                    df_stats = drop_reset_index(df_stats.sort_values(["Date", "Home"]))
+                    
+                    # Cálculo dos 7 Indicadores (Focado Exclusivamente na Base Livescore/df_stats)
+                    df_stats['Goals_H_FT'] = pd.to_numeric(df_stats['Goals_H_FT'], errors='coerce')
+                    df_stats['Goals_A_FT'] = pd.to_numeric(df_stats['Goals_A_FT'], errors='coerce')
+
+                    df_stats['Pts_H'] = np.where(df_stats['Goals_H_FT'] > df_stats['Goals_A_FT'], 3, np.where(df_stats['Goals_H_FT'] == df_stats['Goals_A_FT'], 1, 0))
+                    df_stats['Pts_A'] = np.where(df_stats['Goals_A_FT'] > df_stats['Goals_H_FT'], 3, np.where(df_stats['Goals_A_FT'] == df_stats['Goals_H_FT'], 1, 0))
+                    
+                    df_stats['soma_pts_casa'] = df_stats.groupby('Home')['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
+                    df_stats['soma_pts_fora'] = df_stats.groupby('Away')['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
+                    df_stats['qtd_jogos_casa'] = df_stats.groupby('Home')['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
+                    df_stats['qtd_jogos_fora'] = df_stats.groupby('Away')['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
+                    
+                    df_stats['Is_CS_Casa'] = (df_stats['Goals_A_FT'] == 0).astype(int)
+                    df_stats['Is_FTS_Fora'] = (df_stats['Goals_A_FT'] == 0).astype(int)
+                    
+                    df_stats['soma_cs_casa'] = df_stats.groupby('Home')['Is_CS_Casa'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
+                    df_stats['soma_fts_fora'] = df_stats.groupby('Away')['Is_FTS_Fora'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
+                    
+                    df_stats['dp_gs_casa'] = df_stats.groupby('Home')['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
+                    df_stats['dp_gm_fora'] = df_stats.groupby('Away')['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
+                    df_stats['vaz_def_fora'] = df_stats.groupby('Away')['Goals_H_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
+
+
+                    # ==========================================
+                    # 4. MERGE E CONSTRUÇÃO DO RESULTADO (df_hoje)
+                    # ==========================================
+                    df_hoje = df_completo[df_completo['id_jogo'].notnull()].copy()
+                    
+                    # Filtro de Período
+                    if tipo_filtro == "Data Única":
+                        df_hoje = df_hoje[df_hoje['Date'].dt.date == data_selecionada].copy()
+                    else:
+                        df_hoje = df_hoje[(df_hoje['Date'].dt.date >= d_inicio) & (df_hoje['Date'].dt.date <= d_fim)].copy()
+                        
+                    # Trazendo os indicadores do df_stats (Livescore) para o df_hoje usando o id_jogo
+                    df_hoje_stats = df_stats.dropna(subset=['id_jogo'])
+                    df_hoje = df_hoje.merge(
+                        df_hoje_stats[['id_jogo', 'soma_pts_casa', 'soma_pts_fora', 'qtd_jogos_casa', 'qtd_jogos_fora', 
+                                       'soma_cs_casa', 'soma_fts_fora', 'dp_gs_casa', 'dp_gm_fora', 'vaz_def_fora']],
+                        on='id_jogo', how='left'
+                    )
+
+                    # Filtro Base de ODDs da Estratégia
                     df_hoje = df_hoje[(df_hoje['Odd_A_Lay'] <= 3.50) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back']) & (abs(df_hoje['Odd_A_Back'] - df_hoje['Odd_A_Lay']) <= 0.50) & (abs(df_hoje['Odd_H_Back'] - df_hoje['Odd_H_Lay']) <= 0.50)].copy()
                     
                     if len(df_hoje) == 0:
                         st.info("Nenhum jogo passou nos filtros iniciais de Odd (Máx 3.50) e Spread (Máx 0.50).")
                     else:
+                        # Cálculo do Score e Lógica de Interface na df_hoje processada
+                        xg_total = df_hoje['XG_Casa'] + df_hoje['XG_Fora']
+                        score_xg = np.where(xg_total > 0, (df_hoje['XG_Casa'] / xg_total) * 30.0, 15.0)
+
+                        score_pts_casa = (df_hoje['soma_pts_casa'].fillna(0) / 15.0) * 10.0
+                        score_pts_fora = ((15.0 - df_hoje['soma_pts_fora'].fillna(0)) / 15.0) * 10.0
+
+                        score_fts = df_hoje['soma_fts_fora'].fillna(0) * 15.0
+                        score_cs = df_hoje['soma_cs_casa'].fillna(0) * 5.0
+
+                        score_dp_gm = (np.maximum(0, 2.0 - df_hoje['dp_gm_fora'].fillna(1.0)) / 2.0) * 10.0
+                        score_dp_gs = (np.maximum(0, 2.0 - df_hoje['dp_gs_casa'].fillna(1.0)) / 2.0) * 10.0
+
+                        score_vaz = (np.minimum(3.0, df_hoje['vaz_def_fora'].fillna(0)) / 3.0) * 10.0
+
+                        df_hoje['Score'] = score_xg + score_pts_casa + score_pts_fora + score_fts + score_cs + score_dp_gm + score_dp_gs + score_vaz
+                        df_hoje['Score'] = df_hoje['Score'].fillna(0).round(0).astype(int)
+
+                        def definir_alerta(score):
+                            if score >= 55: return '🟢'
+                            elif score >= 48: return '🟡'
+                            else: return '🔴'
+                        df_hoje['Alerta'] = df_hoje['Score'].apply(definir_alerta)
+
+                        df_hoje['Pontos Casa'] = np.where(df_hoje['qtd_jogos_casa'] > 0, df_hoje['soma_pts_casa'].fillna(0).astype(int).astype(str), "-")
+                        df_hoje['Pontos Fora'] = np.where(df_hoje['qtd_jogos_fora'] > 0, df_hoje['soma_pts_fora'].fillna(0).astype(int).astype(str), "-")
+                        df_hoje['CS Casa'] = np.where(df_hoje['qtd_jogos_casa'] > 0, df_hoje['soma_cs_casa'].apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
+                        df_hoje['FTS Fora'] = np.where(df_hoje['qtd_jogos_fora'] > 0, df_hoje['soma_fts_fora'].apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
+                        df_hoje['DP GS Casa'] = np.where(df_hoje['qtd_jogos_casa'] > 1, df_hoje['dp_gs_casa'].apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
+                        df_hoje['DP GM Fora'] = np.where(df_hoje['qtd_jogos_fora'] > 1, df_hoje['dp_gm_fora'].apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
+                        df_hoje['Vaz Def Fora'] = np.where(df_hoje['qtd_jogos_fora'] > 0, df_hoje['vaz_def_fora'].apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
+
                         colunas_vitais = list(X_cols_treino) + ['Odd_A_Lay', 'Home', 'Away', 'League', 'Date']
                         colunas_vitais = [col for col in colunas_vitais if col in df_hoje.columns]
                         
                         df_hoje = drop_reset_index(df_hoje.dropna(subset=colunas_vitais))
                         
                         if len(df_hoje) == 0:
-                            st.warning(f"Foram encontrados jogos para {texto_data}, mas eles foram descartados pois não possuem histórico estatístico suficiente.")
+                            st.warning(f"Foram encontrados jogos para {texto_data}, mas eles foram descartados pois não possuem histórico estatístico suficiente nas ODDs.")
                         else:
                             df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
                             df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
@@ -674,6 +808,8 @@ if check_password():
                 if st.button("📈 Ver Gráfico na Janela", use_container_width=True):
                     if jogo_alvo:
                         t_casa, t_fora = jogo_alvo.split(" x ")
+                        # O Gráfico continua sendo alimentado pelo df_completo (Betfair)
+                        # para garantir pareamento 100% de nomes sem quebrar a UI
                         abrir_popup_grafico(t_casa, t_fora, df_completo)
                         
         else:
