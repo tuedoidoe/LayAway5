@@ -2,7 +2,9 @@ name: Automação Diária LayAway5
 
 on:
   schedule:
-    - cron: '0 3 * * *' # 00:00 Horário de Brasília
+    # 04:00 UTC = 01:00 Horário de Brasília. 
+    # Margem de segurança para garantir que jogos noturnos já finalizaram.
+    - cron: '0 4 * * *' 
   workflow_dispatch: 
 
 jobs:
@@ -14,11 +16,14 @@ jobs:
     steps:
       - name: Puxar repositório
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Puxa todo o histórico do Git (essencial para evitar conflitos no push)
 
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+          cache: 'pip' # Acelera as execuções futuras
 
       - name: Instalar dependências
         run: pip install pandas requests
@@ -30,6 +35,19 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          
+          # Garante que o arquivo CSV modificado seja adicionado
           git add base_livescore_api_2025_hoje.csv
-          git commit -m "Automated update: $(date +'%Y-%m-%d')" || echo "Sem mudanças"
-          git push
+          
+          # Verifica se realmente houve alguma mudança no arquivo
+          if ! git diff --cached --exit-code; then
+            git commit -m "Automated update: $(date +'%Y-%m-%d %H:%M')"
+            
+            # Puxa qualquer alteração manual que você tenha feito (como o re-scrape do histórico)
+            git pull --rebase origin main 
+            
+            # Envia as atualizações com segurança
+            git push origin main
+          else
+            echo "Nenhuma mudança no CSV hoje. Pulando o commit."
+          fi
