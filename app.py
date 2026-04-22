@@ -254,7 +254,6 @@ def baixar_base_dados():
 @st.cache_data(ttl=1800)
 def carregar_base_livescore():
     try:
-        # Modificação: Lendo arquivo JSON ao invés de CSV
         df = pd.read_json("base_livescore_api.json")
         if not df.empty and 'Data' in df.columns:
             df['Date'] = pd.to_datetime(df['Data'], errors='coerce')
@@ -579,26 +578,27 @@ if check_password():
                     df_stats = drop_reset_index(df_stats.sort_values(["Date", "Home"]))
                     
                     # Cálculo dos 7 Indicadores (Focado Exclusivamente na Base Livescore/df_stats)
+                    # CORREÇÃO APLICADA AQUI: Agrupamento Duplo (League + Home / League + Away)
                     df_stats['Goals_H_FT'] = pd.to_numeric(df_stats['Goals_H_FT'], errors='coerce')
                     df_stats['Goals_A_FT'] = pd.to_numeric(df_stats['Goals_A_FT'], errors='coerce')
 
                     df_stats['Pts_H'] = np.where(df_stats['Goals_H_FT'] > df_stats['Goals_A_FT'], 3, np.where(df_stats['Goals_H_FT'] == df_stats['Goals_A_FT'], 1, 0))
                     df_stats['Pts_A'] = np.where(df_stats['Goals_A_FT'] > df_stats['Goals_H_FT'], 3, np.where(df_stats['Goals_A_FT'] == df_stats['Goals_H_FT'], 1, 0))
                     
-                    df_stats['soma_pts_casa'] = df_stats.groupby('Home')['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
-                    df_stats['soma_pts_fora'] = df_stats.groupby('Away')['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
-                    df_stats['qtd_jogos_casa'] = df_stats.groupby('Home')['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
-                    df_stats['qtd_jogos_fora'] = df_stats.groupby('Away')['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
+                    df_stats['soma_pts_casa'] = df_stats.groupby(['League', 'Home'])['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
+                    df_stats['soma_pts_fora'] = df_stats.groupby(['League', 'Away'])['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
+                    df_stats['qtd_jogos_casa'] = df_stats.groupby(['League', 'Home'])['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
+                    df_stats['qtd_jogos_fora'] = df_stats.groupby(['League', 'Away'])['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
                     
                     df_stats['Is_CS_Casa'] = (df_stats['Goals_A_FT'] == 0).astype(int)
                     df_stats['Is_FTS_Fora'] = (df_stats['Goals_A_FT'] == 0).astype(int)
                     
-                    df_stats['soma_cs_casa'] = df_stats.groupby('Home')['Is_CS_Casa'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
-                    df_stats['soma_fts_fora'] = df_stats.groupby('Away')['Is_FTS_Fora'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
+                    df_stats['soma_cs_casa'] = df_stats.groupby(['League', 'Home'])['Is_CS_Casa'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
+                    df_stats['soma_fts_fora'] = df_stats.groupby(['League', 'Away'])['Is_FTS_Fora'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
                     
-                    df_stats['dp_gs_casa'] = df_stats.groupby('Home')['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
-                    df_stats['dp_gm_fora'] = df_stats.groupby('Away')['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
-                    df_stats['vaz_def_fora'] = df_stats.groupby('Away')['Goals_H_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
+                    df_stats['dp_gs_casa'] = df_stats.groupby(['League', 'Home'])['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
+                    df_stats['dp_gm_fora'] = df_stats.groupby(['League', 'Away'])['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
+                    df_stats['vaz_def_fora'] = df_stats.groupby(['League', 'Away'])['Goals_H_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
 
 
                     # ==========================================
