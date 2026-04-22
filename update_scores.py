@@ -3,8 +3,8 @@ import pandas as pd
 from datetime import datetime, timedelta
 import sys
 import os
-import csv
 
+# Configurações do Telegram via argumentos do GitHub Actions
 try:
     TELEGRAM_TOKEN = sys.argv[1]
     TELEGRAM_CHAT_ID = sys.argv[2]
@@ -19,10 +19,11 @@ def enviar_mensagem_telegram(mensagem):
     except: pass
 
 def atualizar_banco_de_dados():
-    print("Iniciando atualização blindada...")
+    print("Iniciando atualização blindada (Formato JSON)...")
     novos_jogos = []
     headers = {'User-Agent': 'Mozilla/5.0', 'Origin': 'https://www.livescore.com'}
     
+    # Busca dados de ontem e hoje para garantir a cobertura de fusos horários
     for d in [1, 0]: 
         data_obj = datetime.now() - timedelta(days=d)
         data_str = data_obj.strftime('%Y%m%d')
@@ -35,6 +36,7 @@ def atualizar_banco_de_dados():
                 for liga in r.json().get('Stages', []):
                     liga_nm = f"{liga.get('Cnm', '')} - {liga.get('Snm', '')}"
                     for jogo in liga.get('Events', []):
+                        # Filtra apenas jogos encerrados (FT)
                         if jogo.get('Eps', '') == 'FT':
                             esd = str(jogo.get('Esd', ''))
                             hora = f"{esd[8:10]}:{esd[10:12]}" if len(esd) >= 12 else "00:00"
@@ -42,7 +44,7 @@ def atualizar_banco_de_dados():
                             novos_jogos.append({
                                 'Data': data_legivel, 'Hora': hora, 'Liga': liga_nm,
                                 'HomeTeam': jogo['T1'][0]['Nm'], 'AwayTeam': jogo['T2'][0]['Nm'],
-                                'FTHG': jogo.get('Tr1'), 'FTAG': jogo.get('Tr2')
+                                'FTHG': jogo.get('Tr1', 0), 'FTAG': jogo.get('Tr2', 0)
                             })
         except Exception as e:
             print(f"Erro ao extrair dia {data_legivel}: {e}")
@@ -50,44 +52,40 @@ def atualizar_banco_de_dados():
 
     if novos_jogos:
         df_novos = pd.DataFrame(novos_jogos)
-        nome_arquivo = 'base_livescore_api_2025_hoje.csv'
+        nome_arquivo = 'base_livescore_api.json'
         colunas_padrao = ['Data', 'Hora', 'Liga', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG']
         
+        # Converte gols para numérico para evitar erros de tipagem
         for col in ['FTHG', 'FTAG']:
             df_novos[col] = pd.to_numeric(df_novos[col], errors='coerce').fillna(0).astype(int)
         
         if os.path.exists(nome_arquivo):
             try:
-                df_existente = pd.read_csv(nome_arquivo, sep=None, engine='python', encoding='utf-8', quoting=csv.QUOTE_NONE, on_bad_lines='skip')
-                df_existente.columns = df_existente.columns.str.strip()
-                
-                for col in colunas_padrao:
-                    if col not in df_existente.columns:
-                        df_existente[col] = 0 if col in ['FTHG', 'FTAG'] else ""
-
-                # --- LIMPEZA BRUTAL ---
-                for col in ['FTHG', 'FTAG']:
-                    # 1. Converte pra texto e destrói absolutamente TUDO que não for número puro (O r'\D' faz isso)
-                    df_existente[col] = df_existente[col].astype(str).str.replace(r'\D', '', regex=True)
-                    # 2. Agora sim, com o número limpo, converte para Inteiro.
-                    df_existente[col] = pd.to_numeric(df_existente[col], errors='coerce').fillna(0).astype(int)
+                # Lendo a base existente em JSON
+                df_existente = pd.read_json(nome_arquivo, orient='records')
                 
                 tamanho_antes = len(df_existente)
-                df_completo = pd.concat([df_existente[colunas_padrao], df_novos[colunas_padrao]], ignore_index=True)
+                # Junta novos jogos com os antigos
+                df_completo = pd.concat([df_existente, df_novos[colunas_padrao]], ignore_index=True)
+                
+                # Remove duplicatas (mesmo jogo coletado em dias diferentes)
                 df_completo.drop_duplicates(subset=['Data', 'Hora', 'HomeTeam', 'AwayTeam'], keep='last', inplace=True)
-                df_completo.to_csv(nome_arquivo, index=False, sep=',', encoding='utf-8')
+                
+                # Salva no formato JSON (orientado por registros e com indentação para leitura fácil)
+                df_completo.to_json(nome_arquivo, orient='records', indent=4, force_ascii=False)
                 
                 jogos_add = len(df_completo) - tamanho_antes
                 msg = f"✅ <b>Base Atualizada!</b>\n⚽ +{max(0, jogos_add)} jogos adicionados.\n📊 Total: {len(df_completo)} jogos"
                 enviar_mensagem_telegram(msg if jogos_add > 0 else "⚠️ Sem novos jogos para adicionar.")
                 
             except Exception as e:
-                msg_erro = f"❌ Erro crítico ao mesclar os dados: {e}"
+                msg_erro = f"❌ Erro crítico no JSON: {e}"
                 print(msg_erro)
                 enviar_mensagem_telegram(msg_erro)
         else:
+            # Caso o arquivo ainda não exista, cria o primeiro
             df_novos = df_novos[colunas_padrao]
-            df_novos.to_csv(nome_arquivo, index=False, sep=',', encoding='utf-8')
-            enviar_mensagem_telegram("✅ Arquivo base criado com sucesso!")
+            df_novos.to_json(nome_arquivo, orient='records', indent=4, force_ascii=False)
+            enviar_mensagem_telegram("✅ Arquivo JSON inicial criado com sucesso!")
 
 atualizar_banco_de_dados()
