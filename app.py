@@ -562,7 +562,7 @@ if check_password():
             direcao_ordem = st.selectbox("Ordem", ["Crescente", "Decrescente"])
 
         with col_odd:
-            odd_selecionada = st.number_input("Odd Lay", min_value=2.20, max_value=3.50, value=2.20, step=0.10, format="%.2f")
+            odd_selecionada = st.number_input("Odd Lay", min_value=2.30, max_value=3.50, value=2.30, step=0.10, format="%.2f")
             
         with col_edge:
             edge_selecionado = st.number_input("EV+ (%)", min_value=0.0, max_value=50.0, value=0.0, step=0.50, format="%.1f")
