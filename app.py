@@ -549,6 +549,10 @@ if check_password():
                         df_livescore['League'] = df_livescore['Liga'].apply(identificar_torneio)
                         df_livescore = df_livescore.rename(columns={'HomeTeam': 'Home', 'AwayTeam': 'Away', 'FTHG': 'Goals_H_FT', 'FTAG': 'Goals_A_FT'})
                         
+                        # ---> MUDANÇA AQUI: Aplicando o dicionário na base LiveScore <---
+                        df_livescore['Home'] = df_livescore['Home'].replace(tradutor_times)
+                        df_livescore['Away'] = df_livescore['Away'].replace(tradutor_times)
+                        
                         df_ls_passado = df_livescore[df_livescore['Date'] < data_limite].copy()
                         
                         # Fuzzy Match do df_alvo com a nova base do LiveScore
@@ -578,7 +582,6 @@ if check_password():
                     df_stats = drop_reset_index(df_stats.sort_values(["Date", "Home"]))
                     
                     # Cálculo dos 7 Indicadores (Focado Exclusivamente na Base Livescore/df_stats)
-                    # CORREÇÃO APLICADA AQUI: Agrupamento Duplo (League + Home / League + Away)
                     df_stats['Goals_H_FT'] = pd.to_numeric(df_stats['Goals_H_FT'], errors='coerce')
                     df_stats['Goals_A_FT'] = pd.to_numeric(df_stats['Goals_A_FT'], errors='coerce')
 
