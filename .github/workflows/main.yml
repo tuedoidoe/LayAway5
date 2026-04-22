@@ -2,28 +2,27 @@ name: Automação Diária LayAway5
 
 on:
   schedule:
-    # 04:00 UTC = 01:00 Horário de Brasília. 
-    # Margem de segurança para garantir que jogos noturnos já finalizaram.
+    # Roda às 04:00 UTC (01:00 Horário de Brasília)
     - cron: '0 4 * * *' 
-  workflow_dispatch: 
+  workflow_dispatch: # Permite rodar manualmente pelo botão no GitHub
 
 jobs:
   atualizar-base:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Essencial para permitir o push de volta
+      contents: write 
 
     steps:
       - name: Puxar repositório
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Puxa todo o histórico do Git (essencial para evitar conflitos no push)
+          fetch-depth: 0 
 
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-          cache: 'pip' # Acelera as execuções futuras
+          cache: 'pip' 
 
       - name: Instalar dependências
         run: pip install pandas requests
@@ -36,18 +35,14 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # Garante que o arquivo CSV modificado seja adicionado
-          git add base_livescore_api_2025_hoje.csv
+          # Adiciona todas as mudanças (incluindo o novo .json)
+          git add .
           
-          # Verifica se realmente houve alguma mudança no arquivo
+          # Só faz o commit se houver mudanças reais para evitar erros
           if ! git diff --cached --exit-code; then
-            git commit -m "Automated update: $(date +'%Y-%m-%d %H:%M')"
-            
-            # Puxa qualquer alteração manual que você tenha feito (como o re-scrape do histórico)
+            git commit -m "⚽ Automated update: $(date +'%Y-%m-%d %H:%M')"
             git pull --rebase origin main 
-            
-            # Envia as atualizações com segurança
             git push origin main
           else
-            echo "Nenhuma mudança no CSV hoje. Pulando o commit."
+            echo "Nenhuma mudança detectada na base hoje."
           fi
