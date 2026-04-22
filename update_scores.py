@@ -19,11 +19,11 @@ def enviar_mensagem_telegram(mensagem):
 
 def atualizar_banco_de_dados():
     print("Iniciando atualização blindada...")
-    # Pega dados de ontem e hoje para garantir que nada escape no fuso horário
     novos_jogos = []
     headers = {'User-Agent': 'Mozilla/5.0', 'Origin': 'https://www.livescore.com'}
     
-    for d in [1, 0]: # Ontem e Hoje (para cobrir jogos que terminam de madrugada)
+    # Pega dados de Ontem e Hoje
+    for d in [1, 0]: 
         data_obj = datetime.now() - timedelta(days=d)
         data_str = data_obj.strftime('%Y%m%d')
         data_legivel = data_obj.strftime('%Y-%m-%d')
@@ -38,43 +38,65 @@ def atualizar_banco_de_dados():
                         if jogo.get('Eps', '') == 'FT':
                             esd = str(jogo.get('Esd', ''))
                             hora = f"{esd[8:10]}:{esd[10:12]}" if len(esd) >= 12 else "00:00"
+                            
                             novos_jogos.append({
                                 'Data': data_legivel, 'Hora': hora, 'Liga': liga_nm,
                                 'HomeTeam': jogo['T1'][0]['Nm'], 'AwayTeam': jogo['T2'][0]['Nm'],
                                 'FTHG': jogo.get('Tr1'), 'FTAG': jogo.get('Tr2')
                             })
-        except: continue
+        except Exception as e:
+            print(f"Erro ao extrair dia {data_legivel}: {e}")
+            continue
 
     if novos_jogos:
         df_novos = pd.DataFrame(novos_jogos)
         nome_arquivo = 'base_livescore_api_2025_hoje.csv'
+        colunas_padrao = ['Data', 'Hora', 'Liga', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG']
+        
+        # BLINDAGEM 1: Tipagem dos dados NOVOS imediatamente
+        for col in ['FTHG', 'FTAG']:
+            df_novos[col] = pd.to_numeric(df_novos[col], errors='coerce').fillna(0).astype(int)
         
         if os.path.exists(nome_arquivo):
-            # LER COM CUIDADO: Forçamos tipos e limpamos nomes de colunas
-            df_existente = pd.read_csv(nome_arquivo)
-            df_existente.columns = df_existente.columns.str.strip()
-            
-            tamanho_antes = len(df_existente)
-            df_completo = pd.concat([df_existente, df_novos], ignore_index=True)
-            
-            # Remove duplicatas baseado nas colunas chave
-            df_completo.drop_duplicates(subset=['Data', 'Hora', 'HomeTeam', 'AwayTeam'], keep='last', inplace=True)
-            
-            # RE-PROCESSAMENTO DE TIPOS (Evita o erro do FTAG sumindo)
-            for col in ['FTHG', 'FTAG']:
-                df_completo[col] = pd.to_numeric(df_completo[col], errors='coerce').fillna(0).astype(int)
-            
-            df_completo = df_completo[['Data', 'Hora', 'Liga', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG']]
-            df_completo.to_csv(nome_arquivo, index=False)
-            
-            jogos_add = len(df_completo) - tamanho_antes
-            msg = f"✅ <b>Base Atualizada!</b>\n⚽ +{jogos_add} jogos.\n📊 Total: {len(df_completo)}"
-            enviar_mensagem_telegram(msg if jogos_add > 0 else "⚠️ Sem novos jogos para adicionar.")
+            try:
+                # BLINDAGEM 2: sep=None faz o Pandas identificar sozinho se é vírgula ou ponto-e-vírgula
+                df_existente = pd.read_csv(nome_arquivo, sep=None, engine='python', encoding='utf-8')
+                
+                # BLINDAGEM 3: Força os nomes exatos removendo espaços invisíveis
+                df_existente.columns = df_existente.columns.str.strip()
+                
+                # Se as colunas sumiram no passado por arquivo corrompido, recria elas antes que o código quebre
+                for col in colunas_padrao:
+                    if col not in df_existente.columns:
+                        df_existente[col] = 0 if col in ['FTHG', 'FTAG'] else ""
+
+                # BLINDAGEM 4: Força os tipos nos dados ANTIGOS ANTES do concat
+                for col in ['FTHG', 'FTAG']:
+                    df_existente[col] = pd.to_numeric(df_existente[col], errors='coerce').fillna(0).astype(int)
+                
+                tamanho_antes = len(df_existente)
+                
+                # BLINDAGEM 5: Concatena passando apenas as colunas mapeadas (evita colunas fantasmas)
+                df_completo = pd.concat([df_existente[colunas_padrao], df_novos[colunas_padrao]], ignore_index=True)
+                
+                # Remove duplicatas
+                df_completo.drop_duplicates(subset=['Data', 'Hora', 'HomeTeam', 'AwayTeam'], keep='last', inplace=True)
+                
+                # BLINDAGEM 6: Salva forçando explicitamente a vírgula e removendo a formatação estranha
+                df_completo.to_csv(nome_arquivo, index=False, sep=',', encoding='utf-8')
+                
+                jogos_add = len(df_completo) - tamanho_antes
+                msg = f"✅ <b>Base Atualizada!</b>\n⚽ +{max(0, jogos_add)} jogos adicionados.\n📊 Total: {len(df_completo)} jogos"
+                enviar_mensagem_telegram(msg if jogos_add > 0 else "⚠️ Sem novos jogos para adicionar.")
+                
+            except Exception as e:
+                msg_erro = f"❌ Erro crítico ao mesclar os dados: {e}"
+                print(msg_erro)
+                enviar_mensagem_telegram(msg_erro)
         else:
-            # Caso o arquivo não exista no repositório por algum erro
-            for col in ['FTHG', 'FTAG']:
-                df_novos[col] = pd.to_numeric(df_novos[col], errors='coerce').fillna(0).astype(int)
-            df_novos.to_csv(nome_arquivo, index=False)
-            enviar_mensagem_telegram("✅ Arquivo base criado!")
+            # Primeiro salvamento
+            df_novos = df_novos[colunas_padrao]
+            df_novos.to_csv(nome_arquivo, index=False, sep=',', encoding='utf-8')
+            enviar_mensagem_telegram("✅ Arquivo base criado com sucesso!")
 
 atualizar_banco_de_dados()
