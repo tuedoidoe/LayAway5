@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 import sys
 import os
+import csv
 
 try:
     TELEGRAM_TOKEN = sys.argv[1]
@@ -60,7 +61,7 @@ def atualizar_banco_de_dados():
         if os.path.exists(nome_arquivo):
             try:
                 # BLINDAGEM 2: sep=None faz o Pandas identificar sozinho se é vírgula ou ponto-e-vírgula
-                df_existente = pd.read_csv(nome_arquivo, sep=None, engine='python', encoding='utf-8')
+                df_existente = pd.read_csv(nome_arquivo, sep=None, engine='python', encoding='utf-8', quoting=csv.QUOTE_NONE, on_bad_lines='skip')
                 
                 # BLINDAGEM 3: Força os nomes exatos removendo espaços invisíveis
                 df_existente.columns = df_existente.columns.str.strip()
