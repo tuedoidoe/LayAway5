@@ -452,7 +452,7 @@ if check_password():
                                   "Portuguese Segunda Liga": "PORTUGAL 2", "Romanian Liga I": "ROMANIA 1", "Saudi Professional League": "SAUDI ARABIA 1", "South Korean K League 2": "SOUTH KOREA 2", 
                                   "Spanish La Liga": "SPAIN 1", "Spanish Segunda Division": "SPAIN 2", "Swiss Super League": "SWITZERLAND 1", "Turkish Super League": "TURKEY 1", "US MLS": "USA 1"}
                 
-                tradutor_times = {"UCD": "UC Dublin", "KSV 1919": "Kapfenberg", "Al-Jndal": "Al Jandal", "Jeddah Club": "Jeddah", "Deportivo": "Dep. La Coruna", "Nacional (Par)": "Nacional Asuncion", 
+                tradutor_times = {"KSV 1919": "Kapfenberg", "Al-Jndal": "Al Jandal", "Jeddah Club": "Jeddah", "Deportivo": "Dep. La Coruna", "Nacional (Par)": "Nacional Asuncion", 
                                   "Rapid Bucharest": "FC Rapid Bucuresti", "NEOM Sports Club": "Neom SC", "Al-Wahda (KSA)": "Al Wehda", "Erzgebirge": "Aue", "Zhejiang Greentown": "Zhejiang Professional", 
                                   "Al-Raed (KSA)": "Al Raed", "ASD Alcione": "Alcione Milano", "Al-Fateh (KSA)": "Al Fateh", "Deportivo Riestra": "Dep. Riestra", "Nottm Forest": "Nottingham", "Al-Hazm (KSA)": 
                                   "Al Hazem", "Deportes Concepcion": "D. Concepcion", "Dhamk": "Damac", "Al-Taawoun Buraidah": "Al Taawon", "RZ Pellets WAC": "Wolfsberger AC", "Gimnasia La Plata": "Gimnasia L.P.", 
@@ -468,7 +468,7 @@ if check_password():
                                   "US Latina Calcio": "Latina", "Mgladbach": "B. Monchengladbach", "ASD Pineto Calcio": "Pineto", "AZ Picerno ASD": "Picerno", "Waldhof Mannheim": "Mannheim", "Otelul Galati": "Otelul", 
                                   "Club 2 de Mayo de Pedro Juan Cab": "2 de Mayo", "Club 2 de Mayo de Pedro Jua": "2 de Mayo", "Club 2 de Mayo": "2 de Mayo", "Sportivo Luquen": "Sp. Luqueno", 
                                   "Calcio Avellino SSD": "Avellino", "Olimpia": "Olimpia Asuncion", "Team Altamura": "Altamura", "Slovan Liberec": "Liberec", "FC Basel": "Basel", "Cadiz": "Cadiz CF", 
-                                  "Rot-Weiss Essen": "RW Essen", "Everton De Vina": "Everton", "U. De Concepcion": "D. Concepcion", "Galway Utd": "Galway", "Sportivo San Lorenzo": "San Lorenzo", 
+                                  "Rot-Weiss Essen": "RW Essen", "Everton De Vina": "Everton", "Galway Utd": "Galway", "Sportivo San Lorenzo": "San Lorenzo", 
                                   "Deportivo Recoleta": "Recoleta", "Sportivo Luqueno": "Sp. Luqueno", "Fatih Karagumruk Istanbul": "Karagumruk", "Banik Ostrava": "Ostrava", "SSD Bari": "Bari", 
                                   "Coquimbo Unido": "Coquimbo", "Rapid Vienna": "SK Rapid", "Arzignanochiampo": "Arzignano", "Nuovo Campobasso": "Campobasso", "Pesaro": "Vis Pesaro", "Bohemians 1905": "Bohemians", 
                                   "SV Ried": "Ried", "Grasshoppers Zurich": "Grasshoppers", "LASK Linz": "LASK", "First Vienna Fc 1894": "First Vienna", "First Vienna FC 1894": "First Vienna", 
@@ -477,7 +477,11 @@ if check_password():
                                   "Alaves": "Deportivo Alaves", "Longford": "Longford Town", "Estoril Praia": "Estoril", "St Patricks": "St. Patrick's Athletic", "Western Sydney Wanderers": "Western Sydney Wanderers FC", 
                                   "Ayr": "Ayr United", "Betis": "Real Betis", "Rapid Vienna": "Rapid Wien", "Paris St-G": "Paris Saint-Germain", "IBV": "IBV Vestmannaeyjar", "Dortmund": "Borussia Dortmund", 
                                   "CD Nacional Funchal": "Nacional", "Kasimpasa": "Kasımpaşa", "Odds BK": "Odds Ballklubb", "Stabaek": "Stabaek", "Nurnberg": "1. FC Nuremberg", "Bochum": "VfL Bochum", "St Mirren": "St. Mirren",
-                                  "	Athletic Bilbao": "Athletic Club", "Guimaraes": "Vitoria de Guimaraes", "ACS Petrolul 52": "Petrolul Ploiesti", "Roma": "AS Roma", "Leeds": "Leeds United"
+                                  "Athletic Bilbao": "Athletic Club", "Guimaraes": "Vitoria de Guimaraes", "ACS Petrolul 52": "Petrolul Ploiesti", "Roma": "AS Roma", "Leeds": "Leeds United", "Fleury Merogis": "FC Fleury 91",
+                                  "FK Javor Ivanjica": "Javor", "Man City": "Manchester City", "Porto": "FC Porto", "Sporting Lisbon": "Sporting CP", "Kerry FC": "Kerry", "Everton De Vina": "Everton CD", 
+                                  "Cracovia Krakow": "Cracovia", "Deportes Limache": "Club Deportes Limache", "OHiggins": "O'Higgins", "Club Football Estrela": "CF Estrela da Amadora", "Entella": "Virtus Entella",
+                                  "Dunfermline": "Dunfermline Athletic", "Las Palmas": "Las Palmas", "CD Castellon": "Castellon", "Univ de Concepcion": "Universidad de Concepcion", "Roda JC": "Roda JC Kerkrade",
+                                  "Bohemians": "Bohemian FC",
 }
                 
                 if not df_alvo.empty and 'League' in df_alvo.columns:
