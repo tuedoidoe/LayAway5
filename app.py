@@ -30,7 +30,7 @@ mapeamento_torneios = {
     "Brazil - Serie B": "BRAZIL 2",
     "Bulgaria - Parva Liga": "BULGARIA 1",
     "Chile - Primera División": "CHILE 1",
-    "China - League One": "CHINA 1",
+    "China - Super League": "CHINA 1",
     "Croatia - HNL": "CROATIA 1",
     "Czech Republic - 1st League": "CZECH 1",
     "Denmark - Superliga": "DENMARK 1",
