@@ -476,7 +476,8 @@ if check_password():
                                   "Al-Khaleej Saihat": "Al Khaleej", "Inter Milan (Res)": "Inter U23", "Wexford F.C": "Wexford", "Vejle": "Vejle Boldklub", "Brondby": "Broendby IF", "Clermont": "Clermont Foot 63", 
                                   "Alaves": "Deportivo Alaves", "Longford": "Longford Town", "Estoril Praia": "Estoril", "St Patricks": "St. Patrick's Athletic", "Western Sydney Wanderers": "Western Sydney Wanderers FC", 
                                   "Ayr": "Ayr United", "Betis": "Real Betis", "Rapid Vienna": "Rapid Wien", "Paris St-G": "Paris Saint-Germain", "IBV": "IBV Vestmannaeyjar", "Dortmund": "Borussia Dortmund", 
-                                  "CD Nacional Funchal": "Nacional", "Kasimpasa": "Kasımpaşa", "Odds BK": "Odds Ballklubb", "Stabaek": "Stabaek",
+                                  "CD Nacional Funchal": "Nacional", "Kasimpasa": "Kasımpaşa", "Odds BK": "Odds Ballklubb", "Stabaek": "Stabaek", "Nurnberg": "1. FC Nuremberg", "Bochum": "VfL Bochum", "St Mirren": "St. Mirren",
+                                  "	Athletic Bilbao": "Athletic Club", "Guimaraes": "Vitoria de Guimaraes", "ACS Petrolul 52": "Petrolul Ploiesti", "Roma": "AS Roma", "Leeds": "Leeds United"
 }
                 
                 if not df_alvo.empty and 'League' in df_alvo.columns:
