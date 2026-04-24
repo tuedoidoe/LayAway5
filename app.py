@@ -557,28 +557,37 @@ if check_password():
                     df_livescore = carregar_base_livescore()
                     
                     if not df_livescore.empty:
+                        # 1. Tradução ultra-rápida via Vetorização
                         df_livescore['League'] = df_livescore['Liga'].apply(identificar_torneio)
                         df_livescore = df_livescore.rename(columns={'HomeTeam': 'Home', 'AwayTeam': 'Away', 'FTHG': 'Goals_H_FT', 'FTAG': 'Goals_A_FT'})
                         
-                        # ---> MUDANÇA AQUI: Aplicando o dicionário na base LiveScore <---
-                        df_livescore['Home'] = df_livescore['Home'].replace(tradutor_times)
-                        df_livescore['Away'] = df_livescore['Away'].replace(tradutor_times)
+                        # Aplica o dicionário de uma vez só em toda a coluna
+                        df_livescore['Home'] = df_livescore['Home'].map(tradutor_times).fillna(df_livescore['Home'])
+                        df_livescore['Away'] = df_livescore['Away'].map(tradutor_times).fillna(df_livescore['Away'])
                         
                         df_ls_passado = df_livescore[df_livescore['Date'] < data_limite].copy()
                         
-                        # Fuzzy Match do df_alvo com a nova base do LiveScore
+                        # 2. Pré-filtro: Só calcula estatística para quem vai jogar no período selecionado
+                        times_no_periodo = set(df_alvo['Home']).union(set(df_alvo['Away']))
+                        df_ls_passado = df_ls_passado[df_ls_passado['Home'].isin(times_no_periodo) | df_ls_passado['Away'].isin(times_no_periodo)]
+                        
+                        # 3. Fuzzy Match Inteligente (Só roda para quem o dicionário falhou)
                         df_ls_h = df_ls_passado[['League', 'Home']].rename(columns={'Home': 'Team'})
                         df_ls_a = df_ls_passado[['League', 'Away']].rename(columns={'Away': 'Team'})
                         df_ls_teams = pd.concat([df_ls_h, df_ls_a]).drop_duplicates()
                         
                         dic_fuzzy_ls = {}
-                        for liga in df_alvo['League'].unique():
+                        ligas_alvo = df_alvo['League'].unique()
+                        
+                        for liga in ligas_alvo:
                             hist_teams = df_ls_teams[df_ls_teams['League'] == liga]['Team'].tolist()
                             if not hist_teams: continue
+                            
                             hoje_teams = set(df_alvo[df_alvo['League'] == liga]['Home']).union(set(df_alvo[df_alvo['League'] == liga]['Away']))
                             for time in hoje_teams:
-                                match = process.extractOne(time, hist_teams, scorer=fuzz.ratio)
-                                if match and match[1] >= 80: dic_fuzzy_ls[(liga, time)] = match[0]
+                                if time not in hist_teams:
+                                    match = process.extractOne(time, hist_teams, scorer=fuzz.ratio, score_cutoff=85)
+                                    if match: dic_fuzzy_ls[(liga, time)] = match[0]
                         
                         df_alvo_ls = df_alvo.copy()
                         if dic_fuzzy_ls:
@@ -587,12 +596,11 @@ if check_password():
                             
                         df_stats = pd.concat([df_ls_passado, df_alvo_ls], ignore_index=True)
                     else:
-                        # Se não encontrar o arquivo, o código é à prova de falhas e cai para o df_completo
                         df_stats = df_completo.copy()
                         
                     df_stats = drop_reset_index(df_stats.sort_values(["Date", "Home"]))
                     
-                    # Cálculo dos 7 Indicadores (Focado Exclusivamente na Base Livescore/df_stats)
+                    # Cálculo dos 7 Indicadores 
                     df_stats['Goals_H_FT'] = pd.to_numeric(df_stats['Goals_H_FT'], errors='coerce')
                     df_stats['Goals_A_FT'] = pd.to_numeric(df_stats['Goals_A_FT'], errors='coerce')
 
