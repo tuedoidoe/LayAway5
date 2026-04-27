@@ -487,7 +487,7 @@ if check_password():
                                   "FK Spartak": "FK Spartak Subotica", "Padova": "Calcio Padova", "Jong PSV Eindhoven": "Jong PSV", "Raith": "Raith Rovers", "Pescara": "Pescara Calcio", "Ross Co": "Ross County", 
                                   "Sociedad B": "Real Sociedad B", "SC Telstar": "Telstar", "Philadelphia": "Philadelphia Union", "FK Backa Topola": "TSC Backa Topola", "Hartberg": "TSV Hartberg", "FK Napredak": "Napredak",
                                   "Casa Pia": "Casa Pia AC", "FK IMT Novi Beograd": "FK IMT Beograd", "Brisbane Roar": "Brisbane Roar FC", "Partick": "Partick Thistle", "Univ Catolica (Chile)": "Universidad Catolica", 
-                                  "Oviedo": "Real Oviedo", "Fenerbahce": "Fenerbahçe", "Midtjylland": "FC Midtjylland", "Braga": "SC Braga"
+                                  "Oviedo": "Real Oviedo", "Fenerbahce": "Fenerbahçe", "Midtjylland": "FC Midtjylland", "Braga": "SC Braga", "76 Igdir Belediyespor": "Igdir FK"
                                  }
                 
                 if not df_alvo.empty and 'League' in df_alvo.columns:
