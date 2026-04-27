@@ -83,6 +83,7 @@ mapeamento_torneios = {
     "Sweden - Superettan": "SWEDEN 2",
     "Switzerland - Super League": "SWITZERLAND 1",
     "Turkiye - Süper Lig": "TURKEY 1",
+    "Turkiye - 1st Lig": "TURKEY 2",
     "Ukraine - Premier League": "UKRAINE 1",
     "USA - MLS": "USA 1",
     "Wales - JD Cymru Premier": "WALES 1"
@@ -450,7 +451,8 @@ if check_password():
                                   "German 3 Liga": "GERMANY 3", "Icelandic Urvalsdeild": "ICELAND 1", "Irish Premier Division": "IRELAND 1", "Irish Division 1": "IRELAND 2", "Italian Serie B": "ITALY 2", 
                                   "Italian Serie C": "ITALY 3", "Japanese J League": "JAPAN 1", "Mexican Liga MX": "MEXICO 1", "Norwegian Eliteserien": "NORWAY 1", "Paraguayan Primera Division": "PARAGUAY 1", 
                                   "Portuguese Segunda Liga": "PORTUGAL 2", "Romanian Liga I": "ROMANIA 1", "Saudi Professional League": "SAUDI ARABIA 1", "South Korean K League 2": "SOUTH KOREA 2", 
-                                  "Spanish La Liga": "SPAIN 1", "Spanish Segunda Division": "SPAIN 2", "Swiss Super League": "SWITZERLAND 1", "Turkish Super League": "TURKEY 1", "US MLS": "USA 1"}
+                                  "Spanish La Liga": "SPAIN 1", "Spanish Segunda Division": "SPAIN 2", "Swiss Super League": "SWITZERLAND 1", "Turkish Super League": "TURKEY 1", "Turkiye - 1st Lig": "TURKEY 2",
+                                  "US MLS": "USA 1"}
                 
                 tradutor_times = {"KSV 1919": "Kapfenberg", "Al-Jndal": "Al Jandal", "Jeddah Club": "Jeddah", "Deportivo": "Dep. La Coruna", "Nacional (Par)": "Nacional Asuncion", 
                                   "Rapid Bucharest": "FC Rapid 1923", "NEOM Sports Club": "Neom SC", "Al-Wahda (KSA)": "Al Wehda", "Erzgebirge": "Aue", "Zhejiang Greentown": "Zhejiang Professional", 
@@ -485,7 +487,7 @@ if check_password():
                                   "FK Spartak": "FK Spartak Subotica", "Padova": "Calcio Padova", "Jong PSV Eindhoven": "Jong PSV", "Raith": "Raith Rovers", "Pescara": "Pescara Calcio", "Ross Co": "Ross County", 
                                   "Sociedad B": "Real Sociedad B", "SC Telstar": "Telstar", "Philadelphia": "Philadelphia Union", "FK Backa Topola": "TSC Backa Topola", "Hartberg": "TSV Hartberg", "FK Napredak": "Napredak",
                                   "Casa Pia": "Casa Pia AC", "FK IMT Novi Beograd": "FK IMT Beograd", "Brisbane Roar": "Brisbane Roar FC", "Partick": "Partick Thistle", "Univ Catolica (Chile)": "Universidad Catolica", 
-                                  "Oviedo": "Real Oviedo", "Fenerbahce": "Fenerbahçe", "Midtjylland": "FC Midtjylland"
+                                  "Oviedo": "Real Oviedo", "Fenerbahce": "Fenerbahçe", "Midtjylland": "FC Midtjylland", "Braga": "SC Braga"
                                  }
                 
                 if not df_alvo.empty and 'League' in df_alvo.columns:
