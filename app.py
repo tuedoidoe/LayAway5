@@ -149,29 +149,35 @@ st.markdown("""
         color: #00d26a !important;
         font-weight: bold !important;
     }
-    div[data-testid="stButton"] > button { 
-        background-color: #00d26a !important; 
-        color: #121212 !important; 
+    
+    /* Configuração Geral de Botões (Primário Verde, Secundário Cinza) */
+    div[data-testid="stButton"] > button {
         font-weight: 900 !important; 
         border-radius: 6px !important; 
-        border: none !important;
         font-size: 16px !important;
         height: 40px !important;
         transition: all 0.3s ease;
     }
-    div[data-testid="stButton"] > button:hover { 
+    div[data-testid="stButton"] > button[kind="primary"] { 
+        background-color: #00d26a !important; 
+        color: #121212 !important; 
+        border: none !important;
+    }
+    div[data-testid="stButton"] > button[kind="primary"]:hover { 
         background-color: #00b55b !important; 
         transform: translateY(-2px);
     }
-    .btn-navegacao > button {
-        background-color: #262730 !important;
-        color: #ffffff !important;
-        border: 1px solid #444 !important;
+    div[data-testid="stButton"] > button[kind="secondary"] { 
+        background-color: #333333 !important; 
+        color: #ffffff !important; 
+        border: 1px solid #555555 !important;
     }
-    .btn-navegacao > button:hover {
-        background-color: #333333 !important;
-        border-color: #666 !important;
+    div[data-testid="stButton"] > button[kind="secondary"]:hover { 
+        background-color: #444444 !important; 
+        border-color: #777777 !important;
+        transform: translateY(-2px);
     }
+
     div[data-testid="stDownloadButton"] {
         display: flex;
         justify-content: flex-end !important;
@@ -188,6 +194,7 @@ st.markdown("""
         padding: 6px 20px !important;
     }
     div[data-testid="stDownloadButton"] > button:hover { background-color: #333 !important; border-color: #666 !important; }
+    
     .tooltip-header { 
         position: relative; 
         cursor: help; 
@@ -599,11 +606,10 @@ def pagina_scanner():
     col_nav, col_rad, col_dat, col_btn_pesq, espaco = st.columns([0.6, 0.7, 0.6, 0.6, 1.5])
 
     with col_nav:
-        st.markdown("<div style='margin-top: 28px;' class='btn-navegacao'>", unsafe_allow_html=True)
-        if st.button("📊 Ver Resultados Passados", key="btn_nav_res", use_container_width=True):
+        st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
+        if st.button("📊 Ver Resultados Passados", key="btn_nav_res", use_container_width=True, type="secondary"):
             mudar_pagina('resultados')
             st.rerun()
-        st.markdown("</div>", unsafe_allow_html=True)
 
     with col_rad:
         st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
@@ -619,7 +625,7 @@ def pagina_scanner():
 
     with col_btn_pesq:
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
-        btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True, key="scan_btn")
+        btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True, key="scan_btn", type="primary")
         
     st.markdown("<hr style='margin-top: 0px; margin-bottom: 25px; border: 1px solid #333;'>", unsafe_allow_html=True)
 
@@ -705,7 +711,7 @@ def pagina_scanner():
                 jogo_alvo = st.selectbox("Selecione o Jogo:", tabela['Home'] + " x " + tabela['Away'], label_visibility="collapsed", key="scan_graf")
             with col_btn_graf:
                 st.markdown("<div style='margin-top: -14px;'></div>", unsafe_allow_html=True)
-                if st.button("📈 Ver Gráfico na Janela", use_container_width=True, key="scan_btn_graf"):
+                if st.button("📈 Ver Gráfico na Janela", use_container_width=True, key="scan_btn_graf", type="secondary"):
                     if jogo_alvo:
                         t_casa, t_fora = jogo_alvo.split(" x ")
                         abrir_popup_grafico(t_casa, t_fora, df_completo)
@@ -724,11 +730,10 @@ def pagina_resultados():
     col_nav, col_rad, col_dat, col_resp, col_btn_pesq, espaco = st.columns([0.6, 0.6, 0.6, 0.5, 0.6, 1.5])
 
     with col_nav:
-        st.markdown("<div style='margin-top: 28px;' class='btn-navegacao'>", unsafe_allow_html=True)
-        if st.button("🔙 Voltar para o Scanner", key="btn_nav_scan", use_container_width=True):
+        st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
+        if st.button("🔙 Voltar para o Scanner", key="btn_nav_scan", use_container_width=True, type="secondary"):
             mudar_pagina('scanner')
             st.rerun()
-        st.markdown("</div>", unsafe_allow_html=True)
 
     with col_rad:
         st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
@@ -748,7 +753,7 @@ def pagina_resultados():
         
     with col_btn_pesq:
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
-        btn_procurar = st.button("🚀 Iniciar Pesquisa", use_container_width=True, key="res_btn")
+        btn_procurar = st.button("🚀 Iniciar Pesquisa", use_container_width=True, key="res_btn", type="primary")
         
     st.markdown("<hr style='margin-top: 0px; margin-bottom: 25px; border: 1px solid #333;'>", unsafe_allow_html=True)
 
@@ -789,22 +794,14 @@ def pagina_resultados():
         df_final = st.session_state['df_resultados'].copy()
         resp_atual = st.session_state['valor_responsabilidade']
         
-        col_res1, col_sort, col_ordem, col_odd, col_edge, col_score, col_btn = st.columns([3.0, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8])
-        with col_sort: coluna_ordem = st.selectbox("Ordenar por", ["Horário", "EV+", "Score"], key="res_ord1")
-        with col_ordem: direcao_ordem = st.selectbox("Ordem", ["Crescente", "Decrescente"], key="res_ord2")
-        with col_odd: odd_selecionada = st.number_input("Odd Lay", min_value=2.30, max_value=3.50, value=2.30, step=0.10, format="%.2f", key="res_odd")
-        with col_edge: edge_selecionado = st.number_input("EV+ (%)", min_value=0.0, max_value=50.0, value=0.0, step=0.50, format="%.1f", key="res_edge")
-        with col_score: score_selecionado = st.number_input("Score", min_value=0, max_value=100, value=0, step=1, key="res_score")
+        col_res1, col_espaco, col_btn = st.columns([7.0, 1.0, 2.0])
         
-        df_view = df_final[(df_final["Odd_A_Lay"] >= odd_selecionada) & (df_final["Edge"] >= (edge_selecionado/100.0)) & (df_final["Score"] >= score_selecionado)].copy()
+        df_view = df_final.copy()
         
         if df_view.empty:
             st.warning("Nenhum resultado atende aos filtros atuais.")
         else:
-            is_ascending = (direcao_ordem == "Crescente")
-            if coluna_ordem == "Horário": df_view = df_view.sort_values(by=['Date', 'Time'], ascending=[True, True])
-            elif coluna_ordem == "EV+": df_view = df_view.sort_values(by=['Edge'], ascending=is_ascending)
-            elif coluna_ordem == "Score": df_view = df_view.sort_values(by=['Score'], ascending=is_ascending)
+            df_view = df_view.sort_values(by=['Date', 'Time'], ascending=[True, True])
             df_view = drop_reset_index(df_view)
 
             def calc_profit(row):
@@ -821,13 +818,15 @@ def pagina_resultados():
             df_view['Resultado'] = df_view.apply(html_resultado, axis=1)
 
             lucro_total = df_view['Profit'].sum()
+            odd_media = df_view['Odd_A_Lay'].mean()
             cor_lucro = "#00d26a" if lucro_total >= 0 else "#ff4b4b"
             
             with col_res1:
                 st.markdown(f"""
                 <div style='text-align: left; font-size: 18px; margin-top: 34px; margin-bottom: 20px;'>
                     <span style='color: #888;'>Operações Finalizadas:</span> <span style='color: #00d26a; font-weight: 900;'>{len(df_view)}</span> | 
-                    <span style='color: #888;'>Resultado Período:</span> <span style='color: {cor_lucro}; font-weight: 900;'>R$ {lucro_total:.2f}</span>
+                    <span style='color: #888;'>Resultado Período:</span> <span style='color: {cor_lucro}; font-weight: 900;'>R$ {lucro_total:.2f}</span> | 
+                    <span style='color: #888;'>Odd Média Período:</span> <span style='color: #e0e0e0; font-weight: bold;'>{odd_media:.2f}</span>
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -844,7 +843,7 @@ def pagina_resultados():
             
             with col_btn:
                 st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
-                st.download_button("📥 Exportar Excel", data=buffer.getvalue(), file_name="Resultados_LayAway.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=False, key="res_export")
+                st.download_button("📥 Exportar Resultados Excel", data=buffer.getvalue(), file_name="Resultados Jogos Lay Away.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=True, key="res_export")
 
             def estilizar_linhas_resultados(row):
                 cor_fundo = '#1e1e1e' if row.name % 2 == 0 else '#121212'
