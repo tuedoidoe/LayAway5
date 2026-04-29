@@ -708,7 +708,7 @@ def pagina_scanner():
             col_sel, col_btn_graf, col_vazia = st.columns([0.8, 0.6, 3])
             with col_sel:
                 st.markdown("<div style='margin-top: 0px;'></div>", unsafe_allow_html=True)
-                jogo_alvo = st.selectbox("Selecione o Jogo:", tabela['Time Casa'] + " x " + tabela['Time Fora'], label_visibility="collapsed", key="scan_graf")
+                jogo_alvo = st.selectbox("Selecione o Jogo:", tabela['Home'] + " x " + tabela['Away'], label_visibility="collapsed", key="scan_graf")
             with col_btn_graf:
                 st.markdown("<div style='margin-top: -14px;'></div>", unsafe_allow_html=True)
                 if st.button("📈 Ver Gráfico na Janela", use_container_width=True, key="scan_btn_graf", type="secondary"):
