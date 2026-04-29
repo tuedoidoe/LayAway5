@@ -603,7 +603,7 @@ def pagina_scanner():
     agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
     st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
     
-    col_nav, col_rad, col_dat, col_btn_pesq, espaco = st.columns([0.6, 0.7, 0.6, 0.6, 1.5])
+    col_nav, col_rad, col_dat, col_btn_pesq, espaco = st.columns([0.6, 1.5, 0.7, 0.6, 0.6])
 
     with col_nav:
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
@@ -708,7 +708,7 @@ def pagina_scanner():
             col_sel, col_btn_graf, col_vazia = st.columns([0.8, 0.6, 3])
             with col_sel:
                 st.markdown("<div style='margin-top: 0px;'></div>", unsafe_allow_html=True)
-                jogo_alvo = st.selectbox("Selecione o Jogo:", tabela['Home'] + " x " + tabela['Away'], label_visibility="collapsed", key="scan_graf")
+                jogo_alvo = st.selectbox("Selecione o Jogo:", tabela['Time Casa'] + " x " + tabela['Time Fora'], label_visibility="collapsed", key="scan_graf")
             with col_btn_graf:
                 st.markdown("<div style='margin-top: -14px;'></div>", unsafe_allow_html=True)
                 if st.button("📈 Ver Gráfico na Janela", use_container_width=True, key="scan_btn_graf", type="secondary"):
@@ -727,7 +727,7 @@ def pagina_resultados():
     agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
     st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
     
-    col_nav, col_rad, col_dat, col_resp, col_btn_pesq, espaco = st.columns([0.6, 0.6, 0.6, 0.5, 0.6, 1.5])
+    col_nav, col_rad, col_dat, col_resp, col_btn_pesq, espaco = st.columns([0.6, 1.5, 0.6, 0.6, 0.5, 0.6])
 
     with col_nav:
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
