@@ -100,14 +100,12 @@ def identificar_torneio(nome_sujo):
 # ==========================================
 st.set_page_config(page_title="Scanner Lay Away", layout="wide", initial_sidebar_state="collapsed")
 
-# Inicializa o estado de navegação se não existir
 if 'pagina_atual' not in st.session_state:
     st.session_state['pagina_atual'] = 'scanner'
 
 def mudar_pagina(nome_pagina):
     st.session_state['pagina_atual'] = nome_pagina
 
-# CSS PREMIUM
 st.markdown("""
     <style>
     .stApp {
@@ -345,10 +343,9 @@ def abrir_popup_grafico(t_casa, t_fora, df_completo):
 
 
 # ==========================================
-# ENGINE CENTRAL DE PROCESSAMENTO (Compartilhada por Scanner e Resultados)
+# ENGINE CENTRAL DE PROCESSAMENTO
 # ==========================================
 def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisando..."):
-    # Dicionários embutidos para encapsulamento
     tradutor_ligas = {"Argentinian Primera Division": "ARGENTINA 1", "Argentinian Primera B Nacional": "ARGENTINA 2", "Australian A-League Men": "AUSTRALIA 1", 
                       "Austrian Bundesliga": "AUSTRIA 1", "Austrian Erste Liga": "AUSTRIA 2", "Belgian First Division A": "BELGIUM 1", "Brazilian Serie A": "BRAZIL 1", 
                       "Chilean Primera Division": "CHILE 1", "Chinese Super League": "CHINA 1", "Czech 1 Liga": "CZECH 1", "Danish Superliga": "DENMARK 1", 
@@ -426,7 +423,7 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                     df_alvo['Home'] = df_alvo['Home'].replace(tradutor_times)
                     df_alvo['Away'] = df_alvo['Away'].replace(tradutor_times)
             else:
-                return pd.DataFrame(), pd.DataFrame(), pd.DataFrame() # Retorna vazios se não houver jogos
+                return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
 
             def safe_prob(column): return (1 / pd.to_numeric(column, errors='coerce').replace(0, np.nan)).fillna(0)
             data_limite = df_alvo['Date'].min()
@@ -509,8 +506,12 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                     df_alvo_ls['Away'] = df_alvo_ls.apply(lambda r: dic_fuzzy_ls.get((r['League'], r['Away']), r['Away']), axis=1)
                     
                 df_stats = pd.concat([df_ls_passado, df_alvo_ls], ignore_index=True)
+                
+                # Salvando o nome oficial do Livescore para usar no Merge da aba Resultados
+                df_ls_names = df_alvo_ls[['id_jogo', 'Home', 'Away']].rename(columns={'Home': 'Home_LS', 'Away': 'Away_LS'})
             else:
                 df_stats = df_completo.copy()
+                df_ls_names = pd.DataFrame(columns=['id_jogo', 'Home_LS', 'Away_LS'])
                 
             df_stats = drop_reset_index(df_stats.sort_values(["Date", "Home"]))
             df_stats['Goals_H_FT'] = pd.to_numeric(df_stats['Goals_H_FT'], errors='coerce')
@@ -543,6 +544,9 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                                'soma_cs_casa', 'soma_fts_fora', 'dp_gs_casa', 'dp_gm_fora', 'vaz_def_fora']],
                 on='id_jogo', how='left'
             )
+            
+            # Anexando os nomes do Livescore para garantir o cruzamento de resultados futuros
+            df_hoje = df_hoje.merge(df_ls_names, on='id_jogo', how='left')
 
             df_hoje = df_hoje[(df_hoje['Odd_A_Lay'] <= 3.50) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back']) & (abs(df_hoje['Odd_A_Back'] - df_hoje['Odd_A_Lay']) <= 0.50) & (abs(df_hoje['Odd_H_Back'] - df_hoje['Odd_H_Lay']) <= 0.50)].copy()
             
@@ -574,7 +578,7 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                 df_hoje['DP GM Fora'] = np.where(df_hoje['qtd_jogos_fora'] > 1, df_hoje['dp_gm_fora'].apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
                 df_hoje['Vaz Def Fora'] = np.where(df_hoje['qtd_jogos_fora'] > 0, df_hoje['vaz_def_fora'].apply(lambda x: f"{x:.2f}" if pd.notnull(x) else "-"), "-")
 
-                colunas_vitais = list(X_cols_treino) + ['Odd_A_Lay', 'Home', 'Away', 'League', 'Date']
+                colunas_vitais = list(X_cols_treino) + ['Odd_A_Lay', 'Home', 'Away', 'League', 'Date', 'Home_LS', 'Away_LS']
                 colunas_vitais = [col for col in colunas_vitais if col in df_hoje.columns]
                 df_hoje = drop_reset_index(df_hoje.dropna(subset=colunas_vitais))
                 
@@ -582,7 +586,7 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                     df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
                     df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
                     df_bruto = df_hoje[df_hoje["Edge"] >= 0.0].copy()
-                    return df_bruto, df_completo, df_livescore # Retorna livescore para tela de resultados
+                    return df_bruto, df_completo, df_livescore 
             
             return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
 
@@ -594,35 +598,35 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
 # PÁGINA 1: SCANNER
 # ==========================================
 def pagina_scanner():
-    col_esquerda, col_direita = st.columns([1.3, 1])
-    with col_esquerda:
-        st.markdown("<p class='titulo-premium'>SCANNER LAY AWAY</p>", unsafe_allow_html=True)
-        fuso_br = pytz.timezone('America/Sao_Paulo')
-        agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
-        st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
-        
-        st.markdown("<div class='btn-navegacao'>", unsafe_allow_html=True)
-        if st.button("📊 Ver Resultados Passados", key="btn_nav_res"):
+    st.markdown("<p class='titulo-premium'>SCANNER LAY AWAY</p>", unsafe_allow_html=True)
+    fuso_br = pytz.timezone('America/Sao_Paulo')
+    agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
+    st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
+    
+    col_nav, col_rad, col_dat, col_btn_pesq = st.columns([1, 1.2, 1, 1])
+
+    with col_nav:
+        st.markdown("<div style='margin-top: 28px;' class='btn-navegacao'>", unsafe_allow_html=True)
+        if st.button("📊 Ver Resultados Passados", key="btn_nav_res", use_container_width=True):
             mudar_pagina('resultados')
             st.rerun()
         st.markdown("</div>", unsafe_allow_html=True)
 
-    with col_direita:
-        st.markdown("<div style='margin-top: 15px;'></div>", unsafe_allow_html=True)
+    with col_rad:
+        st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
+        tipo_filtro = st.radio("Período", ["Data Única", "Intervalo"], horizontal=True, label_visibility="collapsed", key="scan_rad")
+
+    with col_dat:
+        st.markdown("<div style='font-size: 14px; font-weight: bold; margin-bottom: 2px;'>Data da Pesquisa</div>", unsafe_allow_html=True)
         hoje = datetime.now(fuso_br).date()
-        c1, c2, c3 = st.columns([1.2, 1, 1])
-        with c1:
-            st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
-            tipo_filtro = st.radio("Período", ["Data Única", "Intervalo"], horizontal=True, label_visibility="collapsed", key="scan_rad")
-        with c2:
-            st.markdown("<div style='font-size: 14px; font-weight: bold; margin-bottom: 2px;'>Data da Pesquisa</div>", unsafe_allow_html=True)
-            if tipo_filtro == "Data Única":
-                data_selecionada = st.date_input("Data", value=hoje, format="DD/MM/YYYY", label_visibility="collapsed", key="scan_dt1")
-            else:
-                data_selecionada = st.date_input("Data", value=(hoje, hoje), format="DD/MM/YYYY", label_visibility="collapsed", key="scan_dt2")
-        with c3:
-            st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
-            btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True, key="scan_btn")
+        if tipo_filtro == "Data Única":
+            data_selecionada = st.date_input("Data", value=hoje, format="DD/MM/YYYY", label_visibility="collapsed", key="scan_dt1")
+        else:
+            data_selecionada = st.date_input("Data", value=(hoje, hoje), format="DD/MM/YYYY", label_visibility="collapsed", key="scan_dt2")
+
+    with col_btn_pesq:
+        st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
+        btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True, key="scan_btn")
         
     st.markdown("<hr style='margin-top: 0px; margin-bottom: 25px; border: 1px solid #333;'>", unsafe_allow_html=True)
 
@@ -702,11 +706,12 @@ def pagina_scanner():
             
             st.markdown("<hr style='margin-top: 10px; margin-bottom: 20px; border: 1px solid #333;'>", unsafe_allow_html=True)
             st.markdown("<p style='font-size: 16px; color: #e0e0e0; font-weight: bold; margin-bottom: 5px;'>📊 Abrir Gráfico de Tendência (Pop-up)</p>", unsafe_allow_html=True)
-            col_sel, col_btn, col_vazia = st.columns([0.8, 0.6, 3])
+            col_sel, col_btn_graf, col_vazia = st.columns([0.8, 0.6, 3])
             with col_sel:
                 st.markdown("<div style='margin-top: 0px;'></div>", unsafe_allow_html=True)
-                jogo_alvo = st.selectbox("Selecione o Jogo:", tabela['Time Casa'] + " x " + tabela['Time Fora'], label_visibility="collapsed", key="scan_graf")
-            with col_btn:
+                # Correção do Erro 1 (KeyError) feita aqui
+                jogo_alvo = st.selectbox("Selecione o Jogo:", tabela['Home'] + " x " + tabela['Away'], label_visibility="collapsed", key="scan_graf")
+            with col_btn_graf:
                 st.markdown("<div style='margin-top: -14px;'></div>", unsafe_allow_html=True)
                 if st.button("📈 Ver Gráfico na Janela", use_container_width=True, key="scan_btn_graf"):
                     if jogo_alvo:
@@ -719,41 +724,39 @@ def pagina_scanner():
 # PÁGINA 2: RESULTADOS PASSADOS
 # ==========================================
 def pagina_resultados():
-    col_esquerda, col_direita = st.columns([1.3, 1])
-    with col_esquerda:
-        st.markdown("<p class='titulo-premium titulo-resultados'>RESULTADOS LAY AWAY</p>", unsafe_allow_html=True)
-        fuso_br = pytz.timezone('America/Sao_Paulo')
-        agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
-        st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
-        
-        st.markdown("<div class='btn-navegacao'>", unsafe_allow_html=True)
-        if st.button("🔙 Voltar para o Scanner", key="btn_nav_scan"):
+    st.markdown("<p class='titulo-premium titulo-resultados'>RESULTADOS LAY AWAY</p>", unsafe_allow_html=True)
+    fuso_br = pytz.timezone('America/Sao_Paulo')
+    agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
+    st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
+    
+    col_nav, col_rad, col_dat, col_resp, col_btn_pesq = st.columns([1, 1, 1, 0.8, 1])
+
+    with col_nav:
+        st.markdown("<div style='margin-top: 28px;' class='btn-navegacao'>", unsafe_allow_html=True)
+        if st.button("🔙 Voltar para o Scanner", key="btn_nav_scan", use_container_width=True):
             mudar_pagina('scanner')
             st.rerun()
         st.markdown("</div>", unsafe_allow_html=True)
 
-    with col_direita:
-        st.markdown("<div style='margin-top: 15px;'></div>", unsafe_allow_html=True)
-        ontem = datetime.now(fuso_br).date() - timedelta(days=1) # Limite de pesquisa
+    with col_rad:
+        st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
+        tipo_filtro = st.radio("Período", ["Data Única", "Intervalo"], horizontal=True, label_visibility="collapsed", key="res_rad")
+
+    with col_dat:
+        st.markdown("<div style='font-size: 14px; font-weight: bold; margin-bottom: 2px;'>Data da Pesquisa</div>", unsafe_allow_html=True)
+        ontem = datetime.now(fuso_br).date() - timedelta(days=1)
+        if tipo_filtro == "Data Única":
+            data_selecionada = st.date_input("Data", value=ontem, max_value=ontem, format="DD/MM/YYYY", label_visibility="collapsed", key="res_dt1")
+        else:
+            data_selecionada = st.date_input("Data", value=(ontem, ontem), max_value=ontem, format="DD/MM/YYYY", label_visibility="collapsed", key="res_dt2")
+
+    with col_resp:
+        st.markdown("<div style='font-size: 14px; font-weight: bold; margin-bottom: 2px;'>Responsabilidade</div>", unsafe_allow_html=True)
+        resp_input = st.number_input("Responsabilidade", min_value=1.0, value=30.0, step=5.0, format="%.2f", label_visibility="collapsed", key="res_resp")
         
-        c1, c2, c3 = st.columns([0.9, 0.9, 0.8])
-        c4, c5 = st.columns([1, 1])
-        with c1:
-            st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
-            tipo_filtro = st.radio("Período", ["Data Única", "Intervalo"], horizontal=True, label_visibility="collapsed", key="res_rad")
-        with c2:
-            st.markdown("<div style='font-size: 14px; font-weight: bold; margin-bottom: 2px;'>Data da Pesquisa</div>", unsafe_allow_html=True)
-            if tipo_filtro == "Data Única":
-                data_selecionada = st.date_input("Data", value=ontem, max_value=ontem, format="DD/MM/YYYY", label_visibility="collapsed", key="res_dt1")
-            else:
-                data_selecionada = st.date_input("Data", value=(ontem, ontem), max_value=ontem, format="DD/MM/YYYY", label_visibility="collapsed", key="res_dt2")
-        with c3:
-            st.markdown("<div style='font-size: 14px; font-weight: bold; margin-bottom: 2px;'>Responsabilidade</div>", unsafe_allow_html=True)
-            resp_input = st.number_input("Responsabilidade", min_value=1.0, value=30.0, step=5.0, format="%.2f", label_visibility="collapsed", key="res_resp")
-            
-        with c5:
-            st.markdown("<div style='margin-top: 5px;'></div>", unsafe_allow_html=True)
-            btn_procurar = st.button("🚀 Iniciar Pesquisa", use_container_width=True, key="res_btn")
+    with col_btn_pesq:
+        st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
+        btn_procurar = st.button("🚀 Iniciar Pesquisa", use_container_width=True, key="res_btn")
         
     st.markdown("<hr style='margin-top: 0px; margin-bottom: 25px; border: 1px solid #333;'>", unsafe_allow_html=True)
 
@@ -764,22 +767,27 @@ def pagina_resultados():
         if df_bruto.empty:
             st.warning("Não foram encontrados alertas do Scanner no período selecionado.")
         else:
-            # Seleciona apenas as colunas vitais do alerta do Scanner
-            df_resultados = df_bruto[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Edge', 'Score']].copy()
+            df_resultados = df_bruto[['Date', 'Time', 'League', 'Home', 'Away', 'Home_LS', 'Away_LS', 'Odd_A_Lay', 'Edge', 'Score']].copy()
             
-            # Formata a data para garantir o merge perfeito
-            df_resultados['Date_Match'] = pd.to_datetime(df_resultados['Date']).dt.date
-            df_livescore['Date_Match'] = pd.to_datetime(df_livescore['Date']).dt.date
+            # Normalização rigorosa das datas para garantir cruzamento independente de hora local
+            df_resultados['Date_Match'] = pd.to_datetime(df_resultados['Date']).dt.strftime('%Y-%m-%d')
+            df_livescore['Date_Match'] = pd.to_datetime(df_livescore['Date']).dt.strftime('%Y-%m-%d')
             
-            # Merge com a base do livescore para puxar os gols reais
+            # Limpeza de dados do JSON (evitando erros com placares vazios)
+            df_livescore['Goals_H_FT'] = pd.to_numeric(df_livescore['Goals_H_FT'], errors='coerce')
+            df_livescore['Goals_A_FT'] = pd.to_numeric(df_livescore['Goals_A_FT'], errors='coerce')
+            
+            # Correção do Erro 2 (Mismtach) usando os Nomes LS anexados na Engine
             df_final = pd.merge(
                 df_resultados, 
                 df_livescore[['Date_Match', 'Home', 'Away', 'Goals_H_FT', 'Goals_A_FT']].drop_duplicates(subset=['Date_Match', 'Home', 'Away']), 
-                on=['Date_Match', 'Home', 'Away'], 
-                how='inner'
+                left_on=['Date_Match', 'Home_LS', 'Away_LS'], 
+                right_on=['Date_Match', 'Home', 'Away'],
+                how='inner',
+                suffixes=('', '_drop')
             )
             
-            # Filtra jogos que ainda não têm resultado definido no arquivo JSON
+            # Tira os jogos que ainda não receberam pontuação numérica
             df_final = df_final.dropna(subset=['Goals_H_FT', 'Goals_A_FT']).copy()
             
             if df_final.empty:
@@ -793,7 +801,6 @@ def pagina_resultados():
         df_final = st.session_state['df_resultados'].copy()
         resp_atual = st.session_state['valor_responsabilidade']
         
-        # Filtros e Ordenação idênticos ao Scanner
         col_res1, col_sort, col_ordem, col_odd, col_edge, col_score, col_btn = st.columns([3.0, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8])
         with col_sort: coluna_ordem = st.selectbox("Ordenar por", ["Horário", "EV+", "Score"], key="res_ord1")
         with col_ordem: direcao_ordem = st.selectbox("Ordem", ["Crescente", "Decrescente"], key="res_ord2")
@@ -806,30 +813,25 @@ def pagina_resultados():
         if df_view.empty:
             st.warning("Nenhum resultado atende aos filtros atuais.")
         else:
-            # Ordenação inicial antes do cálculo acumulado
             is_ascending = (direcao_ordem == "Crescente")
-            if coluna_ordem == "Horário": df_view = df_view.sort_values(by=['Date', 'Time'], ascending=[True, True]) # A ordem cronológica é fundamental para o profit acumulado
+            if coluna_ordem == "Horário": df_view = df_view.sort_values(by=['Date', 'Time'], ascending=[True, True])
             elif coluna_ordem == "EV+": df_view = df_view.sort_values(by=['Edge'], ascending=is_ascending)
             elif coluna_ordem == "Score": df_view = df_view.sort_values(by=['Score'], ascending=is_ascending)
             df_view = drop_reset_index(df_view)
 
-            # Cálculo de Profit
             def calc_profit(row):
                 gc, gf, odd_lay = row['Goals_H_FT'], row['Goals_A_FT'], row['Odd_A_Lay']
-                if gc >= gf: return (resp_atual / (odd_lay - 1)) * 0.9550 # Green
-                else: return -resp_atual # Red
+                if gc >= gf: return (resp_atual / (odd_lay - 1)) * 0.9550 
+                else: return -resp_atual 
 
             df_view['Profit'] = df_view.apply(calc_profit, axis=1)
-            # Acumulado tem que ser na ordem exibida
             df_view['Profit Acumulado'] = df_view['Profit'].cumsum()
             
-            # Cálculo de Resultado Visual (Green/Red)
             def html_resultado(row):
                 cor = "#00d26a" if row['Goals_H_FT'] >= row['Goals_A_FT'] else "#ff4b4b"
                 return f"<div style='width: 20px; height: 20px; background-color: {cor}; border-radius: 4px; margin: auto;'></div>"
             df_view['Resultado'] = df_view.apply(html_resultado, axis=1)
 
-            # Ajustes Finais para Tabela
             lucro_total = df_view['Profit'].sum()
             cor_lucro = "#00d26a" if lucro_total >= 0 else "#ff4b4b"
             
@@ -844,7 +846,6 @@ def pagina_resultados():
             tabela_final = df_view[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Goals_H_FT', 'Goals_A_FT', 'Resultado', 'Profit', 'Profit Acumulado']].copy()
             tabela_final['Date'] = pd.to_datetime(tabela_final['Date']).dt.strftime('%d/%m/%Y')
             
-            # Formatação Inteira para Gols
             tabela_final['Goals_H_FT'] = tabela_final['Goals_H_FT'].astype(int)
             tabela_final['Goals_A_FT'] = tabela_final['Goals_A_FT'].astype(int)
 
