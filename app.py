@@ -603,7 +603,7 @@ def pagina_scanner():
     agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
     st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
     
-    col_nav, col_rad, col_dat, col_btn_pesq, espaco = st.columns([0.6, 2.0, 0.7, 0.6, 0.6])
+    col_nav, col_rad, col_dat, col_btn_pesq, espaco = st.columns([0.6, 3.0, 0.7, 0.6, 0.6])
 
     with col_nav:
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
