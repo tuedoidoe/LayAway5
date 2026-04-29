@@ -126,11 +126,6 @@ st.markdown("""
         text-transform: uppercase;
         display: inline-block;
     }
-    .titulo-resultados {
-        background: linear-gradient(135deg, #00d26a 0%, #a8ff78 100%) !important;
-        -webkit-background-clip: text !important;
-        -webkit-text-fill-color: transparent !important;
-    }
     .data-atualizacao {
         color: #888888;
         font-size: 15px;
@@ -507,7 +502,6 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                     
                 df_stats = pd.concat([df_ls_passado, df_alvo_ls], ignore_index=True)
                 
-                # Salvando o nome oficial do Livescore para usar no Merge da aba Resultados
                 df_ls_names = df_alvo_ls[['id_jogo', 'Home', 'Away']].rename(columns={'Home': 'Home_LS', 'Away': 'Away_LS'})
             else:
                 df_stats = df_completo.copy()
@@ -545,7 +539,6 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                 on='id_jogo', how='left'
             )
             
-            # Anexando os nomes do Livescore para garantir o cruzamento de resultados futuros
             df_hoje = df_hoje.merge(df_ls_names, on='id_jogo', how='left')
 
             df_hoje = df_hoje[(df_hoje['Odd_A_Lay'] <= 3.50) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back']) & (abs(df_hoje['Odd_A_Back'] - df_hoje['Odd_A_Lay']) <= 0.50) & (abs(df_hoje['Odd_H_Back'] - df_hoje['Odd_H_Lay']) <= 0.50)].copy()
@@ -603,7 +596,7 @@ def pagina_scanner():
     agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
     st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
     
-    col_nav, col_rad, col_dat, col_btn_pesq = st.columns([1, 1.2, 1, 1])
+    col_nav, col_rad, col_dat, col_btn_pesq, espaco = st.columns([0.6, 0.7, 0.6, 0.6, 1.5])
 
     with col_nav:
         st.markdown("<div style='margin-top: 28px;' class='btn-navegacao'>", unsafe_allow_html=True)
@@ -709,8 +702,7 @@ def pagina_scanner():
             col_sel, col_btn_graf, col_vazia = st.columns([0.8, 0.6, 3])
             with col_sel:
                 st.markdown("<div style='margin-top: 0px;'></div>", unsafe_allow_html=True)
-                # Correção do Erro 1 (KeyError) feita aqui
-                jogo_alvo = st.selectbox("Selecione o Jogo:", tabela['Home'] + " x " + tabela['Away'], label_visibility="collapsed", key="scan_graf")
+                jogo_alvo = st.selectbox("Selecione o Jogo:", tabela['Time Casa'] + " x " + tabela['Time Fora'], label_visibility="collapsed", key="scan_graf")
             with col_btn_graf:
                 st.markdown("<div style='margin-top: -14px;'></div>", unsafe_allow_html=True)
                 if st.button("📈 Ver Gráfico na Janela", use_container_width=True, key="scan_btn_graf"):
@@ -724,12 +716,12 @@ def pagina_scanner():
 # PÁGINA 2: RESULTADOS PASSADOS
 # ==========================================
 def pagina_resultados():
-    st.markdown("<p class='titulo-premium titulo-resultados'>RESULTADOS LAY AWAY</p>", unsafe_allow_html=True)
+    st.markdown("<p class='titulo-premium'>RESULTADOS LAY AWAY</p>", unsafe_allow_html=True)
     fuso_br = pytz.timezone('America/Sao_Paulo')
     agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
     st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
     
-    col_nav, col_rad, col_dat, col_resp, col_btn_pesq = st.columns([1, 1, 1, 0.8, 1])
+    col_nav, col_rad, col_dat, col_resp, col_btn_pesq, espaco = st.columns([0.6, 0.6, 0.6, 0.5, 0.6, 1.5])
 
     with col_nav:
         st.markdown("<div style='margin-top: 28px;' class='btn-navegacao'>", unsafe_allow_html=True)
@@ -769,15 +761,12 @@ def pagina_resultados():
         else:
             df_resultados = df_bruto[['Date', 'Time', 'League', 'Home', 'Away', 'Home_LS', 'Away_LS', 'Odd_A_Lay', 'Edge', 'Score']].copy()
             
-            # Normalização rigorosa das datas para garantir cruzamento independente de hora local
             df_resultados['Date_Match'] = pd.to_datetime(df_resultados['Date']).dt.strftime('%Y-%m-%d')
             df_livescore['Date_Match'] = pd.to_datetime(df_livescore['Date']).dt.strftime('%Y-%m-%d')
             
-            # Limpeza de dados do JSON (evitando erros com placares vazios)
             df_livescore['Goals_H_FT'] = pd.to_numeric(df_livescore['Goals_H_FT'], errors='coerce')
             df_livescore['Goals_A_FT'] = pd.to_numeric(df_livescore['Goals_A_FT'], errors='coerce')
             
-            # Correção do Erro 2 (Mismtach) usando os Nomes LS anexados na Engine
             df_final = pd.merge(
                 df_resultados, 
                 df_livescore[['Date_Match', 'Home', 'Away', 'Goals_H_FT', 'Goals_A_FT']].drop_duplicates(subset=['Date_Match', 'Home', 'Away']), 
@@ -787,7 +776,6 @@ def pagina_resultados():
                 suffixes=('', '_drop')
             )
             
-            # Tira os jogos que ainda não receberam pontuação numérica
             df_final = df_final.dropna(subset=['Goals_H_FT', 'Goals_A_FT']).copy()
             
             if df_final.empty:
