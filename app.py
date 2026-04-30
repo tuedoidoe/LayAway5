@@ -134,7 +134,13 @@ st.markdown("""
         margin-bottom: 20px;
     }
     div[data-testid="stRadio"] { display: flex !important; justify-content: flex-start !important; align-items: center !important; height: 100%;}
-    div[data-testid="stRadio"] > div[role="radiogroup"] { display: flex !important; flex-direction: row !important; gap: 20px; }
+    div[data-testid="stRadio"] > div[role="radiogroup"] { 
+        display: flex !important; 
+        flex-direction: row !important; 
+        gap: 20px; 
+        flex-wrap: nowrap !important;
+        white-space: nowrap !important;
+    }
     div[data-testid="stNumberInput"] label p, div[data-testid="stSelectbox"] label p {
         font-size: 15px !important; 
         font-weight: bold !important;
@@ -157,6 +163,7 @@ st.markdown("""
         font-size: 16px !important;
         height: 40px !important;
         transition: all 0.3s ease;
+        white-space: nowrap !important;
     }
     div[data-testid="stButton"] > button[kind="primary"] { 
         background-color: #00d26a !important; 
@@ -604,7 +611,7 @@ def pagina_scanner():
     agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
     st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
     
-    col_nav, espaco, col_rad, col_dat, col_btn_pesq = st.columns([1.2, 3.3, 1.3, 1.0, 1.0])
+    col_nav, espaco, col_rad, col_dat, col_btn_pesq = st.columns([1.5, 1.5, 1.6, 1.5, 1.3])
 
     with col_nav:
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
@@ -728,7 +735,7 @@ def pagina_resultados():
     agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
     st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
     
-    col_nav, espaco, col_rad, col_dat, col_resp, col_btn_pesq = st.columns([1.0, 2.5, 1.3, 1.0, 0.6, 1.0])
+    col_nav, espaco, col_rad, col_dat, col_resp, col_btn_pesq = st.columns([1.5, 0.5, 1.6, 1.5, 0.9, 1.3])
 
     with col_nav:
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
