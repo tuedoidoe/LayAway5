@@ -2,9 +2,9 @@ name: Automação Diária LayAway5
 
 on:
   schedule:
-    # Roda às 04:00 UTC (01:00 Horário de Brasília)
-    - cron: '0 4 * * *' 
-  workflow_dispatch: # Permite rodar manualmente pelo botão no GitHub
+    # Roda às 03:17 UTC (00:17 no horário do Brasil)
+    - cron: '17 3 * * *' 
+  workflow_dispatch:
 
 jobs:
   atualizar-base:
