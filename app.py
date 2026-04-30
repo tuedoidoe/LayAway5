@@ -817,6 +817,10 @@ def pagina_resultados():
                 return f"<div style='width: 20px; height: 20px; background-color: {cor}; border-radius: 4px; margin: auto;'></div>"
             df_view['Resultado'] = df_view.apply(html_resultado, axis=1)
 
+            # --- NOVOS CÁLCULOS DE GREEN E RED ---
+            qtd_green = len(df_view[df_view['Goals_H_FT'] >= df_view['Goals_A_FT']])
+            qtd_red = len(df_view[df_view['Goals_H_FT'] < df_view['Goals_A_FT']])
+
             lucro_total = df_view['Profit'].sum()
             odd_media = df_view['Odd_A_Lay'].mean()
             cor_lucro = "#00d26a" if lucro_total >= 0 else "#ff4b4b"
@@ -826,7 +830,9 @@ def pagina_resultados():
                 <div style='text-align: left; font-size: 18px; margin-top: 34px; margin-bottom: 20px;'>
                     <span style='color: #888;'>Operações Finalizadas:</span> <span style='color: #00d26a; font-weight: 900;'>{len(df_view)}</span> | 
                     <span style='color: #888;'>Resultado Período:</span> <span style='color: {cor_lucro}; font-weight: 900;'>R$ {lucro_total:.2f}</span> | 
-                    <span style='color: #888;'>Odd Média Período:</span> <span style='color: #e0e0e0; font-weight: bold;'>{odd_media:.2f}</span>
+                    <span style='color: #888;'>Odd Média Período:</span> <span style='color: #e0e0e0; font-weight: bold;'>{odd_media:.2f}</span> | 
+                    <span style='color: #888;'>Green:</span> <span style='color: #00d26a; font-weight: 900;'>{qtd_green}</span> | 
+                    <span style='color: #888;'>RED:</span> <span style='color: #ff4b4b; font-weight: 900;'>{qtd_red}</span>
                 </div>
                 """, unsafe_allow_html=True)
 
