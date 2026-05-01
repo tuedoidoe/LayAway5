@@ -350,6 +350,53 @@ def abrir_popup_grafico(t_casa, t_fora, df_completo):
     )
     st.plotly_chart(fig, use_container_width=True)
 
+    # ==========================================
+    # VEREDITO BOCA DE JACARÉ
+    # ==========================================
+    momento_ataque_casa = hist_casa['MM_Gols_Feitos'].iloc[-1] if not hist_casa.empty and 'MM_Gols_Feitos' in hist_casa.columns else 0.0
+    momento_defesa_fora = hist_fora['MM_Gols_Sofridos'].iloc[-1] if not hist_fora.empty and 'MM_Gols_Sofridos' in hist_fora.columns else 0.0
+
+    st.markdown("<hr style='margin-top: 10px; border: 1px solid #333;'>", unsafe_allow_html=True)
+    col_msg1, col_msg2 = st.columns(2)
+    
+    with col_msg1:
+        if momento_ataque_casa >= 1.5:
+            st.success(f"🔥 **Ataque Feroz:** A tendência atual do {t_casa} é marcar {momento_ataque_casa:.1f} gols/jogo.")
+        elif momento_ataque_casa >= 1.0:
+            st.info(f"⚖️ **Ataque Regular:** A tendência atual do {t_casa} é marcar {momento_ataque_casa:.1f} gols/jogo.")
+        else:
+            st.error(f"⚠️ **Ataque Inofensivo:** O {t_casa} vem sofrendo para marcar (tendência de {momento_ataque_casa:.1f} gols/jogo).")
+            
+    with col_msg2:
+        if momento_defesa_fora >= 1.5:
+            st.success(f"🚨 **Defesa em Crise:** A zaga do {t_fora} está vazando! Sofrendo {momento_defesa_fora:.1f} gols/jogo.")
+        elif momento_defesa_fora >= 1.0:
+            st.info(f"⚖️ **Defesa Regular:** A tendência atual do {t_fora} é sofrer {momento_defesa_fora:.1f} gols/jogo.")
+        else:
+            st.error(f"🛡️ **Defesa Intransponível:** O {t_fora} ajustou a zaga e vem sofrendo apenas {momento_defesa_fora:.1f} gols/jogo.")
+
+    if momento_ataque_casa >= 1.5 and momento_defesa_fora >= 1.5:
+        veredito = "🐊 <b>BOCA DE JACARÉ DETECTADA:</b> Cenário PERFEITO para Lay Away! O ataque do mandante está crescendo na mesma proporção em que a defesa do visitante está afundando."
+        cor_borda = "#00d26a"
+    elif momento_ataque_casa < 1.0 and momento_defesa_fora < 1.0:
+        veredito = "🧱 <b>CENÁRIO PERIGOSO:</b> Mandante com ataque inoperante contra uma defesa visitante ajustada. Risco alto de jogo truncado ou 0x0. Evite o Lay Away."
+        cor_borda = "#ff4b4b"
+    elif momento_ataque_casa >= 1.5 and momento_defesa_fora < 1.0:
+        veredito = "⚔️ <b>JOGO DE PACIÊNCIA:</b> O mandante tem muito volume, mas o visitante sabe se defender. A linha de gols dependerá da quebra dessa retranca."
+        cor_borda = "#fada5e"
+    elif momento_ataque_casa < 1.0 and momento_defesa_fora >= 1.5:
+        veredito = "🎲 <b>CENÁRIO IMPREVISÍVEL:</b> A defesa visitante é terrível, mas o ataque mandante não aproveita. Jogo com alta chance de zebras."
+        cor_borda = "#fada5e"
+    else:
+        veredito = "⚖️ <b>CENÁRIO NEUTRO:</b> As médias móveis estão estáveis. Não há padrão claro de Boca de Jacaré neste momento."
+        cor_borda = "#3b82f6"
+
+    st.markdown(f"""
+    <div style='border-left: 5px solid {cor_borda}; background-color: #1e1e1e; padding: 15px; border-radius: 5px; margin-top: 15px; color: #e0e0e0; font-size: 15px;'>
+        {veredito}
+    </div>
+    """, unsafe_allow_html=True)
+
 
 # ==========================================
 # ENGINE CENTRAL DE PROCESSAMENTO
