@@ -3,7 +3,7 @@ name: Automação Diária LayAway5
 on:
   schedule:
     # Roda às 03:17 UTC (00:17 no horário do Brasil)
-    - cron: '17 1 * * *' 
+    - cron: '17 3 * * *' 
   workflow_dispatch:
 
 jobs:
