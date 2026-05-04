@@ -304,8 +304,11 @@ def baixar_jogos_do_dia(data):
 
 @st.dialog("📊 Raio-X do Confronto: Boca de Jacaré", width="large")
 def abrir_popup_grafico(t_casa, t_fora, df_completo):
-    hist_casa = df_completo[(df_completo['Home'] == t_casa)].tail(10).copy()
-    hist_fora = df_completo[(df_completo['Away'] == t_fora)].tail(10).copy()
+    # Isolando apenas o histórico finalizado (jogos sem NaN nos gols) para não vazar o jogo de hoje no cálculo.
+    df_historico = df_completo.dropna(subset=['Goals_H_FT', 'Goals_A_FT']).copy()
+    
+    hist_casa = df_historico[(df_historico['Home'] == t_casa)].tail(10).copy()
+    hist_fora = df_historico[(df_historico['Away'] == t_fora)].tail(10).copy()
     
     if not hist_casa.empty:
         hist_casa['MM_Gols_Feitos'] = hist_casa['Goals_H_FT'].rolling(window=3, min_periods=1).mean()
@@ -337,7 +340,7 @@ def abrir_popup_grafico(t_casa, t_fora, df_completo):
 
     max_casa = hist_casa['MM_Gols_Feitos'].max() if not hist_casa.empty else 0
     max_fora = hist_fora['MM_Gols_Sofridos'].max() if not hist_fora.empty else 0
-    teto_grafico = max(max_casa, max_fora) + 0.5
+    teto_grafico = max(max_casa, max_fora) + 0.5 if max(max_casa, max_fora) > 0 else 3.0
 
     fig.update_layout(
         plot_bgcolor='#121212', paper_bgcolor='#121212',
@@ -353,8 +356,12 @@ def abrir_popup_grafico(t_casa, t_fora, df_completo):
     # ==========================================
     # VEREDITO BOCA DE JACARÉ
     # ==========================================
-    momento_ataque_casa = hist_casa['MM_Gols_Feitos'].iloc[-1] if not hist_casa.empty and 'MM_Gols_Feitos' in hist_casa.columns else 0.0
-    momento_defesa_fora = hist_fora['MM_Gols_Sofridos'].iloc[-1] if not hist_fora.empty and 'MM_Gols_Sofridos' in hist_fora.columns else 0.0
+    # Usando notna() para garantir que retorne 0.0 caso não encontre histórico numérico limpo
+    val_ataque = hist_casa['MM_Gols_Feitos'].iloc[-1] if not hist_casa.empty and 'MM_Gols_Feitos' in hist_casa.columns else 0.0
+    momento_ataque_casa = float(val_ataque) if pd.notna(val_ataque) else 0.0
+    
+    val_defesa = hist_fora['MM_Gols_Sofridos'].iloc[-1] if not hist_fora.empty and 'MM_Gols_Sofridos' in hist_fora.columns else 0.0
+    momento_defesa_fora = float(val_defesa) if pd.notna(val_defesa) else 0.0
 
     st.markdown("<hr style='margin-top: 10px; border: 1px solid #333;'>", unsafe_allow_html=True)
     col_msg1, col_msg2 = st.columns(2)
