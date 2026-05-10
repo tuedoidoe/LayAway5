@@ -455,7 +455,7 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                       "Casa Pia": "Casa Pia AC", "FK IMT Novi Beograd": "FK IMT Beograd", "Brisbane Roar": "Brisbane Roar FC", "Partick": "Partick Thistle", "Univ Catolica (Chile)": "Universidad Catolica", 
                       "Oviedo": "Real Oviedo", "Fenerbahce": "Fenerbahçe", "Midtjylland": "FC Midtjylland", "Braga": "SC Braga", "76 Igdir Belediyespor": "Igdir FK", "Pyramids": "Pyramids FC", "Al Ahly Cairo": "Al Ahly",
                       "Melbourne City": "Melbourne City FC", "Cesena": "Cesena FC", "Morton": "Greenock Morton", "Dobrudzha": "Dobrudzha Dobrich", "Lokomotiv Sofia": "PFC Lokomotiv Sofia 1929", "PSV": "PSV Eindhoven",
-                      "Fatih Karagumruk Istanbul": "Fatih Karagumruk", "Falkenbergs": "Falkenbergs FF", "Norrkoping": "IFK Norrkoeping", "Arda": "Arda Kardzhali", "Ranheim IL": "Ranheim"
+                      "Fatih Karagumruk Istanbul": "Fatih Karagumruk", "Falkenbergs": "Falkenbergs FF", "Norrkoping": "IFK Norrkoeping", "Arda": "Arda Kardzhali", "Ranheim IL": "Ranheim", "Monaco": "AS Monaco"
                      }
     
     with st.spinner(st_context_msg):
