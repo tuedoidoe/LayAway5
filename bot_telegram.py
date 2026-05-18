@@ -13,8 +13,8 @@ from rapidfuzz import process, fuzz
 warnings.filterwarnings("ignore")
 
 # Configurações do Telegram pegas do GitHub Secrets
-TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
-TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN_SCANNER_LAY_AWAY")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID_SCANNER_LAY_AWAY")
 
 TOKEN_FUT = "b9f385cc07be27e7b04fe3a68c15120dd633d109"
 headers = {"Authorization": f"Token {TOKEN_FUT}"}
