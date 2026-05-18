@@ -1,0 +1,40 @@
+name: Bot Lay Away Telegram
+
+on:
+  schedule:
+    # Roda a cada 30 minutos. Pode mudar para "*/15 * * * *" para 15 minutos.
+    - cron: '*/30 * * * *'
+  workflow_dispatch: # Permite rodar manualmente pelo painel do GitHub
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v3
+
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10' # Coloque a versão que você usa
+
+    - name: Instalar dependências
+      run: |
+        pip install -r requirements.txt
+
+    - name: Rodar o Bot
+      env:
+        TELEGRAM_TOKEN_SCANNER_LAY_AWAY: ${{ secrets.TELEGRAM_TOKEN_SCANNER_LAY_AWAY }}
+        TELEGRAM_CHAT_ID_SCANNER_LAY_AWAY: ${{ secrets.TELEGRAM_CHAT_ID_SCANNER_LAY_AWAY }}
+      run: |
+        python bot_telegram.py
+
+    - name: Salvar memória de jogos enviados
+      run: |
+        git config --global user.name "GitHub Action Bot"
+        git config --global user.email "action@github.com"
+        git add jogos_enviados.json
+        # Só faz o commit se houver mudanças no arquivo
+        git diff --quiet && git diff --staged --quiet || git commit -m "Atualiza memoria de jogos [skip ci]"
+        git push
