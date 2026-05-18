@@ -106,8 +106,55 @@ def rodar_bot():
     df_hist = baixar_base_dados()
     
     # Simula os tradutores do seu código original (coloque aqui os dicionários completos do seu app.py)
-    tradutor_ligas = {"Argentinian Primera Division": "ARGENTINA 1", "Brazilian Serie A": "BRAZIL 1"} # Adicione o resto aqui
-    tradutor_times = {"Vasco Da Gama": "Vasco", "Man City": "Manchester City"} # Adicione o resto aqui
+    tradutor_ligas = {"Argentinian Primera Division": "ARGENTINA 1", "Argentinian Primera B Nacional": "ARGENTINA 2", "Australian A-League Men": "AUSTRALIA 1", 
+                      "Austrian Bundesliga": "AUSTRIA 1", "Austrian Erste Liga": "AUSTRIA 2", "Belgian First Division A": "BELGIUM 1", "Brazilian Serie A": "BRAZIL 1", 
+                      "Chilean Primera Division": "CHILE 1", "Chinese Super League": "CHINA 1", "Czech 1 Liga": "CZECH 1", "Danish Superliga": "DENMARK 1", 
+                      "Ecuadorian Serie A": "ECUADOR 1", "English Premier League": "ENGLAND 1", "English Championship": "ENGLAND 2", "English League 2": "ENGLAND 4", 
+                      "UEFA Europa Conference League": "EUROPA CONFERENCE LEAGUE", "UEFA Europa League": "EUROPA LEAGUE", "French National": "FRANCE 3", "German Bundesliga": "GERMANY 1",
+                      "German 3 Liga": "GERMANY 3", "Icelandic Urvalsdeild": "ICELAND 1", "Irish Premier Division": "IRELAND 1", "Irish Division 1": "IRELAND 2", "Italian Serie B": "ITALY 2", 
+                      "Italian Serie C": "ITALY 3", "Japanese J League": "JAPAN 1", "Mexican Liga MX": "MEXICO 1", "Norwegian Eliteserien": "NORWAY 1", "Paraguayan Primera Division": "PARAGUAY 1", 
+                      "Portuguese Segunda Liga": "PORTUGAL 2", "Romanian Liga I": "ROMANIA 1", "Saudi Professional League": "SAUDI ARABIA 1", "South Korean K League 2": "SOUTH KOREA 2", 
+                      "Spanish La Liga": "SPAIN 1", "Spanish Segunda Division": "SPAIN 2", "Swiss Super League": "SWITZERLAND 1", "Turkish Super League": "TURKEY 1", "Turkiye - 1st Lig": "TURKEY 2",
+                      "US MLS": "USA 1"}
+    
+    tradutor_times = {"KSV 1919": "Kapfenberg", "Al-Jndal": "Al Jandal", "Jeddah Club": "Jeddah", "Deportivo": "Dep. La Coruna", "Nacional (Par)": "Nacional Asuncion", 
+                      "Rapid Bucharest": "FC Rapid 1923", "NEOM Sports Club": "Neom SC", "Al-Wahda (KSA)": "Al Wehda", "Erzgebirge": "Aue", "Zhejiang Greentown": "Zhejiang Professional", 
+                      "Al-Raed (KSA)": "Al Raed", "ASD Alcione": "Alcione Milano", "Al-Fateh (KSA)": "Al Fateh", "Deportivo Riestra": "Dep. Riestra", "Nottm Forest": "Nottingham", "Al-Hazm (KSA)": 
+                      "Al Hazem", "Deportes Concepcion": "D. Concepcion", "Dhamk": "Damac", "Al-Taawoun Buraidah": "Al Taawon", "RZ Pellets WAC": "Wolfsberger AC", "Gimnasia La Plata": "Gimnasia L.P.", 
+                      "Al-Akhdoud": "Al Okhdood", "Athlone Town": "Athlone", "Kerry FC": "Kerry", "OB": "Odense", "Lask Linz": "LASK", "WSG Wattens": "WSG Tirol", "Al-Quadisiya (KSA)": "Al Qadsiah", 
+                      "Qingdao Youth Island": "Qingdao West Coast", "Farense": "SC Farense", "Sporting Lisbon B": "Sporting CP B", 
+                      "Western Sydney Wanderers": "WS Wanderers", "Leverkusen": "Bayer Leverkusen", "Botosani": "FC Botosani", "Andorra CF": "Andorra", "Independiente Rivadavia": "Ind. Rivadavia", 
+                      "Talleres": "Talleres Cordoba", "SV Austria Salzburg": "A. Salzburg", "Le Puy": "Le Puy-en-Velay", "Bray Wanderers": "Bray", "Colorado": "Colorado Rapids", "Deportes Limache": "Limache", 
+                      "New England": "New England Revolution", "Vasco Da Gama": "Vasco", "Vasco da Gama": "Vasco", "LA Galaxy": "Los Angeles Galaxy", "Wehen Wiesbaden": "Wehen", "Universitatea Cluj": "U. Cluj", 
+                      "EC Vitoria Salvador": "Vitoria", "Club Sportivo Ameliano": "Ameliano", "Red Bull Bragantino": "Bragantino", "Guarani (Par)": "Guarani", "Libertad": "Libertad Asuncion", 
+                      "Rapid Vienna (Am)": "SK Rapid II", "S.S.D. Casarano Calcio": "Casarano", "ACS Petrolul 52": "Petrolul", "Csikszereda": "Csikszereda M. Ciuc", "1860 Munich": "Munich 1860", 
+                      "SSV Ulm": "Ulm", "Cavese 1919": "Cavese", "Villefranche Beaujolais": "Villefranche", "Leonesa": "Cultural Leonesa", "Al-Shabab (KSA)": "Al Shabab", "Al-Kholood Club": "Al Kholood", 
+                      "Man Utd": "Manchester Utd", "Sporting Gijon": "Gijon", "AD Ceuta FC": "Ceuta", "FC Guidonia Montecelio 1937": "Guidonia", "Lusitania Futebol Clube": "Lusitania FC", 
+                      "US Latina Calcio": "Latina", "Mgladbach": "B. Monchengladbach", "ASD Pineto Calcio": "Pineto", "AZ Picerno ASD": "Picerno", "Waldhof Mannheim": "Mannheim", "Otelul Galati": "Otelul", 
+                      "Club 2 de Mayo de Pedro Juan Cab": "2 de Mayo", "Club 2 de Mayo de Pedro Jua": "2 de Mayo", "Club 2 de Mayo": "2 de Mayo", 
+                      "Calcio Avellino SSD": "Avellino", "Olimpia": "Olimpia Asuncion", "Team Altamura": "Altamura", "Slovan Liberec": "Liberec", "FC Basel": "Basel", "Cadiz": "Cadiz CF", 
+                      "Rot-Weiss Essen": "RW Essen", "Everton De Vina": "Everton", "Galway Utd": "Galway United FC", "Sportivo San Lorenzo": "San Lorenzo", 
+                      "Deportivo Recoleta": "Recoleta", "Sportivo Luqueno": "Luqueno", "Banik Ostrava": "Ostrava", "SSD Bari": "Bari", 
+                      "Coquimbo Unido": "Coquimbo", "Rapid Vienna": "SK Rapid", "Arzignanochiampo": "Arzignano", "Nuovo Campobasso": "Campobasso", "Pesaro": "Vis Pesaro", "Bohemians 1905": "Bohemians", 
+                      "SV Ried": "Ried", "Grasshoppers Zurich": "Grasshoppers", "LASK Linz": "LASK", "First Vienna Fc 1894": "First Vienna", "First Vienna FC 1894": "First Vienna", 
+                      "Versailles 78 FC": "Versailles", "MFK Chrudim": "Chrudim", "MFK Karvina": "Karvina", "FC Blau Weiss Linz": "BW Linz", "Sassari Torres": "Torres", 
+                      "Al-Khaleej Saihat": "Al Khaleej", "Inter Milan (Res)": "Inter U23", "Wexford F.C": "Wexford FC", "Vejle": "Vejle Boldklub", "Brondby": "Broendby IF", "Clermont": "Clermont Foot 63", 
+                      "Alaves": "Deportivo Alaves", "Longford": "Longford Town", "Estoril Praia": "Estoril", "St Patricks": "St. Patrick's Athletic", "Western Sydney Wanderers": "Western Sydney Wanderers FC", 
+                      "Ayr": "Ayr United", "Betis": "Real Betis", "Rapid Vienna": "Rapid Wien", "Paris St-G": "Paris Saint-Germain", "IBV": "IBV Vestmannaeyjar", "Dortmund": "Borussia Dortmund", 
+                      "CD Nacional Funchal": "Nacional", "Kasimpasa": "Kasımpaşa", "Odds BK": "Odds Ballklubb", "Stabaek": "Stabaek", "Nurnberg": "1. FC Nuremberg", "Bochum": "VfL Bochum", "St Mirren": "St. Mirren",
+                      "Athletic Bilbao": "Athletic Club", "Guimaraes": "Vitoria de Guimaraes", "ACS Petrolul 52": "Petrolul Ploiesti", "Roma": "AS Roma", "Leeds": "Leeds United", "Fleury Merogis": "FC Fleury 91",
+                      "FK Javor Ivanjica": "Javor", "Man City": "Manchester City", "Porto": "FC Porto", "Sporting Lisbon": "Sporting CP", "Everton De Vina": "Everton CD", 
+                      "Cracovia Krakow": "Cracovia", "Deportes Limache": "Club Deportes Limache", "OHiggins": "O'Higgins", "Club Football Estrela": "CF Estrela da Amadora", "Entella": "Virtus Entella",
+                      "Dunfermline": "Dunfermline Athletic", "Las Palmas": "Las Palmas", "CD Castellon": "Castellon", "Univ de Concepcion": "Universidad de Concepcion", "Roda JC": "Roda JC Kerkrade",
+                      "Bohemians": "Bohemian FC", "Nieciecza": "Termalica Nieciecza", "Braunschweig": "Eintracht Braunschweig", "Obolon-Brovar Kiev": "FC Obolon Kyiv", "Rukh Vynnyky": "Rukh Lviv",
+                      "FK Spartak": "FK Spartak Subotica", "Padova": "Calcio Padova", "Jong PSV Eindhoven": "Jong PSV", "Raith": "Raith Rovers", "Pescara": "Pescara Calcio", "Ross Co": "Ross County", 
+                      "Sociedad B": "Real Sociedad B", "SC Telstar": "Telstar", "Philadelphia": "Philadelphia Union", "FK Backa Topola": "TSC Backa Topola", "Hartberg": "TSV Hartberg", "FK Napredak": "Napredak",
+                      "Casa Pia": "Casa Pia AC", "FK IMT Novi Beograd": "FK IMT Beograd", "Brisbane Roar": "Brisbane Roar FC", "Partick": "Partick Thistle", "Univ Catolica (Chile)": "Universidad Catolica", 
+                      "Oviedo": "Real Oviedo", "Fenerbahce": "Fenerbahçe", "Midtjylland": "FC Midtjylland", "Braga": "SC Braga", "76 Igdir Belediyespor": "Igdir FK", "Pyramids": "Pyramids FC", "Al Ahly Cairo": "Al Ahly",
+                      "Melbourne City": "Melbourne City FC", "Cesena": "Cesena FC", "Morton": "Greenock Morton", "Dobrudzha": "Dobrudzha Dobrich", "Lokomotiv Sofia": "PFC Lokomotiv Sofia 1929", "PSV": "PSV Eindhoven",
+                      "Fatih Karagumruk Istanbul": "Fatih Karagumruk", "Falkenbergs": "Falkenbergs FF", "Norrkoping": "IFK Norrkoeping", "Arda": "Arda Kardzhali", "Ranheim IL": "Ranheim", "Monaco": "AS Monaco",
+                      "Septemvri": "Septemvri Sofia", "Avai": "Avai FC", "Fortaleza EC": "Fortaleza", "Randers": "Randers FC", "Hafnarfjordur": "FH Hafnarfjordur"
+                     }
 
     df_alvo['id_jogo'] = range(1, len(df_alvo) + 1)
     if 'League' in df_alvo.columns:
