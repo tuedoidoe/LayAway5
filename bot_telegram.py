@@ -19,8 +19,89 @@ TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID_SCANNER_LAY_AWAY")
 TOKEN_FUT = "b9f385cc07be27e7b04fe3a68c15120dd633d109"
 headers = {"Authorization": f"Token {TOKEN_FUT}"}
 
-# Arquivo de memória para não enviar jogos repetidos no mesmo dia
 ARQUIVO_MEMORIA = "jogos_enviados.json"
+
+# ==========================================
+# DICIONÁRIO LIVESCORE
+# ==========================================
+mapeamento_torneios = {
+    "Argentina - Primera Division: Apertura": "ARGENTINA 1",
+    "Australia - A-League": "AUSTRALIA 1",
+    "Austria - Bundesliga": "AUSTRIA 1",
+    "Austria - 2. Liga": "AUSTRIA 2",
+    "Belgium - Belgian Pro League": "BELGIUM 1",
+    "Belgium - Challenger Pro League": "BELGIUM 2",
+    "Bosnia and Herzegovina - Premier League": "BOSNIA 1",
+    "Brazil - Serie A": "BRAZIL 1",
+    "Brazil - Serie B": "BRAZIL 2",
+    "Bulgaria - Parva Liga": "BULGARIA 1",
+    "Chile - Primera División": "CHILE 1",
+    "China - Super League": "CHINA 1",
+    "Croatia - HNL": "CROATIA 1",
+    "Czech Republic - 1st League": "CZECH 1",
+    "Denmark - Superliga": "DENMARK 1",
+    "Egypt - Premier League": "EGYPT 1",
+    "England - Premier League": "ENGLAND 1",
+    "England - Championship": "ENGLAND 2",
+    "England - League 1": "ENGLAND 3",
+    "England - League 2": "ENGLAND 4",
+    "Estonia - Meistriliiga": "ESTONIA 1",
+    "Champions League": "EUROPA CHAMPIONS LEAGUE",
+    "Finland - Veikkausliiga": "FINLAND 1",
+    "France - Ligue 1": "FRANCE 1",
+    "France - Ligue 2": "FRANCE 2",
+    "France - Championnat National": "FRANCE 3",
+    "Germany - Bundesliga": "GERMANY 1",
+    "Germany - 2. Bundesliga": "GERMANY 2",
+    "Germany - 3. Liga": "GERMANY 3",
+    "Greece - Super League": "GREECE 1",
+    "Iceland - Besta deildin": "ICELAND 1",
+    "Ireland - League of Ireland Premier Division": "IRELAND 1",
+    "Ireland - 1st Division": "IRELAND 2",
+    "Israel - Premier League": "ISRAEL 1",
+    "Italy - Serie A": "ITALY 1",
+    "Italy - Serie B": "ITALY 2",
+    "Italy - Serie C": "ITALY 3",
+    "Japan - J1 League": "JAPAN 1",
+    "Japan - J2 League": "JAPAN 2",
+    "Netherlands - Eredivisie": "NETHERLANDS 1",
+    "Netherlands - Eerste Divisie": "NETHERLANDS 2",
+    "Northern Ireland - Premiership": "NORTHERN IRELAND 1",
+    "Norway - Eliteserien": "NORWAY 1",
+    "Norway - 1. Division": "NORWAY 2",
+    "Paraguay - Division Profesional: Apertura": "PARAGUAY 1",
+    "Poland - Ekstraklasa": "POLAND 1",
+    "Portugal - Primeira Liga": "PORTUGAL 1",
+    "Portugal - Liga Portugal 2": "PORTUGAL 2",
+    "Romania - Liga 1": "ROMANIA 1",
+    "Saudi Arabia - Saudi Professional League": "SAUDI ARABIA 1",
+    "Scotland - Premiership": "SCOTLAND 1",
+    "Scotland - Championship": "SCOTLAND 2",
+    "Serbia - Super Liga": "SERBIA 1",
+    "Slovakia - Super Liga": "SLOVAKIA 1",
+    "Slovenia - Prva Liga": "SLOVENIA 1",
+    "South Africa - Premier League": "SOUTH AFRICA 1",
+    "Republic of Korea - K-League 1": "SOUTH KOREA 1",
+    "Republic of Korea - K League 2": "SOUTH KOREA 2",
+    "Spain - LaLiga": "SPAIN 1",
+    "Spain - LaLiga 2": "SPAIN 2",
+    "Sweden - Allsvenskan": "SWEDEN 1",
+    "Sweden - Superettan": "SWEDEN 2",
+    "Switzerland - Super League": "SWITZERLAND 1",
+    "Turkiye - Süper Lig": "TURKEY 1",
+    "Turkiye - 1st Lig": "TURKEY 2",
+    "Ukraine - Premier League": "UKRAINE 1",
+    "USA - MLS": "USA 1",
+    "Wales - JD Cymru Premier": "WALES 1"
+}
+
+def identificar_torneio(nome_sujo):
+    for raiz, codigo in mapeamento_torneios.items():
+        if str(nome_sujo).startswith(raiz): return codigo
+    return nome_sujo
+
+def drop_reset_index(df):
+    return df.reset_index(drop=True)
 
 def enviar_mensagem_telegram(mensagem):
     if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
@@ -37,17 +118,21 @@ def carregar_memoria():
             with open(ARQUIVO_MEMORIA, 'r') as f:
                 dados = json.load(f)
                 if dados.get("data") == hoje:
-                    return dados.get("enviados", [])
+                    enviados = dados.get("enviados", {})
+                    # Trava para converter arquivo antigo (lista) para o novo formato (dicionário)
+                    if isinstance(enviados, list):
+                        return {jogo: "ativo" for jogo in enviados}
+                    return enviados
     except Exception as e:
         print(f"Erro ao ler memória: {e}")
-    return []
+    return {}
 
-def salvar_memoria(lista_enviados):
+def salvar_memoria(dict_enviados):
     hoje = datetime.now(pytz.timezone('America/Sao_Paulo')).strftime('%Y-%m-%d')
     with open(ARQUIVO_MEMORIA, 'w') as f:
-        json.dump({"data": hoje, "enviados": lista_enviados}, f)
+        json.dump({"data": hoje, "enviados": dict_enviados}, f)
 
-# --- FUNÇÕES DE DADOS (Mesmas do app.py, mas sem st.cache) ---
+# --- FUNÇÕES DE DADOS ---
 def baixar_base_dados():
     try:
         response = requests.get("https://api.futpythontrader.com/api/dados/betfair/download/", headers=headers)
@@ -77,7 +162,7 @@ def carregar_base_livescore():
     except: return pd.DataFrame()
 
 # ==========================================
-# MOTOR PRINCIPAL (Adaptado para rodar silencioso)
+# MOTOR PRINCIPAL
 # ==========================================
 def rodar_bot():
     print("Iniciando varredura...")
@@ -85,7 +170,6 @@ def rodar_bot():
     hoje = datetime.now(fuso_br)
     data_str = hoje.strftime('%Y-%m-%d')
 
-    # Carrega dados
     try:
         dados_modelo = joblib.load('Modelo_LayAway_6.pkl')
     except Exception as e:
@@ -97,7 +181,6 @@ def rodar_bot():
     media_global_treino = dados_modelo['media_global']
     X_cols_treino = dados_modelo['features']
 
-    # Puxa jogos de hoje
     df_alvo = baixar_jogos_do_dia(data_str)
     if df_alvo.empty:
         print("Nenhum jogo no radar hoje.")
@@ -105,7 +188,6 @@ def rodar_bot():
 
     df_hist = baixar_base_dados()
     
-    # Simula os tradutores do seu código original (coloque aqui os dicionários completos do seu app.py)
     tradutor_ligas = {"Argentinian Primera Division": "ARGENTINA 1", "Argentinian Primera B Nacional": "ARGENTINA 2", "Australian A-League Men": "AUSTRALIA 1", 
                       "Austrian Bundesliga": "AUSTRIA 1", "Austrian Erste Liga": "AUSTRIA 2", "Belgian First Division A": "BELGIUM 1", "Brazilian Serie A": "BRAZIL 1", 
                       "Chilean Primera Division": "CHILE 1", "Chinese Super League": "CHINA 1", "Czech 1 Liga": "CZECH 1", "Danish Superliga": "DENMARK 1", 
@@ -165,14 +247,33 @@ def rodar_bot():
     def safe_prob(column): return (1 / pd.to_numeric(column, errors='coerce').replace(0, np.nan)).fillna(0)
     data_limite = df_alvo['Date'].min()
 
-    # Cria df_completo (simplificado para o script)
     if not df_hist.empty:
         df_hist_passado = df_hist[df_hist['Date'] < data_limite].copy()
-        df_completo = pd.concat([df_hist_passado, df_alvo], ignore_index=True)
+        
+        # Fuzzy matching Histórico
+        df_hist_h = df_hist_passado[['League', 'Home']].rename(columns={'Home': 'Team'})
+        df_hist_a = df_hist_passado[['League', 'Away']].rename(columns={'Away': 'Team'})
+        df_hist_all_teams = pd.concat([df_hist_h, df_hist_a]).drop_duplicates()
+        
+        dicionario_times_fuzzy = {}
+        for liga in df_alvo['League'].unique():
+            times_hist_liga = df_hist_all_teams[df_hist_all_teams['League'] == liga]['Team'].tolist()
+            if not times_hist_liga: continue
+            times_hoje_liga = set(df_alvo[df_alvo['League'] == liga]['Home']).union(set(df_alvo[df_alvo['League'] == liga]['Away']))
+            for time in times_hoje_liga:
+                if time not in times_hist_liga:
+                    match = process.extractOne(time, times_hist_liga, scorer=fuzz.ratio)
+                    if match and match[1] >= 80: dicionario_times_fuzzy[(liga, time)] = match[0]
+        
+        df_alvo_odd = df_alvo.copy()
+        if dicionario_times_fuzzy:
+            df_alvo_odd['Home'] = df_alvo_odd.apply(lambda r: dicionario_times_fuzzy.get((r['League'], r['Home']), r['Home']), axis=1)
+            df_alvo_odd['Away'] = df_alvo_odd.apply(lambda r: dicionario_times_fuzzy.get((r['League'], r['Away']), r['Away']), axis=1)
+        df_completo = pd.concat([df_hist_passado, df_alvo_odd], ignore_index=True)
     else:
         df_completo = df_alvo.copy()
 
-    df_completo = df_completo.reset_index(drop=True).sort_values(["Date", "Home"])
+    df_completo = drop_reset_index(df_completo.sort_values(["Date", "Home"]))
     df_completo['Goals_H_FT'] = pd.to_numeric(df_completo['Goals_H_FT'], errors='coerce')
     df_completo['Goals_A_FT'] = pd.to_numeric(df_completo['Goals_A_FT'], errors='coerce')
 
@@ -193,64 +294,168 @@ def rodar_bot():
     df_completo['Away_Odd_Trend'] = df_completo.groupby('Away')['Odd_A_Back'].transform(lambda x: x.shift(1).rolling(3, min_periods=1).mean() - x.shift(1)).fillna(0)
     df_completo["LIGA_RATE"] = df_completo["League"].map(taxas_ligas).fillna(media_global_treino)
 
-    # Pegar só os jogos de hoje
+    # --- CAMADA ESTATÍSTICAS (Score) ---
+    df_livescore = carregar_base_livescore()
+    if not df_livescore.empty:
+        df_livescore['League'] = df_livescore['Liga'].apply(identificar_torneio)
+        df_livescore = df_livescore.rename(columns={'HomeTeam': 'Home', 'AwayTeam': 'Away', 'FTHG': 'Goals_H_FT', 'FTAG': 'Goals_A_FT'})
+        df_livescore['Home'] = df_livescore['Home'].map(tradutor_times).fillna(df_livescore['Home'])
+        df_livescore['Away'] = df_livescore['Away'].map(tradutor_times).fillna(df_livescore['Away'])
+        
+        df_ls_passado = df_livescore[df_livescore['Date'] < data_limite].copy()
+        times_no_periodo = set(df_alvo['Home']).union(set(df_alvo['Away']))
+        df_ls_passado = df_ls_passado[df_ls_passado['Home'].isin(times_no_periodo) | df_ls_passado['Away'].isin(times_no_periodo)]
+        
+        df_ls_h = df_ls_passado[['League', 'Home']].rename(columns={'Home': 'Team'})
+        df_ls_a = df_ls_passado[['League', 'Away']].rename(columns={'Away': 'Team'})
+        df_ls_teams = pd.concat([df_ls_h, df_ls_a]).drop_duplicates()
+        
+        dic_fuzzy_ls = {}
+        for liga in df_alvo['League'].unique():
+            hist_teams = df_ls_teams[df_ls_teams['League'] == liga]['Team'].tolist()
+            if not hist_teams: continue
+            hoje_teams = set(df_alvo[df_alvo['League'] == liga]['Home']).union(set(df_alvo[df_alvo['League'] == liga]['Away']))
+            for time in hoje_teams:
+                if time not in hist_teams:
+                    match = process.extractOne(time, hist_teams, scorer=fuzz.ratio, score_cutoff=85)
+                    if match: dic_fuzzy_ls[(liga, time)] = match[0]
+        
+        df_alvo_ls = df_alvo.copy()
+        if dic_fuzzy_ls:
+            df_alvo_ls['Home'] = df_alvo_ls.apply(lambda r: dic_fuzzy_ls.get((r['League'], r['Home']), r['Home']), axis=1)
+            df_alvo_ls['Away'] = df_alvo_ls.apply(lambda r: dic_fuzzy_ls.get((r['League'], r['Away']), r['Away']), axis=1)
+            
+        df_stats = pd.concat([df_ls_passado, df_alvo_ls], ignore_index=True)
+    else:
+        df_stats = df_completo.copy()
+        
+    df_stats = drop_reset_index(df_stats.sort_values(["Date", "Home"]))
+    df_stats['Goals_H_FT'] = pd.to_numeric(df_stats['Goals_H_FT'], errors='coerce')
+    df_stats['Goals_A_FT'] = pd.to_numeric(df_stats['Goals_A_FT'], errors='coerce')
+
+    df_stats['Pts_H'] = np.where(df_stats['Goals_H_FT'] > df_stats['Goals_A_FT'], 3, np.where(df_stats['Goals_H_FT'] == df_stats['Goals_A_FT'], 1, 0))
+    df_stats['Pts_A'] = np.where(df_stats['Goals_A_FT'] > df_stats['Goals_H_FT'], 3, np.where(df_stats['Goals_A_FT'] == df_stats['Goals_H_FT'], 1, 0))
+    df_stats['soma_pts_casa'] = df_stats.groupby(['League', 'Home'])['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
+    df_stats['soma_pts_fora'] = df_stats.groupby(['League', 'Away'])['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).sum())
+    df_stats['qtd_jogos_casa'] = df_stats.groupby(['League', 'Home'])['Pts_H'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
+    df_stats['qtd_jogos_fora'] = df_stats.groupby(['League', 'Away'])['Pts_A'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).count())
+    df_stats['Is_CS_Casa'] = (df_stats['Goals_A_FT'] == 0).astype(int)
+    df_stats['Is_FTS_Fora'] = (df_stats['Goals_A_FT'] == 0).astype(int)
+    df_stats['soma_cs_casa'] = df_stats.groupby(['League', 'Home'])['Is_CS_Casa'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
+    df_stats['soma_fts_fora'] = df_stats.groupby(['League', 'Away'])['Is_FTS_Fora'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
+    df_stats['dp_gs_casa'] = df_stats.groupby(['League', 'Home'])['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
+    df_stats['dp_gm_fora'] = df_stats.groupby(['League', 'Away'])['Goals_A_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=2).std())
+    df_stats['vaz_def_fora'] = df_stats.groupby(['League', 'Away'])['Goals_H_FT'].transform(lambda x: x.shift(1).rolling(5, min_periods=1).mean())
+
     df_hoje = df_completo[df_completo['id_jogo'].notnull()].copy()
     df_hoje = df_hoje[df_hoje['Date'].dt.date == hoje.date()].copy()
 
-    # Filtros base
-    df_hoje = df_hoje[(df_hoje['Odd_A_Lay'] <= 3.50) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back'])].copy()
+    df_hoje_stats = df_stats.dropna(subset=['id_jogo'])
+    df_hoje = df_hoje.merge(
+        df_hoje_stats[['id_jogo', 'soma_pts_casa', 'soma_pts_fora', 'qtd_jogos_casa', 'qtd_jogos_fora', 
+                       'soma_cs_casa', 'soma_fts_fora', 'dp_gs_casa', 'dp_gm_fora', 'vaz_def_fora']],
+        on='id_jogo', how='left'
+    )
 
-    colunas_vitais = list(X_cols_treino) + ['Odd_A_Lay', 'Home', 'Away', 'League', 'Time']
+    if len(df_hoje) > 0:
+        xg_total = df_hoje['XG_Casa'] + df_hoje['XG_Fora']
+        score_xg = np.where(xg_total > 0, (df_hoje['XG_Casa'] / xg_total) * 30.0, 15.0)
+        score_pts_casa = (df_hoje['soma_pts_casa'].fillna(0) / 15.0) * 10.0
+        score_pts_fora = ((15.0 - df_hoje['soma_pts_fora'].fillna(0)) / 15.0) * 10.0
+        score_fts = df_hoje['soma_fts_fora'].fillna(0) * 15.0
+        score_cs = df_hoje['soma_cs_casa'].fillna(0) * 5.0
+        score_dp_gm = (np.maximum(0, 2.0 - df_hoje['dp_gm_fora'].fillna(1.0)) / 2.0) * 10.0
+        score_dp_gs = (np.maximum(0, 2.0 - df_hoje['dp_gs_casa'].fillna(1.0)) / 2.0) * 10.0
+        score_vaz = (np.minimum(3.0, df_hoje['vaz_def_fora'].fillna(0)) / 3.0) * 10.0
+
+        df_hoje['Score'] = score_xg + score_pts_casa + score_pts_fora + score_fts + score_cs + score_dp_gm + score_dp_gs + score_vaz
+        df_hoje['Score'] = df_hoje['Score'].fillna(0).round(0).astype(int)
+
+    colunas_vitais = list(X_cols_treino) + ['Odd_A_Lay', 'Odd_H_Back', 'Odd_A_Back', 'Home', 'Away', 'League', 'Time', 'Date', 'Score']
     colunas_vitais = [col for col in colunas_vitais if col in df_hoje.columns]
-    df_hoje = df_hoje.dropna(subset=colunas_vitais)
+    df_hoje = drop_reset_index(df_hoje.dropna(subset=colunas_vitais))
 
     if len(df_hoje) == 0:
-        print("Nenhum jogo passou nos filtros base.")
+        print("Nenhum jogo possui as métricas completas hoje.")
         return
 
-    # Previsão
+    # Previsão p/ todos
     df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
     df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
     
-    # FILTRO FINAL: Apenas Edge positivo e Score aceitável (Ajuste conforme quiser)
-    df_bruto = df_hoje[df_hoje["Edge"] >= 0.0].copy()
+    # Filtro de Operabilidade
+    df_bruto = df_hoje[(df_hoje["Edge"] >= 0.0) & (df_hoje['Odd_A_Lay'] <= 3.50) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back'])].copy()
 
-    if df_bruto.empty:
-        print("Nenhum jogo com Edge+ encontrado agora.")
-        return
-
-    # Processar envios
-    jogos_ja_enviados = carregar_memoria()
+    jogos_memoria = carregar_memoria()
     novos_envios = False
+    jogos_operaveis_agora = []
 
+    # 1. VERIFICA JOGOS NOVOS OU QUE RETORNARAM A FICAR OPERÁVEIS
     for index, row in df_bruto.iterrows():
         id_jogo_str = f"{row['Home']} x {row['Away']}"
+        jogos_operaveis_agora.append(id_jogo_str)
         
-        if id_jogo_str not in jogos_ja_enviados:
+        status_anterior = jogos_memoria.get(id_jogo_str)
+        
+        if status_anterior != "ativo":
             edge_pct = row['Edge'] * 100
             odd = row['Odd_A_Lay']
             horario = row['Time']
             liga = row['League']
+            data_formatada = row['Date'].strftime('%d/%m/%Y')
+            score = int(row['Score'])
+            alerta = '🟢' if score >= 55 else '🟡' if score >= 48 else '🔴'
 
-            # Monta a mensagem no estilo Telegram
-            msg = f"🚨 <b>NOVO ALERTA LAY AWAY</b> 🚨\n\n"
+            titulo = "🚨 <b>NOVO ALERTA LAY AWAY</b> 🚨" if status_anterior is None else "🔄 <b>ATUALIZAÇÃO: VOLTOU A TER VALOR</b> 🔄"
+
+            msg = f"{titulo}\n\n"
             msg += f"⚽ <b>Jogo:</b> {id_jogo_str}\n"
             msg += f"🏆 <b>Liga:</b> {liga}\n"
+            msg += f"📅 <b>Data:</b> {data_formatada}\n"
             msg += f"⏰ <b>Horário:</b> {horario}\n"
             msg += f"📉 <b>Odd Lay Fora:</b> {odd:.2f}\n"
-            msg += f"💎 <b>Edge (EV+):</b> {edge_pct:.2f}%\n\n"
-            msg += f"👉 <i>Opere com responsabilidade.</i>"
+            msg += f"💎 <b>Edge (EV+):</b> {edge_pct:.2f}%\n"
+            msg += f"📊 <b>Score:</b> {score} {alerta}\n\n"
+            msg += f"✅ <b>Status: Jogo Operável</b>"
 
             enviar_mensagem_telegram(msg)
-            print(f"Enviado: {id_jogo_str}")
+            print(f"Enviado Operável: {id_jogo_str}")
             
-            jogos_ja_enviados.append(id_jogo_str)
+            jogos_memoria[id_jogo_str] = "ativo"
+            novos_envios = True
+
+    # 2. VERIFICA JOGOS QUE PERDERAM A OPERABILIDADE
+    for jogo_memoria, status in jogos_memoria.items():
+        if status == "ativo" and jogo_memoria not in jogos_operaveis_agora:
+            
+            home_team, away_team = jogo_memoria.split(" x ")
+            jogo_dados = df_hoje[(df_hoje['Home'] == home_team) & (df_hoje['Away'] == away_team)]
+            
+            msg = f"⚠️ <b>ALERTA DE SAÍDA LAY AWAY</b> ⚠️\n\n"
+            msg += f"⚽ <b>Jogo:</b> {jogo_memoria}\n"
+            
+            if not jogo_dados.empty:
+                row = jogo_dados.iloc[-1]
+                odd = row['Odd_A_Lay']
+                edge_pct = row['Edge'] * 100
+                msg += f"📉 <b>Odd Lay Fora Atual:</b> {odd:.2f}\n"
+                msg += f"💎 <b>Edge Atual:</b> {edge_pct:.2f}%\n\n"
+                msg += f"❌ <b>Status: Jogo Não Operável</b>\n"
+                msg += f"<i>(A odd subiu, o Edge caiu ou o favoritismo virou.)</i>"
+            else:
+                msg += f"\n❌ <b>Status: Jogo Não Operável</b>\n"
+                msg += f"<i>(Partida iniciada, odd suspensa ou mercado fechado.)</i>"
+
+            enviar_mensagem_telegram(msg)
+            print(f"Enviado Inoperável: {jogo_memoria}")
+            
+            jogos_memoria[jogo_memoria] = "inativo"
             novos_envios = True
 
     if novos_envios:
-        salvar_memoria(jogos_ja_enviados)
+        salvar_memoria(jogos_memoria)
     else:
-        print("Jogos encontrados já haviam sido enviados hoje.")
+        print("Nenhuma mudança de status nos jogos encontrados hoje.")
 
 if __name__ == "__main__":
     rodar_bot()
