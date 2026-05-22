@@ -108,7 +108,7 @@ def enviar_mensagem_telegram(mensagem):
         print("Erro: Credenciais do Telegram não configuradas.")
         return
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-    payload = {"chat_id": TELEGRAM_CHAT_ID, "text": message, "parse_mode": "HTML"}
+    payload = {"chat_id": TELEGRAM_CHAT_ID, "text": mensagem, "parse_mode": "HTML"}
     requests.post(url, json=payload)
 
 def carregar_memoria():
@@ -383,7 +383,8 @@ def rodar_bot():
     df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
     
     # Filtro de Operabilidade de valor bruto
-    df_bruto = df_hoje[(df_hoje["Edge"] >= 0.0) & (df_hoje['Odd_A_Lay'] <= 3.50) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back'])].copy()
+    # Removida a exigência da Odd da Casa ser menor que a do Visitante para não descartar bons jogos!
+    df_bruto = df_hoje[(df_hoje["Edge"] >= 0.0) & (df_hoje['Odd_A_Lay'] <= 3.50)].copy()
 
     jogos_ja_enviados = carregar_memoria()
     novos_envios = False
@@ -402,12 +403,18 @@ def rodar_bot():
                     horario_jogo = datetime.strptime(time_str, '%H:%M').time()
                 
                 datetime_jogo = datetime.combine(hoje.date(), horario_jogo)
+                
+                # Trava de segurança para jogos na virada da meia-noite
+                if horario_jogo.hour < 4 and agora_local.hour > 20:
+                    datetime_jogo += timedelta(days=1)
+                elif horario_jogo.hour > 20 and agora_local.hour < 4:
+                    datetime_jogo -= timedelta(days=1)
+                
                 minutos_restantes = (datetime_jogo - agora_local).total_seconds() / 60.0
                 
-                # Janela ideal: Se o jogo começa nos próximos 20 minutos.
-                # Como o Action roda de 15 em 15, essa janela garante que ele vai capturar o jogo
-                # exatamente na última execução de fundo que antecede o início da partida (~15 min antes).
-                if 0 <= minutos_restantes <= 20:
+                # Janela cirúrgica: Entre 5 e 25 minutos. 
+                # Garante que o cron de 15 em 15 pegue o jogo exatamente na rodada de ~15 minutos antes.
+                if 5 <= minutos_restantes <= 25:
                     edge_pct = row['Edge'] * 100
                     odd = row['Odd_A_Lay']
                     horario = row['Time']
