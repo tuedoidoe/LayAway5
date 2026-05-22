@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import joblib
 import warnings
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 import requests
 import io
@@ -108,7 +108,7 @@ def enviar_mensagem_telegram(mensagem):
         print("Erro: Credenciais do Telegram não configuradas.")
         return
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-    payload = {"chat_id": TELEGRAM_CHAT_ID, "text": mensagem, "parse_mode": "HTML"}
+    payload = {"chat_id": TELEGRAM_CHAT_ID, "text": message, "parse_mode": "HTML"}
     requests.post(url, json=payload)
 
 def carregar_memoria():
@@ -118,19 +118,18 @@ def carregar_memoria():
             with open(ARQUIVO_MEMORIA, 'r') as f:
                 dados = json.load(f)
                 if dados.get("data") == hoje:
-                    enviados = dados.get("enviados", {})
-                    # Trava para converter arquivo antigo (lista) para o novo formato (dicionário)
-                    if isinstance(enviados, list):
-                        return {jogo: "ativo" for jogo in enviados}
+                    enviados = dados.get("enviados", [])
+                    if isinstance(enviados, dict):
+                        return list(enviados.keys())
                     return enviados
     except Exception as e:
         print(f"Erro ao ler memória: {e}")
-    return {}
+    return []
 
-def salvar_memoria(dict_enviados):
+def salvar_memoria(lista_enviados):
     hoje = datetime.now(pytz.timezone('America/Sao_Paulo')).strftime('%Y-%m-%d')
     with open(ARQUIVO_MEMORIA, 'w') as f:
-        json.dump({"data": hoje, "enviados": dict_enviados}, f)
+        json.dump({"data": hoje, "enviados": lista_enviados}, f)
 
 # --- FUNÇÕES DE DADOS ---
 def baixar_base_dados():
@@ -165,10 +164,12 @@ def carregar_base_livescore():
 # MOTOR PRINCIPAL
 # ==========================================
 def rodar_bot():
-    print("Iniciando varredura...")
+    print("Iniciando varredura com foco em jogos de daqui a 15 minutos...")
     fuso_br = pytz.timezone('America/Sao_Paulo')
     hoje = datetime.now(fuso_br)
     data_str = hoje.strftime('%Y-%m-%d')
+    
+    agora_local = hoje.replace(tzinfo=None)
 
     try:
         dados_modelo = joblib.load('Modelo_LayAway_6.pkl')
@@ -249,8 +250,6 @@ def rodar_bot():
 
     if not df_hist.empty:
         df_hist_passado = df_hist[df_hist['Date'] < data_limite].copy()
-        
-        # Fuzzy matching Histórico
         df_hist_h = df_hist_passado[['League', 'Home']].rename(columns={'Home': 'Team'})
         df_hist_a = df_hist_passado[['League', 'Away']].rename(columns={'Away': 'Team'})
         df_hist_all_teams = pd.concat([df_hist_h, df_hist_a]).drop_duplicates()
@@ -379,83 +378,68 @@ def rodar_bot():
         print("Nenhum jogo possui as métricas completas hoje.")
         return
 
-    # Previsão p/ todos
+    # Previsão
     df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
     df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
     
-    # Filtro de Operabilidade
+    # Filtro de Operabilidade de valor bruto
     df_bruto = df_hoje[(df_hoje["Edge"] >= 0.0) & (df_hoje['Odd_A_Lay'] <= 3.50) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back'])].copy()
 
-    jogos_memoria = carregar_memoria()
+    jogos_ja_enviados = carregar_memoria()
     novos_envios = False
-    jogos_operaveis_agora = []
 
-    # 1. VERIFICA JOGOS NOVOS OU QUE RETORNARAM A FICAR OPERÁVEIS
+    # Processar a janela de tempo de 15 minutos antes do início
     for index, row in df_bruto.iterrows():
         id_jogo_str = f"{row['Home']} x {row['Away']}"
-        jogos_operaveis_agora.append(id_jogo_str)
         
-        status_anterior = jogos_memoria.get(id_jogo_str)
-        
-        if status_anterior != "ativo":
-            edge_pct = row['Edge'] * 100
-            odd = row['Odd_A_Lay']
-            horario = row['Time']
-            liga = row['League']
-            data_formatada = row['Date'].strftime('%d/%m/%Y')
-            score = int(row['Score'])
-            alerta = '🟢' if score >= 55 else '🟡' if score >= 48 else '🔴'
+        # Evita reenvio se já foi disparada a confirmação final deste jogo
+        if id_jogo_str not in jogos_ja_enviados:
+            try:
+                time_str = row['Time']
+                if len(time_str.split(':')) == 3:
+                    horario_jogo = datetime.strptime(time_str, '%H:%M:%S').time()
+                else:
+                    horario_jogo = datetime.strptime(time_str, '%H:%M').time()
+                
+                datetime_jogo = datetime.combine(hoje.date(), horario_jogo)
+                minutos_restantes = (datetime_jogo - agora_local).total_seconds() / 60.0
+                
+                # Janela ideal: Se o jogo começa nos próximos 20 minutos.
+                # Como o Action roda de 15 em 15, essa janela garante que ele vai capturar o jogo
+                # exatamente na última execução de fundo que antecede o início da partida (~15 min antes).
+                if 0 <= minutos_restantes <= 20:
+                    edge_pct = row['Edge'] * 100
+                    odd = row['Odd_A_Lay']
+                    horario = row['Time']
+                    liga = row['League']
+                    data_formatada = row['Date'].strftime('%d/%m/%Y')
+                    score = int(row['Score'])
+                    alerta = '🟢' if score >= 55 else '🟡' if score >= 48 else '🔴'
 
-            titulo = "🚨 <b>NOVO ALERTA LAY AWAY</b> 🚨" if status_anterior is None else "🔄 <b>ATUALIZAÇÃO: VOLTOU A TER VALOR</b> 🔄"
+                    # Monta a mensagem final focada em entrada iminente
+                    msg = f"🚨 <b>CONFIRMAÇÃO DE ENTRADA LAY AWAY</b> 🚨\n\n"
+                    msg += f"⚽ <b>Jogo:</b> {id_jogo_str}\n"
+                    msg += f"🏆 <b>Liga:</b> {liga}\n"
+                    msg += f"📅 <b>Data:</b> {data_formatada}\n"
+                    msg += f"⏰ <b>Horário:</b> {horario} (Faltam ~{int(minutos_restantes)} min)\n"
+                    msg += f"📉 <b>Odd Lay Fora:</b> {odd:.2f}\n"
+                    msg += f"💎 <b>Edge (EV+):</b> {edge_pct:.2f}%\n"
+                    msg += f"📊 <b>Score:</b> {score} {alerta}\n\n"
+                    msg += f"✅ <b>Status: Jogo Operável</b>"
 
-            msg = f"{titulo}\n\n"
-            msg += f"⚽ <b>Jogo:</b> {id_jogo_str}\n"
-            msg += f"🏆 <b>Liga:</b> {liga}\n"
-            msg += f"📅 <b>Data:</b> {data_formatada}\n"
-            msg += f"⏰ <b>Horário:</b> {horario}\n"
-            msg += f"📉 <b>Odd Lay Fora:</b> {odd:.2f}\n"
-            msg += f"💎 <b>Edge (EV+):</b> {edge_pct:.2f}%\n"
-            msg += f"📊 <b>Score:</b> {score} {alerta}\n\n"
-            msg += f"✅ <b>Status: Jogo Operável</b>"
-
-            enviar_mensagem_telegram(msg)
-            print(f"Enviado Operável: {id_jogo_str}")
-            
-            jogos_memoria[id_jogo_str] = "ativo"
-            novos_envios = True
-
-    # 2. VERIFICA JOGOS QUE PERDERAM A OPERABILIDADE
-    for jogo_memoria, status in jogos_memoria.items():
-        if status == "ativo" and jogo_memoria not in jogos_operaveis_agora:
-            
-            home_team, away_team = jogo_memoria.split(" x ")
-            jogo_dados = df_hoje[(df_hoje['Home'] == home_team) & (df_hoje['Away'] == away_team)]
-            
-            msg = f"⚠️ <b>ALERTA DE SAÍDA LAY AWAY</b> ⚠️\n\n"
-            msg += f"⚽ <b>Jogo:</b> {jogo_memoria}\n"
-            
-            if not jogo_dados.empty:
-                row = jogo_dados.iloc[-1]
-                odd = row['Odd_A_Lay']
-                edge_pct = row['Edge'] * 100
-                msg += f"📉 <b>Odd Lay Fora Atual:</b> {odd:.2f}\n"
-                msg += f"💎 <b>Edge Atual:</b> {edge_pct:.2f}%\n\n"
-                msg += f"❌ <b>Status: Jogo Não Operável</b>\n"
-                msg += f"<i>(A odd subiu, o Edge caiu ou o favoritismo virou.)</i>"
-            else:
-                msg += f"\n❌ <b>Status: Jogo Não Operável</b>\n"
-                msg += f"<i>(Partida iniciada, odd suspensa ou mercado fechado.)</i>"
-
-            enviar_mensagem_telegram(msg)
-            print(f"Enviado Inoperável: {jogo_memoria}")
-            
-            jogos_memoria[jogo_memoria] = "inativo"
-            novos_envios = True
+                    enviar_mensagem_telegram(msg)
+                    print(f"Confirmado e Enviado: {id_jogo_str} (Início em {minutos_restantes:.1f} minutos)")
+                    
+                    jogos_ja_enviados.append(id_jogo_str)
+                    novos_envios = True
+                    
+            except Exception as e:
+                print(f"Erro ao calcular tempo restante do jogo {id_jogo_str}: {e}")
 
     if novos_envios:
-        salvar_memoria(jogos_memoria)
+        salvar_memoria(jogos_ja_enviados)
     else:
-        print("Nenhuma mudança de status nos jogos encontrados hoje.")
+        print("Nenhum jogo qualificado na janela de ~15 minutos de início neste ciclo.")
 
 if __name__ == "__main__":
     rodar_bot()
