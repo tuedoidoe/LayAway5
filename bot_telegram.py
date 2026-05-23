@@ -383,8 +383,8 @@ def rodar_bot():
     df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
     
     # Filtro de Operabilidade de valor bruto
-    # Removida a exigência da Odd da Casa ser menor que a do Visitante para não descartar bons jogos!
-    df_bruto = df_hoje[(df_hoje["Edge"] >= 0.0) & (df_hoje['Odd_A_Lay'] <= 3.50)].copy()
+    df_bruto = df_hoje[(df_hoje["Edge"] >= 0.0) & (df_hoje['Odd_A_Lay'] <= 3.50) & 
+    (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back'])].copy()
 
     jogos_ja_enviados = carregar_memoria()
     novos_envios = False
