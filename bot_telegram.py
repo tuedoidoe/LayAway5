@@ -237,7 +237,7 @@ def rodar_bot():
                       "Melbourne City": "Melbourne City FC", "Cesena": "Cesena FC", "Morton": "Greenock Morton", "Dobrudzha": "Dobrudzha Dobrich", "Lokomotiv Sofia": "PFC Lokomotiv Sofia 1929", "PSV": "PSV Eindhoven",
                       "Fatih Karagumruk Istanbul": "Fatih Karagumruk", "Falkenbergs": "Falkenbergs FF", "Norrkoping": "IFK Norrkoeping", "Arda": "Arda Kardzhali", "Ranheim IL": "Ranheim", "Monaco": "AS Monaco",
                       "Septemvri": "Septemvri Sofia", "Avai": "Avai FC", "Fortaleza EC": "Fortaleza", "Randers": "Randers FC", "Hafnarfjordur": "FH Hafnarfjordur", "Fram": "Fram Reykjavik", 
-                      "Dinamo Bucharest": "Dinamo Bucuresti"
+                      "Dinamo Bucharest": "Dinamo Bucuresti", "AC Monza": "Monza"
                      }
 
     df_alvo['id_jogo'] = range(1, len(df_alvo) + 1)
