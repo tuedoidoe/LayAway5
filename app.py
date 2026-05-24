@@ -457,7 +457,7 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                       "Melbourne City": "Melbourne City FC", "Cesena": "Cesena FC", "Morton": "Greenock Morton", "Dobrudzha": "Dobrudzha Dobrich", "Lokomotiv Sofia": "PFC Lokomotiv Sofia 1929", "PSV": "PSV Eindhoven",
                       "Fatih Karagumruk Istanbul": "Fatih Karagumruk", "Falkenbergs": "Falkenbergs FF", "Norrkoping": "IFK Norrkoeping", "Arda": "Arda Kardzhali", "Ranheim IL": "Ranheim", "Monaco": "AS Monaco",
                       "Septemvri": "Septemvri Sofia", "Avai": "Avai FC", "Fortaleza EC": "Fortaleza", "Randers": "Randers FC", "Hafnarfjordur": "FH Hafnarfjordur", "Fram": "Fram Reykjavik", 
-                      "Dinamo Bucharest": "Dinamo Bucuresti"
+                      "Dinamo Bucharest": "Dinamo Bucuresti", "AC Monza": "Monza"
                      }
     
     with st.spinner(st_context_msg):
