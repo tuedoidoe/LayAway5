@@ -34,10 +34,14 @@ jobs:
       run: |
         git config --global user.name "GitHub Action Bot"
         git config --global user.email "action@github.com"
+        
+        # Puxa as alterações mais recentes antes de tentar salvar
+        git pull origin main --rebase || echo "Pull failed, procedendo..."
+        
         if [ -f jogos_enviados.json ]; then
           git add jogos_enviados.json
           git diff --quiet && git diff --staged --quiet || git commit -m "Atualiza memoria de jogos [skip ci]"
-          git push
+          git push || echo "Push failed, ignorando para não quebrar a action."
         else
           echo "Nenhum arquivo de memoria gerado ainda. Pulando commit."
         fi
