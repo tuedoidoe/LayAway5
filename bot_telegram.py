@@ -21,9 +21,6 @@ headers = {"Authorization": f"Token {TOKEN_FUT}"}
 
 ARQUIVO_MEMORIA = "jogos_enviados.json"
 
-# ==========================================
-# DICIONÁRIO LIVESCORE
-# ==========================================
 mapeamento_torneios = {
     "Argentina - Primera Division: Apertura": "ARGENTINA 1",
     "Australia - A-League": "AUSTRALIA 1",
@@ -164,7 +161,7 @@ def carregar_base_livescore():
 # MOTOR PRINCIPAL
 # ==========================================
 def rodar_bot():
-    print("Iniciando varredura com foco em jogos de daqui a 15 minutos...")
+    print("Iniciando varredura com foco em capturar jogos via Cron Job...")
     fuso_br = pytz.timezone('America/Sao_Paulo')
     hoje = datetime.now(fuso_br)
     data_str = hoje.strftime('%Y-%m-%d')
@@ -371,7 +368,7 @@ def rodar_bot():
         df_hoje['Score'] = score_xg + score_pts_casa + score_pts_fora + score_fts + score_cs + score_dp_gm + score_dp_gs + score_vaz
         df_hoje['Score'] = df_hoje['Score'].fillna(0).round(0).astype(int)
 
-    colunas_vitais = list(X_cols_treino) + ['Odd_A_Lay', 'Odd_H_Back', 'Odd_A_Back', 'Home', 'Away', 'League', 'Time', 'Date', 'Score']
+    colunas_vitais = list(X_cols_treino) + ['Odd_A_Lay', 'Odd_A_Back', 'Odd_H_Lay', 'Odd_H_Back', 'Home', 'Away', 'League', 'Time', 'Date', 'Score']
     colunas_vitais = [col for col in colunas_vitais if col in df_hoje.columns]
     df_hoje = drop_reset_index(df_hoje.dropna(subset=colunas_vitais))
 
@@ -383,14 +380,21 @@ def rodar_bot():
     df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
     df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
     
-    # Filtro de Operabilidade de valor bruto
-    df_bruto = df_hoje[(df_hoje["Edge"] >= 0.0) & (df_hoje['Odd_A_Lay'] <= 3.50) & 
-    (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back'])].copy()
+    # ⚠️ AQUI ESTAVA O SEGREDO: Sincronizando EXATAMENTE com os filtros do app.py
+    df_bruto = df_hoje[
+        (df_hoje["Edge"] >= 0.0) & 
+        (df_hoje['Odd_A_Lay'] <= 3.50) & 
+        (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back']) & 
+        (abs(df_hoje['Odd_A_Back'] - df_hoje['Odd_A_Lay']) <= 0.50) & 
+        (abs(df_hoje['Odd_H_Back'] - df_hoje['Odd_H_Lay']) <= 0.50)
+    ].copy()
+
+    print(f"Jogos que passaram no filtro neste momento: {len(df_bruto)}")
 
     jogos_ja_enviados = carregar_memoria()
     novos_envios = False
 
-    # Processar a janela de tempo de 15 minutos antes do início
+    # Processar a janela de tempo Expandida (Segurança contra atraso do GitHub)
     for index, row in df_bruto.iterrows():
         id_jogo_str = f"{row['Home']} x {row['Away']}"
         
@@ -413,9 +417,11 @@ def rodar_bot():
                 
                 minutos_restantes = (datetime_jogo - agora_local).total_seconds() / 60.0
                 
-                # Janela cirúrgica: Entre 5 e 25 minutos. 
-                # Garante que o cron de 15 em 15 pegue o jogo exatamente na rodada de ~15 minutos antes.
-                if 5 <= minutos_restantes <= 25:
+                # ⚠️ NOVA JANELA BLINDADA: Entre 0 e 40 minutos. 
+                # Como o cron roda a cada 15 min, isso garante que o bot vai pegar o jogo
+                # na primeira vez que rodar dentro desse intervalo (provavelmente faltando ~15 a ~30 min).
+                # O JSON garante que ele mande apenas UMA VEZ.
+                if 0 <= minutos_restantes <= 40:
                     edge_pct = row['Edge'] * 100
                     odd = row['Odd_A_Lay']
                     horario = row['Time']
@@ -440,6 +446,8 @@ def rodar_bot():
                     
                     jogos_ja_enviados.append(id_jogo_str)
                     novos_envios = True
+                else:
+                    print(f"Ignorado (fora do tempo): {id_jogo_str} - Faltam {minutos_restantes:.1f} minutos")
                     
             except Exception as e:
                 print(f"Erro ao calcular tempo restante do jogo {id_jogo_str}: {e}")
@@ -447,7 +455,7 @@ def rodar_bot():
     if novos_envios:
         salvar_memoria(jogos_ja_enviados)
     else:
-        print("Nenhum jogo qualificado na janela de ~15 minutos de início neste ciclo.")
+        print("Nenhum jogo qualificado na janela de aviso neste ciclo.")
 
 if __name__ == "__main__":
     rodar_bot()
