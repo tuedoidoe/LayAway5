@@ -26,11 +26,10 @@ def carregar_mapeamentos():
             return json.load(f)
     except Exception as e:
         st.error(f"Erro ao carregar o arquivo mapeamentos.json: {e}")
-        return {"mapeamento_torneios": {}, "tradutor_ligas": {}, "tradutor_times": {}}
+        return {"mapeamento_torneios": {}, "tradutor_times": {}}
 
 dicionarios_globais = carregar_mapeamentos()
 mapeamento_torneios = dicionarios_globais.get("mapeamento_torneios", {})
-tradutor_ligas = dicionarios_globais.get("tradutor_ligas", {})
 tradutor_times = dicionarios_globais.get("tradutor_times", {})
 
 def identificar_torneio(nome_sujo):
@@ -379,7 +378,7 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
             if not df_alvo.empty:
                 df_alvo['id_jogo'] = range(1, len(df_alvo) + 1)
                 if 'League' in df_alvo.columns:
-                    df_alvo['League'] = df_alvo['League'].replace(tradutor_ligas)
+                    df_alvo['League'] = df_alvo['League'].replace(mapeamento_torneios)
                     df_alvo['Home'] = df_alvo['Home'].replace(tradutor_times)
                     df_alvo['Away'] = df_alvo['Away'].replace(tradutor_times)
             else:
