@@ -249,19 +249,45 @@ def check_password():
         st.image("logo.png", use_container_width=True)
         
         def password_entered():
-            if st.session_state["password"] == st.secrets["senha_secreta"]:
+            # Pega a senha digitada de forma segura
+            senha_digitada = st.session_state.get("password", "")
+            if senha_digitada == st.secrets["senha_secreta"]:
                 st.session_state["password_correct"] = True
-                del st.session_state["password"]
-            else: st.session_state["password_correct"] = False
+                if "password" in st.session_state:
+                    del st.session_state["password"]
+            else: 
+                st.session_state["password_correct"] = False
 
-        if "password_correct" not in st.session_state:
-            st.text_input("🔑 Senha:", type="password", on_change=password_entered, key="password")
-            return False
-        elif not st.session_state["password_correct"]:
-            st.text_input("🔑 Senha:", type="password", on_change=password_entered, key="password")
+        # O text_input com on_change mantém o login pelo "Enter" funcionando
+        st.text_input("🔑 Senha:", type="password", on_change=password_entered, key="password")
+        
+        # CSS Exclusivo para pintar apenas o botão "Acessar" de Verde Escuro
+        st.markdown("""
+            <style>
+            div[data-testid="stButton"] button:has(div p:contains("Acessar")) {
+                background-color: #005924 !important; /* Verde Escuro */
+                color: #ffffff !important;
+                border: none !important;
+                margin-top: 5px;
+                transition: all 0.3s ease;
+            }
+            div[data-testid="stButton"] button:has(div p:contains("Acessar")):hover {
+                background-color: #003314 !important; /* Verde ainda mais escuro no hover */
+                transform: translateY(-2px);
+            }
+            </style>
+        """, unsafe_allow_html=True)
+
+        # Novo Botão de Acesso
+        if st.button("Acessar", use_container_width=True):
+            password_entered()
+            st.rerun()
+
+        # Feedback de erro
+        if "password_correct" in st.session_state and not st.session_state["password_correct"]:
             st.error("❌ Senha incorreta.")
-            return False
-    return True
+            
+    return False
 
 # ==========================================
 # FUNÇÕES DE CARREGAMENTO (COM CACHE) E GRÁFICO
