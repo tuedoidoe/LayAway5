@@ -265,14 +265,14 @@ def check_password():
         st.markdown("""
             <style>
             div[data-testid="stButton"] button:has(div p:contains("Acessar")) {
-                background-color: #008A38 !important; /* Verde Escuro */
+                background-color: #10B981 !important; /* Verde Escuro */
                 color: #ffffff !important;
                 border: none !important;
                 margin-top: 5px;
                 transition: all 0.3s ease;
             }
             div[data-testid="stButton"] button:has(div p:contains("Acessar")):hover {
-                background-color: #006328 !important; /* Verde ainda mais escuro no hover */
+                background-color: #059669 !important; /* Verde ainda mais escuro no hover */
                 transform: translateY(-2px);
             }
             </style>
