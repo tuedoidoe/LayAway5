@@ -260,26 +260,9 @@ def check_password():
 
         # O text_input com on_change mantém o login pelo "Enter" funcionando
         st.text_input("🔑 Senha:", type="password", on_change=password_entered, key="password")
-        
-        # CSS Exclusivo para pintar apenas o botão "Acessar" de Verde Escuro
-        st.markdown("""
-            <style>
-            div[data-testid="stButton"] button:has(div p:contains("Acessar")) {
-                background-color: #10B981 !important; /* Verde Escuro */
-                color: #ffffff !important;
-                border: none !important;
-                margin-top: 5px;
-                transition: all 0.3s ease;
-            }
-            div[data-testid="stButton"] button:has(div p:contains("Acessar")):hover {
-                background-color: #059669 !important; /* Verde ainda mais escuro no hover */
-                transform: translateY(-2px);
-            }
-            </style>
-        """, unsafe_allow_html=True)
 
-        # Novo Botão de Acesso
-        if st.button("Acessar", use_container_width=True):
+        # Aqui está a mágica: type="primary" puxa o seu verde global (#00d26a)
+        if st.button("Acessar", use_container_width=True, type="primary"):
             password_entered()
             st.rerun()
 
