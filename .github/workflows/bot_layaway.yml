@@ -3,7 +3,7 @@ name: Bot Lay Away Telegram
 on:
   schedule:
     # Roda a cada 30 minutos. Pode mudar para "*/15 * * * *" para 15 minutos.
-    - cron: '*/15 * * * *'
+    - cron: '*/30 * * * *'
   workflow_dispatch: # Permite rodar manualmente pelo painel do GitHub
 
 jobs:
