@@ -543,7 +543,7 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                 if len(df_hoje) > 0:
                     df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
                     df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
-                    df_bruto = df_hoje[df_hoje["Edge"] >= 0.0].copy()
+                    df_bruto = df_hoje[df_hoje["Edge"] > 0.0].copy()
                     return df_bruto, df_completo, df_livescore 
             
             return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
