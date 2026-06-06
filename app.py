@@ -19,7 +19,7 @@ def drop_reset_index(df):
 # ==========================================
 # CARREGAMENTO DOS DICIONÁRIOS JSON
 # ==========================================
-# @st.cache_data
+@st.cache_data # Desativar, fazer as modificações no arquivo mapeamentos.json, rodar, ativar novamente e depois ativar.
 def carregar_mapeamentos():
     try:
         with open("mapeamentos.json", "r", encoding="utf-8") as f:
