@@ -746917,5 +746917,356 @@
         "AwayTeam":"Centro Espanol",
         "FTHG":0,
         "FTAG":2
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"16:00",
+        "Liga":"World Cup 2026 - Group G",
+        "HomeTeam":"Belgium",
+        "AwayTeam":"Egypt",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"22:00",
+        "Liga":"World Cup 2026 - Group G",
+        "HomeTeam":"Iran",
+        "AwayTeam":"New Zealand",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"13:00",
+        "Liga":"World Cup 2026 - Group H",
+        "HomeTeam":"Spain",
+        "AwayTeam":"Cape Verde",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"19:00",
+        "Liga":"World Cup 2026 - Group H",
+        "HomeTeam":"Saudi Arabia",
+        "AwayTeam":"Uruguay",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"18:00",
+        "Liga":"Argentina - Federal A: Group A",
+        "HomeTeam":"Sportivo Belgrano",
+        "AwayTeam":"Defensores de Belgrano de Villa Ramallo",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"21:00",
+        "Liga":"Brazil - Serie B",
+        "HomeTeam":"Criciuma",
+        "AwayTeam":"Ceara",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"21:00",
+        "Liga":"Brazil - Serie B",
+        "HomeTeam":"Londrina EC",
+        "AwayTeam":"Avai FC",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"19:30",
+        "Liga":"Brazil - Serie C: 1st Stage",
+        "HomeTeam":"Maringa FC",
+        "AwayTeam":"Maranhao",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"20:30",
+        "Liga":"Brazil - Serie C: 1st Stage",
+        "HomeTeam":"Ferroviaria",
+        "AwayTeam":"Barra FC",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"20:30",
+        "Liga":"Brazil - Serie C: 1st Stage",
+        "HomeTeam":"Ypiranga RS",
+        "AwayTeam":"Botafogo PB",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"13:00",
+        "Liga":"Estonia - Esiliiga",
+        "HomeTeam":"Nomme Kalju U21",
+        "AwayTeam":"Nomme United U21",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"12:30",
+        "Liga":"Finland - Ykkosliiga",
+        "HomeTeam":"SJK Akatemia",
+        "AwayTeam":"FC Haka J",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"15:00",
+        "Liga":"Iceland - Besta deildin",
+        "HomeTeam":"KA Akureyri",
+        "AwayTeam":"Fram Reykjavik",
+        "FTHG":3,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"16:15",
+        "Liga":"Iceland - 2. Deild",
+        "HomeTeam":"Fjoelnir",
+        "AwayTeam":"Kari",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"16:15",
+        "Liga":"Iceland - 2. Deild",
+        "HomeTeam":"UMF Selfoss",
+        "AwayTeam":"Throttur Vogum",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"11:00",
+        "Liga":"Iran - Azadegan League",
+        "HomeTeam":"Havadar SC",
+        "AwayTeam":"Mes Kerman",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"11:30",
+        "Liga":"Iran - Azadegan League",
+        "HomeTeam":"FC Fard",
+        "AwayTeam":"Sanat Naft Abadan",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"11:30",
+        "Liga":"Iran - Azadegan League",
+        "HomeTeam":"Mes Shahr Babak",
+        "AwayTeam":"Beasat Kermanshah",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"11:30",
+        "Liga":"Iran - Azadegan League",
+        "HomeTeam":"Mes Sungun",
+        "AwayTeam":"Nassaji Mazandaran FC",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"13:00",
+        "Liga":"Iran - Azadegan League",
+        "HomeTeam":"Naft Gachsaran",
+        "AwayTeam":"Niroye Zamini",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"13:00",
+        "Liga":"Iran - Azadegan League",
+        "HomeTeam":"Pars Jonoubi Jam Bushehr",
+        "AwayTeam":"Saipa",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"14:00",
+        "Liga":"Norway - 3. Division: Group 2",
+        "HomeTeam":"Ranheim 2",
+        "AwayTeam":"Kvik",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"14:00",
+        "Liga":"Norway - 3. Division: Group 3",
+        "HomeTeam":"Aasane 2",
+        "AwayTeam":"Stord",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"13:00",
+        "Liga":"Norway - 3. Division: Group 4",
+        "HomeTeam":"Staal Joerpeland",
+        "AwayTeam":"Odds Ballklubb 2",
+        "FTHG":5,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"13:00",
+        "Liga":"Norway - 3. Division: Group 4",
+        "HomeTeam":"Vaag",
+        "AwayTeam":"Stabaek 2",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"15:00",
+        "Liga":"Norway - 3. Division: Group 5",
+        "HomeTeam":"Kongsvinger 2",
+        "AwayTeam":"Skjetten",
+        "FTHG":3,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"13:00",
+        "Liga":"Norway - 3. Division: Group 6",
+        "HomeTeam":"Fram Larvik",
+        "AwayTeam":"Lyn 2",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"14:00",
+        "Liga":"Sweden - Superettan",
+        "HomeTeam":"GIF Sundsvall",
+        "AwayTeam":"Oesters IF",
+        "FTHG":0,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"14:05",
+        "Liga":"Sweden - Superettan",
+        "HomeTeam":"IFK Norrkoeping",
+        "AwayTeam":"Varbergs BoIS FC",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"14:30",
+        "Liga":"Sweden - Division 2: Norra Goetaland",
+        "HomeTeam":"Vaenersborgs IF",
+        "AwayTeam":"Herrestads AIF",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"14:15",
+        "Liga":"Sweden - Division 2: Soedra Svealand",
+        "HomeTeam":"Nykoepings BIS",
+        "AwayTeam":"Smedby AIS",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"14:45",
+        "Liga":"Sweden - Division 2: Norrland Norra",
+        "HomeTeam":"Umeaa FC Akademi",
+        "AwayTeam":"IFK Umeaa",
+        "FTHG":3,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"10:00",
+        "Liga":"Tanzania - Premier League",
+        "HomeTeam":"Kinondoni MC",
+        "AwayTeam":"Coastal Union",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"20:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Christos FC",
+        "AwayTeam":"Annapolis Blues FC",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"22:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Real Colorado",
+        "AwayTeam":"Atletico Union",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"15:30",
+        "Liga":"Argentina - Primera C",
+        "HomeTeam":"CA Fenix",
+        "AwayTeam":"Leones de Rosario",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"15:30",
+        "Liga":"Argentina - Primera C",
+        "HomeTeam":"Defensores de Cambaceres",
+        "AwayTeam":"Berazategui",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"15:30",
+        "Liga":"Argentina - Primera C",
+        "HomeTeam":"Sacachispas FC",
+        "AwayTeam":"Argentino de Rosario",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-15",
+        "Hora":"15:30",
+        "Liga":"Argentina - Primera C",
+        "HomeTeam":"Sportivo Barracas",
+        "AwayTeam":"General Lamadrid",
+        "FTHG":2,
+        "FTAG":0
     }
 ]
