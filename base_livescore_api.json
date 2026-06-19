@@ -748528,5 +748528,626 @@
         "AwayTeam":"Redlands",
         "FTHG":2,
         "FTAG":3
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"13:00",
+        "Liga":"World Cup 2026 - Group A",
+        "HomeTeam":"Czechia",
+        "AwayTeam":"South Africa",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"22:00",
+        "Liga":"World Cup 2026 - Group A",
+        "HomeTeam":"Mexico",
+        "AwayTeam":"South Korea",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"16:00",
+        "Liga":"World Cup 2026 - Group B",
+        "HomeTeam":"Switzerland",
+        "AwayTeam":"Bosnia and Herzegovina",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"19:00",
+        "Liga":"World Cup 2026 - Group B",
+        "HomeTeam":"Canada",
+        "AwayTeam":"Qatar",
+        "FTHG":6,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"06:59",
+        "Liga":"Finland - Veikkausliiga",
+        "HomeTeam":"AC Oulu",
+        "AwayTeam":"IFK Mariehamn",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"12:00",
+        "Liga":"Club Friendlies - Club Friendlies 2026",
+        "HomeTeam":"IFK Gothenburg",
+        "AwayTeam":"Vaalerenga",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"21:00",
+        "Liga":"Brazil - Serie B",
+        "HomeTeam":"Sport Recife",
+        "AwayTeam":"Atletico GO",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"21:00",
+        "Liga":"Chile - Primera División",
+        "HomeTeam":"Universidad de Chile",
+        "AwayTeam":"O'Higgins",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"12:00",
+        "Liga":"Estonia - Esiliiga",
+        "HomeTeam":"FCI Levadia U21",
+        "AwayTeam":"Tartu JK Welco",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"12:00",
+        "Liga":"Estonia - Esiliiga",
+        "HomeTeam":"Nomme United U21",
+        "AwayTeam":"Talinna Kalev",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"13:00",
+        "Liga":"Estonia - Esiliiga",
+        "HomeTeam":"FC Elva",
+        "AwayTeam":"Viimsi JK",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"13:00",
+        "Liga":"Estonia - Esiliiga",
+        "HomeTeam":"FC Tallinn",
+        "AwayTeam":"Flora Tallinn U21",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"13:00",
+        "Liga":"Estonia - Esiliiga",
+        "HomeTeam":"Maardu Linnameeskond",
+        "AwayTeam":"Nomme Kalju U21",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"10:30",
+        "Liga":"Georgia - Erovnuli Liga",
+        "HomeTeam":"FC Meshakhte Tkibuli",
+        "AwayTeam":"FC Gagra",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"13:00",
+        "Liga":"Georgia - Erovnuli Liga",
+        "HomeTeam":"Dinamo Tbilisi",
+        "AwayTeam":"FC Samgurali Tskhaltubo",
+        "FTHG":5,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"11:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"Olympique Dcheira",
+        "AwayTeam":"FAR Rabat",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"11:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"RS Berkane",
+        "AwayTeam":"Olympic Club de Safi",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"11:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"Union Yacoub El-Mansour",
+        "AwayTeam":"Hassania Agadir",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"11:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"Wydad Casablanca",
+        "AwayTeam":"FUS Rabat",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 1: North",
+        "HomeTeam":"Gefle",
+        "AwayTeam":"FC Stockholm Internazionale",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 1: North",
+        "HomeTeam":"Hammarby TFF",
+        "AwayTeam":"FC Jaerfaella",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 1: North",
+        "HomeTeam":"Vasalunds",
+        "AwayTeam":"Karlbergs BK",
+        "FTHG":0,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:15",
+        "Liga":"Sweden - Division 1: North",
+        "HomeTeam":"FC Arlanda",
+        "AwayTeam":"IFK Stocksund",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:30",
+        "Liga":"Sweden - Division 1: North",
+        "HomeTeam":"Sollentuna FK",
+        "AwayTeam":"FBK Karlstad",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 1: South",
+        "HomeTeam":"Eskilsminne IF",
+        "AwayTeam":"FC Trollhaettan",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 1: South",
+        "HomeTeam":"Joenkoepings Soedra",
+        "AwayTeam":"Lunds BK",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 1: South",
+        "HomeTeam":"Skoevde AIK",
+        "AwayTeam":"Haessleholms IF",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 1: South",
+        "HomeTeam":"Trelleborgs FF",
+        "AwayTeam":"FC Rosengaard",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 1: South",
+        "HomeTeam":"Tvaakers IF",
+        "AwayTeam":"Aengelholms FF",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"13:30",
+        "Liga":"Sweden - Division 2: Norra Goetaland",
+        "HomeTeam":"Lidkoepings FK",
+        "AwayTeam":"Husqvarna FF",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 2: Norra Goetaland",
+        "HomeTeam":"Grebbestads IF",
+        "AwayTeam":"Vaenersborgs IF",
+        "FTHG":4,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 2: Norra Goetaland",
+        "HomeTeam":"Herrestads AIF",
+        "AwayTeam":"IFK Skoevde FK",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:15",
+        "Liga":"Sweden - Division 2: Norra Goetaland",
+        "HomeTeam":"Ahlafors IF",
+        "AwayTeam":"Skara FC",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:15",
+        "Liga":"Sweden - Division 2: Norra Goetaland",
+        "HomeTeam":"Vaenersborgs FK",
+        "AwayTeam":"Stenungsunds IF",
+        "FTHG":2,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:30",
+        "Liga":"Sweden - Division 2: Norra Goetaland",
+        "HomeTeam":"IFK Kumla",
+        "AwayTeam":"IK Tord",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"07:30",
+        "Liga":"Sweden - Division 2: Norra Svealand",
+        "HomeTeam":"FC Gute",
+        "AwayTeam":"Falu",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 2: Norra Svealand",
+        "HomeTeam":"Skiljebo SK",
+        "AwayTeam":"IK Franke",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 2: Norra Svealand",
+        "HomeTeam":"Viggbyholms IK FF",
+        "AwayTeam":"Aengby IF",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 2: Soedra Goetaland",
+        "HomeTeam":"FK Karlskrona",
+        "AwayTeam":"IFK Karlshamn",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 2: Soedra Goetaland",
+        "HomeTeam":"Soelvesborgs GOIF",
+        "AwayTeam":"Raeppe GOIF",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 2: Soedra Goetaland",
+        "HomeTeam":"Staffanstorp United FC",
+        "AwayTeam":"Linero IF",
+        "FTHG":3,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 2: Vaestra Goetaland",
+        "HomeTeam":"Torslanda IK",
+        "AwayTeam":"Vaestra Froelunda",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:30",
+        "Liga":"Sweden - Division 2: Vaestra Goetaland",
+        "HomeTeam":"Dalstorps IF",
+        "AwayTeam":"BK Astrio",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:30",
+        "Liga":"Sweden - Division 2: Vaestra Goetaland",
+        "HomeTeam":"IF Bоеlan",
+        "AwayTeam":"Onsala BK",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:30",
+        "Liga":"Sweden - Division 2: Vaestra Goetaland",
+        "HomeTeam":"Lindome GIF",
+        "AwayTeam":"Aastorps FF",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:30",
+        "Liga":"Sweden - Division 2: Vaestra Goetaland",
+        "HomeTeam":"Qviding FIF",
+        "AwayTeam":"Galtabaecks BK",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:30",
+        "Liga":"Sweden - Division 2: Norrland Norra",
+        "HomeTeam":"Storfors AIK",
+        "AwayTeam":"Taftea IK",
+        "FTHG":0,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 2: Norrland Soedra",
+        "HomeTeam":"Fraensta IK",
+        "AwayTeam":"Friska Viljor",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 2: Norrland Soedra",
+        "HomeTeam":"Kubikenborgs IF",
+        "AwayTeam":"Gottne IF",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"10:00",
+        "Liga":"Sweden - Women's Allsvenskan",
+        "HomeTeam":"Brommapojkarna W",
+        "AwayTeam":"Vittsjo GIK W",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"11:00",
+        "Liga":"Sweden - Women's Allsvenskan",
+        "HomeTeam":"Eskilstuna United DFF W",
+        "AwayTeam":"Piteaa W",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"13:00",
+        "Liga":"Sweden - Women's Allsvenskan",
+        "HomeTeam":"BK Haecken W",
+        "AwayTeam":"FC Rosengaard W",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"13:00",
+        "Liga":"Sweden - Women's Allsvenskan",
+        "HomeTeam":"Kristianstads DFF W",
+        "AwayTeam":"IK Uppsala Fotboll W",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Women's Allsvenskan",
+        "HomeTeam":"IFK Norrkoeping W",
+        "AwayTeam":"Vaexjoe W",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"13:30",
+        "Liga":"Sweden - Women's Elitettan",
+        "HomeTeam":"Jitex BK W",
+        "AwayTeam":"KIF Orebro W",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Women's Elitettan",
+        "HomeTeam":"Husqvarna FF",
+        "AwayTeam":"Elfsborg",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"14:00",
+        "Liga":"Sweden - Women's Elitettan",
+        "HomeTeam":"Linkoepings FC W",
+        "AwayTeam":"Alingsas FC United W",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"10:00",
+        "Liga":"Tanzania - Premier League",
+        "HomeTeam":"Fountain Gate FC",
+        "AwayTeam":"Young Africans",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"10:00",
+        "Liga":"Tanzania - Premier League",
+        "HomeTeam":"JKT Tanzania",
+        "AwayTeam":"Tanzania Prisons",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"10:00",
+        "Liga":"Tanzania - Premier League",
+        "HomeTeam":"Pamba SC",
+        "AwayTeam":"Mtibwa Sugar",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"20:00",
+        "Liga":"USA - MLS Next Pro",
+        "HomeTeam":"Connecticut United",
+        "AwayTeam":"FC Cincinnati II",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"00:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Capo",
+        "AwayTeam":"City SC",
+        "FTHG":2,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"20:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Lansing City Football",
+        "AwayTeam":"Midwest United FC",
+        "FTHG":1,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"20:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Real Central New Jersey",
+        "AwayTeam":"Ocean City Nor'easters",
+        "FTHG":1,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"21:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Texoma",
+        "AwayTeam":"West Texas",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"22:30",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Flatirons Rush",
+        "AwayTeam":"Albion SC Colorado",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"22:30",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Utah United",
+        "AwayTeam":"Atletico Union",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"23:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Ballard FC",
+        "AwayTeam":"Bigfoot FC",
+        "FTHG":6,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-18",
+        "Hora":"23:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"San Juan SC",
+        "AwayTeam":"San Francisco City",
+        "FTHG":2,
+        "FTAG":6
     }
 ]
