@@ -753838,5 +753838,347 @@
         "AwayTeam":"Comunicaciones",
         "FTHG":0,
         "FTAG":0
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"18:00",
+        "Liga":"World Cup 2026 - Group I",
+        "HomeTeam":"France",
+        "AwayTeam":"Iraq",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"21:00",
+        "Liga":"World Cup 2026 - Group I",
+        "HomeTeam":"Norway",
+        "AwayTeam":"Senegal",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"14:00",
+        "Liga":"World Cup 2026 - Group J",
+        "HomeTeam":"Argentina",
+        "AwayTeam":"Austria",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"15:45",
+        "Liga":"Ireland - League of Ireland Premier Division",
+        "HomeTeam":"Shelbourne",
+        "AwayTeam":"Bohemian FC",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"16:00",
+        "Liga":"Ireland - League of Ireland Premier Division",
+        "HomeTeam":"Shamrock Rovers",
+        "AwayTeam":"Derry City",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"10:00",
+        "Liga":"Club Friendlies - Club Friendlies 2026",
+        "HomeTeam":"AIK",
+        "AwayTeam":"Kalmar FF",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"20:15",
+        "Liga":"Argentina - Federal A: Group A",
+        "HomeTeam":"9 de Julio Rafaela",
+        "AwayTeam":"El Linqueno",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"07:15",
+        "Liga":"Australia - Victoria Premier League One",
+        "HomeTeam":"Melbourne Victory Youth",
+        "AwayTeam":"Brunswick City",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"20:00",
+        "Liga":"Brazil - Serie B",
+        "HomeTeam":"Ponte Preta",
+        "AwayTeam":"Novorizontino",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"19:30",
+        "Liga":"Brazil - Serie C: 1st Stage",
+        "HomeTeam":"Confianca",
+        "AwayTeam":"Guarani",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"13:00",
+        "Liga":"Estonia - Esiliiga",
+        "HomeTeam":"FC Elva",
+        "AwayTeam":"Flora Tallinn U21",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"13:00",
+        "Liga":"Estonia - Esiliiga",
+        "HomeTeam":"Maardu Linnameeskond",
+        "AwayTeam":"Viimsi JK",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"12:00",
+        "Liga":"Georgia - Erovnuli Liga",
+        "HomeTeam":"Dila Gori",
+        "AwayTeam":"FC Rustavi",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"14:00",
+        "Liga":"Georgia - Erovnuli Liga",
+        "HomeTeam":"Torpedo Kutaisi",
+        "AwayTeam":"Spaeri",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"10:00",
+        "Liga":"Georgia - Erovnuli Liga 2",
+        "HomeTeam":"FC Gareji 1960",
+        "AwayTeam":"Odishi 1919",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"10:00",
+        "Liga":"Georgia - Erovnuli Liga 2",
+        "HomeTeam":"Merani Martvili",
+        "AwayTeam":"FC Gori",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"11:00",
+        "Liga":"Georgia - Erovnuli Liga 2",
+        "HomeTeam":"Kolkheti-1913 Poti",
+        "AwayTeam":"Shturmi",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"13:00",
+        "Liga":"Georgia - Erovnuli Liga 2",
+        "HomeTeam":"FC Telavi",
+        "AwayTeam":"Aragvi Dusheti",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"14:00",
+        "Liga":"Georgia - Erovnuli Liga 2",
+        "HomeTeam":"Sioni Bolnisi",
+        "AwayTeam":"Samtredia",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"16:15",
+        "Liga":"Iceland - Besta deildin",
+        "HomeTeam":"KR Reykjavik",
+        "AwayTeam":"IA Akranes",
+        "FTHG":5,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"13:05",
+        "Liga":"Kuwait - Premier League: Championship Group",
+        "HomeTeam":"Al-Salmiyah",
+        "AwayTeam":"Al Fahaheel",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"14:45",
+        "Liga":"Kuwait - Premier League: Championship Group",
+        "HomeTeam":"Kuwait SC",
+        "AwayTeam":"Al-Arabi",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"15:45",
+        "Liga":"Kuwait - Premier League: Championship Group",
+        "HomeTeam":"Al-Qadsia",
+        "AwayTeam":"Kazma",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"12:00",
+        "Liga":"Latvia - Virsliga",
+        "HomeTeam":"RFS",
+        "AwayTeam":"Ogre United",
+        "FTHG":6,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"12:00",
+        "Liga":"Norway - 3. Division: Group 2",
+        "HomeTeam":"Aalesund 2",
+        "AwayTeam":"Ranheim 2",
+        "FTHG":2,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"13:00",
+        "Liga":"Norway - 3. Division: Group 3",
+        "HomeTeam":"Fana",
+        "AwayTeam":"Sogndal 2",
+        "FTHG":5,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"13:00",
+        "Liga":"Norway - 3. Division: Group 3",
+        "HomeTeam":"Foerde",
+        "AwayTeam":"Aasane 2",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"12:00",
+        "Liga":"Norway - 3. Division: Group 4",
+        "HomeTeam":"Odds Ballklubb 2",
+        "AwayTeam":"Flekkeroey",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"13:00",
+        "Liga":"Norway - 3. Division: Group 4",
+        "HomeTeam":"Haugesund 2",
+        "AwayTeam":"Madla",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"14:00",
+        "Liga":"Sweden - Superettan",
+        "HomeTeam":"IK Oddevold",
+        "AwayTeam":"Ljungskile",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"14:00",
+        "Liga":"Sweden - Superettan",
+        "HomeTeam":"Varbergs BoIS FC",
+        "AwayTeam":"Landskrona BoIS",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"14:05",
+        "Liga":"Sweden - Superettan",
+        "HomeTeam":"Orebro SK",
+        "AwayTeam":"Sandvikens IF",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"14:00",
+        "Liga":"Sweden - Svenska Cupen: Qualification",
+        "HomeTeam":"Landvetter IS",
+        "AwayTeam":"Dalstorps IF",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"14:30",
+        "Liga":"Sweden - Division 2: Soedra Svealand",
+        "HomeTeam":"IK Sleipner",
+        "AwayTeam":"Nykoepings BIS",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"14:30",
+        "Liga":"Sweden - Division 2: Soedra Svealand",
+        "HomeTeam":"Syrianska",
+        "AwayTeam":"Raegsveds IF",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"14:00",
+        "Liga":"Sweden - Division 2: Norrland Norra",
+        "HomeTeam":"Bodens BK",
+        "AwayTeam":"IFK Luleaa",
+        "FTHG":1,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-06-22",
+        "Hora":"22:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Flatirons Rush",
+        "AwayTeam":"Atletico Union",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-23",
+        "Hora":"00:00",
+        "Liga":"World Cup 2026 - Group J",
+        "HomeTeam":"Jordan",
+        "AwayTeam":"Algeria",
+        "FTHG":1,
+        "FTAG":2
     }
 ]
