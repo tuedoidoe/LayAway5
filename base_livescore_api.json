@@ -760534,5 +760534,212 @@
         "AwayTeam":"Victoriano Arenas",
         "FTHG":2,
         "FTAG":1
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"14:00",
+        "Liga":"World Cup 2026 - R32",
+        "HomeTeam":"Brazil",
+        "AwayTeam":"Japan",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"10:00",
+        "Liga":"Club Friendlies - Club Friendlies 2026",
+        "HomeTeam":"OB",
+        "AwayTeam":"Kolding IF",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"12:00",
+        "Liga":"Euro U19 - Group B",
+        "HomeTeam":"Italy U19",
+        "AwayTeam":"Serbia U19",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"16:00",
+        "Liga":"Euro U19 - Group B",
+        "HomeTeam":"Croatia U19",
+        "AwayTeam":"Ukraine U19",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"19:00",
+        "Liga":"Brazil - Serie D: Play-off",
+        "HomeTeam":"Democrata GV",
+        "AwayTeam":"Ivinhema",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"20:30",
+        "Liga":"Chile - Copa Chile: Group E",
+        "HomeTeam":"Union Espanola",
+        "AwayTeam":"Colo Colo",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"14:30",
+        "Liga":"Faroe Islands - Premier League",
+        "HomeTeam":"B68 Toftir",
+        "AwayTeam":"AB Argir",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"14:30",
+        "Liga":"Faroe Islands - Premier League",
+        "HomeTeam":"HB Torshavn",
+        "AwayTeam":"Skala",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"14:30",
+        "Liga":"Faroe Islands - Premier League",
+        "HomeTeam":"Vikingur",
+        "AwayTeam":"NSI Runavik",
+        "FTHG":3,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"12:30",
+        "Liga":"Finland - Ykkonen",
+        "HomeTeam":"VJS",
+        "AwayTeam":"TPV Tampere",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"16:15",
+        "Liga":"Iceland - Besta deildin",
+        "HomeTeam":"IA Akranes",
+        "AwayTeam":"Fram Reykjavik",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"16:15",
+        "Liga":"Iceland - 1. Deild",
+        "HomeTeam":"Afturelding",
+        "AwayTeam":"Aegir",
+        "FTHG":8,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"14:45",
+        "Liga":"Kuwait - Premier League: Championship Group",
+        "HomeTeam":"Al-Arabi",
+        "AwayTeam":"Al Fahaheel",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"14:45",
+        "Liga":"Kuwait - Premier League: Championship Group",
+        "HomeTeam":"Al-Qadsia",
+        "AwayTeam":"Kuwait SC",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"14:45",
+        "Liga":"Kuwait - Premier League: Championship Group",
+        "HomeTeam":"Kazma",
+        "AwayTeam":"Al-Salmiyah",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"12:00",
+        "Liga":"Latvia - Virsliga",
+        "HomeTeam":"FK Auda",
+        "AwayTeam":"Riga FC",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"12:00",
+        "Liga":"Latvia - Virsliga",
+        "HomeTeam":"FK Jelgava",
+        "AwayTeam":"Grobina",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"12:30",
+        "Liga":"Lithuania - A Lyga",
+        "HomeTeam":"FA Siauliai",
+        "AwayTeam":"FK Transinvest",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"12:45",
+        "Liga":"Lithuania - A Lyga",
+        "HomeTeam":"FK Panevezys",
+        "AwayTeam":"Suduva",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"19:30",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Asheville City SC",
+        "AwayTeam":"Charlotte Independence 2",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"21:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Hill Country Lobos",
+        "AwayTeam":"Lonestar",
+        "FTHG":3,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"15:00",
+        "Liga":"Argentina - Primera C",
+        "HomeTeam":"CA Fenix",
+        "AwayTeam":"General Lamadrid",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-06-29",
+        "Hora":"15:00",
+        "Liga":"Argentina - Primera C",
+        "HomeTeam":"Sportivo Barracas",
+        "AwayTeam":"Club Lujan",
+        "FTHG":2,
+        "FTAG":0
     }
 ]
