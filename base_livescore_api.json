@@ -761794,5 +761794,419 @@
         "AwayTeam":"Bigfoot FC",
         "FTHG":3,
         "FTAG":3
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"16:00",
+        "Liga":"World Cup 2026 - R32",
+        "HomeTeam":"Spain",
+        "AwayTeam":"Austria",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"20:00",
+        "Liga":"World Cup 2026 - R32",
+        "HomeTeam":"Portugal",
+        "AwayTeam":"Croatia",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"12:00",
+        "Liga":"Club Friendlies - Club Friendlies 2026",
+        "HomeTeam":"Dundee FC",
+        "AwayTeam":"Paksi SE",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"10:00",
+        "Liga":"Euro U19 - Group B",
+        "HomeTeam":"Croatia U19",
+        "AwayTeam":"Italy U19",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"14:00",
+        "Liga":"Euro U19 - Group B",
+        "HomeTeam":"Serbia U19",
+        "AwayTeam":"Ukraine U19",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"06:00",
+        "Liga":"Australia - NorZone Premier League",
+        "HomeTeam":"Darwin Olympic",
+        "AwayTeam":"Port Darwin",
+        "FTHG":3,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"08:00",
+        "Liga":"Australia - NorZone Premier League",
+        "HomeTeam":"Palmerston Rovers FC",
+        "AwayTeam":"Garuda FC",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"12:00",
+        "Liga":"Belarus - Premier League",
+        "HomeTeam":"BATE Borisov",
+        "AwayTeam":"Gomel",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"14:00",
+        "Liga":"Belarus - Premier League",
+        "HomeTeam":"FC Minsk",
+        "AwayTeam":"Dinamo Minsk",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"20:00",
+        "Liga":"Brazil - Serie B",
+        "HomeTeam":"Cuiaba",
+        "AwayTeam":"America MG",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"21:00",
+        "Liga":"Brazil - Serie B",
+        "HomeTeam":"Fortaleza",
+        "AwayTeam":"Ponte Preta",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"21:30",
+        "Liga":"Chile - Copa Chile: Group E",
+        "HomeTeam":"O'Higgins",
+        "AwayTeam":"Colo Colo",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"19:00",
+        "Liga":"Chile - Copa Chile: Group H",
+        "HomeTeam":"Huachipato",
+        "AwayTeam":"Deportes Concepcion",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"17:30",
+        "Liga":"Ecuador - Serie B",
+        "HomeTeam":"Atletico FC",
+        "AwayTeam":"El Nacional",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"17:30",
+        "Liga":"Ecuador - Serie B",
+        "HomeTeam":"Cumbaya",
+        "AwayTeam":"22 de Julio",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"21:00",
+        "Liga":"Ecuador - Serie B",
+        "HomeTeam":"Vargas Torres",
+        "AwayTeam":"Independiente Juniors",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"13:00",
+        "Liga":"Estonia - Meistriliiga",
+        "HomeTeam":"FC Kuressaare",
+        "AwayTeam":"Flora Tallinn",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"13:00",
+        "Liga":"Estonia - Esiliiga",
+        "HomeTeam":"Tartu JK Welco",
+        "AwayTeam":"Viimsi JK",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"13:00",
+        "Liga":"Finland - Ykkonen",
+        "HomeTeam":"FC Jazz",
+        "AwayTeam":"KPV",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"14:00",
+        "Liga":"Iceland - Besta deildin",
+        "HomeTeam":"Thor Akureyri",
+        "AwayTeam":"KR Reykjavik",
+        "FTHG":3,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"16:15",
+        "Liga":"Iceland - Besta deildin",
+        "HomeTeam":"Vikingur Reykjavik",
+        "AwayTeam":"KA Akureyri",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"12:00",
+        "Liga":"Iran - Azadegan League",
+        "HomeTeam":"Niroye Zamini",
+        "AwayTeam":"Pars Jonoubi Jam Bushehr",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"12:00",
+        "Liga":"Iran - Azadegan League",
+        "HomeTeam":"Saipa",
+        "AwayTeam":"Shahrdari Nowshahr",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"11:00",
+        "Liga":"Kazakhstan - Premier League",
+        "HomeTeam":"Kairat Almaty",
+        "AwayTeam":"Okzhetpes Kokshetau",
+        "FTHG":5,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"14:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"COD Meknes",
+        "AwayTeam":"FAR Rabat",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"14:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"KACM",
+        "AwayTeam":"MAS Fes",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"14:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"Olympique Dcheira",
+        "AwayTeam":"Olympic Club de Safi",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"14:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"RS Berkane",
+        "AwayTeam":"Wydad Casablanca",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"14:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"Raja Casablanca",
+        "AwayTeam":"Hassania Agadir",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"14:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"Renaissance Club Zemamra",
+        "AwayTeam":"FUS Rabat",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"14:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"Union Touarga Sport",
+        "AwayTeam":"Ittihad Tanger",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"14:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"Union Yacoub El-Mansour",
+        "AwayTeam":"Difaa El Jadida",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"13:00",
+        "Liga":"Norway - 1. Division",
+        "HomeTeam":"Lyn",
+        "AwayTeam":"Aasane",
+        "FTHG":6,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"21:00",
+        "Liga":"USA - USL Championship",
+        "HomeTeam":"Birmingham Legion",
+        "AwayTeam":"Detroit City FC",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"22:30",
+        "Liga":"USA - USL League One",
+        "HomeTeam":"Boise",
+        "AwayTeam":"One Knoxville SC",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"17:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Birmingham Legion FC 2",
+        "AwayTeam":"Columbus United FC",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"20:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Cedar Stars Rush",
+        "AwayTeam":"Long Island Rough Riders",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"20:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Hudson Valley Hammers",
+        "AwayTeam":"Manhattan SC",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"20:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Rochester",
+        "AwayTeam":"Chicago Dutch Lions FC",
+        "FTHG":0,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"20:30",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Apotheos",
+        "AwayTeam":"East Atlanta FC",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"21:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"FC Motown II",
+        "AwayTeam":"Morris Elite SC",
+        "FTHG":8,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"21:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Flatirons Rush",
+        "AwayTeam":"Colorado Storm",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"21:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Lonestar",
+        "AwayTeam":"Laredo Heat",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"21:00",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Red River FC",
+        "AwayTeam":"Little Rock Rangers",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-02",
+        "Hora":"21:30",
+        "Liga":"USA - USL League Two",
+        "HomeTeam":"Peoria City",
+        "AwayTeam":"St. Louis Ambush",
+        "FTHG":1,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-07-03",
+        "Hora":"00:00",
+        "Liga":"World Cup 2026 - R32",
+        "HomeTeam":"Switzerland",
+        "AwayTeam":"Algeria",
+        "FTHG":2,
+        "FTAG":0
     }
 ]
