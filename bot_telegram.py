@@ -76,7 +76,7 @@ def salvar_memoria(dict_enviados):
 # --- FUNÇÕES DE DADOS ---
 def baixar_base_dados():
     try:
-        response = requests.get("https://api.futpythontrader.com/api/dados/betfair/download/", headers=headers)
+        response = requests.get("https://apicomunidade.futpythontrader.com/api/dados/betfair/download/", headers=headers)
         if response.status_code == 200:
             df = pd.read_csv(io.BytesIO(response.content))
             if not df.empty and 'Date' in df.columns: df['Date'] = pd.to_datetime(df['Date'])
@@ -86,7 +86,7 @@ def baixar_base_dados():
 
 def baixar_jogos_do_dia(data_str):
     try:
-        url = f"https://api.futpythontrader.com/api/dados/jogos-do-dia/betfair/{data_str}/download/"
+        url = f"https://apicomunidade.futpythontrader.com/api/dados/jogos-do-dia/betfair/{data_str}/download/"
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             df = pd.read_csv(io.BytesIO(response.content))
