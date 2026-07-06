@@ -241,7 +241,7 @@ def carregar_base_livescore():
 @st.cache_data(ttl=300) 
 def baixar_jogos_do_dia(data):
     try:
-        url = f"https://api.futpythontrader.com/api/dados/jogos-do-dia/betfair/{data}/download/"
+        url = f"https://api.futpythontrader.com/api/dados/jogos-do-dia/betfair/{data}/"
         # url = f"https://api.futpythontrader.com/api/dados/jogos-do-dia/betfair/{data}/"
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
