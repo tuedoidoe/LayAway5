@@ -220,7 +220,7 @@ headers = {"Authorization": f"Token {TOKEN}"}
 @st.cache_data(ttl=1800)
 def baixar_base_dados():
     try:
-        response = requests.get("https://api.futpythontrader.com/api/dados/betfair/download/", headers=headers)
+        response = requests.get("https://apicomunidade.futpythontrader.com/api/dados/betfair/download/", headers=headers)
         if response.status_code == 200:
             df = pd.read_csv(io.BytesIO(response.content))
             if not df.empty and 'Date' in df.columns: df['Date'] = pd.to_datetime(df['Date'])
@@ -241,7 +241,7 @@ def carregar_base_livescore():
 @st.cache_data(ttl=300) 
 def baixar_jogos_do_dia(data):
     try:
-        url = f"https://api.futpythontrader.com/api/dados/jogos-do-dia/betfair/{data}/"
+        url = f"https://apicomunidade.futpythontrader.com/api/dados/jogos-do-dia/betfair/{data}/"
         # url = f"https://api.futpythontrader.com/api/dados/jogos-do-dia/betfair/{data}/"
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
