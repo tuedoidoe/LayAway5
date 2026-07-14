@@ -772639,5 +772639,221 @@
         "AwayTeam":"Independiente Petrolero",
         "FTHG":2,
         "FTAG":1
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"14:00",
+        "Liga":"Sweden - Allsvenskan",
+        "HomeTeam":"Djurgaarden",
+        "AwayTeam":"Halmstads BK",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"11:00",
+        "Liga":"Club Friendlies - Club Friendlies 2026",
+        "HomeTeam":"Zenit St. Petersburg",
+        "AwayTeam":"FC Dynamo-Makhachkala",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"12:00",
+        "Liga":"Club Friendlies - Club Friendlies 2026",
+        "HomeTeam":"Wolfsberger AC",
+        "AwayTeam":"Hradec Kralove",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"12:30",
+        "Liga":"Club Friendlies - Club Friendlies 2026",
+        "HomeTeam":"HNK Gorica",
+        "AwayTeam":"Goztepe",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"21:00",
+        "Liga":"Argentina - Primera Nacional",
+        "HomeTeam":"Atlanta",
+        "AwayTeam":"Colegiales",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"18:30",
+        "Liga":"Argentina - Federal A: Group A",
+        "HomeTeam":"9 de Julio Rafaela",
+        "AwayTeam":"Defensores de Belgrano de Villa Ramallo",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"07:00",
+        "Liga":"Australia - South Australia State League 1",
+        "HomeTeam":"Adelaide Blue Eagles",
+        "AwayTeam":"Modbury Jets",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"07:30",
+        "Liga":"Australia - Victoria Premier League One",
+        "HomeTeam":"Bulleen Lions",
+        "AwayTeam":"Brunswick City",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"19:00",
+        "Liga":"Brazil - Serie B",
+        "HomeTeam":"America MG",
+        "AwayTeam":"Londrina EC",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"20:30",
+        "Liga":"Brazil - Serie B",
+        "HomeTeam":"Ceara",
+        "AwayTeam":"Athletic Club",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"19:30",
+        "Liga":"Brazil - Serie C: 1st Stage",
+        "HomeTeam":"AO Itabaiana",
+        "AwayTeam":"Brusque",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"20:30",
+        "Liga":"Brazil - Serie C: 1st Stage",
+        "HomeTeam":"Figueirense",
+        "AwayTeam":"Volta Redonda",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"22:30",
+        "Liga":"Canada - Canadian Championship",
+        "HomeTeam":"Cavalry FC",
+        "AwayTeam":"Vancouver Whitecaps",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"08:00",
+        "Liga":"China - League One",
+        "HomeTeam":"Ningbo Professional",
+        "AwayTeam":"Foshan Nanshi FC",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"13:00",
+        "Liga":"Estonia - Esiliiga",
+        "HomeTeam":"Maardu Linnameeskond",
+        "AwayTeam":"Tartu JK Welco",
+        "FTHG":1,
+        "FTAG":8
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"16:15",
+        "Liga":"Iceland - Besta deildin",
+        "HomeTeam":"Breidablik",
+        "AwayTeam":"Keflavik",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"17:15",
+        "Liga":"Iceland - 1. Deild",
+        "HomeTeam":"Vestri",
+        "AwayTeam":"Fylkir",
+        "FTHG":2,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"17:00",
+        "Liga":"Paraguay - Division Intermedia",
+        "HomeTeam":"Independiente CG",
+        "AwayTeam":"Tacuary",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"19:30",
+        "Liga":"Paraguay - Division Intermedia",
+        "HomeTeam":"Deportivo Capiata",
+        "AwayTeam":"Atletico Tembetary",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"19:00",
+        "Liga":"Uruguay - Primera División: Intermedio Group A",
+        "HomeTeam":"Cerro Largo",
+        "AwayTeam":"Defensor Sporting",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"15:00",
+        "Liga":"Uruguay - Segunda División",
+        "HomeTeam":"La Luz",
+        "AwayTeam":"Tacuarembo FC",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"19:00",
+        "Liga":"Uruguay - Segunda División",
+        "HomeTeam":"Paysandu",
+        "AwayTeam":"Fenix",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"15:00",
+        "Liga":"Argentina - Primera C",
+        "HomeTeam":"CA Fenix",
+        "AwayTeam":"Sportivo Barracas",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-07-13",
+        "Hora":"15:00",
+        "Liga":"Argentina - Primera C",
+        "HomeTeam":"Claypole",
+        "AwayTeam":"Leones de Rosario",
+        "FTHG":1,
+        "FTAG":1
     }
 ]
