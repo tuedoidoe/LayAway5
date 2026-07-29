@@ -126,7 +126,7 @@
     "Sporting Lisbon B": "Sporting CP B",
     "Western Sydney Wanderers": "Western Sydney Wanderers FC",
     "Leverkusen": "Bayer Leverkusen",
-    "Botosani": "FC Botosani",
+    "FC Botosani": "Botosani",
     "Andorra CF": "Andorra",
     "Independiente Rivadavia": "Ind. Rivadavia",
     "Talleres": "Talleres Cordoba",
@@ -224,7 +224,6 @@
     "Bochum": "VfL Bochum",
     "St Mirren": "St. Mirren",
     "Athletic Bilbao": "Athletic Club",
-    "Guimaraes": "Vitoria de Guimaraes",
     "Roma": "AS Roma",
     "Leeds": "Leeds United",
     "Fleury Merogis": "FC Fleury 91",
@@ -344,6 +343,8 @@
     "Hillerod Fodbold": "Hilleroed",
     "Sarpsborg": "Sarpsborg 08",
     "Ind Medellin": "Independiente Medellin",
-    "Stirling": "Stirling Albion"
+    "Stirling": "Stirling Albion",
+    "Vitoria Guimaraes": "Vitoria de Guimaraes",
+    "Stuttgart": "VfB Stuttgart"
   }
 }
