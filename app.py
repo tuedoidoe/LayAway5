@@ -17,9 +17,9 @@ def drop_reset_index(df):
     return df.reset_index(drop=True)
 
 # ==========================================
-# CARREGAMENTO DOS DICIONÁRIOS JSON
+# CARREGAMENTO DOS DICIONÁRIOS JSON E MODELO (CACHE OTIMIZADO)
 # ==========================================
-@st.cache_data # Desativar, fazer as modificações no arquivo mapeamentos.json, rodar, ativar novamente e depois ativar.
+@st.cache_data 
 def carregar_mapeamentos():
     try:
         with open("mapeamentos.json", "r", encoding="utf-8") as f:
@@ -38,6 +38,15 @@ def identificar_torneio(nome_sujo):
             return codigo
     return nome_sujo
 
+# OTIMIZAÇÃO 1: Fazer cache do modelo de Machine Learning
+@st.cache_resource
+def carregar_modelo_ml():
+    try:
+        return joblib.load('Modelo_LayAway_6.pkl')
+    except Exception as e:
+        st.error(f"Erro ao carregar o modelo: {e}")
+        return None
+
 # ==========================================
 # CONFIGURAÇÃO DA PÁGINA E LOGIN
 # ==========================================
@@ -51,136 +60,25 @@ def mudar_pagina(nome_pagina):
 
 st.markdown("""
     <style>
-    .stApp {
-        background-color: #0e1117;
-        font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
-    .titulo-premium {
-        font-family: 'Arial Black', Impact, sans-serif;
-        font-size: 60px !important;
-        font-weight: 900;
-        letter-spacing: -2px;
-        background: linear-gradient(135deg, #d4af37 0%, #fff2cd 25%, #c0c0c0 50%, #e5e4e2 75%, #b5952f 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 0px;
-        padding-bottom: 0px;
-        line-height: 1.1;
-        text-transform: uppercase;
-        display: inline-block;
-    }
-    .data-atualizacao {
-        color: #888888;
-        font-size: 15px;
-        font-weight: 600;
-        margin-top: 5px;
-        margin-bottom: 20px;
-    }
+    .stApp { background-color: #0e1117; font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    .titulo-premium { font-family: 'Arial Black', Impact, sans-serif; font-size: 60px !important; font-weight: 900; letter-spacing: -2px; background: linear-gradient(135deg, #d4af37 0%, #fff2cd 25%, #c0c0c0 50%, #e5e4e2 75%, #b5952f 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0px; padding-bottom: 0px; line-height: 1.1; text-transform: uppercase; display: inline-block; }
+    .data-atualizacao { color: #888888; font-size: 15px; font-weight: 600; margin-top: 5px; margin-bottom: 20px; }
     div[data-testid="stRadio"] { display: flex !important; justify-content: flex-start !important; align-items: center !important; height: 100%;}
-    div[data-testid="stRadio"] > div[role="radiogroup"] { 
-        display: flex !important; 
-        flex-direction: row !important; 
-        gap: 20px; 
-        flex-wrap: nowrap !important;
-        white-space: nowrap !important;
-    }
-    div[data-testid="stNumberInput"] label p, div[data-testid="stSelectbox"] label p {
-        font-size: 15px !important; 
-        font-weight: bold !important;
-        color: #e0e0e0 !important;
-    }
-    div[data-testid="stNumberInputContainer"] {
-        background-color: #1e1e1e !important;
-        border: 1px solid #333 !important;
-        border-radius: 6px !important;
-    }
-    div[data-testid="stNumberInputContainer"] input {
-        color: #00d26a !important;
-        font-weight: bold !important;
-    }
-    
-    /* Configuração Geral de Botões (Primário Verde, Secundário Cinza) */
-    div[data-testid="stButton"] > button {
-        font-weight: 900 !important; 
-        border-radius: 6px !important; 
-        font-size: 16px !important;
-        height: 40px !important;
-        transition: all 0.3s ease;
-        white-space: nowrap !important;
-    }
-    div[data-testid="stButton"] > button[kind="primary"] { 
-        background-color: #00d26a !important; 
-        color: #121212 !important; 
-        border: none !important;
-    }
-    div[data-testid="stButton"] > button[kind="primary"]:hover { 
-        background-color: #00b55b !important; 
-        transform: translateY(-2px);
-    }
-    div[data-testid="stButton"] > button[kind="secondary"] { 
-        background-color: #333333 !important; 
-        color: #ffffff !important; 
-        border: 1px solid #555555 !important;
-    }
-    div[data-testid="stButton"] > button[kind="secondary"]:hover { 
-        background-color: #444444 !important; 
-        border-color: #777777 !important;
-        transform: translateY(-2px);
-    }
-
-    div[data-testid="stDownloadButton"] {
-        display: flex;
-        justify-content: flex-end !important;
-        width: 100% !important;
-        margin-bottom: 5px;
-        padding-right: 0px !important; 
-    }
-    div[data-testid="stDownloadButton"] > button { 
-        background-color: #262730 !important; 
-        color: white !important; 
-        border-radius: 6px !important; 
-        border: 1px solid #444 !important;
-        width: max-content !important; 
-        padding: 6px 20px !important;
-    }
+    div[data-testid="stRadio"] > div[role="radiogroup"] { display: flex !important; flex-direction: row !important; gap: 20px; flex-wrap: nowrap !important; white-space: nowrap !important; }
+    div[data-testid="stNumberInput"] label p, div[data-testid="stSelectbox"] label p { font-size: 15px !important; font-weight: bold !important; color: #e0e0e0 !important; }
+    div[data-testid="stNumberInputContainer"] { background-color: #1e1e1e !important; border: 1px solid #333 !important; border-radius: 6px !important; }
+    div[data-testid="stNumberInputContainer"] input { color: #00d26a !important; font-weight: bold !important; }
+    div[data-testid="stButton"] > button { font-weight: 900 !important; border-radius: 6px !important; font-size: 16px !important; height: 40px !important; transition: all 0.3s ease; white-space: nowrap !important; }
+    div[data-testid="stButton"] > button[kind="primary"] { background-color: #00d26a !important; color: #121212 !important; border: none !important; }
+    div[data-testid="stButton"] > button[kind="primary"]:hover { background-color: #00b55b !important; transform: translateY(-2px); }
+    div[data-testid="stButton"] > button[kind="secondary"] { background-color: #333333 !important; color: #ffffff !important; border: 1px solid #555555 !important; }
+    div[data-testid="stButton"] > button[kind="secondary"]:hover { background-color: #444444 !important; border-color: #777777 !important; transform: translateY(-2px); }
+    div[data-testid="stDownloadButton"] { display: flex; justify-content: flex-end !important; width: 100% !important; margin-bottom: 5px; padding-right: 0px !important; }
+    div[data-testid="stDownloadButton"] > button { background-color: #262730 !important; color: white !important; border-radius: 6px !important; border: 1px solid #444 !important; width: max-content !important; padding: 6px 20px !important; }
     div[data-testid="stDownloadButton"] > button:hover { background-color: #333 !important; border-color: #666 !important; }
-    
-    .tooltip-header { 
-        position: relative; 
-        cursor: help; 
-        border-bottom: 1px dotted #888; 
-    }
-    .tooltip-header:hover::after {
-        content: attr(data-title);
-        position: absolute;
-        bottom: 140%; 
-        left: 50%; 
-        transform: translateX(-50%);
-        background-color: #1a1a1a; 
-        color: #00d26a; 
-        padding: 10px 14px; 
-        border-radius: 8px; 
-        font-size: 13px; 
-        font-weight: normal;
-        white-space: normal; 
-        width: max-content; 
-        max-width: 250px; 
-        z-index: 999; 
-        border: 1px solid #333; 
-        text-align: left;
-        line-height: 1.4;
-        box-shadow: 0px 8px 16px rgba(0,0,0,0.7);
-    }
-    .tooltip-header:hover::before {
-        content: ""; 
-        position: absolute; 
-        bottom: 100%; 
-        left: 50%; 
-        transform: translateX(-50%);
-        border-width: 6px; 
-        border-style: solid; 
-        border-color: #1a1a1a transparent transparent transparent;
-    }
+    .tooltip-header { position: relative; cursor: help; border-bottom: 1px dotted #888; }
+    .tooltip-header:hover::after { content: attr(data-title); position: absolute; bottom: 140%; left: 50%; transform: translateX(-50%); background-color: #1a1a1a; color: #00d26a; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: normal; white-space: normal; width: max-content; max-width: 250px; z-index: 999; border: 1px solid #333; text-align: left; line-height: 1.4; box-shadow: 0px 8px 16px rgba(0,0,0,0.7); }
+    .tooltip-header:hover::before { content: ""; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); border-width: 6px; border-style: solid; border-color: #1a1a1a transparent transparent transparent; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -190,25 +88,18 @@ def check_password():
     with col2:
         st.markdown("<br><br>", unsafe_allow_html=True)
         st.image("logo.png", use_container_width=True)
-        
         def password_entered():
             senha_digitada = st.session_state.get("password", "")
             if senha_digitada == st.secrets["senha_secreta"]:
                 st.session_state["password_correct"] = True
-                if "password" in st.session_state:
-                    del st.session_state["password"]
-            else: 
-                st.session_state["password_correct"] = False
-
+                if "password" in st.session_state: del st.session_state["password"]
+            else: st.session_state["password_correct"] = False
         st.text_input("🔑 Senha:", type="password", on_change=password_entered, key="password")
-
         if st.button("Acessar", use_container_width=True, type="primary"):
             password_entered()
             st.rerun()
-
         if "password_correct" in st.session_state and not st.session_state["password_correct"]:
             st.error("❌ Senha incorreta.")
-            
     return False
 
 # ==========================================
@@ -242,7 +133,6 @@ def carregar_base_livescore():
 def baixar_jogos_do_dia(data):
     try:
         url = f"https://apicomunidade.futpythontrader.com/api/dados/jogos-do-dia/betfair/{data}/download"
-        # url = f"https://api.futpythontrader.com/api/dados/jogos-do-dia/betfair/{data}/"
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             df_api = pd.read_csv(io.BytesIO(response.content))
@@ -254,14 +144,11 @@ def baixar_jogos_do_dia(data):
 @st.dialog("📊 Raio-X do Confronto: Boca de Jacaré", width="large")
 def abrir_popup_grafico(t_casa, t_fora, df_completo):
     df_historico = df_completo.dropna(subset=['Goals_H_FT', 'Goals_A_FT']).copy()
-    
     hist_casa = df_historico[(df_historico['Home'] == t_casa)].tail(10).copy()
     hist_fora = df_historico[(df_historico['Away'] == t_fora)].tail(10).copy()
     
-    if not hist_casa.empty:
-        hist_casa['MM_Gols_Feitos'] = hist_casa['Goals_H_FT'].rolling(window=3, min_periods=1).mean()
-    if not hist_fora.empty:
-        hist_fora['MM_Gols_Sofridos'] = hist_fora['Goals_H_FT'].rolling(window=3, min_periods=1).mean()
+    if not hist_casa.empty: hist_casa['MM_Gols_Feitos'] = hist_casa['Goals_H_FT'].rolling(window=3, min_periods=1).mean()
+    if not hist_fora.empty: hist_fora['MM_Gols_Sofridos'] = hist_fora['Goals_H_FT'].rolling(window=3, min_periods=1).mean()
     
     hist_casa = hist_casa.tail(6)
     hist_fora = hist_fora.tail(6)
@@ -270,83 +157,45 @@ def abrir_popup_grafico(t_casa, t_fora, df_completo):
     fig = go.Figure()
 
     if not hist_casa.empty:
-        fig.add_trace(go.Scatter(
-            x=eixo_x[:len(hist_casa)], y=hist_casa['MM_Gols_Feitos'].values,
-            mode='lines+markers', name=f"📈 Poder de Fogo ({t_casa})",
-            line=dict(color='#00d26a', width=4, shape='spline'),
-            marker=dict(size=10, color='#00d26a', symbol='circle'),
-            fill='tozeroy', fillcolor='rgba(0, 210, 106, 0.05)'
-        ))
-
+        fig.add_trace(go.Scatter(x=eixo_x[:len(hist_casa)], y=hist_casa['MM_Gols_Feitos'].values, mode='lines+markers', name=f"📈 Poder de Fogo ({t_casa})", line=dict(color='#00d26a', width=4, shape='spline'), marker=dict(size=10, color='#00d26a', symbol='circle'), fill='tozeroy', fillcolor='rgba(0, 210, 106, 0.05)'))
     if not hist_fora.empty:
-        fig.add_trace(go.Scatter(
-            x=eixo_x[:len(hist_fora)], y=hist_fora['MM_Gols_Sofridos'].values, 
-            mode='lines+markers', name=f"📉 Crise Defensiva ({t_fora})",
-            line=dict(color='#ff4b4b', width=4, shape='spline', dash='dot'),
-            marker=dict(size=10, color='#ff4b4b', symbol='diamond')
-        ))
+        fig.add_trace(go.Scatter(x=eixo_x[:len(hist_fora)], y=hist_fora['MM_Gols_Sofridos'].values, mode='lines+markers', name=f"📉 Crise Defensiva ({t_fora})", line=dict(color='#ff4b4b', width=4, shape='spline', dash='dot'), marker=dict(size=10, color='#ff4b4b', symbol='diamond')))
 
     max_casa = hist_casa['MM_Gols_Feitos'].max() if not hist_casa.empty else 0
     max_fora = hist_fora['MM_Gols_Sofridos'].max() if not hist_fora.empty else 0
     teto_grafico = max(max_casa, max_fora) + 0.5 if max(max_casa, max_fora) > 0 else 3.0
 
-    fig.update_layout(
-        plot_bgcolor='#121212', paper_bgcolor='#121212',
-        font=dict(color='#888'),
-        xaxis=dict(showgrid=True, gridwidth=1, gridcolor='#333'),
-        yaxis=dict(title='Média Móvel de Gols', showgrid=True, gridwidth=1, gridcolor='#333', range=[-0.5, teto_grafico]),
-        hovermode="x unified",
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
-        margin=dict(l=20, r=20, t=30, b=20)
-    )
+    fig.update_layout(plot_bgcolor='#121212', paper_bgcolor='#121212', font=dict(color='#888'), xaxis=dict(showgrid=True, gridwidth=1, gridcolor='#333'), yaxis=dict(title='Média Móvel de Gols', showgrid=True, gridwidth=1, gridcolor='#333', range=[-0.5, teto_grafico]), hovermode="x unified", legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1), margin=dict(l=20, r=20, t=30, b=20))
     st.plotly_chart(fig, use_container_width=True)
 
     val_ataque = hist_casa['MM_Gols_Feitos'].iloc[-1] if not hist_casa.empty and 'MM_Gols_Feitos' in hist_casa.columns else 0.0
     momento_ataque_casa = float(val_ataque) if pd.notna(val_ataque) else 0.0
-    
     val_defesa = hist_fora['MM_Gols_Sofridos'].iloc[-1] if not hist_fora.empty and 'MM_Gols_Sofridos' in hist_fora.columns else 0.0
     momento_defesa_fora = float(val_defesa) if pd.notna(val_defesa) else 0.0
 
     st.markdown("<hr style='margin-top: 10px; border: 1px solid #333;'>", unsafe_allow_html=True)
     col_msg1, col_msg2 = st.columns(2)
-    
     with col_msg1:
-        if momento_ataque_casa >= 1.5:
-            st.success(f"🔥 **Ataque Feroz:** A tendência atual do {t_casa} é marcar {momento_ataque_casa:.1f} gols/jogo.")
-        elif momento_ataque_casa >= 1.0:
-            st.info(f"⚖️ **Ataque Regular:** A tendência atual do {t_casa} é marcar {momento_ataque_casa:.1f} gols/jogo.")
-        else:
-            st.error(f"⚠️ **Ataque Inofensivo:** O {t_casa} vem sofrendo para marcar (tendência de {momento_ataque_casa:.1f} gols/jogo).")
-            
+        if momento_ataque_casa >= 1.5: st.success(f"🔥 **Ataque Feroz:** A tendência atual do {t_casa} é marcar {momento_ataque_casa:.1f} gols/jogo.")
+        elif momento_ataque_casa >= 1.0: st.info(f"⚖️ **Ataque Regular:** A tendência atual do {t_casa} é marcar {momento_ataque_casa:.1f} gols/jogo.")
+        else: st.error(f"⚠️ **Ataque Inofensivo:** O {t_casa} vem sofrendo para marcar (tendência de {momento_ataque_casa:.1f} gols/jogo).")
     with col_msg2:
-        if momento_defesa_fora >= 1.5:
-            st.success(f"🚨 **Defesa em Crise:** A zaga do {t_fora} está vazando! Sofrendo {momento_defesa_fora:.1f} gols/jogo.")
-        elif momento_defesa_fora >= 1.0:
-            st.info(f"⚖️ **Defesa Regular:** A tendência atual do {t_fora} é sofrer {momento_defesa_fora:.1f} gols/jogo.")
-        else:
-            st.error(f"🛡️ **Defesa Intransponível:** O {t_fora} ajustou a zaga e vem sofrendo apenas {momento_defesa_fora:.1f} gols/jogo.")
+        if momento_defesa_fora >= 1.5: st.success(f"🚨 **Defesa em Crise:** A zaga do {t_fora} está vazando! Sofrendo {momento_defesa_fora:.1f} gols/jogo.")
+        elif momento_defesa_fora >= 1.0: st.info(f"⚖️ **Defesa Regular:** A tendência atual do {t_fora} é sofrer {momento_defesa_fora:.1f} gols/jogo.")
+        else: st.error(f"🛡️ **Defesa Intransponível:** O {t_fora} ajustou a zaga e vem sofrendo apenas {momento_defesa_fora:.1f} gols/jogo.")
 
     if momento_ataque_casa >= 1.5 and momento_defesa_fora >= 1.5:
-        veredito = "🐊 <b>BOCA DE JACARÉ DETECTADA:</b> Cenário PERFEITO para Lay Away! O ataque do mandante está crescendo na mesma proporção em que a defesa do visitante está afundando."
-        cor_borda = "#00d26a"
+        veredito, cor_borda = "🐊 <b>BOCA DE JACARÉ DETECTADA:</b> Cenário PERFEITO para Lay Away! O ataque do mandante está crescendo na mesma proporção em que a defesa do visitante está afundando.", "#00d26a"
     elif momento_ataque_casa < 1.0 and momento_defesa_fora < 1.0:
-        veredito = "🧱 <b>CENÁRIO PERIGOSO:</b> Mandante com ataque inoperante contra uma defesa visitante ajustada. Risco alto de jogo truncado ou 0x0. Evite o Lay Away."
-        cor_borda = "#ff4b4b"
+        veredito, cor_borda = "🧱 <b>CENÁRIO PERIGOSO:</b> Mandante com ataque inoperante contra uma defesa visitante ajustada. Risco alto de jogo truncado ou 0x0. Evite o Lay Away.", "#ff4b4b"
     elif momento_ataque_casa >= 1.5 and momento_defesa_fora < 1.0:
-        veredito = "⚔️ <b>JOGO DE PACIÊNCIA:</b> O mandante tem muito volume, mas o visitante sabe se defender. A linha de gols dependerá da quebra dessa retranca."
-        cor_borda = "#fada5e"
+        veredito, cor_borda = "⚔️ <b>JOGO DE PACIÊNCIA:</b> O mandante tem muito volume, mas o visitante sabe se defender. A linha de gols dependerá da quebra dessa retranca.", "#fada5e"
     elif momento_ataque_casa < 1.0 and momento_defesa_fora >= 1.5:
-        veredito = "🎲 <b>CENÁRIO IMPREVISÍVEL:</b> A defesa visitante é terrível, mas o ataque mandante não aproveita. Jogo com alta chance de zebras."
-        cor_borda = "#fada5e"
+        veredito, cor_borda = "🎲 <b>CENÁRIO IMPREVISÍVEL:</b> A defesa visitante é terrível, mas o ataque mandante não aproveita. Jogo com alta chance de zebras.", "#fada5e"
     else:
-        veredito = "⚖️ <b>CENÁRIO NEUTRO:</b> As médias móveis estão estáveis. Não há padrão claro de Boca de Jacaré neste momento."
-        cor_borda = "#3b82f6"
+        veredito, cor_borda = "⚖️ <b>CENÁRIO NEUTRO:</b> As médias móveis estão estáveis. Não há padrão claro de Boca de Jacaré neste momento.", "#3b82f6"
 
-    st.markdown(f"""
-    <div style='border-left: 5px solid {cor_borda}; background-color: #1e1e1e; padding: 15px; border-radius: 5px; margin-top: 15px; color: #e0e0e0; font-size: 15px;'>
-        {veredito}
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(f"<div style='border-left: 5px solid {cor_borda}; background-color: #1e1e1e; padding: 15px; border-radius: 5px; margin-top: 15px; color: #e0e0e0; font-size: 15px;'>{veredito}</div>", unsafe_allow_html=True)
 
 
 # ==========================================
@@ -355,7 +204,10 @@ def abrir_popup_grafico(t_casa, t_fora, df_completo):
 def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisando..."):
     with st.spinner(st_context_msg):
         try:
-            dados_modelo = joblib.load('Modelo_LayAway_6.pkl')
+            # Chama o modelo através da função cacheadada (Muito mais rápido)
+            dados_modelo = carregar_modelo_ml()
+            if not dados_modelo: return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
+            
             model = dados_modelo['modelo']
             taxas_ligas = dados_modelo['liga_rates']
             media_global_treino = dados_modelo['media_global']
@@ -409,6 +261,11 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                 if dicionario_times_fuzzy:
                     df_alvo_odd['Home'] = df_alvo_odd.apply(lambda r: dicionario_times_fuzzy.get((r['League'], r['Home']), r['Home']), axis=1)
                     df_alvo_odd['Away'] = df_alvo_odd.apply(lambda r: dicionario_times_fuzzy.get((r['League'], r['Away']), r['Away']), axis=1)
+                
+                # OTIMIZAÇÃO 2: Filtro de Memória na Camada Odd (Corta o tamanho do Dataframe)
+                times_alvo_odd = set(df_alvo_odd['Home']).union(set(df_alvo_odd['Away']))
+                df_hist_passado = df_hist_passado[df_hist_passado['Home'].isin(times_alvo_odd) | df_hist_passado['Away'].isin(times_alvo_odd)]
+                
                 df_completo = pd.concat([df_hist_passado, df_alvo_odd], ignore_index=True)
             else:
                 df_completo = df_alvo.copy()
@@ -442,7 +299,6 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                 df_livescore['Home'] = df_livescore['Home'].map(tradutor_times).fillna(df_livescore['Home'])
                 df_livescore['Away'] = df_livescore['Away'].map(tradutor_times).fillna(df_livescore['Away'])
                 
-                # Fonte histórica estável, independente do período consultado.
                 df_ls_passado = df_livescore.copy()
                 
                 df_ls_h = df_ls_passado[['League', 'Home']].rename(columns={'Home': 'Team'})
@@ -463,6 +319,11 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                 if dic_fuzzy_ls:
                     df_alvo_ls['Home'] = df_alvo_ls.apply(lambda r: dic_fuzzy_ls.get((r['League'], r['Home']), r['Home']), axis=1)
                     df_alvo_ls['Away'] = df_alvo_ls.apply(lambda r: dic_fuzzy_ls.get((r['League'], r['Away']), r['Away']), axis=1)
+                
+                # OTIMIZAÇÃO 3: Filtro de Memória na Camada Estatísticas 
+                # (Isso impede o Pandas de calcular janelas de rolagem para todos os times do mundo)
+                times_alvo_ls = set(df_alvo_ls['Home']).union(set(df_alvo_ls['Away']))
+                df_ls_passado = df_ls_passado[df_ls_passado['Home'].isin(times_alvo_ls) | df_ls_passado['Away'].isin(times_alvo_ls)]
                     
                 df_stats = pd.concat([df_ls_passado, df_alvo_ls], ignore_index=True)
                 
@@ -476,10 +337,10 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                 df_stats = drop_reset_index(df_stats.sort_values(["Date", "_ordem_hora", "Home"], kind='stable'))
             else:
                 df_stats = drop_reset_index(df_stats.sort_values(["Date", "Home"], kind='stable'))
+                
             df_stats['Goals_H_FT'] = pd.to_numeric(df_stats['Goals_H_FT'], errors='coerce')
             df_stats['Goals_A_FT'] = pd.to_numeric(df_stats['Goals_A_FT'], errors='coerce')
 
-            # Jogos sem placar permanecem como NaN e não entram como derrota.
             jogo_finalizado = df_stats['Goals_H_FT'].notna() & df_stats['Goals_A_FT'].notna()
             df_stats['Pts_H'] = np.select(
                 [jogo_finalizado & (df_stats['Goals_H_FT'] > df_stats['Goals_A_FT']), jogo_finalizado & (df_stats['Goals_H_FT'] == df_stats['Goals_A_FT'])],
@@ -786,7 +647,6 @@ def pagina_resultados():
                 return f"<div style='width: 20px; height: 20px; background-color: {cor}; border-radius: 4px; margin: auto;'></div>"
             df_view['Resultado'] = df_view.apply(html_resultado, axis=1)
 
-            # --- NOVOS CÁLCULOS DE GREEN E RED ---
             qtd_green = len(df_view[df_view['Goals_H_FT'] >= df_view['Goals_A_FT']])
             qtd_red = len(df_view[df_view['Goals_H_FT'] < df_view['Goals_A_FT']])
 
