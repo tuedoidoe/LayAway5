@@ -60,9 +60,9 @@ def carregar_memoria():
                 dados = json.load(f)
                 if dados.get("data") == hoje:
                     enviados = dados.get("enviados", {})
-                    # Trava para converter arquivo antigo (lista) para o novo formato (dicionário)
+                    # Trava de segurança caso o arquivo antigo fosse uma lista
                     if isinstance(enviados, list):
-                        return {jogo: "ativo" for jogo in enviados}
+                        return {jogo: "enviado" for jogo in enviados}
                     return enviados
     except Exception as e:
         print(f"Erro ao ler memória: {e}")
@@ -272,81 +272,55 @@ def rodar_bot():
 
     # Previsão p/ todos
     df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
+    
+    # --- CÁLCULO DA ODD MÁXIMA PERMITIDA (Odd Justa EV+ 0) ---
+    df_hoje["Odd Lay Min EV+"] = np.where(df_hoje["Previsao"] < 1.0, 1 / (1 - df_hoje["Previsao"]), 999.99)
+    
     df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
     
-    # Filtro de Operabilidade
+    # Filtro de Operabilidade Inicial
     df_bruto = df_hoje[(df_hoje["Edge"] >= 0.0) & (df_hoje['Odd_A_Lay'] <= 3.50) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back'])].copy()
 
     jogos_memoria = carregar_memoria()
     novos_envios = False
-    jogos_operaveis_agora = []
 
-    # 1. VERIFICA JOGOS NOVOS OU QUE RETORNARAM A FICAR OPERÁVEIS
+    # 1. VERIFICA APENAS JOGOS NOVOS QUE ENTRARAM NO RADAR (NÃO EXCLUI MAIS NENHUM)
     for index, row in df_bruto.iterrows():
         id_jogo_str = f"{row['Home']} x {row['Away']}"
-        jogos_operaveis_agora.append(id_jogo_str)
         
-        status_anterior = jogos_memoria.get(id_jogo_str)
-        
-        if status_anterior != "ativo":
+        # Se o jogo AINDA NÃO FOI alertado hoje, envia a notificação!
+        if id_jogo_str not in jogos_memoria:
             edge_pct = row['Edge'] * 100
             odd = row['Odd_A_Lay']
+            odd_teto = row['Odd Lay Min EV+']
             horario = row['Time']
             liga = row['League']
             data_formatada = row['Date'].strftime('%d/%m/%Y')
             score = int(row['Score'])
             alerta = '🟢' if score >= 55 else '🟡' if score >= 48 else '🔴'
 
-            titulo = "🚨 <b>NOVO ALERTA LAY AWAY</b> 🚨" if status_anterior is None else "🔄 <b>ATUALIZAÇÃO: VOLTOU A TER VALOR</b> 🔄"
-
-            msg = f"{titulo}\n\n"
+            msg = f"🚨 <b>NOVO ALERTA LAY AWAY</b> 🚨\n\n"
             msg += f"⚽ <b>Jogo:</b> {id_jogo_str}\n"
             msg += f"🏆 <b>Liga:</b> {liga}\n"
             msg += f"📅 <b>Data:</b> {data_formatada}\n"
             msg += f"⏰ <b>Horário:</b> {horario}\n"
-            msg += f"📉 <b>Odd Lay Fora:</b> {odd:.2f}\n"
+            msg += f"📉 <b>Odd Lay Fora (Atual):</b> {odd:.2f}\n"
+            msg += f"🎯 <b>Odd Lay Máxima (Teto EV+):</b> {odd_teto:.2f}\n"
             msg += f"💎 <b>Edge (EV+):</b> {edge_pct:.2f}%\n"
             msg += f"📊 <b>Score:</b> {score} {alerta}\n\n"
-            msg += f"✅ <b>Status: Jogo Operável</b>"
+            msg += f"✅ <b>Status: Jogo no Radar. Monitore a Odd Teto!</b>"
 
             enviar_mensagem_telegram(msg)
-            print(f"Enviado Operável: {id_jogo_str}")
+            print(f"Enviado Alerta: {id_jogo_str}")
             
-            jogos_memoria[id_jogo_str] = "ativo"
-            novos_envios = True
-
-    # 2. VERIFICA JOGOS QUE PERDERAM A OPERABILIDADE
-    for jogo_memoria, status in jogos_memoria.items():
-        if status == "ativo" and jogo_memoria not in jogos_operaveis_agora:
-            
-            home_team, away_team = jogo_memoria.split(" x ")
-            jogo_dados = df_hoje[(df_hoje['Home'] == home_team) & (df_hoje['Away'] == away_team)]
-            
-            msg = f"⚠️ <b>ALERTA DE SAÍDA LAY AWAY</b> ⚠️\n\n"
-            msg += f"⚽ <b>Jogo:</b> {jogo_memoria}\n"
-            
-            if not jogo_dados.empty:
-                row = jogo_dados.iloc[-1]
-                odd = row['Odd_A_Lay']
-                edge_pct = row['Edge'] * 100
-                msg += f"📉 <b>Odd Lay Fora Atual:</b> {odd:.2f}\n"
-                msg += f"💎 <b>Edge Atual:</b> {edge_pct:.2f}%\n\n"
-                msg += f"❌ <b>Status: Jogo Não Operável</b>\n"
-                msg += f"<i>(A odd subiu, o Edge caiu ou o favoritismo virou.)</i>"
-            else:
-                msg += f"\n❌ <b>Status: Jogo Não Operável</b>\n"
-                msg += f"<i>(Partida iniciada, odd suspensa ou mercado fechado.)</i>"
-
-            enviar_mensagem_telegram(msg)
-            print(f"Enviado Inoperável: {jogo_memoria}")
-            
-            jogos_memoria[jogo_memoria] = "inativo"
+            # Marca na memória que esse jogo já foi avisado hoje (evita duplicidade nas próximas varreduras)
+            jogos_memoria[id_jogo_str] = "enviado"
             novos_envios = True
 
     if novos_envios:
         salvar_memoria(jogos_memoria)
     else:
-        print("Nenhuma mudança de status nos jogos encontrados hoje.")
+        print("Nenhum jogo novo encontrou os filtros de valor nesta varredura.")
 
 if __name__ == "__main__":
     rodar_bot()
