@@ -146,13 +146,13 @@ def abrir_popup_grafico(t_casa, t_fora, df_completo):
     df_historico = df_completo.dropna(subset=['Goals_H_FT', 'Goals_A_FT']).copy()
     hist_casa = df_historico[(df_historico['Home'] == t_casa)].tail(10).copy()
     hist_fora = df_historico[(df_historico['Away'] == t_fora)].tail(10).copy()
-    
+
     if not hist_casa.empty: hist_casa['MM_Gols_Feitos'] = hist_casa['Goals_H_FT'].rolling(window=3, min_periods=1).mean()
     if not hist_fora.empty: hist_fora['MM_Gols_Sofridos'] = hist_fora['Goals_H_FT'].rolling(window=3, min_periods=1).mean()
-    
+
     hist_casa = hist_casa.tail(6)
     hist_fora = hist_fora.tail(6)
-    
+
     eixo_x = [f"Jogo {i+1}" for i in range(6)]
     fig = go.Figure()
 
@@ -207,15 +207,15 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
             # Chama o modelo através da função cacheadada (Muito mais rápido)
             dados_modelo = carregar_modelo_ml()
             if not dados_modelo: return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
-            
+
             model = dados_modelo['modelo']
             taxas_ligas = dados_modelo['liga_rates']
             media_global_treino = dados_modelo['media_global']
             X_cols_treino = dados_modelo['features']
-            
+
             df_hist = baixar_base_dados()
             df_alvo_lista = []
-            
+
             if tipo_filtro == "Data Única":
                 df_dia = baixar_jogos_do_dia(data_selecionada.strftime('%Y-%m-%d'))
                 if not df_dia.empty: df_alvo_lista.append(df_dia)
@@ -225,9 +225,9 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                 for data_atual in pd.date_range(start=d_inicio, end=d_fim):
                     df_dia = baixar_jogos_do_dia(data_atual.strftime('%Y-%m-%d'))
                     if not df_dia.empty: df_alvo_lista.append(df_dia)
-            
+
             df_alvo = pd.concat(df_alvo_lista, ignore_index=True) if df_alvo_lista else pd.DataFrame()
-            
+
             if not df_alvo.empty:
                 df_alvo['id_jogo'] = range(1, len(df_alvo) + 1)
                 if 'League' in df_alvo.columns:
@@ -246,7 +246,7 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                 df_hist_h = df_hist_passado[['League', 'Home']].rename(columns={'Home': 'Team'})
                 df_hist_a = df_hist_passado[['League', 'Away']].rename(columns={'Away': 'Team'})
                 df_hist_all_teams = pd.concat([df_hist_h, df_hist_a]).drop_duplicates()
-                
+
                 dicionario_times_fuzzy = {}
                 for liga in df_alvo['League'].unique():
                     times_hist_liga = df_hist_all_teams[df_hist_all_teams['League'] == liga]['Team'].tolist()
@@ -256,31 +256,31 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                         if time not in times_hist_liga:
                             match = process.extractOne(time, times_hist_liga, scorer=fuzz.ratio)
                             if match and match[1] >= 80: dicionario_times_fuzzy[(liga, time)] = match[0]
-                
+
                 df_alvo_odd = df_alvo.copy()
                 if dicionario_times_fuzzy:
                     df_alvo_odd['Home'] = df_alvo_odd.apply(lambda r: dicionario_times_fuzzy.get((r['League'], r['Home']), r['Home']), axis=1)
                     df_alvo_odd['Away'] = df_alvo_odd.apply(lambda r: dicionario_times_fuzzy.get((r['League'], r['Away']), r['Away']), axis=1)
-                
+
                 # OTIMIZAÇÃO 2: Filtro de Memória na Camada Odd (Corta o tamanho do Dataframe)
                 times_alvo_odd = set(df_alvo_odd['Home']).union(set(df_alvo_odd['Away']))
                 df_hist_passado = df_hist_passado[df_hist_passado['Home'].isin(times_alvo_odd) | df_hist_passado['Away'].isin(times_alvo_odd)]
-                
+
                 df_completo = pd.concat([df_hist_passado, df_alvo_odd], ignore_index=True)
             else:
                 df_completo = df_alvo.copy()
-                
+
             df_completo = drop_reset_index(df_completo.sort_values(["Date", "Home"]))
             df_completo['Goals_H_FT'] = pd.to_numeric(df_completo['Goals_H_FT'], errors='coerce')
             df_completo['Goals_A_FT'] = pd.to_numeric(df_completo['Goals_A_FT'], errors='coerce')
-            
+
             prob_h = safe_prob(df_completo['Odd_H_Back'])
             prob_a = safe_prob(df_completo['Odd_A_Back'])
             prob_o25 = safe_prob(df_completo['Odd_Over25_FT_Back'])
             prob_d = np.clip(1.0 - prob_h - prob_a, 0.1, 1.0)
             exp_tg = np.where(prob_o25 > 0, 1.25 + (prob_o25 * 2.5), 2.5) 
             soma_probs = prob_h + prob_a + prob_d
-            
+
             df_completo['XG_Casa'] = np.where(prob_h > 0, (exp_tg * (prob_h + 0.5 * prob_d) / soma_probs), np.nan)
             df_completo['XG_Fora'] = np.where(prob_a > 0, (exp_tg * (prob_a + 0.5 * prob_d) / soma_probs), np.nan)
             df_completo['Prob_1x2_A'] = safe_prob(df_completo['Odd_A_Back'])
@@ -298,13 +298,13 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                 df_livescore = df_livescore.rename(columns={'HomeTeam': 'Home', 'AwayTeam': 'Away', 'FTHG': 'Goals_H_FT', 'FTAG': 'Goals_A_FT'})
                 df_livescore['Home'] = df_livescore['Home'].map(tradutor_times).fillna(df_livescore['Home'])
                 df_livescore['Away'] = df_livescore['Away'].map(tradutor_times).fillna(df_livescore['Away'])
-                
+
                 df_ls_passado = df_livescore.copy()
-                
+
                 df_ls_h = df_ls_passado[['League', 'Home']].rename(columns={'Home': 'Team'})
                 df_ls_a = df_ls_passado[['League', 'Away']].rename(columns={'Away': 'Team'})
                 df_ls_teams = pd.concat([df_ls_h, df_ls_a]).drop_duplicates()
-                
+
                 dic_fuzzy_ls = {}
                 for liga in df_alvo['League'].unique():
                     hist_teams = df_ls_teams[df_ls_teams['League'] == liga]['Team'].tolist()
@@ -314,30 +314,30 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                         if time not in hist_teams:
                             match = process.extractOne(time, hist_teams, scorer=fuzz.ratio, score_cutoff=85)
                             if match: dic_fuzzy_ls[(liga, time)] = match[0]
-                
+
                 df_alvo_ls = df_alvo.copy()
                 if dic_fuzzy_ls:
                     df_alvo_ls['Home'] = df_alvo_ls.apply(lambda r: dic_fuzzy_ls.get((r['League'], r['Home']), r['Home']), axis=1)
                     df_alvo_ls['Away'] = df_alvo_ls.apply(lambda r: dic_fuzzy_ls.get((r['League'], r['Away']), r['Away']), axis=1)
-                
+
                 # OTIMIZAÇÃO 3: Filtro de Memória na Camada Estatísticas 
                 # (Isso impede o Pandas de calcular janelas de rolagem para todos os times do mundo)
                 times_alvo_ls = set(df_alvo_ls['Home']).union(set(df_alvo_ls['Away']))
                 df_ls_passado = df_ls_passado[df_ls_passado['Home'].isin(times_alvo_ls) | df_ls_passado['Away'].isin(times_alvo_ls)]
-                    
+
                 df_stats = pd.concat([df_ls_passado, df_alvo_ls], ignore_index=True)
-                
+
                 df_ls_names = df_alvo_ls[['id_jogo', 'Home', 'Away']].rename(columns={'Home': 'Home_LS', 'Away': 'Away_LS'})
             else:
                 df_stats = df_completo.copy()
                 df_ls_names = pd.DataFrame(columns=['id_jogo', 'Home_LS', 'Away_LS'])
-                
+
             if 'Time' in df_stats.columns:
                 df_stats['_ordem_hora'] = df_stats['Time'].fillna('00:00:00').astype(str)
                 df_stats = drop_reset_index(df_stats.sort_values(["Date", "_ordem_hora", "Home"], kind='stable'))
             else:
                 df_stats = drop_reset_index(df_stats.sort_values(["Date", "Home"], kind='stable'))
-                
+
             df_stats['Goals_H_FT'] = pd.to_numeric(df_stats['Goals_H_FT'], errors='coerce')
             df_stats['Goals_A_FT'] = pd.to_numeric(df_stats['Goals_A_FT'], errors='coerce')
 
@@ -368,18 +368,18 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                 df_hoje = df_hoje[df_hoje['Date'].dt.date == data_selecionada].copy()
             else:
                 df_hoje = df_hoje[(df_hoje['Date'].dt.date >= d_inicio) & (df_hoje['Date'].dt.date <= d_fim)].copy()
-                
+
             df_hoje_stats = df_stats.dropna(subset=['id_jogo'])
             df_hoje = df_hoje.merge(
                 df_hoje_stats[['id_jogo', 'soma_pts_casa', 'soma_pts_fora', 'qtd_jogos_casa', 'qtd_jogos_fora', 
                                'soma_cs_casa', 'soma_fts_fora', 'dp_gs_casa', 'dp_gm_fora', 'vaz_def_fora']],
                 on='id_jogo', how='left'
             )
-            
+
             df_hoje = df_hoje.merge(df_ls_names, on='id_jogo', how='left')
 
             df_hoje = df_hoje[(df_hoje['Odd_A_Lay'] <= 3.50) & (df_hoje['Odd_H_Back'] < df_hoje['Odd_A_Back']) & (abs(df_hoje['Odd_A_Back'] - df_hoje['Odd_A_Lay']) <= 0.50) & (abs(df_hoje['Odd_H_Back'] - df_hoje['Odd_H_Lay']) <= 0.50)].copy()
-            
+
             if len(df_hoje) > 0:
                 xg_total = df_hoje['XG_Casa'] + df_hoje['XG_Fora']
                 score_xg = np.where(xg_total > 0, (df_hoje['XG_Casa'] / xg_total) * 30.0, 15.0)
@@ -411,13 +411,18 @@ def rodar_engine_pesquisa(data_selecionada, tipo_filtro, st_context_msg="Analisa
                 colunas_vitais = list(X_cols_treino) + ['Odd_A_Lay', 'Home', 'Away', 'League', 'Date', 'Home_LS', 'Away_LS']
                 colunas_vitais = [col for col in colunas_vitais if col in df_hoje.columns]
                 df_hoje = drop_reset_index(df_hoje.dropna(subset=colunas_vitais))
-                
+
                 if len(df_hoje) > 0:
                     df_hoje["Previsao"] = model.predict_proba(df_hoje[X_cols_treino])[:, 1]
+                    
+                    # --- NOVA COLUNA: CÁLCULO DA ODD MÁXIMA (Odd Justa) PERMITIDA NO LAY ---
+                    # Para evitar erro de divisão caso a Previsão seja exatamente 1.0, usamos np.where
+                    df_hoje["Odd Lay Min EV+"] = np.where(df_hoje["Previsao"] < 1.0, 1 / (1 - df_hoje["Previsao"]), 999.99)
+                    
                     df_hoje["Edge"] = df_hoje["Previsao"] - (1 - (1 / df_hoje["Odd_A_Lay"]))
                     df_bruto = df_hoje[df_hoje["Edge"] > 0.0].copy()
                     return df_bruto, df_completo, df_livescore 
-            
+
             return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
 
         except Exception as e:
@@ -432,7 +437,7 @@ def pagina_scanner():
     fuso_br = pytz.timezone('America/Sao_Paulo')
     agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
     st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
-    
+
     col_nav, espaco, col_rad, col_dat, col_btn_pesq = st.columns([1.2, 1.5, 1.4, 1.2, 1.2])
 
     with col_nav:
@@ -456,13 +461,13 @@ def pagina_scanner():
     with col_btn_pesq:
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
         btn_procurar = st.button("🚀 Iniciar Varredura", use_container_width=True, key="scan_btn", type="primary")
-        
+
     st.markdown("<hr style='margin-top: 0px; margin-bottom: 25px; border: 1px solid #333;'>", unsafe_allow_html=True)
 
     if btn_procurar:
         st.session_state['mostrar_tabela_scanner'] = False 
         df_bruto, df_completo, _ = rodar_engine_pesquisa(data_selecionada, tipo_filtro, "Analisando o mercado global...")
-        
+
         if df_bruto.empty:
             texto_data = data_selecionada.strftime('%d/%m/%Y') if tipo_filtro == "Data Única" else "no período selecionado"
             st.warning(f"O modelo não encontrou Edge suficiente (>0.0%) ou não há jogos qualificados para {texto_data}.")
@@ -474,21 +479,22 @@ def pagina_scanner():
     if st.session_state.get('mostrar_tabela_scanner', False):
         df_bruto = st.session_state['df_bruto_scanner']
         df_completo = st.session_state['df_completo_scanner']
-        
+
         col_res1, col_sort, col_ordem, col_odd, col_edge, col_score, col_btn = st.columns([3.0, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8])
         with col_sort: coluna_ordem = st.selectbox("Ordenar por", ["Horário", "EV+", "Score"], key="scan_ord1")
         with col_ordem: direcao_ordem = st.selectbox("Ordem", ["Crescente", "Decrescente"], key="scan_ord2")
         with col_odd: odd_selecionada = st.number_input("Odd Lay", min_value=2.30, max_value=3.50, value=2.30, step=0.10, format="%.2f", key="scan_odd")
         with col_edge: edge_selecionado = st.number_input("EV+ (%)", min_value=0.0, max_value=50.0, value=0.0, step=0.50, format="%.1f", key="scan_edge")
         with col_score: score_selecionado = st.number_input("Score", min_value=0, max_value=100, value=0, step=1, key="scan_score")
-        
+
         df_final_filtrado = df_bruto[(df_bruto["Odd_A_Lay"] >= odd_selecionada) & (df_bruto["Edge"] >= (edge_selecionado/100.0)) & (df_bruto["Score"] >= score_selecionado)].copy()
-        
+
         with col_res1:
             st.markdown(f"<div style='text-align: left; font-size: 18px; margin-top: 34px; margin-bottom: 20px;'><span style='color: #888;'>Oportunidades Encontradas:</span> <span style='color: #00d26a; font-weight: 900;'>{len(df_final_filtrado)} jogo(s)</span></div>", unsafe_allow_html=True)
 
-        tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Pontos Casa', 'Pontos Fora', 'FTS Fora', 'DP GM Fora', 'DP GS Casa', 'Vaz Def Fora', 'CS Casa', 'XG_Casa', 'XG_Fora', 'Edge', 'Score', 'Alerta']].copy()
-        
+        # --- NOVA COLUNA ADICIONADA NA ORDEM DE EXIBIÇÃO AQUI ---
+        tabela = df_final_filtrado[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Odd Lay Min EV+', 'Pontos Casa', 'Pontos Fora', 'FTS Fora', 'DP GM Fora', 'DP GS Casa', 'Vaz Def Fora', 'CS Casa', 'XG_Casa', 'XG_Fora', 'Edge', 'Score', 'Alerta']].copy()
+
         if not tabela.empty:
             tabela['Date'] = pd.to_datetime(tabela['Date'])
             is_ascending = (direcao_ordem == "Crescente")
@@ -497,24 +503,29 @@ def pagina_scanner():
             elif coluna_ordem == "Score": tabela = drop_reset_index(tabela.sort_values(by=['Score'], ascending=is_ascending))
 
             tabela['Date'] = tabela['Date'].dt.strftime('%d/%m/%Y')
-            tabela_excel = tabela.rename(columns={'Date': 'Data', 'Time': 'Horário', 'League': 'Liga', 'Home': 'Time Casa', 'Away': 'Time Fora', 'Odd_A_Lay': 'Odd Lay', 'Pontos Casa': 'Pts Casa', 'Pontos Fora': 'Pts Fora', 'XG_Casa': 'xG Casa', 'XG_Fora': 'xG Fora', 'Edge': 'EV+'})
+            
+            # --- MAPEAMENTO DA NOVA COLUNA PARA O EXCEL ---
+            tabela_excel = tabela.rename(columns={'Date': 'Data', 'Time': 'Horário', 'League': 'Liga', 'Home': 'Time Casa', 'Away': 'Time Fora', 'Odd_A_Lay': 'Odd Lay', 'Odd Lay Min EV+': 'Odd Lay Min EV+', 'Pontos Casa': 'Pts Casa', 'Pontos Fora': 'Pts Fora', 'XG_Casa': 'xG Casa', 'XG_Fora': 'xG Fora', 'Edge': 'EV+'})
 
             buffer = io.BytesIO()
             with pd.ExcelWriter(buffer, engine='openpyxl') as writer: tabela_excel.to_excel(writer, index=False, sheet_name='Lay_Away')
-            
+
             with col_btn:
                 st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
                 st.download_button("📥 Exportar Excel", data=buffer.getvalue(), file_name="Jogos_LayAway.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=False)
-            
+
             def estilizar_linhas_premium(row):
                 cor_fundo = '#1e1e1e' if row.name % 2 == 0 else '#121212'
                 return [f'background-color: {cor_fundo}; color: #e0e0e0; text-align: center !important; font-size: 15px; border-bottom: 1px solid #333;'] * len(row)
 
-            tabela_estilizada = tabela_excel.style.apply(estilizar_linhas_premium, axis=1).format({'Odd Lay': '{:.2f}', 'xG Casa': '{:.2f}', 'xG Fora': '{:.2f}', 'EV+': '{:.1%}'}, na_rep="-").hide(axis="index").set_table_attributes('style="width: 100%; border-collapse: collapse; margin-top: 5px; border: 1px solid #333;"').set_table_styles([{'selector': 'th', 'props': [('background-color', '#262730'), ('color', '#ffffff'), ('text-align', 'center !important'), ('font-weight', 'bold'), ('font-size', '16px'), ('padding', '12px 8px'), ('border-bottom', '2px solid #00d26a')]}, {'selector': 'td', 'props': [('text-align', 'center !important'), ('padding', '12px 8px')]}])
-                
+            # --- FORMATAÇÃO DECIMAL DA NOVA COLUNA ADICIONADA AQUI ---
+            tabela_estilizada = tabela_excel.style.apply(estilizar_linhas_premium, axis=1).format({'Odd Lay': '{:.2f}', 'Odd Lay Min EV+': '{:.2f}', 'xG Casa': '{:.2f}', 'xG Fora': '{:.2f}', 'EV+': '{:.1%}'}, na_rep="-").hide(axis="index").set_table_attributes('style="width: 100%; border-collapse: collapse; margin-top: 5px; border: 1px solid #333;"').set_table_styles([{'selector': 'th', 'props': [('background-color', '#262730'), ('color', '#ffffff'), ('text-align', 'center !important'), ('font-weight', 'bold'), ('font-size', '16px'), ('padding', '12px 8px'), ('border-bottom', '2px solid #00d26a')]}, {'selector': 'td', 'props': [('text-align', 'center !important'), ('padding', '12px 8px')]}])
+
             html_final = tabela_estilizada.to_html()
-            
+
+            # --- TOOLTIP EXPLICATIVO DA NOVA COLUNA ADICIONADO AQUI ---
             tooltips_dicionario = {
+                '>Odd Lay Min EV+</th>': '><span class="tooltip-header" data-title="Odd Limite (Justa): É a Odd máxima que você pode pegar no Lay para que a operação ainda seja lucrativa no longo prazo (EV+).">Odd Lay Min EV+</span></th>',
                 '>xG Casa</th>': '><span class="tooltip-header" data-title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo. | Quanto MAIOR, melhor. (Ideal: > 1.50)">xG Casa</span></th>',
                 '>xG Fora</th>': '><span class="tooltip-header" data-title="A Verdade Atual: O diferencial entre o xG do Mandante e do Visitante dita o favoritismo real de hoje. É o motor do modelo. | Quanto MENOR, melhor. (Ideal: < 1.00)">xG Fora</span></th>',
                 '>Pts Casa</th>': '><span class="tooltip-header" data-title="Soma os pontos do time jogando em casa nos últimos 5 jogos. | Quanto MAIOR, melhor. (Ideal: >= 10 pts)">Pts Casa</span></th>',
@@ -532,7 +543,7 @@ def pagina_scanner():
 
             st.markdown(html_final, unsafe_allow_html=True)
             st.markdown("<br><br>", unsafe_allow_html=True)
-            
+
             st.markdown("<hr style='margin-top: 10px; margin-bottom: 20px; border: 1px solid #333;'>", unsafe_allow_html=True)
             st.markdown("<p style='font-size: 16px; color: #e0e0e0; font-weight: bold; margin-bottom: 5px;'>📊 Abrir Gráfico de Tendência (Pop-up)</p>", unsafe_allow_html=True)
             col_sel, col_btn_graf, col_vazia = st.columns([0.8, 0.6, 3])
@@ -556,7 +567,7 @@ def pagina_resultados():
     fuso_br = pytz.timezone('America/Sao_Paulo')
     agora = datetime.now(fuso_br).strftime("%d/%m/%Y às %H:%M:%S")
     st.markdown(f"<p class='data-atualizacao'>Última atualização: {agora}</p>", unsafe_allow_html=True)
-    
+
     col_nav, espaco, col_rad, col_dat, col_resp, col_btn_pesq = st.columns([1.2, 1.5, 1.4, 1.2, 0.9, 1.2])
 
     with col_nav:
@@ -580,28 +591,29 @@ def pagina_resultados():
     with col_resp:
         st.markdown("<div style='font-size: 14px; font-weight: bold; margin-bottom: 2px;'>Responsabilidade</div>", unsafe_allow_html=True)
         resp_input = st.number_input("Responsabilidade", min_value=1.0, value=30.0, step=5.0, format="%.2f", label_visibility="collapsed", key="res_resp")
-        
+
     with col_btn_pesq:
         st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
         btn_procurar = st.button("🚀 Iniciar Pesquisa", use_container_width=True, key="res_btn", type="primary")
-        
+
     st.markdown("<hr style='margin-top: 0px; margin-bottom: 25px; border: 1px solid #333;'>", unsafe_allow_html=True)
 
     if btn_procurar:
         st.session_state['mostrar_tabela_resultados'] = False 
         df_bruto, _, df_livescore = rodar_engine_pesquisa(data_selecionada, tipo_filtro, "Calculando resultados históricos...")
-        
+
         if df_bruto.empty:
             st.warning("Não foram encontrados alertas do Scanner no período selecionado.")
         else:
-            df_resultados = df_bruto[['Date', 'Time', 'League', 'Home', 'Away', 'Home_LS', 'Away_LS', 'Odd_A_Lay', 'Edge', 'Score']].copy()
-            
+            # --- NOVA COLUNA ADICIONADA TAMBÉM NOS RESULTADOS ---
+            df_resultados = df_bruto[['Date', 'Time', 'League', 'Home', 'Away', 'Home_LS', 'Away_LS', 'Odd_A_Lay', 'Odd Lay Min EV+', 'Edge', 'Score']].copy()
+
             df_resultados['Date_Match'] = pd.to_datetime(df_resultados['Date']).dt.strftime('%Y-%m-%d')
             df_livescore['Date_Match'] = pd.to_datetime(df_livescore['Date']).dt.strftime('%Y-%m-%d')
-            
+
             df_livescore['Goals_H_FT'] = pd.to_numeric(df_livescore['Goals_H_FT'], errors='coerce')
             df_livescore['Goals_A_FT'] = pd.to_numeric(df_livescore['Goals_A_FT'], errors='coerce')
-            
+
             df_final = pd.merge(
                 df_resultados, 
                 df_livescore[['Date_Match', 'Home', 'Away', 'Goals_H_FT', 'Goals_A_FT']].drop_duplicates(subset=['Date_Match', 'Home', 'Away']), 
@@ -610,9 +622,9 @@ def pagina_resultados():
                 how='inner',
                 suffixes=('', '_drop')
             )
-            
+
             df_final = df_final.dropna(subset=['Goals_H_FT', 'Goals_A_FT']).copy()
-            
+
             if df_final.empty:
                 st.info("Os jogos alertados pelo scanner nesta data ainda não possuem placar finalizado no banco de dados.")
             else:
@@ -623,11 +635,11 @@ def pagina_resultados():
     if st.session_state.get('mostrar_tabela_resultados', False):
         df_final = st.session_state['df_resultados'].copy()
         resp_atual = st.session_state['valor_responsabilidade']
-        
+
         col_res1, col_espaco, col_btn = st.columns([7.0, 1.0, 2.0])
-        
+
         df_view = df_final.copy()
-        
+
         if df_view.empty:
             st.warning("Nenhum resultado atende aos filtros atuais.")
         else:
@@ -641,7 +653,7 @@ def pagina_resultados():
 
             df_view['Profit'] = df_view.apply(calc_profit, axis=1)
             df_view['Profit Acumulado'] = df_view['Profit'].cumsum()
-            
+
             def html_resultado(row):
                 cor = "#00d26a" if row['Goals_H_FT'] >= row['Goals_A_FT'] else "#ff4b4b"
                 return f"<div style='width: 20px; height: 20px; background-color: {cor}; border-radius: 4px; margin: auto;'></div>"
@@ -653,7 +665,7 @@ def pagina_resultados():
             lucro_total = df_view['Profit'].sum()
             odd_media = df_view['Odd_A_Lay'].mean()
             cor_lucro = "#00d26a" if lucro_total >= 0 else "#ff4b4b"
-            
+
             with col_res1:
                 st.markdown(f"""
                 <div style='text-align: left; font-size: 18px; margin-top: 34px; margin-bottom: 20px;'>
@@ -665,17 +677,17 @@ def pagina_resultados():
                 </div>
                 """, unsafe_allow_html=True)
 
-            tabela_final = df_view[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Goals_H_FT', 'Goals_A_FT', 'Resultado', 'Profit', 'Profit Acumulado']].copy()
+            tabela_final = df_view[['Date', 'Time', 'League', 'Home', 'Away', 'Odd_A_Lay', 'Odd Lay Min EV+', 'Goals_H_FT', 'Goals_A_FT', 'Resultado', 'Profit', 'Profit Acumulado']].copy()
             tabela_final['Date'] = pd.to_datetime(tabela_final['Date']).dt.strftime('%d/%m/%Y')
-            
+
             tabela_final['Goals_H_FT'] = tabela_final['Goals_H_FT'].astype(int)
             tabela_final['Goals_A_FT'] = tabela_final['Goals_A_FT'].astype(int)
 
-            tabela_excel = tabela_final.rename(columns={'Date': 'Data', 'Time': 'Hora', 'League': 'Liga', 'Home': 'Time Casa', 'Away': 'Time Fora', 'Odd_A_Lay': 'Odd Lay', 'Goals_H_FT': 'Gols Casa', 'Goals_A_FT': 'Gols Fora'})
-            
+            tabela_excel = tabela_final.rename(columns={'Date': 'Data', 'Time': 'Hora', 'League': 'Liga', 'Home': 'Time Casa', 'Away': 'Time Fora', 'Odd_A_Lay': 'Odd Lay', 'Odd Lay Min EV+': 'Odd Lay Min EV+', 'Goals_H_FT': 'Gols Casa', 'Goals_A_FT': 'Gols Fora'})
+
             buffer = io.BytesIO()
             with pd.ExcelWriter(buffer, engine='openpyxl') as writer: tabela_excel.drop(columns=['Resultado']).to_excel(writer, index=False, sheet_name='Resultados')
-            
+
             with col_btn:
                 st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
                 st.download_button("📥 Exportar Resultados Excel", data=buffer.getvalue(), file_name="Resultados Jogos Lay Away.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=True, key="res_export")
@@ -687,15 +699,16 @@ def pagina_resultados():
             def formatar_moeda(val):
                 return f"R$ {val:.2f}"
 
+            # --- FORMATAÇÃO DA NOVA COLUNA NOS RESULTADOS AQUI ---
             tabela_estilizada = tabela_excel.style.apply(estilizar_linhas_resultados, axis=1)\
-                .format({'Odd Lay': '{:.2f}', 'Profit': formatar_moeda, 'Profit Acumulado': formatar_moeda})\
+                .format({'Odd Lay': '{:.2f}', 'Odd Lay Min EV+': '{:.2f}', 'Profit': formatar_moeda, 'Profit Acumulado': formatar_moeda})\
                 .hide(axis="index")\
                 .set_table_attributes('style="width: 100%; border-collapse: collapse; margin-top: 5px; border: 1px solid #333;"')\
                 .set_table_styles([
                     {'selector': 'th', 'props': [('background-color', '#262730'), ('color', '#ffffff'), ('text-align', 'center !important'), ('font-weight', 'bold'), ('font-size', '16px'), ('padding', '12px 8px'), ('border-bottom', '2px solid #00d26a')]},
                     {'selector': 'td', 'props': [('text-align', 'center !important'), ('padding', '12px 8px'), ('vertical-align', 'middle')]}
                 ])
-                
+
             st.markdown(tabela_estilizada.to_html(escape=False), unsafe_allow_html=True)
             st.markdown("<br><br>", unsafe_allow_html=True)
 
