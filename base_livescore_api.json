@@ -1074574,12 +1074574,1344 @@
     },
     {
         "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"England - Premier League",
+        "HomeTeam":"Brighton",
+        "AwayTeam":"Brentford",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"England - Premier League",
+        "HomeTeam":"Crystal Palace",
+        "AwayTeam":"Liverpool",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"England - Premier League",
+        "HomeTeam":"Ipswich Town",
+        "AwayTeam":"AFC Bournemouth",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"England - Premier League",
+        "HomeTeam":"Sunderland",
+        "AwayTeam":"Chelsea",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"England - Premier League",
+        "HomeTeam":"Manchester United",
+        "AwayTeam":"Aston Villa",
+        "FTHG":4,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Spain - LaLiga",
+        "HomeTeam":"Elche",
+        "AwayTeam":"Real Betis",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:15",
+        "Liga":"Spain - LaLiga",
+        "HomeTeam":"Real Sociedad",
+        "AwayTeam":"Rayo Vallecano",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:30",
+        "Liga":"Spain - LaLiga",
+        "HomeTeam":"Celta Vigo",
+        "AwayTeam":"Levante",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:30",
+        "Liga":"Spain - LaLiga",
+        "HomeTeam":"Villarreal",
+        "AwayTeam":"Getafe",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:00",
+        "Liga":"Spain - LaLiga",
+        "HomeTeam":"Atletico Madrid",
+        "AwayTeam":"Barcelona",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:30",
+        "Liga":"Germany - Bundesliga",
+        "HomeTeam":"FC Cologne",
+        "AwayTeam":"Bayer Leverkusen",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"Germany - Bundesliga",
+        "HomeTeam":"Freiburg",
+        "AwayTeam":"Union Berlin",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:30",
+        "Liga":"Germany - Bundesliga",
+        "HomeTeam":"Hoffenheim",
+        "AwayTeam":"Schalke 04",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:30",
+        "Liga":"Italy - Serie A",
+        "HomeTeam":"Napoli",
+        "AwayTeam":"Lazio",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Italy - Serie A",
+        "HomeTeam":"Genoa",
+        "AwayTeam":"AC Milan",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Italy - Serie A",
+        "HomeTeam":"Monza",
+        "AwayTeam":"Atalanta",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:00",
+        "Liga":"Italy - Serie A",
+        "HomeTeam":"Inter",
+        "AwayTeam":"Como 1907",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:45",
+        "Liga":"Italy - Serie A",
+        "HomeTeam":"Fiorentina",
+        "AwayTeam":"Juventus",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"France - Ligue 1",
+        "HomeTeam":"Rennes",
+        "AwayTeam":"Lille",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:15",
+        "Liga":"France - Ligue 1",
+        "HomeTeam":"Angers",
+        "AwayTeam":"Nice",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:15",
+        "Liga":"France - Ligue 1",
+        "HomeTeam":"Brest",
+        "AwayTeam":"Lyon",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:15",
+        "Liga":"France - Ligue 1",
+        "HomeTeam":"Le Havre",
+        "AwayTeam":"Lorient",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:15",
+        "Liga":"France - Ligue 1",
+        "HomeTeam":"Le Mans",
+        "AwayTeam":"AS Monaco",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:45",
+        "Liga":"France - Ligue 1",
+        "HomeTeam":"Lens",
+        "AwayTeam":"Marseille",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:15",
+        "Liga":"Netherlands - Eredivisie",
+        "HomeTeam":"SC Heerenveen",
+        "AwayTeam":"Feyenoord",
+        "FTHG":5,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Netherlands - Eredivisie",
+        "HomeTeam":"FC Twente",
+        "AwayTeam":"Ajax",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:45",
+        "Liga":"Netherlands - Eredivisie",
+        "HomeTeam":"AZ Alkmaar",
+        "AwayTeam":"FC Groningen",
+        "FTHG":4,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:45",
+        "Liga":"Netherlands - Eredivisie",
+        "HomeTeam":"Cambuur",
+        "AwayTeam":"PSV Eindhoven",
+        "FTHG":2,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:00",
+        "Liga":"Netherlands - Eredivisie",
+        "HomeTeam":"FC Utrecht",
+        "AwayTeam":"NEC Nijmegen",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"England - FA Cup: Round 1",
+        "HomeTeam":"Wimborne Town",
+        "AwayTeam":"Crawley Town",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:30",
+        "Liga":"Turkiye - Süper Lig",
+        "HomeTeam":"Rizespor",
+        "AwayTeam":"Erzurumspor FK",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Turkiye - Süper Lig",
+        "HomeTeam":"Corum FK",
+        "AwayTeam":"Fenerbahçe",
+        "FTHG":0,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Turkiye - Süper Lig",
+        "HomeTeam":"Alanyaspor",
+        "AwayTeam":"Trabzonspor",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:00",
+        "Liga":"Turkiye - Süper Lig",
+        "HomeTeam":"Beşiktaş",
+        "AwayTeam":"Gençlerbirliği",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Portugal - Primeira Liga",
+        "HomeTeam":"Nacional",
+        "AwayTeam":"Academico Viseu",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Portugal - Primeira Liga",
+        "HomeTeam":"Santa Clara",
+        "AwayTeam":"Gil Vicente",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:00",
+        "Liga":"Portugal - Primeira Liga",
+        "HomeTeam":"Vitoria de Guimaraes",
+        "AwayTeam":"FC Porto",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:30",
+        "Liga":"Portugal - Primeira Liga",
+        "HomeTeam":"CF Estrela da Amadora",
+        "AwayTeam":"Benfica",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:30",
+        "Liga":"Portugal - Primeira Liga",
+        "HomeTeam":"Rio Ave",
+        "AwayTeam":"SC Braga",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Belgium - Belgian Pro League",
+        "HomeTeam":"Club Brugge",
+        "AwayTeam":"Anderlecht",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Belgium - Belgian Pro League",
+        "HomeTeam":"Gent",
+        "AwayTeam":"Kortrijk",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:30",
+        "Liga":"Belgium - Belgian Pro League",
+        "HomeTeam":"Union St.Gilloise",
+        "AwayTeam":"Genk",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:15",
+        "Liga":"Belgium - Belgian Pro League",
+        "HomeTeam":"St.Truiden",
+        "AwayTeam":"Zulte Waregem",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Scotland - Premiership",
+        "HomeTeam":"Hearts",
+        "AwayTeam":"Falkirk",
+        "FTHG":2,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Scotland - Premiership",
+        "HomeTeam":"Celtic",
+        "AwayTeam":"Kilmarnock",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"England - FA Women’s Super League",
+        "HomeTeam":"Aston Villa W",
+        "AwayTeam":"Manchester United W",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"England - FA Women’s Super League",
+        "HomeTeam":"Liverpool W",
+        "AwayTeam":"Arsenal W",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"England - FA Women’s Super League",
+        "HomeTeam":"Crystal Palace W",
+        "AwayTeam":"Charlton Athletic W",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"England - FA Women’s Super League",
+        "HomeTeam":"Tottenham Hotspur W",
+        "AwayTeam":"Brighton W",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:30",
+        "Liga":"England - FA Women’s Super League",
+        "HomeTeam":"London City Lionesses",
+        "AwayTeam":"Birmingham City W",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:15",
+        "Liga":"Spain - LaLiga 2",
+        "HomeTeam":"Girona",
+        "AwayTeam":"Almeria",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:30",
+        "Liga":"Spain - LaLiga 2",
+        "HomeTeam":"Sporting Gijon",
+        "AwayTeam":"Real Valladolid",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Italy - Serie B",
+        "HomeTeam":"Virtus Entella",
+        "AwayTeam":"Modena",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:15",
+        "Liga":"Italy - Serie B",
+        "HomeTeam":"Carrarese",
+        "AwayTeam":"Sampdoria",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:30",
+        "Liga":"Italy - Serie B",
+        "HomeTeam":"L.R. Vicenza",
+        "AwayTeam":"Cremonese",
+        "FTHG":1,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Germany - 2. Bundesliga",
+        "HomeTeam":"FC Heidenheim",
+        "AwayTeam":"Hannover 96",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Germany - 2. Bundesliga",
+        "HomeTeam":"Magdeburg",
+        "AwayTeam":"St. Pauli",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Germany - 2. Bundesliga",
+        "HomeTeam":"VfL Bochum",
+        "AwayTeam":"Karlsruher SC",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:45",
+        "Liga":"Netherlands - Eerste Divisie",
+        "HomeTeam":"FC Emmen",
+        "AwayTeam":"MVV Maastricht",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"England - WSL 2",
+        "HomeTeam":"Durham W",
+        "AwayTeam":"Sunderland W",
+        "FTHG":1,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"England - WSL 2",
+        "HomeTeam":"Ipswich Town W",
+        "AwayTeam":"Bristol City W",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"England - WSL 2",
+        "HomeTeam":"Newcastle United W",
+        "AwayTeam":"Burnley W",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"England - WSL 2",
+        "HomeTeam":"Southampton W",
+        "AwayTeam":"Sheffield United W",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"England - WSL 2",
+        "HomeTeam":"Wolves W",
+        "AwayTeam":"Nottingham Forest W",
+        "FTHG":1,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"England - WSL 2",
+        "HomeTeam":"Leicester City W",
+        "AwayTeam":"Watford W",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"19:30",
+        "Liga":"Argentina - Primera Division: Clausura",
+        "HomeTeam":"Central Cordoba de Santiago",
+        "AwayTeam":"Lanus",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
         "Hora":"00:10",
         "Liga":"Mexico - Liga MX: Apertura",
         "HomeTeam":"Pumas",
         "AwayTeam":"CF America",
         "FTHG":2,
         "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"21:00",
+        "Liga":"Mexico - Liga MX: Apertura",
+        "HomeTeam":"Queretaro FC",
+        "AwayTeam":"Puebla",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"23:10",
+        "Liga":"Mexico - Liga MX: Apertura",
+        "HomeTeam":"Leon",
+        "AwayTeam":"CD Guadalajara",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Switzerland - Super League",
+        "HomeTeam":"St. Gallen",
+        "AwayTeam":"Lugano",
+        "FTHG":5,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Switzerland - Super League",
+        "HomeTeam":"Servette",
+        "AwayTeam":"FC Zurich",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Switzerland - Super League",
+        "HomeTeam":"Thun",
+        "AwayTeam":"Basel",
+        "FTHG":3,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Sweden - Allsvenskan",
+        "HomeTeam":"Halmstads BK",
+        "AwayTeam":"Djurgaarden",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Sweden - Allsvenskan",
+        "HomeTeam":"IFK Gothenburg",
+        "AwayTeam":"Malmo FF",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Sweden - Allsvenskan",
+        "HomeTeam":"AIK",
+        "AwayTeam":"BK Haecken",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Sweden - Allsvenskan",
+        "HomeTeam":"Brommapojkarna",
+        "AwayTeam":"Mjaellby",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Sweden - Allsvenskan",
+        "HomeTeam":"Kalmar FF",
+        "AwayTeam":"Sirius",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Denmark - Superliga",
+        "HomeTeam":"FC Copenhagen",
+        "AwayTeam":"Broendby IF",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Denmark - Superliga",
+        "HomeTeam":"AGF",
+        "AwayTeam":"AC Horsens",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Denmark - Superliga",
+        "HomeTeam":"Randers FC",
+        "AwayTeam":"FC Nordsjaelland",
+        "FTHG":1,
+        "FTAG":6
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:00",
+        "Liga":"Denmark - Superliga",
+        "HomeTeam":"FC Midtjylland",
+        "AwayTeam":"SoenderjyskE",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Norway - Eliteserien",
+        "HomeTeam":"Tromsoe",
+        "AwayTeam":"Bodoe\/Glimt",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Norway - Eliteserien",
+        "HomeTeam":"HamKam",
+        "AwayTeam":"Sarpsborg 08",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Norway - Eliteserien",
+        "HomeTeam":"Lillestroem",
+        "AwayTeam":"Aalesund",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Norway - Eliteserien",
+        "HomeTeam":"Sandefjord",
+        "AwayTeam":"Molde",
+        "FTHG":5,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Norway - Eliteserien",
+        "HomeTeam":"Viking",
+        "AwayTeam":"KFUM Oslo",
+        "FTHG":5,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:15",
+        "Liga":"Norway - Eliteserien",
+        "HomeTeam":"Fredrikstad",
+        "AwayTeam":"Brann",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Czech Republic - 1st League",
+        "HomeTeam":"Teplice",
+        "AwayTeam":"Pardubice",
+        "FTHG":1,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Czech Republic - 1st League",
+        "HomeTeam":"Jablonec",
+        "AwayTeam":"Mlada Boleslav",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Czech Republic - 1st League",
+        "HomeTeam":"Slavia Prague",
+        "AwayTeam":"SK Lisen",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:00",
+        "Liga":"Czech Republic - 1st League",
+        "HomeTeam":"Viktoria Plzen",
+        "AwayTeam":"Sparta Prague",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Austria - Bundesliga",
+        "HomeTeam":"TSV Hartberg",
+        "AwayTeam":"SCR Altach",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Austria - Bundesliga",
+        "HomeTeam":"WSG Tirol",
+        "AwayTeam":"Austria Wien",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Austria - Bundesliga",
+        "HomeTeam":"Sturm Graz",
+        "AwayTeam":"FC Salzburg",
+        "FTHG":3,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"01:00",
+        "Liga":"Australia - A-League",
+        "HomeTeam":"Macarthur FC",
+        "AwayTeam":"Brisbane Roar FC",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"03:00",
+        "Liga":"Australia - A-League",
+        "HomeTeam":"Adelaide United",
+        "AwayTeam":"Melbourne Victory",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Greece - Super League",
+        "HomeTeam":"AEK Athens",
+        "AwayTeam":"Levadiakos",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Greece - Super League",
+        "HomeTeam":"Asteras Tripolis",
+        "AwayTeam":"Kalamata",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Greece - Super League",
+        "HomeTeam":"Iraklis",
+        "AwayTeam":"Panathinaikos",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"Greece - Super League",
+        "HomeTeam":"OFI Crete",
+        "AwayTeam":"Atromitos",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:00",
+        "Liga":"Greece - Super League",
+        "HomeTeam":"Olympiacos",
+        "AwayTeam":"PAOK FC",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"04:30",
+        "Liga":"China - Super League",
+        "HomeTeam":"Beijing Guoan",
+        "AwayTeam":"Chongqing Tonglianglong FC",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"04:30",
+        "Liga":"China - Super League",
+        "HomeTeam":"Dalian Yingbo FC",
+        "AwayTeam":"Tianjin Jinmen Tiger",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"04:30",
+        "Liga":"China - Super League",
+        "HomeTeam":"Qingdao Hainiu",
+        "AwayTeam":"Shenzhen Peng City",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"04:30",
+        "Liga":"China - Super League",
+        "HomeTeam":"Shandong Taishan",
+        "AwayTeam":"Chengdu Rongcheng",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"04:30",
+        "Liga":"China - Super League",
+        "HomeTeam":"Shanghai Port",
+        "AwayTeam":"Liaoning Tieren",
+        "FTHG":6,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"04:30",
+        "Liga":"China - Super League",
+        "HomeTeam":"Shanghai Shenhua",
+        "AwayTeam":"Qingdao West Coast",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"04:30",
+        "Liga":"China - Super League",
+        "HomeTeam":"Yunnan Yukun",
+        "AwayTeam":"Wuhan Three Towns",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"04:30",
+        "Liga":"China - Super League",
+        "HomeTeam":"Zhejiang Professional",
+        "AwayTeam":"Henan Songshan Longmen",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"02:00",
+        "Liga":"Japan - J1 League",
+        "HomeTeam":"Machida Zelvia",
+        "AwayTeam":"Sanfrecce Hiroshima",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"02:00",
+        "Liga":"Japan - J1 League",
+        "HomeTeam":"Vissel Kobe",
+        "AwayTeam":"Urawa Red Diamonds",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"03:00",
+        "Liga":"Japan - J1 League",
+        "HomeTeam":"Gamba Osaka",
+        "AwayTeam":"Cerezo Osaka",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"05:00",
+        "Liga":"Japan - J1 League",
+        "HomeTeam":"JEF United Chiba",
+        "AwayTeam":"Mito Hollyhock",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Croatia - HNL",
+        "HomeTeam":"Osijek",
+        "AwayTeam":"Hajduk Split",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:00",
+        "Liga":"Croatia - HNL",
+        "HomeTeam":"NK Varazdin",
+        "AwayTeam":"Dinamo Zagreb",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:45",
+        "Liga":"Poland - Ekstraklasa",
+        "HomeTeam":"Jagiellonia Bialystok",
+        "AwayTeam":"GKS Katowice",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"Poland - Ekstraklasa",
+        "HomeTeam":"Legia Warszawa",
+        "AwayTeam":"Rakow Czestochowa",
+        "FTHG":2,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:15",
+        "Liga":"Poland - Ekstraklasa",
+        "HomeTeam":"Lech Poznan",
+        "AwayTeam":"Zaglebie Lubin",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Bulgaria - Parva Liga",
+        "HomeTeam":"Spartak Varna",
+        "AwayTeam":"Arda Kardzhali",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Bulgaria - Parva Liga",
+        "HomeTeam":"Levski Sofia",
+        "AwayTeam":"PFC CSKA Sofia",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Romania - Liga 1",
+        "HomeTeam":"Sepsi OSK",
+        "AwayTeam":"FC Voluntari",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:00",
+        "Liga":"Romania - Liga 1",
+        "HomeTeam":"CFR Cluj",
+        "AwayTeam":"CS Universitatea Craiova",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Africa - CAF Super Cup",
+        "HomeTeam":"Mamelodi Sundowns FC",
+        "AwayTeam":"USM Alger",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Liga F",
+        "HomeTeam":"Logrono W",
+        "AwayTeam":"Sevilla W",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Spain - Liga F",
+        "HomeTeam":"Barcelona W",
+        "AwayTeam":"Madrid CF W",
+        "FTHG":5,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:30",
+        "Liga":"USA - National Women's Soccer League: Play-off",
+        "HomeTeam":"Gotham FC",
+        "AwayTeam":"Seattle Reign FC",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:00",
+        "Liga":"USA - National Women's Soccer League: Play-off",
+        "HomeTeam":"Washington Spirit",
+        "AwayTeam":"Portland Thorns",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Frauen-Bundesliga",
+        "HomeTeam":"Union Berlin W",
+        "AwayTeam":"Hoffenheim W",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Germany - Frauen-Bundesliga",
+        "HomeTeam":"Mainz 05",
+        "AwayTeam":"VfB Stuttgart",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:30",
+        "Liga":"Italy - Women's Serie A",
+        "HomeTeam":"Parma Calcio W",
+        "AwayTeam":"Como W",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Italy - Women's Serie A",
+        "HomeTeam":"Ternana Femminile",
+        "AwayTeam":"Fiorentina W",
+        "FTHG":0,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:00",
+        "Liga":"Italy - Women's Serie A",
+        "HomeTeam":"Lazio W",
+        "AwayTeam":"Napoli W",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Albania - Kategoria Superiore",
+        "HomeTeam":"FC Dinamo City",
+        "AwayTeam":"Skenderbeu",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:30",
+        "Liga":"Albania - Kategoria Superiore",
+        "HomeTeam":"KF Egnatia",
+        "AwayTeam":"Vora",
+        "FTHG":5,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Algeria - Ligue 1",
+        "HomeTeam":"Js El Biar",
+        "AwayTeam":"MC Alger",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Algeria - Ligue 1",
+        "HomeTeam":"US Biskra",
+        "AwayTeam":"ASO Chlef",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Algeria - Ligue 1",
+        "HomeTeam":"USM Khenchela",
+        "AwayTeam":"CR Temouchent",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:45",
+        "Liga":"Algeria - Ligue 1",
+        "HomeTeam":"Ben Aknoun",
+        "AwayTeam":"CR Belouizdad",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:45",
+        "Liga":"Algeria - Ligue 1",
+        "HomeTeam":"JS Saoura",
+        "AwayTeam":"CS Constantine",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:00",
+        "Liga":"Andorra - 1st Division",
+        "HomeTeam":"Penya Encarnada d'Andorra",
+        "AwayTeam":"FC Rangers",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Andorra - 1st Division",
+        "HomeTeam":"FC Santa Coloma",
+        "AwayTeam":"FC Ordino",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Andorra - 1st Division",
+        "HomeTeam":"CE Carroi",
+        "AwayTeam":"Atletic Escaldes",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:00",
+        "Liga":"Andorra - 1st Division",
+        "HomeTeam":"Sporting Escaldes",
+        "AwayTeam":"Inter Club d'Escaldes",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:00",
+        "Liga":"Argentina - Federal A: Promotion Play-off",
+        "HomeTeam":"Juventud Antoniana",
+        "AwayTeam":"Club Cipolletti",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"18:00",
+        "Liga":"Argentina - Federal A: Promotion Play-off",
+        "HomeTeam":"Sarmiento de La Banda",
+        "AwayTeam":"CA Alvarado",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Armenia - Premier League",
+        "HomeTeam":"FC Syunik",
+        "AwayTeam":"Gandzasar",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Asia - SAFF Championship: Group A",
+        "HomeTeam":"Sri Lanka",
+        "AwayTeam":"Bhutan",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"06:30",
+        "Liga":"Asia - SAFF Championship: Group B",
+        "HomeTeam":"Maldives",
+        "AwayTeam":"Pakistan",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"01:00",
+        "Liga":"Australia - Australian Championship 2026: Group B",
+        "HomeTeam":"Avondale FC",
+        "AwayTeam":"Adelaide City",
+        "FTHG":2,
+        "FTAG":1
     },
     {
         "Data":"2026-11-08",
@@ -1074592,11 +1075924,2639 @@
     },
     {
         "Data":"2026-11-08",
+        "Hora":"06:30",
+        "Liga":"Austria - 2. Liga",
+        "HomeTeam":"ASK Voitsberg",
+        "AwayTeam":"Kapfenberger SV",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Azerbaijan - Premier League",
+        "HomeTeam":"Imisli FK",
+        "AwayTeam":"Sumqayit",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Azerbaijan - Premier League",
+        "HomeTeam":"Sabah FK",
+        "AwayTeam":"Shamakhi FK",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:00",
+        "Liga":"Belarus - Premier League",
+        "HomeTeam":"Slavia Mozyr",
+        "AwayTeam":"FC Baranovichi",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Belarus - Premier League",
+        "HomeTeam":"Neman Grodno",
+        "AwayTeam":"Dnepr Mogilev",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Belarus - Premier League",
+        "HomeTeam":"FC Minsk",
+        "AwayTeam":"Dinamo Brest",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Belgium - National Division 1 ACFF",
+        "HomeTeam":"CS Onhaye",
+        "AwayTeam":"Flenu",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Belgium - National Division 1 ACFF",
+        "HomeTeam":"Habay La Neuve",
+        "AwayTeam":"Union St.Gilloise U23",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Belgium - National Division 1 ACFF",
+        "HomeTeam":"Sporting Charleroi U21",
+        "AwayTeam":"Union Rochefortoise",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Belgium - National Division 1 VV",
+        "HomeTeam":"Harelbeke",
+        "AwayTeam":"KVV Zelzate",
+        "FTHG":1,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Belgium - National Division 1 VV",
+        "HomeTeam":"Tienen",
+        "AwayTeam":"Hoogstraten",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Benin - Ligue 1",
+        "HomeTeam":"AS Sobemap",
+        "AwayTeam":"Dragons FC",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Benin - Ligue 1",
+        "HomeTeam":"Damissa",
+        "AwayTeam":"Dynamo d'Abomey",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Benin - Ligue 1",
+        "HomeTeam":"Hodio",
+        "AwayTeam":"ASVO",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Benin - Ligue 1",
+        "HomeTeam":"US Krake",
+        "AwayTeam":"Coton Sport",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:00",
+        "Liga":"Bolivia - Nacional B: Play-off",
+        "HomeTeam":"CD San Martin",
+        "AwayTeam":"CD Mineros Potosi",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:00",
+        "Liga":"Bolivia - Nacional B: Play-off",
+        "HomeTeam":"San Juan FC",
+        "AwayTeam":"Virginia USC",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Bosnia and Herzegovina - Premier League",
+        "HomeTeam":"Sloga Doboj",
+        "AwayTeam":"FK BSK Banja Luka",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Bosnia and Herzegovina - Premier League",
+        "HomeTeam":"Borac Banja Luka",
+        "AwayTeam":"Radnik Bijeljina",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"Bosnia and Herzegovina - Premier League",
+        "HomeTeam":"Zrinjski Mostar",
+        "AwayTeam":"FK Sarajevo",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Bosnia and Herzegovina - 1st League: FBiH",
+        "HomeTeam":"Buducnost",
+        "AwayTeam":"Posusje",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Bosnia and Herzegovina - 1st League: FBiH",
+        "HomeTeam":"FK Zvijezda",
+        "AwayTeam":"Vitez",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Bosnia and Herzegovina - 1st League: FBiH",
+        "HomeTeam":"Tosk Tesanj",
+        "AwayTeam":"HNK Tomislav",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Bosnia and Herzegovina - 1st League: FBiH",
+        "HomeTeam":"GOSK Gabela",
+        "AwayTeam":"Capljina",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:00",
+        "Liga":"Brazil - Serie B",
+        "HomeTeam":"Athletic Club",
+        "AwayTeam":"Atletico GO",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"19:15",
+        "Liga":"Brazil - Serie B",
+        "HomeTeam":"Ceara",
+        "AwayTeam":"America MG",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"19:15",
+        "Liga":"Brazil - Serie B",
+        "HomeTeam":"Goias",
+        "AwayTeam":"Ponte Preta",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
         "Hora":"17:00",
         "Liga":"Brazil - Copa do Brasil",
         "HomeTeam":"Vasco da Gama",
         "AwayTeam":"Palmeiras",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Bulgaria - Vtora Liga",
+        "HomeTeam":"Spartak Pleven",
+        "AwayTeam":"Dobrudzha Dobrich",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Bulgaria - Vtora Liga",
+        "HomeTeam":"Vihren Sandanski",
+        "AwayTeam":"Lokomotiv Gorna Oryahovitsa",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:30",
+        "Liga":"Bulgaria - Vtora Liga",
+        "HomeTeam":"Beroe",
+        "AwayTeam":"Pirin Blagoevgrad",
+        "FTHG":3,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:30",
+        "Liga":"Bulgaria - Vtora Liga",
+        "HomeTeam":"Hebar",
+        "AwayTeam":"Marek Dupnitsa",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:30",
+        "Liga":"Bulgaria - Vtora Liga",
+        "HomeTeam":"Ludogorets Razgrad II",
+        "AwayTeam":"Nesebar",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Burkina Faso - Ligue 1",
+        "HomeTeam":"AS Douanes Ouagadougou",
+        "AwayTeam":"Majestic FC",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Burkina Faso - Ligue 1",
+        "HomeTeam":"AS Maya",
+        "AwayTeam":"Sonabel",
         "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Cameroon - Elite 1",
+        "HomeTeam":"Aigle Moungo",
+        "AwayTeam":"Union SA",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Cameroon - Elite 1",
+        "HomeTeam":"PWD Bamenda",
+        "AwayTeam":"APEJES FC",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:30",
+        "Liga":"Cameroon - Elite 1",
+        "HomeTeam":"Stade Renard",
+        "AwayTeam":"Colombe",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Cameroon - Elite 1",
+        "HomeTeam":"Canon Sportif",
+        "AwayTeam":"Aigle Royal",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Chile - Primera División",
+        "HomeTeam":"Audax Italiano",
+        "AwayTeam":"Coquimbo Unido",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Chile - Primera División",
+        "HomeTeam":"Universidad Catolica",
+        "AwayTeam":"Club Deportes Limache",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:00",
+        "Liga":"Chile - Primera División",
+        "HomeTeam":"Atletico Nublense",
+        "AwayTeam":"Colo Colo",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:00",
+        "Liga":"Chile - Primera División",
+        "HomeTeam":"Universidad de Chile",
+        "AwayTeam":"Cobresal",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:30",
+        "Liga":"Chile - Primera División",
+        "HomeTeam":"Union La Calera",
+        "AwayTeam":"Huachipato",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"20:00",
+        "Liga":"Chile - Primera División",
+        "HomeTeam":"Universidad de Concepcion",
+        "AwayTeam":"O'Higgins",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:00",
+        "Liga":"Colombia - Primera A: Clausura",
+        "HomeTeam":"Santa Fe",
+        "AwayTeam":"Deportivo Pasto",
+        "FTHG":5,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"18:05",
+        "Liga":"Colombia - Primera A: Clausura",
+        "HomeTeam":"CD Jaguares",
+        "AwayTeam":"Bucaramanga",
+        "FTHG":0,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"20:10",
+        "Liga":"Colombia - Primera A: Clausura",
+        "HomeTeam":"Tolima",
+        "AwayTeam":"Millonarios",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"22:15",
+        "Liga":"Colombia - Primera A: Clausura",
+        "HomeTeam":"Alianza FC Valledupar",
+        "AwayTeam":"Llaneros FC",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:00",
+        "Liga":"Costa Rica - Primera División: Apertura",
+        "HomeTeam":"C.S. Cartagines",
+        "AwayTeam":"Escorpiones",
+        "FTHG":4,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"19:00",
+        "Liga":"Costa Rica - Primera División: Apertura",
+        "HomeTeam":"Deportivo Saprissa",
+        "AwayTeam":"Puntarenas FC",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"21:30",
+        "Liga":"Costa Rica - Primera División: Apertura",
+        "HomeTeam":"Club Sport Herediano",
+        "AwayTeam":"Inter San Carlos",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:00",
+        "Liga":"Costa Rica - Liga de Ascenso: Apertura Playoffs",
+        "HomeTeam":"AD Sarchi",
+        "AwayTeam":"Santa Ana",
+        "FTHG":4,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Croatia - Prva NL",
+        "HomeTeam":"NK Dugopolje",
+        "AwayTeam":"Dubrava Zagreb",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Cyprus - 1st Division",
+        "HomeTeam":"Anorthosis",
+        "AwayTeam":"Omonia Nicosia",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:00",
+        "Liga":"Cyprus - 1st Division",
+        "HomeTeam":"APOEL Nicosia",
+        "AwayTeam":"Aris Limassol",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:00",
+        "Liga":"Cyprus - 1st Division",
+        "HomeTeam":"Pafos FC",
+        "AwayTeam":"Omonia 29 Maiou",
+        "FTHG":4,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Cyprus - 2nd Division",
+        "HomeTeam":"APEA Akrotiri",
+        "AwayTeam":"Polemidion",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Cyprus - 2nd Division",
+        "HomeTeam":"Iraklis Gerolakkou",
+        "AwayTeam":"Digenis Morphou",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"06:15",
+        "Liga":"Czech Republic - 2nd league",
+        "HomeTeam":"Slavia Prague B",
+        "AwayTeam":"SK Kladno",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Czech Republic - 2nd league",
+        "HomeTeam":"Banik Ostrava B",
+        "AwayTeam":"SK Prostejov",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Denmark - 2nd Division",
+        "HomeTeam":"Nykoebing FC",
+        "AwayTeam":"Brabrand",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:30",
+        "Liga":"Denmark - A-Liga Women",
+        "HomeTeam":"FC Nordsjaelland W",
+        "AwayTeam":"ASA Aarhus W",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Denmark - B-Liga Women",
+        "HomeTeam":"Oesterbro IF W",
+        "AwayTeam":"NIF HG W",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:15",
+        "Liga":"Ecuador - Serie A: Championship Group",
+        "HomeTeam":"CSD Macara",
+        "AwayTeam":"Universidad Catolica",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:45",
+        "Liga":"Ecuador - Serie A: Championship Group",
+        "HomeTeam":"Aucas",
+        "AwayTeam":"Independiente del Valle",
+        "FTHG":2,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"18:30",
+        "Liga":"Ecuador - Serie A: Championship Group",
+        "HomeTeam":"Barcelona SC",
+        "AwayTeam":"LDU de Quito",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"Ecuador - Serie A: Relegation Group",
+        "HomeTeam":"Deportivo Cuenca",
+        "AwayTeam":"Orense",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Egypt - Cup",
+        "HomeTeam":"Modern Sport FC",
+        "AwayTeam":"Olympic El Qanah FC",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:00",
+        "Liga":"Egypt - Cup",
+        "HomeTeam":"El Geish",
+        "AwayTeam":"Asyut Petroleum",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"20:00",
+        "Liga":"El Salvador - Primera Division: Apertura",
+        "HomeTeam":"Municipal Limeno",
+        "AwayTeam":"Atletico Balboa",
+        "FTHG":3,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"22:00",
+        "Liga":"El Salvador - Primera Division: Apertura",
+        "HomeTeam":"CD FAS",
+        "AwayTeam":"CD Fuerte San Francisco",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"England - Premier League 2",
+        "HomeTeam":"Crystal Palace U21",
+        "AwayTeam":"Everton U21",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"England - Premier League 2",
+        "HomeTeam":"Leeds United U21",
+        "AwayTeam":"AFC Bournemouth Academy",
+        "FTHG":5,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"England - Premier League 2",
+        "HomeTeam":"Burnley U21",
+        "AwayTeam":"Manchester United U21",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"England - Premier League 2",
+        "HomeTeam":"Tottenham Hotspur U21",
+        "AwayTeam":"Chelsea U21",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"England - Premier League 2",
+        "HomeTeam":"Arsenal U21",
+        "AwayTeam":"Aston Villa U21",
+        "FTHG":5,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:30",
+        "Liga":"Estonia - Esiliiga",
+        "HomeTeam":"FC Elva",
+        "AwayTeam":"Nomme United U21",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:30",
+        "Liga":"Estonia - Esiliiga",
+        "HomeTeam":"FC Tallinn",
+        "AwayTeam":"Talinna Kalev",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:30",
+        "Liga":"Estonia - Esiliiga",
+        "HomeTeam":"Flora Tallinn U21",
+        "AwayTeam":"FCI Levadia U21",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:30",
+        "Liga":"Estonia - Esiliiga",
+        "HomeTeam":"Viimsi JK",
+        "AwayTeam":"Nomme Kalju U21",
+        "FTHG":10,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Women's Euro U17 - Qualification Round 1: Group A2",
+        "HomeTeam":"Bulgaria U17 W",
+        "AwayTeam":"Slovakia Women U17",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Women's Euro U17 - Qualification Round 1: Group A2",
+        "HomeTeam":"Croatia U17 W",
+        "AwayTeam":"Poland U17 W",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Women's Euro U17 - Qualification Round 1: Group B5",
+        "HomeTeam":"Greece U17 W",
+        "AwayTeam":"Moldova U17 W",
+        "FTHG":7,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"France - National 1: Group A",
+        "HomeTeam":"FC Bastia-Borgo",
+        "AwayTeam":"Dieppe",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"France - National 1: Group A",
+        "HomeTeam":"St-Pryve St-Hilaire",
+        "AwayTeam":"Furiani Agliani",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Georgia - Erovnuli Liga",
+        "HomeTeam":"Dila Gori",
+        "AwayTeam":"Dinamo Tbilisi",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Germany - 3. Liga",
+        "HomeTeam":"Meppen",
+        "AwayTeam":"Jahn Regensburg",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Germany - 3. Liga",
+        "HomeTeam":"VfB Stuttgart II",
+        "AwayTeam":"SC Verl",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:30",
+        "Liga":"Germany - 3. Liga",
+        "HomeTeam":"Wurzburger Kickers",
+        "AwayTeam":"Hoffenheim II",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Regionalliga Bayern",
+        "HomeTeam":"1. FC Nuremberg II",
+        "AwayTeam":"VfB Eichstatt",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Germany - Regionalliga Bayern",
+        "HomeTeam":"SC Eltersdorf",
+        "AwayTeam":"1860 Munich",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Regionalliga Nord",
+        "HomeTeam":"1. FC Phonix Lubeck",
+        "AwayTeam":"Hamburger SV II",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Regionalliga Nord",
+        "HomeTeam":"Eintracht Norderstedt",
+        "AwayTeam":"SV Drochtersen\/Assel",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Regionalliga Nord",
+        "HomeTeam":"HSC Hannover",
+        "AwayTeam":"SSV Jeddeloh",
+        "FTHG":1,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Regionalliga Nordost",
+        "HomeTeam":"FSV Zwickau",
+        "AwayTeam":"Lokomotive Leipzig",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Regionalliga Nordost",
+        "HomeTeam":"Hertha Berlin II",
+        "AwayTeam":"Magdeburg II",
+        "FTHG":4,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Regionalliga Nordost",
+        "HomeTeam":"RSV Eintracht 1949",
+        "AwayTeam":"Erzgebirge Aue",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Regionalliga West",
+        "HomeTeam":"Bochum II",
+        "AwayTeam":"Wattenscheid",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Regionalliga West",
+        "HomeTeam":"FC Cologne II",
+        "AwayTeam":"Sportfreunde Siegen",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Germany - Oberliga: Baden-Wurttemberg",
+        "HomeTeam":"Karlsruher SC II",
+        "AwayTeam":"Reutlingen",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Oberliga: Baden-Wurttemberg",
+        "HomeTeam":"Turkspor Neckarsulm",
+        "AwayTeam":"SV Oberachern",
+        "FTHG":2,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Germany - Oberliga: Baden-Wurttemberg",
+        "HomeTeam":"1. FC Muehlhausen",
+        "AwayTeam":"FC 08 Villingen",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Germany - Oberliga: Baden-Wurttemberg",
+        "HomeTeam":"Young Boys Reutlingen",
+        "AwayTeam":"Bahlinger SC",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Germany - Oberliga: Bremen",
+        "HomeTeam":"TuS Schwachhausen",
+        "AwayTeam":"Brinkumer SV",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Germany - Oberliga: Bremen",
+        "HomeTeam":"TV Eiche Horn Bremen",
+        "AwayTeam":"Geestemuende",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Oberliga: Bremen",
+        "HomeTeam":"SV Hemelingen",
+        "AwayTeam":"Werder Bremen III",
+        "FTHG":5,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"06:45",
+        "Liga":"Germany - Oberliga: Hamburg",
+        "HomeTeam":"HEBC Hamburg",
+        "AwayTeam":"TuS Dassendorf",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:00",
+        "Liga":"Germany - Oberliga: Hamburg",
+        "HomeTeam":"ETSV Hamburg",
+        "AwayTeam":"VfL Pinneberg",
+        "FTHG":4,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Oberliga: Hamburg",
+        "HomeTeam":"TSV Buchholz",
+        "AwayTeam":"Victoria Hamburg",
+        "FTHG":0,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Germany - Oberliga: Hamburg",
+        "HomeTeam":"Tesla Hamburg",
+        "AwayTeam":"Uhlenhorster SC Paloma",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Germany - Oberliga: Hessen",
+        "HomeTeam":"CSC 03 Kassel",
+        "AwayTeam":"FC Giessen",
+        "FTHG":3,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Germany - Oberliga: Hessen",
+        "HomeTeam":"Turabdin-Babylon Pohlheim",
+        "AwayTeam":"Hanauer SC 1960",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Oberliga: Flens",
+        "HomeTeam":"Holstein Kiel II",
+        "AwayTeam":"SV Eichede",
+        "FTHG":7,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Oberliga: Flens",
+        "HomeTeam":"VfR Neumunster",
+        "AwayTeam":"Union Neumuenster",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Germany - Oberliga: Mittelrhein",
+        "HomeTeam":"SSV Merten",
+        "AwayTeam":"1. FC Duren",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Germany - Oberliga: Mittelrhein",
+        "HomeTeam":"SpVg Porz 1919",
+        "AwayTeam":"Fortuna Cologne II",
+        "FTHG":1,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:30",
+        "Liga":"Germany - Oberliga: Mittelrhein",
+        "HomeTeam":"Borussia Neunkirchen",
+        "AwayTeam":"Koenigsdorf",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:30",
+        "Liga":"Germany - Oberliga: Mittelrhein",
+        "HomeTeam":"Siegburger SV 04",
+        "AwayTeam":"Eintracht Hohkeppel",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:45",
+        "Liga":"Germany - Oberliga: Mittelrhein",
+        "HomeTeam":"VfL Vichttal",
+        "AwayTeam":"FC Huerth",
+        "FTHG":4,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Germany - Oberliga: Niederrhein",
+        "HomeTeam":"FC Buederich",
+        "AwayTeam":"SW Essen",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Germany - Oberliga: Niederrhein",
+        "HomeTeam":"Blau-Weiss Dingden",
+        "AwayTeam":"Scherpenberg",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Germany - Oberliga: Niederrhein",
+        "HomeTeam":"FC Monheim",
+        "AwayTeam":"Solingen-Wald",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Germany - Oberliga: Niederrhein",
+        "HomeTeam":"Ratinger SV",
+        "AwayTeam":"KFC Uerdingen",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Germany - Oberliga: Niederrhein",
+        "HomeTeam":"SpVg Schonnebeck",
+        "AwayTeam":"SV Sonsbeck",
+        "FTHG":5,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Germany - Oberliga: Niederrhein",
+        "HomeTeam":"Viktoria Juechen-Garzweiler",
+        "AwayTeam":"Velbert",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:30",
+        "Liga":"Germany - Oberliga: Niederrhein",
+        "HomeTeam":"DJK Teutonia St. Toenis",
+        "AwayTeam":"Sportfreunde Baumberg",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Oberliga: Niedersachsen",
+        "HomeTeam":"Eintracht Braunschweig U23",
+        "AwayTeam":"BSV Rehden",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Oberliga: Niedersachsen",
+        "HomeTeam":"Eintracht Nordhorn",
+        "AwayTeam":"SSV Vorsfelde",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Oberliga: Niedersachsen",
+        "HomeTeam":"FC Germania Egestorf-Langreder",
+        "AwayTeam":"SV Drochtersen\/Assel II",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Oberliga: Niedersachsen",
+        "HomeTeam":"Heeslinger SC",
+        "AwayTeam":"Wilhelmshaven",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Oberliga: Niedersachsen",
+        "HomeTeam":"Meppen II",
+        "AwayTeam":"Blau-Weiss Lohne",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Oberliga: Niedersachsen",
+        "HomeTeam":"Spelle-Venhaus",
+        "AwayTeam":"FC Verden 04",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Oberliga: Niedersachsen",
+        "HomeTeam":"TuS Bersenbrueck",
+        "AwayTeam":"VfV Hildesheim",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Germany - Oberliga: Niedersachsen",
+        "HomeTeam":"Hemmingen-Westerfeld",
+        "AwayTeam":"Luneburger SK Hansa",
+        "FTHG":1,
+        "FTAG":6
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Germany - Oberliga NOFV Nord 25\/26",
+        "HomeTeam":"Berliner AK 07",
+        "AwayTeam":"TeBe Berlin",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Germany - Oberliga NOFV Nord 25\/26",
+        "HomeTeam":"SG Union Klosterfelde",
+        "AwayTeam":"Hertha Zehlendorf",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Germany - Oberliga NOFV Nord 25\/26",
+        "HomeTeam":"Sparta Lichtenberg",
+        "AwayTeam":"FC Anker Wismar",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Germany - Oberliga NOFV Nord 25\/26",
+        "HomeTeam":"TSG Neustrelitz",
+        "AwayTeam":"1. FC Lok Stendal",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Germany - Oberliga: NOFV-Sud",
+        "HomeTeam":"Budissa Bautzen",
+        "AwayTeam":"VfL Halle 96",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Germany - Oberliga: NOFV-Sud",
+        "HomeTeam":"Dynamo Dresden II",
+        "AwayTeam":"Germania Halberstadt",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Germany - Oberliga: NOFV-Sud",
+        "HomeTeam":"Einheit Rudolstadt",
+        "AwayTeam":"Weissenfels",
+        "FTHG":4,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Germany - Oberliga: NOFV-Sud",
+        "HomeTeam":"Einheit Wernigerode",
+        "AwayTeam":"Empor Glauchau",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Germany - Oberliga: Rheinland-Pfalz\/Saar",
+        "HomeTeam":"Pirmasens",
+        "AwayTeam":"Gau-Odernheim",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Germany - Oberliga: Rheinland-Pfalz\/Saar",
+        "HomeTeam":"Elversberg II",
+        "AwayTeam":"RW Wittlich",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Germany - Oberliga: Rheinland-Pfalz\/Saar",
+        "HomeTeam":"FV Engers",
+        "AwayTeam":"Wormatia Worms",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Germany - Oberliga: Rheinland-Pfalz\/Saar",
+        "HomeTeam":"RW Koblenz",
+        "AwayTeam":"Koblenz",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Germany - Oberliga: Westfalen",
+        "HomeTeam":"FC Gievenbeck",
+        "AwayTeam":"TSG Sprockhoevel",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Germany - Oberliga: Westfalen",
+        "HomeTeam":"SpVgg Erkenschwick",
+        "AwayTeam":"SpVgg Herne Horsthausen",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Germany - Oberliga: Westfalen",
+        "HomeTeam":"Victoria Clarholz",
+        "AwayTeam":"TuS Hiltrup",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Germany - Oberliga: Westfalen",
+        "HomeTeam":"Westfalia Kinderhaus",
+        "AwayTeam":"SpVgg Vreden",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Germany - Oberliga: Westfalen",
+        "HomeTeam":"Preussen Munster II",
+        "AwayTeam":"ASC Dortmund",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:30",
+        "Liga":"Germany - Oberliga: Westfalen",
+        "HomeTeam":"Hordel",
+        "AwayTeam":"SV Schermbeck 2020",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:30",
+        "Liga":"Germany - Oberliga: Westfalen",
+        "HomeTeam":"TuS Ennepetal",
+        "AwayTeam":"Eintracht Rheine",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Ghana - Premier League",
+        "HomeTeam":"Ashanti Gold",
+        "AwayTeam":"Young Apostles",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Ghana - Premier League",
+        "HomeTeam":"Bechem United",
+        "AwayTeam":"Samartex",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Ghana - Premier League",
+        "HomeTeam":"Berekum Chelsea",
+        "AwayTeam":"Asante Kotoko SC",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Ghana - Premier League",
+        "HomeTeam":"Bibiani Gold Stars",
+        "AwayTeam":"Aduana Stars",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Ghana - Premier League",
+        "HomeTeam":"Dreams FC",
+        "AwayTeam":"Debibi",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Ghana - Premier League",
+        "HomeTeam":"Hearts of Oak",
+        "AwayTeam":"Heart of Lions",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Ghana - Premier League",
+        "HomeTeam":"Medeama SC",
+        "AwayTeam":"All Blacks",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Ghana - Premier League",
+        "HomeTeam":"Port City",
+        "AwayTeam":"Holy Stars",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Gibraltar - National League",
+        "HomeTeam":"Lincoln Red Imps FC",
+        "AwayTeam":"College 1975",
+        "FTHG":6,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:30",
+        "Liga":"Gibraltar - National League",
+        "HomeTeam":"Lynx",
+        "AwayTeam":"Lions Gibraltar",
+        "FTHG":1,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:30",
+        "Liga":"Greece - Super League 2",
+        "HomeTeam":"Olympiacos B",
+        "AwayTeam":"Hellas Syrou",
+        "FTHG":2,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:45",
+        "Liga":"Greece - Super League 2",
+        "HomeTeam":"Athens Kallithea",
+        "AwayTeam":"Panionios",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Greece - Super League 2",
+        "HomeTeam":"Anagennisi Karditsas",
+        "AwayTeam":"Marko",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Greece - Super League 2",
+        "HomeTeam":"Nestos Chrysoupoli FC",
+        "AwayTeam":"Asteras Tripolis B",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Greece - Super League 2",
+        "HomeTeam":"Pyrgos AFC",
+        "AwayTeam":"PAOK Thessaloniki FC B",
+        "FTHG":2,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"18:00",
+        "Liga":"Guatemala - Liga Nacional: Apertura",
+        "HomeTeam":"Coban Imperial",
+        "AwayTeam":"Club Xelaju",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"21:00",
+        "Liga":"Guatemala - Liga Nacional: Apertura",
+        "HomeTeam":"Antigua Guatemala",
+        "AwayTeam":"Deportivo Malacateco",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"18:00",
+        "Liga":"Honduras - Liga Nacional: Apertura",
+        "HomeTeam":"Platense FC",
+        "AwayTeam":"Genesis FC",
+        "FTHG":2,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"20:15",
+        "Liga":"Honduras - Liga Nacional: Apertura",
+        "HomeTeam":"Atletico Independiente",
+        "AwayTeam":"Real Espana",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"22:30",
+        "Liga":"Honduras - Liga Nacional: Apertura",
+        "HomeTeam":"CD Marathon",
+        "AwayTeam":"CD Choloma",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"04:00",
+        "Liga":"Hong Kong - Premier League",
+        "HomeTeam":"North District",
+        "AwayTeam":"Kowloon City",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"05:30",
+        "Liga":"Hong Kong - Premier League",
+        "HomeTeam":"Hong Kong FC",
+        "AwayTeam":"Eastern Sports Club",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Hong Kong - Premier League",
+        "HomeTeam":"Eastern District",
+        "AwayTeam":"Tai Po",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:15",
+        "Liga":"Hungary - NB I",
+        "HomeTeam":"Nyiregyhaza Spartacus FC",
+        "AwayTeam":"Gyori ETO",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:30",
+        "Liga":"Hungary - NB I",
+        "HomeTeam":"Debrecen",
+        "AwayTeam":"Ujpest",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:00",
+        "Liga":"Hungary - NB I",
+        "HomeTeam":"Vasas Budapest",
+        "AwayTeam":"Ferencvaros",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Hungary - NB II",
+        "HomeTeam":"Aqvital FC Csakvar",
+        "AwayTeam":"Karcag SE",
+        "FTHG":4,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"05:30",
+        "Liga":"Indonesia - Super League",
+        "HomeTeam":"Bali United",
+        "AwayTeam":"Persik Kediri",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"05:30",
+        "Liga":"Indonesia - Super League",
+        "HomeTeam":"PSS Sleman",
+        "AwayTeam":"Bhayangkara FC",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Indonesia - Super League",
+        "HomeTeam":"Malut United",
+        "AwayTeam":"Persib Bandung",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:45",
+        "Liga":"Iran - Persian Gulf Pro League",
+        "HomeTeam":"Gol Gohar",
+        "AwayTeam":"Zob Ahan",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:30",
+        "Liga":"Iran - Azadegan League",
+        "HomeTeam":"FC Fard",
+        "AwayTeam":"Beasat Kermanshah",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:30",
+        "Liga":"Iran - Azadegan League",
+        "HomeTeam":"Mes Kerman",
+        "AwayTeam":"Naft Masjed Soleyman FC",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:30",
+        "Liga":"Iran - Azadegan League",
+        "HomeTeam":"Niroye Zamini",
+        "AwayTeam":"Shahin Bandar Ameri",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Iran - Azadegan League",
+        "HomeTeam":"Shenavarsazi Qeshm",
+        "AwayTeam":"Mes Rafsanjan",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Iraq - Iraq Stars League",
+        "HomeTeam":"Al Shorta",
+        "AwayTeam":"Al Naft",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Iraq - Iraq Stars League",
+        "HomeTeam":"Erbil",
+        "AwayTeam":"Al-Gharraf",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Ireland - FAI Cup",
+        "HomeTeam":"Derry City",
+        "AwayTeam":"Waterford FC",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:30",
+        "Liga":"Israel - Premier League",
+        "HomeTeam":"Hapoel Beer Sheva",
+        "AwayTeam":"Hapoel Tel Aviv",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie C: Group A",
+        "HomeTeam":"Giana Erminio",
+        "AwayTeam":"Cittadella",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie C: Group A",
+        "HomeTeam":"Lecco",
+        "AwayTeam":"Juventus Next Gen",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"Italy - Serie C: Group A",
+        "HomeTeam":"Desenzano",
+        "AwayTeam":"Ospitaletto",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"Italy - Serie C: Group A",
+        "HomeTeam":"Folgore Caratese",
+        "AwayTeam":"Carpi",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"Italy - Serie C: Group A",
+        "HomeTeam":"Treviso",
+        "AwayTeam":"Novara",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:30",
+        "Liga":"Italy - Serie C: Group B",
+        "HomeTeam":"Grosseto",
+        "AwayTeam":"Pescara Calcio",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:30",
+        "Liga":"Italy - Serie C: Group B",
+        "HomeTeam":"Torres",
+        "AwayTeam":"Latina",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie C: Group B",
+        "HomeTeam":"Campobasso",
+        "AwayTeam":"US Livorno 1915",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"Italy - Serie C: Group B",
+        "HomeTeam":"Pianese",
+        "AwayTeam":"Perugia",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"Italy - Serie C: Group B",
+        "HomeTeam":"Sambenedettese",
+        "AwayTeam":"Guidonia Montecelio",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie C: Group C",
+        "HomeTeam":"Catania",
+        "AwayTeam":"Sorrento",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie C: Group C",
+        "HomeTeam":"Monopoli",
+        "AwayTeam":"Cosenza",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie C: Group C",
+        "HomeTeam":"Savoia",
+        "AwayTeam":"Potenza",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group A",
+        "HomeTeam":"ASDC Gozzano",
+        "AwayTeam":"Derthona",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group A",
+        "HomeTeam":"Alessandria",
+        "AwayTeam":"Celle Varazze",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group A",
+        "HomeTeam":"Asti",
+        "AwayTeam":"Sanremese",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group A",
+        "HomeTeam":"Lascaris",
+        "AwayTeam":"Biellese",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group A",
+        "HomeTeam":"Millesimo",
+        "AwayTeam":"SCD Ligorna",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group A",
+        "HomeTeam":"Valenzana",
+        "AwayTeam":"Chisola",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Italy - Serie D: Group A",
+        "HomeTeam":"ASD Imperia",
+        "AwayTeam":"ACSD Saluzzo",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Italy - Serie D: Group A",
+        "HomeTeam":"Sestri Levante",
+        "AwayTeam":"Bra",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group B",
+        "HomeTeam":"AC Leon",
+        "AwayTeam":"Virtus Verona",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group B",
+        "HomeTeam":"AC Milan U23",
+        "AwayTeam":"Virtus Bergamo Alzanoseriate",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group B",
+        "HomeTeam":"Brusaporto",
+        "AwayTeam":"Piacenza",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group B",
+        "HomeTeam":"Caldiero Terme",
+        "AwayTeam":"Villa D'Alme",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group B",
+        "HomeTeam":"Fiorenzuola",
+        "AwayTeam":"Club Milano",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group B",
+        "HomeTeam":"Nibbiano & Valtidone",
+        "AwayTeam":"Tritium",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group B",
+        "HomeTeam":"Real Calepina",
+        "AwayTeam":"Chievo Verona",
+        "FTHG":0,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group B",
+        "HomeTeam":"Scanzorosciate",
+        "AwayTeam":"Pavonese",
+        "FTHG":3,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group C",
+        "HomeTeam":"Bassano",
+        "AwayTeam":"Calvi Noale",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group C",
+        "HomeTeam":"Campodarsego",
+        "AwayTeam":"Luparense",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group C",
+        "HomeTeam":"Cjarlins Muzane",
+        "AwayTeam":"Union Clodiense Chioggia",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group C",
+        "HomeTeam":"Conegliano Calcio",
+        "AwayTeam":"Brian Lignano",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group C",
+        "HomeTeam":"FC Obermais",
+        "AwayTeam":"Sandona",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group C",
+        "HomeTeam":"Mestre",
+        "AwayTeam":"Legnago Salus",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group C",
+        "HomeTeam":"Unione La Rocca Altavilla",
+        "AwayTeam":"Este",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Italy - Serie D: Group C",
+        "HomeTeam":"LME",
+        "AwayTeam":"Virtus Bolzano",
+        "FTHG":3,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Italy - Serie D: Group C",
+        "HomeTeam":"Triestina",
+        "AwayTeam":"Schio",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group D",
+        "HomeTeam":"Castellanzese",
+        "AwayTeam":"Union ASD Casatese",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group D",
+        "HomeTeam":"Citta di Varese",
+        "AwayTeam":"Sant'Angelo",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group D",
+        "HomeTeam":"Cittadella Vis Modena",
+        "AwayTeam":"Pavia",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group D",
+        "HomeTeam":"FBC Oltrepo",
+        "AwayTeam":"Crema",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group D",
+        "HomeTeam":"Lentigione",
+        "AwayTeam":"Arconatese",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group D",
+        "HomeTeam":"Pontedera",
+        "AwayTeam":"Solbiatese",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group D",
+        "HomeTeam":"Pro Patria",
+        "AwayTeam":"Pistoiese",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group D",
+        "HomeTeam":"Pro Sesto",
+        "AwayTeam":"Correggese",
+        "FTHG":4,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group D",
+        "HomeTeam":"Tropical Coriano",
+        "AwayTeam":"ASD Varesina",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group E",
+        "HomeTeam":"ASD Rondinella Marzocco",
+        "AwayTeam":"Ternana",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group E",
+        "HomeTeam":"Aquila Montevarchi",
+        "AwayTeam":"Sasso Marconi",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group E",
+        "HomeTeam":"Lucchese",
+        "AwayTeam":"San Donato",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group E",
+        "HomeTeam":"Mezzolara",
+        "AwayTeam":"US Gavorrano",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group E",
+        "HomeTeam":"Progresso",
+        "AwayTeam":"Ghivizzano Borgoamozzano",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group E",
+        "HomeTeam":"Scandicci",
+        "AwayTeam":"Flaminia",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group E",
+        "HomeTeam":"Seravezza",
+        "AwayTeam":"Prato",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group E",
+        "HomeTeam":"Siena FC",
+        "AwayTeam":"Grassina",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group E",
+        "HomeTeam":"Tau Calcio Altopascio",
+        "AwayTeam":"Terranuova Traiana",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group F",
+        "HomeTeam":"Angelana",
+        "AwayTeam":"SN Notaresco",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group F",
+        "HomeTeam":"Atletico Ascoli",
+        "AwayTeam":"Teramo",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group F",
+        "HomeTeam":"Fossombrone",
+        "AwayTeam":"Santegidiese",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group F",
+        "HomeTeam":"Real Giulianova",
+        "AwayTeam":"Recanatese",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group F",
+        "HomeTeam":"Termoli Calcio",
+        "AwayTeam":"U.S. Ancona",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group F",
+        "HomeTeam":"Trestina",
+        "AwayTeam":"Foligno",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group F",
+        "HomeTeam":"Virtus Lanciano",
+        "AwayTeam":"Maceratese",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Italy - Serie D: Group F",
+        "HomeTeam":"L'Aquila",
+        "AwayTeam":"Montecchio Gallo",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Italy - Serie D: Group F",
+        "HomeTeam":"Senigallia",
+        "AwayTeam":"Pietralunga",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Italy - Serie D: Group G",
+        "HomeTeam":"Sarrabus Ogliastra",
+        "AwayTeam":"Paganese",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group G",
+        "HomeTeam":"ASD Monastir",
+        "AwayTeam":"Sarnese 1926",
+        "FTHG":2,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group G",
+        "HomeTeam":"Anzio Calcio 1924",
+        "AwayTeam":"Gelbison Cilento",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group G",
+        "HomeTeam":"Aranova",
+        "AwayTeam":"Venafro",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group G",
+        "HomeTeam":"Citta di Anagni",
+        "AwayTeam":"Budoni",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group G",
+        "HomeTeam":"Cynthialbalonga",
+        "AwayTeam":"Afragolese",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group G",
+        "HomeTeam":"Latte Dolce",
+        "AwayTeam":"Unipomezia",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group G",
+        "HomeTeam":"Viterbese",
+        "AwayTeam":"ASD Trastevere",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Italy - Serie D: Group G",
+        "HomeTeam":"Atletico Lodigiani",
+        "AwayTeam":"Ossese",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group H",
+        "HomeTeam":"ACD Nardo",
+        "AwayTeam":"Turris",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group H",
+        "HomeTeam":"Aversa Normanna",
+        "AwayTeam":"Manfredonia",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group H",
+        "HomeTeam":"Ebolitana",
+        "AwayTeam":"Fidelis Andria",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group H",
+        "HomeTeam":"Francavilla",
+        "AwayTeam":"Virtus Francavilla",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group H",
+        "HomeTeam":"Ischia Isolaverde",
+        "AwayTeam":"Gravina",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group H",
+        "HomeTeam":"Melfi",
+        "AwayTeam":"Brindisi",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group H",
+        "HomeTeam":"Nocerina",
+        "AwayTeam":"Real Forio",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group H",
+        "HomeTeam":"USD Palmese 1914",
+        "AwayTeam":"Martina",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Italy - Serie D: Group H",
+        "HomeTeam":"Bisceglie",
+        "AwayTeam":"Gladiator",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group I",
+        "HomeTeam":"Castrumfavara",
+        "AwayTeam":"Vibonese",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group I",
+        "HomeTeam":"Digiesse PraiaTortora",
+        "AwayTeam":"Trapani",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group I",
+        "HomeTeam":"Enna Calcio",
+        "AwayTeam":"Reggina",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group I",
+        "HomeTeam":"Milazzo",
+        "AwayTeam":"Vigor Lamezia",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group I",
+        "HomeTeam":"Modica",
+        "AwayTeam":"Licata",
+        "FTHG":5,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group I",
+        "HomeTeam":"Sambiase",
+        "AwayTeam":"Ragusa Calcio",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group I",
+        "HomeTeam":"Siracusa Calcio",
+        "AwayTeam":"Nissa",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Italy - Serie D: Group I",
+        "HomeTeam":"Athletic Club Palermo",
+        "AwayTeam":"Igea Virtus",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Italy - Serie D: Group I",
+        "HomeTeam":"Gela",
+        "AwayTeam":"Calcio Avola",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:00",
+        "Liga":"Italy - Campionato Primavera 1",
+        "HomeTeam":"AC Milan U20",
+        "AwayTeam":"AlbinoLeffe U20",
+        "FTHG":5,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Italy - Campionato Primavera 1",
+        "HomeTeam":"Cagliari U20",
+        "AwayTeam":"Lazio U20",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Italy - Campionato Primavera 1",
+        "HomeTeam":"Roma U20",
+        "AwayTeam":"Hellas Verona U20",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Italy - Campionato Primavera 1",
+        "HomeTeam":"Fiorentina U20",
+        "AwayTeam":"Como U20",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:00",
+        "Liga":"Jamaica - Premier League",
+        "HomeTeam":"Montego Bay United FC",
+        "AwayTeam":"Molynes United",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:00",
+        "Liga":"Jamaica - Premier League",
+        "HomeTeam":"Mount Pleasant",
+        "AwayTeam":"Tivoli Gardens",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:00",
+        "Liga":"Jamaica - Premier League",
+        "HomeTeam":"Portmore United",
+        "AwayTeam":"Tru-Juice",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:00",
+        "Liga":"Jamaica - Premier League",
+        "HomeTeam":"Treasure Beach",
+        "AwayTeam":"Dunbeholden",
+        "FTHG":1,
         "FTAG":1
     },
     {
@@ -1074610,12 +1078570,66 @@
     },
     {
         "Data":"2026-11-08",
+        "Hora":"02:00",
+        "Liga":"Japan - J2 League",
+        "HomeTeam":"Jubilo Iwata",
+        "AwayTeam":"Shonan Bellmare",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"02:00",
+        "Liga":"Japan - J2 League",
+        "HomeTeam":"Tochigi City FC",
+        "AwayTeam":"Omiya Ardija",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"03:00",
+        "Liga":"Japan - J2 League",
+        "HomeTeam":"Vegalta Sendai",
+        "AwayTeam":"Ventforet Kofu",
+        "FTHG":5,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
         "Hora":"01:00",
         "Liga":"Japan - J3 League",
         "HomeTeam":"Roasso Kumamoto",
         "AwayTeam":"Renofa Yamaguchi",
         "FTHG":1,
         "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"02:00",
+        "Liga":"Japan - J3 League",
+        "HomeTeam":"Gainare Tottori",
+        "AwayTeam":"Tochigi SC",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"02:00",
+        "Liga":"Japan - J3 League",
+        "HomeTeam":"Nagano Parceiro",
+        "AwayTeam":"Kamatamare Sanuki",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"02:00",
+        "Liga":"Japan - J3 League",
+        "HomeTeam":"SC Sagamihara",
+        "AwayTeam":"Kagoshima United",
+        "FTHG":1,
+        "FTAG":0
     },
     {
         "Data":"2026-11-08",
@@ -1074628,12 +1078642,318 @@
     },
     {
         "Data":"2026-11-08",
+        "Hora":"01:00",
+        "Liga":"Japan - Women's WE League",
+        "HomeTeam":"AS Elfen Saitama W",
+        "AwayTeam":"Sanfrecce Hiroshima Regina W",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Jordan - Pro League",
+        "HomeTeam":"Al-Faisaly",
+        "AwayTeam":"Shabab Al-Ordon",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Kenya - Premier League",
+        "HomeTeam":"Bandari",
+        "AwayTeam":"Tusker FC",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Kenya - Premier League",
+        "HomeTeam":"Kakamega Homeboyz",
+        "AwayTeam":"Kenya Police",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Kenya - Premier League",
+        "HomeTeam":"Mathare United",
+        "AwayTeam":"Posta Rangers",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Kenya - Premier League",
+        "HomeTeam":"Murang'a Seal",
+        "AwayTeam":"Ulinzi Stars",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:15",
+        "Liga":"Kenya - Premier League",
+        "HomeTeam":"Gor Mahia",
+        "AwayTeam":"Nairobi United",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Kosovo - Superleague",
+        "HomeTeam":"Drenica",
+        "AwayTeam":"Drita",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Kosovo - Superleague",
+        "HomeTeam":"KF Vushtrria",
+        "AwayTeam":"FC Prishtina",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:25",
+        "Liga":"Kuwait - Premier League",
+        "HomeTeam":"Al-Salmiyah",
+        "AwayTeam":"Kazma",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:40",
+        "Liga":"Kuwait - Premier League",
+        "HomeTeam":"Al Sahel SC",
+        "AwayTeam":"Kuwait SC",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Latvia - Virsliga",
+        "HomeTeam":"FK Jelgava",
+        "AwayTeam":"Ogre United",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Latvia - Virsliga",
+        "HomeTeam":"FK Tukums 2000",
+        "AwayTeam":"FK Auda",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Latvia - Virsliga",
+        "HomeTeam":"Grobina",
+        "AwayTeam":"FK Liepaja",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Latvia - Virsliga",
+        "HomeTeam":"SK Super Nova",
+        "AwayTeam":"BFC Daugavpils",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:15",
+        "Liga":"Lithuania - A Lyga",
+        "HomeTeam":"Banga Gargzdai",
+        "AwayTeam":"Zalgiris Vilnius",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:15",
+        "Liga":"Lithuania - A Lyga",
+        "HomeTeam":"FK Panevezys",
+        "AwayTeam":"FA Siauliai",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:15",
+        "Liga":"Lithuania - A Lyga",
+        "HomeTeam":"FK Transinvest",
+        "AwayTeam":"FK Kauno Zalgiris",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:15",
+        "Liga":"Lithuania - A Lyga",
+        "HomeTeam":"Suduva",
+        "AwayTeam":"Dziugas Telsiai",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:00",
+        "Liga":"Malta - Malta Premier: Closing Relegation Group",
+        "HomeTeam":"Birkirkara",
+        "AwayTeam":"Zabbar St. Patrick",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Malta - Malta Premier: Closing Championship Group",
+        "HomeTeam":"Sliema Wanderers",
+        "AwayTeam":"Valletta",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:45",
+        "Liga":"Malta - Malta Premier: Closing Championship Group",
+        "HomeTeam":"Marsaxlokk FC",
+        "AwayTeam":"Hamrun Spartans",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
         "Hora":"00:05",
         "Liga":"Mexico - Liga de Expansion MX: Apertura: Play-off",
         "HomeTeam":"Atletico La Paz",
         "AwayTeam":"Tlaxcala FC",
         "FTHG":3,
         "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:00",
+        "Liga":"Mexico - Liga de Expansion MX: Apertura: Play-off",
+        "HomeTeam":"Leones Negros",
+        "AwayTeam":"Alacranes de Durango",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"22:00",
+        "Liga":"Mexico - Liga de Expansion MX: Apertura: Play-off",
+        "HomeTeam":"Piratas",
+        "AwayTeam":"Cancun FC",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:00",
+        "Liga":"Mexico - Primera Premier",
+        "HomeTeam":"Montaneses",
+        "AwayTeam":"Los Cabos United",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"19:00",
+        "Liga":"Mexico - Liga Premier: Serie A Clausura",
+        "HomeTeam":"Guerreros de Autlan",
+        "AwayTeam":"CD Avispones de Chilpancingo",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"19:00",
+        "Liga":"Mexico - Liga Premier: Serie A Clausura",
+        "HomeTeam":"Real Apodaca FC",
+        "AwayTeam":"Dragones de Oaxaca",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Moldova - Super Liga",
+        "HomeTeam":"FC Milsami Orhei",
+        "AwayTeam":"FC Zaria Balti",
+        "FTHG":6,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Moldova - Super Liga",
+        "HomeTeam":"Dacia-2 Buiucani",
+        "AwayTeam":"Politehnica UTM",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Montenegro - 1. CFL",
+        "HomeTeam":"Sutjeska",
+        "AwayTeam":"Petrovac",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Montenegro - 1. CFL",
+        "HomeTeam":"Decic Tuzi",
+        "AwayTeam":"OFK Mladost Donja Gorica",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"Renaissance Club Zemamra",
+        "AwayTeam":"Widad Temara",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"FAR Rabat",
+        "AwayTeam":"Difaa El Jadida",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:00",
+        "Liga":"Morocco - Botola Pro",
+        "HomeTeam":"Raja Casablanca",
+        "AwayTeam":"Ittihad Tanger",
+        "FTHG":2,
+        "FTAG":0
     },
     {
         "Data":"2026-11-08",
@@ -1074646,11 +1078966,1658 @@
     },
     {
         "Data":"2026-11-08",
+        "Hora":"12:15",
+        "Liga":"Niger - Super Ligue",
+        "HomeTeam":"US Gendarmerie",
+        "AwayTeam":"Liberte",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Nigeria - NPFL",
+        "HomeTeam":"Abia Warriors",
+        "AwayTeam":"Doma United",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Nigeria - NPFL",
+        "HomeTeam":"Barau",
+        "AwayTeam":"Shooting Stars",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Nigeria - NPFL",
+        "HomeTeam":"Bendel Insurance",
+        "AwayTeam":"Niger Tornadoes",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Nigeria - NPFL",
+        "HomeTeam":"Enugu Rangers",
+        "AwayTeam":"Kwara United",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Nigeria - NPFL",
+        "HomeTeam":"Nasarawa United",
+        "AwayTeam":"Plateau United",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Nigeria - NPFL",
+        "HomeTeam":"Ranchers Bees",
+        "AwayTeam":"Enyimba",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Nigeria - NPFL",
+        "HomeTeam":"Warri Wolves FC",
+        "AwayTeam":"Katsina United",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"North Macedonia - 1st League",
+        "HomeTeam":"Bashkimi",
+        "AwayTeam":"FK Bregalnica Stip",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"North Macedonia - 1st League",
+        "HomeTeam":"Arsimi",
+        "AwayTeam":"Shkendija Haracine",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Norway - 1. Division",
+        "HomeTeam":"Bryne",
+        "AwayTeam":"Kongsvinger",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Norway - 1. Division",
+        "HomeTeam":"FK Haugesund",
+        "AwayTeam":"Odds Ballklubb",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Norway - 1. Division",
+        "HomeTeam":"Moss",
+        "AwayTeam":"Ranheim",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Norway - 1. Division",
+        "HomeTeam":"Raufoss",
+        "AwayTeam":"Egersund",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Norway - 1. Division",
+        "HomeTeam":"Sandnes",
+        "AwayTeam":"Aasane",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Norway - 1. Division",
+        "HomeTeam":"Sogndal",
+        "AwayTeam":"Hoedd",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Norway - 1. Division",
+        "HomeTeam":"Stabaek",
+        "AwayTeam":"Stroemsgodset",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Norway - 1. Division",
+        "HomeTeam":"Stroemmen",
+        "AwayTeam":"Lyn",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:00",
+        "Liga":"Paraguay - Division Profesional: Clausura",
+        "HomeTeam":"Cerro Porteno",
+        "AwayTeam":"CD Recoleta",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"19:30",
+        "Liga":"Paraguay - Division Profesional: Clausura",
+        "HomeTeam":"Sportivo Trinidense",
+        "AwayTeam":"Sportivo Ameliano",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:00",
+        "Liga":"Peru - Liga 1: Clausura",
+        "HomeTeam":"Los Chankas CYC",
+        "AwayTeam":"Alianza Lima",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:30",
+        "Liga":"Peru - Liga 1: Clausura",
+        "HomeTeam":"Sport Boys",
+        "AwayTeam":"CD UT Cajamarca",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"20:00",
+        "Liga":"Peru - Liga 1: Clausura",
+        "HomeTeam":"Deportivo Garcilaso",
+        "AwayTeam":"Comerciantes Unidos",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"22:30",
+        "Liga":"Peru - Liga 1: Clausura",
+        "HomeTeam":"Universitario de Deportes",
+        "AwayTeam":"Club Deportivo Moquegua",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:00",
+        "Liga":"Peru - Copa Peru",
+        "HomeTeam":"Cruz de Chalpon",
+        "AwayTeam":"Cajabamba",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:30",
+        "Liga":"Peru - Copa Peru",
+        "HomeTeam":"Sport Huaja",
+        "AwayTeam":"Leones de Anccaca",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:30",
+        "Liga":"Peru - Copa Peru",
+        "HomeTeam":"CD El Inca",
+        "AwayTeam":"Sociedad Tiro 28",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:30",
+        "Liga":"Peru - Copa Peru",
+        "HomeTeam":"CESA",
+        "AwayTeam":"Minas de Pamputa",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:30",
+        "Liga":"Peru - Copa Peru",
+        "HomeTeam":"Machete",
+        "AwayTeam":"Vinicunca",
+        "FTHG":6,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:30",
+        "Liga":"Peru - Copa Peru",
+        "HomeTeam":"Viargoca FC",
+        "AwayTeam":"CSD Bancos",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"18:00",
+        "Liga":"Peru - Copa Peru",
+        "HomeTeam":"Juventud Palmeiras",
+        "AwayTeam":"Colegio Nacional de Iquitos",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"20:00",
+        "Liga":"Peru - Copa Peru",
+        "HomeTeam":"Domingo Dianderas",
+        "AwayTeam":"Bella Esperanza",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"04:00",
+        "Liga":"Philippines - PFL",
+        "HomeTeam":"Stallion Laguna FC",
+        "AwayTeam":"Mendiola FC 1991",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"06:45",
+        "Liga":"Philippines - PFL",
+        "HomeTeam":"Davao Aguilas",
+        "AwayTeam":"Philippine Army",
+        "FTHG":10,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Philippines - PFL",
+        "HomeTeam":"Maharlika",
+        "AwayTeam":"Manila Digger",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:15",
+        "Liga":"Poland - I Liga",
+        "HomeTeam":"Polonia Bytom",
+        "AwayTeam":"Lechia Gdansk",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Poland - I Liga",
+        "HomeTeam":"LKS Lodz",
+        "AwayTeam":"Stal Rzeszow",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Poland - I Liga",
+        "HomeTeam":"Pogon Siedlce",
+        "AwayTeam":"Pogon Grodzisk Mazowiecki",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:15",
+        "Liga":"Poland - I Liga",
+        "HomeTeam":"Stal Mielec",
+        "AwayTeam":"Ruch Chorzow",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Poland - II Liga",
+        "HomeTeam":"Legia Warszawa II",
+        "AwayTeam":"Olimpia Grudziadz",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Poland - II Liga",
+        "HomeTeam":"Rekord Bielsko-Biala",
+        "AwayTeam":"Chojniczanka Chojnice",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:30",
+        "Liga":"Poland - II Liga",
+        "HomeTeam":"Avia Swidnik",
+        "AwayTeam":"Hutnik Krakow",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Portugal - Liga Portugal 2",
+        "HomeTeam":"FC Porto B",
+        "AwayTeam":"Portimonense",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Portugal - Liga Portugal 2",
+        "HomeTeam":"Feirense",
+        "AwayTeam":"Lusitania Lourosa",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Portugal - Liga Portugal 2",
+        "HomeTeam":"Farense",
+        "AwayTeam":"Benfica B",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:00",
+        "Liga":"Portugal - Liga Portugal 2",
+        "HomeTeam":"Sporting CP B",
+        "AwayTeam":"Tondela",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Portugal - Liga 3: Group A",
+        "HomeTeam":"Varzim",
+        "AwayTeam":"AD Fafe",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"17:00",
+        "Liga":"Portugal - Liga 3: Group A",
+        "HomeTeam":"Pacos de Ferreira",
+        "AwayTeam":"Trofense",
+        "FTHG":4,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Portugal - Liga 3: Group B",
+        "HomeTeam":"Louletano",
+        "AwayTeam":"Sporting Covilha",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Portugal - Liga 3: Group B",
+        "HomeTeam":"Vitoria de Sernache",
+        "AwayTeam":"Atletico Clube de Portugal",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:15",
+        "Liga":"Qatar - Qatar Stars League",
+        "HomeTeam":"Lusail SC",
+        "AwayTeam":"Qatar SC",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"Qatar - Qatar Stars League",
+        "HomeTeam":"Al-Sadd",
+        "AwayTeam":"Al-Rayyan",
+        "FTHG":3,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"02:00",
+        "Liga":"Republic of Korea - K League 2",
+        "HomeTeam":"Cheonan City",
+        "AwayTeam":"Busan I'Park",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"02:00",
+        "Liga":"Republic of Korea - K League 2",
+        "HomeTeam":"Suwon Bluewings",
+        "AwayTeam":"Yongin FC",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"04:30",
+        "Liga":"Republic of Korea - K League 2",
+        "HomeTeam":"Paju Citizens",
+        "AwayTeam":"Chungnam Asan FC",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"04:30",
+        "Liga":"Republic of Korea - K-League 1: Relegation Group",
+        "HomeTeam":"Bucheon FC 1995",
+        "AwayTeam":"Pohang Steelers",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"02:00",
+        "Liga":"Republic of Korea - K-League 1: Championship Group",
+        "HomeTeam":"Daejeon Citizen",
+        "AwayTeam":"Incheon United",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"02:00",
+        "Liga":"Republic of Korea - K-League 1: Championship Group",
+        "HomeTeam":"FC Seoul",
+        "AwayTeam":"Ulsan Hyundai",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"04:30",
+        "Liga":"Republic of Korea - K-League 1: Championship Group",
+        "HomeTeam":"Gangwon FC",
+        "AwayTeam":"Jeonbuk FC",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"San Marino - Campionato Sammarinese",
+        "HomeTeam":"Cailungo",
+        "AwayTeam":"Tre Fiori",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"San Marino - Campionato Sammarinese",
+        "HomeTeam":"FC Fiorentino",
+        "AwayTeam":"SP Libertas",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"San Marino - Campionato Sammarinese",
+        "HomeTeam":"San Marino Academy U22",
+        "AwayTeam":"San Giovanni",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"San Marino - Campionato Sammarinese",
+        "HomeTeam":"Tre Penne Galazzano",
+        "AwayTeam":"S.S. Murata",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Serbia - Super Liga",
+        "HomeTeam":"FK Radnik Surdulica",
+        "AwayTeam":"OFK Beograd",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Serbia - Super Liga",
+        "HomeTeam":"Novi Pazar",
+        "AwayTeam":"Mladost Lucani",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Serbia - Super Liga",
+        "HomeTeam":"Partizan Beograd",
+        "AwayTeam":"Macva Sabac",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:00",
+        "Liga":"Serbia - Super Liga",
+        "HomeTeam":"Vojvodina",
+        "AwayTeam":"FK Crvena Zvezda",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Serbia - Prva Liga",
+        "HomeTeam":"Vozdovac",
+        "AwayTeam":"FK Borac Cacak",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Serbia - Prva Liga",
+        "HomeTeam":"FK Spartak Subotica",
+        "AwayTeam":"FK Metalac",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Serbia - Prva Liga",
+        "HomeTeam":"Jedinstvo Ub",
+        "AwayTeam":"Teleoptik",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:30",
+        "Liga":"Slovakia - Super Liga",
+        "HomeTeam":"Zeleziarne Podbrezova",
+        "AwayTeam":"Ruzomberok",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:00",
+        "Liga":"Slovakia - Super Liga",
+        "HomeTeam":"Komarno",
+        "AwayTeam":"Zemplin Michalovce",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"06:30",
+        "Liga":"Slovakia - 2. Liga",
+        "HomeTeam":"FC Petrzalka 1898",
+        "AwayTeam":"Zilina B",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Slovenia - Prva Liga",
+        "HomeTeam":"Nk Brinje Grosuplje",
+        "AwayTeam":"Aluminij",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"Slovenia - Prva Liga",
+        "HomeTeam":"Radomlje",
+        "AwayTeam":"NK Celje",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Slovenia - 2. SNL",
+        "HomeTeam":"ND Beltinci",
+        "AwayTeam":"Dravinja",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Slovenia - 2. SNL",
+        "HomeTeam":"NK Jesenice",
+        "AwayTeam":"ND Slovan Ljubljana",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Primera Division RFEF: Group 1",
+        "HomeTeam":"Arenas Getxo",
+        "AwayTeam":"RC Deportivo Fabril",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:15",
+        "Liga":"Spain - Primera Division RFEF: Group 1",
+        "HomeTeam":"Leonesa",
+        "AwayTeam":"Ponferradina",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:15",
+        "Liga":"Spain - Primera Division RFEF: Group 1",
+        "HomeTeam":"Merida",
+        "AwayTeam":"Athletic Club B",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:15",
+        "Liga":"Spain - Primera Division RFEF: Group 1",
+        "HomeTeam":"Mirandes",
+        "AwayTeam":"CD Coria",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Primera Division RFEF: Group 2",
+        "HomeTeam":"CD Teruel",
+        "AwayTeam":"UD Ibiza",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Primera Division RFEF: Group 2",
+        "HomeTeam":"CDA Aguilas FC",
+        "AwayTeam":"Gimnastic",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Primera Division RFEF: Group 2",
+        "HomeTeam":"CE Europa",
+        "AwayTeam":"Atletico Madrid B",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Primera Division RFEF: Group 2",
+        "HomeTeam":"Villarreal B",
+        "AwayTeam":"Juventud Torremolinos CF",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Spain - Primera Division RFEF: Group 2",
+        "HomeTeam":"Real Madrid Castilla",
+        "AwayTeam":"Hercules",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:30",
+        "Liga":"Spain - Primera Division RFEF: Group 2",
+        "HomeTeam":"Real Murcia",
+        "AwayTeam":"Algeciras",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:30",
+        "Liga":"Spain - Segunda Division RFEF: Group 1",
+        "HomeTeam":"Real Oviedo B",
+        "AwayTeam":"Coruxo FC",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 1",
+        "HomeTeam":"UD Llanera",
+        "AwayTeam":"Bergantinos CF",
+        "FTHG":4,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Spain - Segunda Division RFEF: Group 1",
+        "HomeTeam":"Marino Luanco",
+        "AwayTeam":"Rayo Cantabria",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 1",
+        "HomeTeam":"Arosa SC",
+        "AwayTeam":"Compostela",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 1",
+        "HomeTeam":"Ourense CF",
+        "AwayTeam":"Portugalete",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 1",
+        "HomeTeam":"RS Gimnastica",
+        "AwayTeam":"SD Gernika",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"Spain - Segunda Division RFEF: Group 1",
+        "HomeTeam":"Sestao",
+        "AwayTeam":"Deportivo Alaves B",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 2",
+        "HomeTeam":"Utebo",
+        "AwayTeam":"Osasuna B",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 2",
+        "HomeTeam":"Girona B",
+        "AwayTeam":"UE Olot",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Spain - Segunda Division RFEF: Group 2",
+        "HomeTeam":"Arnedo",
+        "AwayTeam":"Naxara CD",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 2",
+        "HomeTeam":"Espanyol B",
+        "AwayTeam":"Barbastro",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 2",
+        "HomeTeam":"Reus FC Reddis",
+        "AwayTeam":"UD Logrones B",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 2",
+        "HomeTeam":"Tudelano",
+        "AwayTeam":"Ebro",
+        "FTHG":2,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:30",
+        "Liga":"Spain - Segunda Division RFEF: Group 2",
+        "HomeTeam":"SD Logrones",
+        "AwayTeam":"CF Calamocha",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 2",
+        "HomeTeam":"CE Manresa",
+        "AwayTeam":"Barca Atletic",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 3",
+        "HomeTeam":"Castellon B",
+        "AwayTeam":"SCR Pena Deportiva",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:30",
+        "Liga":"Spain - Segunda Division RFEF: Group 3",
+        "HomeTeam":"Poblense",
+        "AwayTeam":"CD Cieza",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:45",
+        "Liga":"Spain - Segunda Division RFEF: Group 3",
+        "HomeTeam":"Castellonense",
+        "AwayTeam":"Alcoyano",
+        "FTHG":3,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 3",
+        "HomeTeam":"Atletico Baleares",
+        "AwayTeam":"La Nucia",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 3",
+        "HomeTeam":"Mallorca B",
+        "AwayTeam":"Yeclano",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 3",
+        "HomeTeam":"Murcia B",
+        "AwayTeam":"Deportiva Minera",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 3",
+        "HomeTeam":"Orihuela",
+        "AwayTeam":"UCAM Murcia",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"14:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 3",
+        "HomeTeam":"Valencia B",
+        "AwayTeam":"Lorca Deportiva",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 4",
+        "HomeTeam":"CD Estepona",
+        "AwayTeam":"UD Tamaraceite",
+        "FTHG":5,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 4",
+        "HomeTeam":"Don Benito",
+        "AwayTeam":"Puente Genil",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 4",
+        "HomeTeam":"Linares Deportivo",
+        "AwayTeam":"Sevilla Atletico",
+        "FTHG":3,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 4",
+        "HomeTeam":"Marbella FC",
+        "AwayTeam":"Las Palmas B",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:30",
+        "Liga":"Spain - Segunda Division RFEF: Group 4",
+        "HomeTeam":"Atletico Sanluqueno CF",
+        "AwayTeam":"Xerez",
+        "FTHG":0,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 4",
+        "HomeTeam":"Atletico Central",
+        "AwayTeam":"CA Antoniano",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:30",
+        "Liga":"Spain - Segunda Division RFEF: Group 5",
+        "HomeTeam":"Getafe B",
+        "AwayTeam":"San Sebastian de los Reyes",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 5",
+        "HomeTeam":"Guadalajara",
+        "AwayTeam":"Navalcarnero",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 5",
+        "HomeTeam":"Numancia",
+        "AwayTeam":"Calvo Sotelo Puertollano",
+        "FTHG":6,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 5",
+        "HomeTeam":"CD Atletico Paso",
+        "AwayTeam":"RSD Alcala",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 5",
+        "HomeTeam":"Albacete B",
+        "AwayTeam":"Gimnastica Segoviana",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Spain - Segunda Division RFEF: Group 5",
+        "HomeTeam":"Atletico Madrid C",
+        "AwayTeam":"Atletico Tordesillas",
+        "FTHG":3,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 5",
+        "HomeTeam":"Real Avila",
+        "AwayTeam":"Salamanca CF Uds B",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Sweden - Division 1: North",
+        "HomeTeam":"AFC Eskilstuna",
+        "AwayTeam":"Enkoeping",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Sweden - Division 1: North",
+        "HomeTeam":"Assyriska FF",
+        "AwayTeam":"Hammarby TFF",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Sweden - Division 1: North",
+        "HomeTeam":"FC Jaerfaella",
+        "AwayTeam":"Vasalunds",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Sweden - Division 1: North",
+        "HomeTeam":"FC Stockholm Internazionale",
+        "AwayTeam":"Piteaa",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Sweden - Division 1: North",
+        "HomeTeam":"Gefle",
+        "AwayTeam":"Karlbergs BK",
+        "FTHG":7,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Sweden - Division 1: North",
+        "HomeTeam":"IFK Stocksund",
+        "AwayTeam":"FBK Karlstad",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Sweden - Division 1: North",
+        "HomeTeam":"Karlstad",
+        "AwayTeam":"Umeaa",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Sweden - Division 1: North",
+        "HomeTeam":"Sollentuna FK",
+        "AwayTeam":"FC Arlanda",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Sweden - Division 2: Promotion Group 1",
+        "HomeTeam":"IK Sleipner",
+        "AwayTeam":"IFK Luleaa",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Sweden - Women's Allsvenskan",
+        "HomeTeam":"Vaexjoe W",
+        "AwayTeam":"IFK Norrkoeping W",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Sweden - Women's Allsvenskan",
+        "HomeTeam":"Vittsjo GIK W",
+        "AwayTeam":"Brommapojkarna W",
+        "FTHG":5,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Sweden - Women's Elitettan",
+        "HomeTeam":"Oerebro W",
+        "AwayTeam":"Trelleborgs FF W",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Sweden - Women's Elitettan",
+        "HomeTeam":"Umeaa IK W",
+        "AwayTeam":"Alingsas FC United W",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Sweden - Women's Elitettan",
+        "HomeTeam":"Sandvikens IF",
+        "AwayTeam":"Enskede IK",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"Switzerland - Challenge League",
+        "HomeTeam":"Yverdon",
+        "AwayTeam":"Xamax",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Switzerland - Promotion League",
+        "HomeTeam":"Young Boys II",
+        "AwayTeam":"Bellinzona",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"11:00",
+        "Liga":"Switzerland - Promotion League",
+        "HomeTeam":"Biel\/Bienne",
+        "AwayTeam":"FC Kreuzlingen",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Thailand - Thai League",
+        "HomeTeam":"BG Pathum United",
+        "AwayTeam":"Rayong FC",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Thailand - Thai League",
+        "HomeTeam":"Rasisalai United",
+        "AwayTeam":"Bangkok United",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:30",
+        "Liga":"Thailand - Thai League",
+        "HomeTeam":"Prachuap FC",
+        "AwayTeam":"Sisaket United",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Thailand - Thai League",
+        "HomeTeam":"Ratchaburi FC",
+        "AwayTeam":"Buriram United",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:30",
+        "Liga":"Tunisia - Ligue I",
+        "HomeTeam":"Etoile Metlaoui",
+        "AwayTeam":"Zarzis",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:30",
+        "Liga":"Turkiye - 1st Lig",
+        "HomeTeam":"Bandirmaspor",
+        "AwayTeam":"Fatih Karagumruk",
+        "FTHG":0,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Turkiye - 1st Lig",
+        "HomeTeam":"Boluspor",
+        "AwayTeam":"Bodrum FK",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:00",
+        "Liga":"Turkiye - 1st Lig",
+        "HomeTeam":"Umraniyespor",
+        "AwayTeam":"Kayserispor",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Turkiye - 1st Lig",
+        "HomeTeam":"Mardin Buyuksehir Basakspor",
+        "AwayTeam":"Batman Petrolspor",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:00",
+        "Liga":"Turkiye - 2nd Lig: White Group",
+        "HomeTeam":"Adana Demirspor",
+        "AwayTeam":"Ankaraspor",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:00",
+        "Liga":"Turkiye - 2nd Lig: White Group",
+        "HomeTeam":"Hatayspor",
+        "AwayTeam":"Soma Spor Dernegi",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:00",
+        "Liga":"Turkiye - 2nd Lig: White Group",
+        "HomeTeam":"Sebat Genclik Spor",
+        "AwayTeam":"Kastamonuspor 1966",
+        "FTHG":6,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Turkiye - 2nd Lig: White Group",
+        "HomeTeam":"Arnavutkoy Belediyespor",
+        "AwayTeam":"Menemen FK",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Turkiye - 2nd Lig: White Group",
+        "HomeTeam":"Corluspor 1947",
+        "AwayTeam":"68 Aksaray Belediyespor",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Turkiye - 2nd Lig: White Group",
+        "HomeTeam":"Güzide Gebzespor",
+        "AwayTeam":"Inegol Kafkas",
+        "FTHG":4,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Turkiye - 2nd Lig: White Group",
+        "HomeTeam":"Elazigspor",
+        "AwayTeam":"Sanliurfaspor",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Turkiye - 2nd Lig: White Group",
+        "HomeTeam":"Isparta 32 Spor",
+        "AwayTeam":"Erbaaspor",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:00",
+        "Liga":"Turkiye - 2nd Lig: Red Group",
+        "HomeTeam":"12 Bingol Spor",
+        "AwayTeam":"Beyoglu Yeni Carsi FK",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:00",
+        "Liga":"Turkiye - 2nd Lig: Red Group",
+        "HomeTeam":"Ankara Demirspor",
+        "AwayTeam":"24 Erzincanspor",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"07:00",
+        "Liga":"Turkiye - 2nd Lig: Red Group",
+        "HomeTeam":"Fethiyespor",
+        "AwayTeam":"Adana 1954",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Turkiye - 2nd Lig: Red Group",
+        "HomeTeam":"Inegolspor",
+        "AwayTeam":"Belediye Kutahyaspor",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:00",
+        "Liga":"Turkiye - 2nd Lig: Red Group",
+        "HomeTeam":"Karacabey Belediye Spor",
+        "AwayTeam":"Kirklarelispor",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:30",
+        "Liga":"Turkiye - 2nd Lig: Red Group",
+        "HomeTeam":"Yeni Orduspor",
+        "AwayTeam":"Sakaryaspor",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Ukraine - Premier League",
+        "HomeTeam":"Bukovyna Chernivtsi",
+        "AwayTeam":"FC Kolos Kovalivka",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Ukraine - Premier League",
+        "HomeTeam":"Zorya",
+        "AwayTeam":"Cherkasy",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"13:00",
+        "Liga":"Ukraine - Premier League",
+        "HomeTeam":"Shakhtar Donetsk",
+        "AwayTeam":"Dynamo Kyiv",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:55",
+        "Liga":"United Arab Emirates - Pro League",
+        "HomeTeam":"Al-Jazira",
+        "AwayTeam":"Al-Wasl",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:55",
+        "Liga":"United Arab Emirates - Pro League",
+        "HomeTeam":"Al-Nasr SC",
+        "AwayTeam":"United FC",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"United Arab Emirates - Pro League",
+        "HomeTeam":"Ajman",
+        "AwayTeam":"Baniyas",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:30",
+        "Liga":"United Arab Emirates - Pro League",
+        "HomeTeam":"Al-Wahda",
+        "AwayTeam":"Al-Ain",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
         "Hora":"00:00",
         "Liga":"USA - USL Championship: Play-off",
         "HomeTeam":"Sacramento Republic FC",
         "AwayTeam":"El Paso Locomotive",
         "FTHG":2,
         "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"21:00",
+        "Liga":"USA - USL League One: Play-off",
+        "HomeTeam":"Charlotte Independence",
+        "AwayTeam":"Forward Madison FC",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"20:00",
+        "Liga":"USA - MLS Next Pro: Play-off",
+        "HomeTeam":"Chattanooga FC",
+        "AwayTeam":"Los Angeles FC II",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Uzbekistan - Super League",
+        "HomeTeam":"Buxoro",
+        "AwayTeam":"Nasaf Qarshi",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"08:00",
+        "Liga":"Uzbekistan - Super League",
+        "HomeTeam":"Neftchi Fargona",
+        "AwayTeam":"AGMK",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"10:15",
+        "Liga":"Uzbekistan - Super League",
+        "HomeTeam":"Pakhtakor Tashkent",
+        "AwayTeam":"Kokand 1912",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"18:00",
+        "Liga":"Venezuela - Primera Division: Clausura: Group A",
+        "HomeTeam":"Portuguesa FC",
+        "AwayTeam":"Metropolitanos FC",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"18:30",
+        "Liga":"Venezuela - Primera Division: Clausura: Group A",
+        "HomeTeam":"Deportivo La Guaira",
+        "AwayTeam":"Carabobo FC",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"09:15",
+        "Liga":"Vietnam - V-League",
+        "HomeTeam":"Viettel",
+        "AwayTeam":"Dong A Thanh Hoa",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"16:00",
+        "Liga":"Bolivia - Primera Division",
+        "HomeTeam":"Nacional Potosi",
+        "AwayTeam":"Real Potosi",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"18:15",
+        "Liga":"Bolivia - Primera Division",
+        "HomeTeam":"Bolivar",
+        "AwayTeam":"The Strongest",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"20:30",
+        "Liga":"Bolivia - Primera Division",
+        "HomeTeam":"Blooming",
+        "AwayTeam":"Oriente Petrolero",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"12:00",
+        "Liga":"Belgium - Challenger Pro League",
+        "HomeTeam":"K Lierse S.K.",
+        "AwayTeam":"Eupen",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-08",
+        "Hora":"15:15",
+        "Liga":"Belgium - Challenger Pro League",
+        "HomeTeam":"KSC Lokeren",
+        "AwayTeam":"FCV Dender EH",
+        "FTHG":2,
+        "FTAG":2
     }
 ]
