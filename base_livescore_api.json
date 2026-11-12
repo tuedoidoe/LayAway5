@@ -1081846,11 +1081846,848 @@
     },
     {
         "Data":"2026-11-11",
+        "Hora":"09:00",
+        "Liga":"International Friendlies - Friendlies",
+        "HomeTeam":"Vietnam",
+        "AwayTeam":"Chinese Taipei",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"11:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League A Group 1",
+        "HomeTeam":"Ireland U19",
+        "AwayTeam":"Greece U19",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"14:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League A Group 1",
+        "HomeTeam":"France U19",
+        "AwayTeam":"Norway U19",
+        "FTHG":6,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"08:15",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League A Group 2",
+        "HomeTeam":"Belgium U19",
+        "AwayTeam":"Kosovo U19",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"12:45",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League A Group 2",
+        "HomeTeam":"Kazakhstan U19",
+        "AwayTeam":"Scotland U19",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"09:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League A Group 4",
+        "HomeTeam":"Slovenia U19",
+        "AwayTeam":"England U19",
+        "FTHG":1,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"14:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League A Group 4",
+        "HomeTeam":"Austria U19",
+        "AwayTeam":"Belarus U19",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"12:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League A Group 5",
+        "HomeTeam":"Spain U19",
+        "AwayTeam":"Iceland U19",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League A Group 5",
+        "HomeTeam":"Wales U19",
+        "AwayTeam":"Finland U19",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"08:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League A Group 6",
+        "HomeTeam":"Ukraine U19",
+        "AwayTeam":"Israel U19",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"11:30",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League A Group 6",
+        "HomeTeam":"Italy U19",
+        "AwayTeam":"Romania U19",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"08:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League A Group 7",
+        "HomeTeam":"Croatia U19",
+        "AwayTeam":"Hungary U19",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"10:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League A Group 7",
+        "HomeTeam":"Czechia U19",
+        "AwayTeam":"Netherlands U19",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"07:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League B Group 1",
+        "HomeTeam":"Azerbaijan U19",
+        "AwayTeam":"Montenegro U19",
+        "FTHG":2,
+        "FTAG":7
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"13:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League B Group 1",
+        "HomeTeam":"Serbia U19",
+        "AwayTeam":"Faroe Islands U19",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"07:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League B Group 2",
+        "HomeTeam":"Georgia U19",
+        "AwayTeam":"Denmark U19",
+        "FTHG":2,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"12:30",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League B Group 2",
+        "HomeTeam":"Bosnia and Herzegovina U19",
+        "AwayTeam":"San Marino U19",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"07:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League B Group 3",
+        "HomeTeam":"Estonia U19",
+        "AwayTeam":"Liechtenstein U19",
+        "FTHG":6,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"10:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League B Group 3",
+        "HomeTeam":"Turkiye U19",
+        "AwayTeam":"Slovakia U19",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"09:30",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League B Group 4",
+        "HomeTeam":"Latvia U19",
+        "AwayTeam":"Moldova U19",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"11:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League B Group 4",
+        "HomeTeam":"Bulgaria U19",
+        "AwayTeam":"Gibraltar U19",
+        "FTHG":6,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"09:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League B Group 5",
+        "HomeTeam":"North Macedonia U19",
+        "AwayTeam":"Northern Ireland U19",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"11:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League B Group 5",
+        "HomeTeam":"Switzerland U19",
+        "AwayTeam":"Malta U19",
+        "FTHG":6,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"09:30",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League B Group 6",
+        "HomeTeam":"Albania U19",
+        "AwayTeam":"Cyprus U19",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"08:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League B Group 7",
+        "HomeTeam":"Andorra U19",
+        "AwayTeam":"Poland U19",
+        "FTHG":0,
+        "FTAG":5
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"14:45",
+        "Liga":"UEFA Women's Champions League - Final Stage",
+        "HomeTeam":"Oud-Heverlee Leuven",
+        "AwayTeam":"HB Koege W",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"17:00",
+        "Liga":"UEFA Women's Champions League - Final Stage",
+        "HomeTeam":"Juventus W",
+        "AwayTeam":"Lyon W",
+        "FTHG":0,
+        "FTAG":6
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"13:00",
+        "Liga":"France - Premiere Ligue Femenine",
+        "HomeTeam":"FC Fleury 91 W",
+        "AwayTeam":"Toulouse",
+        "FTHG":7,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"11:00",
+        "Liga":"Asia - SAFF Championship: Group A",
+        "HomeTeam":"Bangladesh",
+        "AwayTeam":"Sri Lanka",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"06:30",
+        "Liga":"Asia - SAFF Championship: Group B",
+        "HomeTeam":"India",
+        "AwayTeam":"Maldives",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"10:30",
+        "Liga":"Belgium - National Division 1 ACFF",
+        "HomeTeam":"CS Onhaye",
+        "AwayTeam":"Habay La Neuve",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"09:00",
+        "Liga":"Bosnia and Herzegovina - 1st League: RS",
+        "HomeTeam":"Sutjeska Foca",
+        "AwayTeam":"FK Leotar",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"19:00",
+        "Liga":"Brazil - Serie B",
+        "HomeTeam":"Londrina EC",
+        "AwayTeam":"Nautico",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"14:00",
+        "Liga":"Cameroon - Elite 1",
+        "HomeTeam":"Colombe",
+        "AwayTeam":"Victoria United",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"20:00",
+        "Liga":"Colombia - Primera B: Clausura: Play-off: Group B",
+        "HomeTeam":"Real Soacha Cundinamarca",
+        "AwayTeam":"Real Cartagena",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"22:10",
+        "Liga":"Colombia - Primera B: Clausura: Play-off: Group B",
+        "HomeTeam":"Deportes Quindio",
+        "AwayTeam":"Tigres FC",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"14:00",
+        "Liga":"Czech Republic - Cup",
+        "HomeTeam":"SK Lisen",
+        "AwayTeam":"Jablonec",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"18:30",
+        "Liga":"El Salvador - Primera Division: Apertura",
+        "HomeTeam":"CD Fuerte San Francisco",
+        "AwayTeam":"Alianza FC",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"22:00",
+        "Liga":"El Salvador - Primera Division: Apertura",
+        "HomeTeam":"CD FAS",
+        "AwayTeam":"Inter FA",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:00",
+        "Liga":"England - EFL Trophy North: Group A",
+        "HomeTeam":"Sheffield Wednesday",
+        "AwayTeam":"Accrington Stanley",
+        "FTHG":0,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:00",
+        "Liga":"England - EFL Trophy North: Group G",
+        "HomeTeam":"Barnsley",
+        "AwayTeam":"Oldham Athletic",
+        "FTHG":5,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:45",
+        "Liga":"England - Northern Premier League",
+        "HomeTeam":"Avro",
+        "AwayTeam":"Whitby",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:45",
+        "Liga":"England - Isthmian League: South Central Division",
+        "HomeTeam":"Kingstonian",
+        "AwayTeam":"Moneyfields FC",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:00",
+        "Liga":"England - Women's League Cup",
+        "HomeTeam":"Birmingham City W",
+        "AwayTeam":"Sunderland W",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:00",
+        "Liga":"England - Women's League Cup",
+        "HomeTeam":"Everton W",
+        "AwayTeam":"Durham W",
+        "FTHG":6,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:00",
+        "Liga":"England - Women's League Cup",
+        "HomeTeam":"Liverpool W",
+        "AwayTeam":"Aston Villa W",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:30",
+        "Liga":"England - Women's League Cup",
+        "HomeTeam":"Charlton Athletic W",
+        "AwayTeam":"Ipswich Town W",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:45",
+        "Liga":"England - Women's League Cup",
+        "HomeTeam":"Brighton W",
+        "AwayTeam":"Watford W",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"08:00",
+        "Liga":"Euro U17 - Qualification: Group 1",
+        "HomeTeam":"Ireland U17",
+        "AwayTeam":"Estonia U17",
+        "FTHG":5,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"13:30",
+        "Liga":"Euro U17 - Qualification: Group 1",
+        "HomeTeam":"Wales U17",
+        "AwayTeam":"Denmark U17",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"07:00",
+        "Liga":"Euro U17 - Qualification: Group 2",
+        "HomeTeam":"Germany U17",
+        "AwayTeam":"Azerbaijan U17",
+        "FTHG":7,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"12:30",
+        "Liga":"Euro U17 - Qualification: Group 2",
+        "HomeTeam":"Lithuania U17",
+        "AwayTeam":"Northern Ireland U17",
+        "FTHG":4,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"10:00",
+        "Liga":"Euro U17 - Qualification: Group 4",
+        "HomeTeam":"Sweden U17",
+        "AwayTeam":"Albania U17",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"11:00",
+        "Liga":"Euro U17 - Qualification: Group 4",
+        "HomeTeam":"Finland U17",
+        "AwayTeam":"Scotland U17",
+        "FTHG":4,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"07:00",
+        "Liga":"Euro U17 - Qualification: Group 5",
+        "HomeTeam":"Netherlands U17",
+        "AwayTeam":"Norway U17",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"10:30",
+        "Liga":"Euro U17 - Qualification: Group 5",
+        "HomeTeam":"Slovakia U17",
+        "AwayTeam":"Malta U17",
+        "FTHG":6,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"11:00",
+        "Liga":"Euro U17 - Qualification: Group 9",
+        "HomeTeam":"Montenegro U17",
+        "AwayTeam":"England U17",
+        "FTHG":1,
+        "FTAG":6
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:00",
+        "Liga":"Euro U17 - Qualification: Group 9",
+        "HomeTeam":"Ukraine U17",
+        "AwayTeam":"Poland U17",
+        "FTHG":3,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"05:00",
+        "Liga":"Euro U17 - Qualification: Group 10",
+        "HomeTeam":"Luxembourg U17",
+        "AwayTeam":"Italy U17",
+        "FTHG":0,
+        "FTAG":6
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"08:00",
+        "Liga":"Euro U17 - Qualification: Group 10",
+        "HomeTeam":"France U17",
+        "AwayTeam":"Armenia U17",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"06:00",
+        "Liga":"Euro U17 - Qualification: Group 11",
+        "HomeTeam":"Hungary U17",
+        "AwayTeam":"North Macedonia U17",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"09:00",
+        "Liga":"Euro U17 - Qualification: Group 11",
+        "HomeTeam":"Turkiye U17",
+        "AwayTeam":"San Marino U17",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"07:00",
+        "Liga":"Euro U17 - Qualification: Group 12",
+        "HomeTeam":"Latvia U17",
+        "AwayTeam":"Croatia U17",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"08:30",
+        "Liga":"Euro U17 - Qualification: Group 12",
+        "HomeTeam":"Belgium U17",
+        "AwayTeam":"Kosovo U17",
+        "FTHG":8,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"09:00",
+        "Liga":"Euro U17 - Qualification: Group 14",
+        "HomeTeam":"Austria U17",
+        "AwayTeam":"Georgia U17",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"08:00",
+        "Liga":"Women's Euro U17 - Qualification Round 1: Group B5",
+        "HomeTeam":"Slovenia Women U17",
+        "AwayTeam":"Greece U17 W",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:00",
+        "Liga":"France - National 1: Group A",
+        "HomeTeam":"Dieppe",
+        "AwayTeam":"Racing Club de France",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:00",
+        "Liga":"France - National 1: Group A",
+        "HomeTeam":"St-Pryve St-Hilaire",
+        "AwayTeam":"Chantilly US",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"13:00",
+        "Liga":"France - National 1: Group C",
+        "HomeTeam":"Etoile Frejus Saint-Raphael",
+        "AwayTeam":"Troyes B",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"13:00",
+        "Liga":"France - National 1: Group C",
+        "HomeTeam":"St. Priest",
+        "AwayTeam":"GFA Rumilly Vallières",
+        "FTHG":2,
+        "FTAG":4
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"14:00",
+        "Liga":"France - National 1: Group C",
+        "HomeTeam":"Bourges 18",
+        "AwayTeam":"Hyeres",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"14:00",
+        "Liga":"France - National 1: Group C",
+        "HomeTeam":"Canet Roussillon",
+        "AwayTeam":"Hauts Lyonnais",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"14:00",
+        "Liga":"France - National 1: Group C",
+        "HomeTeam":"SC Toulon",
+        "AwayTeam":"FC Limonest",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"10:30",
+        "Liga":"Italy - Serie D: Group G",
+        "HomeTeam":"ASD Trastevere",
+        "AwayTeam":"Anzio Calcio 1924",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"07:00",
+        "Liga":"Japan - J.League Cup",
+        "HomeTeam":"Kawasaki Frontale",
+        "AwayTeam":"Kashiwa Reysol",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"07:00",
+        "Liga":"Japan - J.League Cup",
+        "HomeTeam":"Vissel Kobe",
+        "AwayTeam":"Machida Zelvia",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"07:00",
+        "Liga":"Japan - J.League Cup",
+        "HomeTeam":"Yokohama F.Marinos",
+        "AwayTeam":"Kashima Antlers",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"07:30",
+        "Liga":"Japan - J.League Cup",
+        "HomeTeam":"Urawa Red Diamonds",
+        "AwayTeam":"Cerezo Osaka",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"09:00",
+        "Liga":"Latvia - Virsliga: Qualification",
+        "HomeTeam":"FK Tukums 2000",
+        "AwayTeam":"Valmiera FC",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"23:00",
+        "Liga":"Mexico - Liga de Expansion MX: Apertura: Play-off",
+        "HomeTeam":"Piratas",
+        "AwayTeam":"Atletico La Paz",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"13:00",
+        "Liga":"Mexico - Liga Premier: Serie B",
+        "HomeTeam":"Atletico Hidalgo",
+        "AwayTeam":"Celaya II",
+        "FTHG":0,
+        "FTAG":6
+    },
+    {
+        "Data":"2026-11-11",
         "Hora":"00:00",
         "Liga":"Mexico - Women's Liga MX: Apertura Play-off",
         "HomeTeam":"FC Juarez W",
         "AwayTeam":"CD Guadalajara W",
         "FTHG":0,
         "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"22:00",
+        "Liga":"Mexico - Women's Liga MX: Apertura Play-off",
+        "HomeTeam":"CF America W",
+        "AwayTeam":"Toluca W",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"09:00",
+        "Liga":"Slovakia - Slovak Cup",
+        "HomeTeam":"FK Nove Zamky",
+        "AwayTeam":"Zemplin Michalovce",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"12:00",
+        "Liga":"Slovakia - Slovak Cup",
+        "HomeTeam":"Zeleziarne Podbrezova",
+        "AwayTeam":"Zlate Moravce",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"14:45",
+        "Liga":"Spain - Segunda Division RFEF: Group 3",
+        "HomeTeam":"Castellonense",
+        "AwayTeam":"La Nucia",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"15:00",
+        "Liga":"Spain - Segunda Division RFEF: Group 3",
+        "HomeTeam":"Castellon B",
+        "AwayTeam":"Deportiva Minera",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"15:30",
+        "Liga":"Spain - Segunda Division RFEF: Group 3",
+        "HomeTeam":"Alcoyano",
+        "AwayTeam":"Elche Ilicitano",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:30",
+        "Liga":"Spain - Segunda Division RFEF: Group 3",
+        "HomeTeam":"CD Cieza",
+        "AwayTeam":"Valencia B",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:30",
+        "Liga":"Uruguay - Segunda División",
+        "HomeTeam":"La Luz",
+        "AwayTeam":"Fenix",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:30",
+        "Liga":"Uruguay - Segunda División",
+        "HomeTeam":"Tacuarembo FC",
+        "AwayTeam":"Miramar Misiones",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:00",
+        "Liga":"Venezuela - Segunda División: Final Stage",
+        "HomeTeam":"Zamora FC B",
+        "AwayTeam":"Deportivo Lara",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-11",
+        "Hora":"16:45",
+        "Liga":"England - Northern Premier League: Midlands Division",
+        "HomeTeam":"Coventry United",
+        "AwayTeam":"AFC Rushden & Diamonds",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"00:00",
+        "Liga":"Mexico - Women's Liga MX: Apertura Play-off",
+        "HomeTeam":"Pachuca W",
+        "AwayTeam":"Monterrey W",
+        "FTHG":0,
+        "FTAG":1
     }
 ]
