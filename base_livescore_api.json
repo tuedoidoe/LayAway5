@@ -1082683,11 +1082683,551 @@
     },
     {
         "Data":"2026-11-12",
+        "Hora":"14:00",
+        "Liga":"UEFA Nations League - League A: Group 1",
+        "HomeTeam":"Turkiye",
+        "AwayTeam":"Belgium",
+        "FTHG":1,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:45",
+        "Liga":"UEFA Nations League - League A: Group 1",
+        "HomeTeam":"Italy",
+        "AwayTeam":"France",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:45",
+        "Liga":"UEFA Nations League - League A: Group 3",
+        "HomeTeam":"Czechia",
+        "AwayTeam":"Spain",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:45",
+        "Liga":"UEFA Nations League - League A: Group 3",
+        "HomeTeam":"England",
+        "AwayTeam":"Croatia",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:45",
+        "Liga":"UEFA Nations League - League C: Group 1",
+        "HomeTeam":"Albania",
+        "AwayTeam":"Finland",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:45",
+        "Liga":"UEFA Nations League - League C: Group 1",
+        "HomeTeam":"San Marino",
+        "AwayTeam":"Belarus",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"14:00",
+        "Liga":"UEFA Nations League - League C: Group 2",
+        "HomeTeam":"Armenia",
+        "AwayTeam":"Cyprus",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:45",
+        "Liga":"UEFA Nations League - League C: Group 2",
+        "HomeTeam":"Montenegro",
+        "AwayTeam":"Latvia",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"12:00",
+        "Liga":"Africa Cup of Nations Qualification - Qualification: Group C",
+        "HomeTeam":"Ghana",
+        "AwayTeam":"Somalia",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:00",
+        "Liga":"Africa Cup of Nations Qualification - Qualification: Group C",
+        "HomeTeam":"Ivory Coast",
+        "AwayTeam":"Gambia",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"14:00",
+        "Liga":"Africa Cup of Nations Qualification - Qualification: Group D",
+        "HomeTeam":"Guinea",
+        "AwayTeam":"Eritrea",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"13:00",
+        "Liga":"Africa Cup of Nations Qualification - Qualification: Group E",
+        "HomeTeam":"DR Congo",
+        "AwayTeam":"Sierra Leone",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"13:00",
+        "Liga":"Africa Cup of Nations Qualification - Qualification: Group E",
+        "HomeTeam":"Equatorial Guinea",
+        "AwayTeam":"Zimbabwe",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:00",
+        "Liga":"Africa Cup of Nations Qualification - Qualification: Group F",
+        "HomeTeam":"Benin",
+        "AwayTeam":"Central African Republic",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:00",
+        "Liga":"Africa Cup of Nations Qualification - Qualification: Group G",
+        "HomeTeam":"Cameroon",
+        "AwayTeam":"Namibia",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:00",
+        "Liga":"Africa Cup of Nations Qualification - Qualification: Group J",
+        "HomeTeam":"Senegal",
+        "AwayTeam":"Sudan",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"13:00",
+        "Liga":"Africa Cup of Nations Qualification - Qualification: Group L",
+        "HomeTeam":"Madagascar",
+        "AwayTeam":"Guinea-Bissau",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"19:00",
+        "Liga":"CONCACAF Nations League - Play-In",
+        "HomeTeam":"Aruba",
+        "AwayTeam":"Martinique",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"20:00",
+        "Liga":"CONCACAF Nations League - Play-In",
+        "HomeTeam":"Antigua and Barbuda",
+        "AwayTeam":"Trinidad and Tobago",
+        "FTHG":2,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:00",
+        "Liga":"CONCACAF Nations League - League B: Group 1",
+        "HomeTeam":"Cayman Islands",
+        "AwayTeam":"Guyana",
+        "FTHG":0,
+        "FTAG":6
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:00",
+        "Liga":"CONCACAF Nations League - League B: Group 2",
+        "HomeTeam":"Barbados",
+        "AwayTeam":"Guadeloupe",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:00",
+        "Liga":"CONCACAF Nations League - League B: Group 3",
+        "HomeTeam":"Bonaire",
+        "AwayTeam":"Cuba",
+        "FTHG":1,
+        "FTAG":7
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"03:10",
+        "Liga":"International Friendlies - Friendlies",
+        "HomeTeam":"New Zealand",
+        "AwayTeam":"India",
+        "FTHG":5,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"14:00",
+        "Liga":"International Friendlies - Friendlies",
+        "HomeTeam":"Lithuania",
+        "AwayTeam":"Suriname",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"14:30",
+        "Liga":"International Friendlies - Friendlies",
+        "HomeTeam":"Malta",
+        "AwayTeam":"Eswatini",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"14:30",
+        "Liga":"Spain - Copa del Rey: Round 1",
+        "HomeTeam":"Calvo Sotelo Puertollano",
+        "AwayTeam":"Albacete",
+        "FTHG":0,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"10:00",
+        "Liga":"Euro U21 2027 - Qualification Play-off",
+        "HomeTeam":"Iceland U21",
+        "AwayTeam":"Greece U21",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"10:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League A Group 3",
+        "HomeTeam":"Germany U19",
+        "AwayTeam":"Sweden U19",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"12:00",
+        "Liga":"Euro U19 Qualification - EURO U19 Qualification Round 2 League A Group 3",
+        "HomeTeam":"Portugal U19",
+        "AwayTeam":"Lithuania U19",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"14:45",
+        "Liga":"UEFA Women's Champions League - Final Stage",
+        "HomeTeam":"Barcelona W",
+        "AwayTeam":"Arsenal W",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"17:00",
+        "Liga":"UEFA Women's Champions League - Final Stage",
+        "HomeTeam":"Benfica W",
+        "AwayTeam":"Austria Wien W",
+        "FTHG":3,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"06:00",
+        "Liga":"International Friendlies - Friendlies U21",
+        "HomeTeam":"Kazakhstan U21",
+        "AwayTeam":"Belarus U21",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"10:00",
+        "Liga":"International Friendlies - Friendlies U21",
+        "HomeTeam":"Scotland U21",
+        "AwayTeam":"Ukraine U21",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"10:00",
+        "Liga":"International Friendlies - Friendlies U21",
+        "HomeTeam":"Serbia U21",
+        "AwayTeam":"North Macedonia U21",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"15:30",
+        "Liga":"Argentina - Federal A: Promotion Play-off",
+        "HomeTeam":"Kimberley",
+        "AwayTeam":"Olimpo",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"05:30",
+        "Liga":"Australia - Australian Championship 2026: Group B",
+        "HomeTeam":"APIA Leichhardt Tigers",
+        "AwayTeam":"Adelaide City",
+        "FTHG":3,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"19:00",
+        "Liga":"Brazil - Serie B",
+        "HomeTeam":"Ponte Preta",
+        "AwayTeam":"Operario Ferroviario",
+        "FTHG":0,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"20:00",
+        "Liga":"Brazil - Serie B",
+        "HomeTeam":"Sao Bernardo",
+        "AwayTeam":"Athletic Club",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"20:00",
+        "Liga":"Colombia - Primera A: Clausura",
+        "HomeTeam":"Deportivo Pasto",
+        "AwayTeam":"Atletico Junior",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"21:00",
+        "Liga":"Colombia - Primera A: Clausura",
+        "HomeTeam":"Llaneros FC",
+        "AwayTeam":"Chico FC",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"09:30",
+        "Liga":"Egypt - 2. Division A",
+        "HomeTeam":"Al Nasr",
+        "AwayTeam":"Pharco FC",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"09:30",
+        "Liga":"Egypt - 2. Division A",
+        "HomeTeam":"Dayrot",
+        "AwayTeam":"Proxy",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"09:30",
+        "Liga":"Egypt - 2. Division A",
+        "HomeTeam":"El Entag El Harby",
+        "AwayTeam":"Baladiyyat Al-Mehalla",
+        "FTHG":2,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"09:30",
+        "Liga":"Egypt - 2. Division A",
+        "HomeTeam":"FC Masar",
+        "AwayTeam":"Al Tersana",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"09:30",
+        "Liga":"Egypt - 2. Division A",
+        "HomeTeam":"Mega Sport",
+        "AwayTeam":"El Sekka El Hadid",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"18:30",
+        "Liga":"El Salvador - Primera Division: Apertura",
+        "HomeTeam":"Atletico Balboa",
+        "AwayTeam":"Inca Aruba",
+        "FTHG":4,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"18:30",
+        "Liga":"El Salvador - Primera Division: Apertura",
+        "HomeTeam":"CD Aguila",
+        "AwayTeam":"Municipal Limeno",
+        "FTHG":1,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"12:00",
+        "Liga":"Euro U17 - Qualification: Group 6",
+        "HomeTeam":"Bulgaria U17",
+        "AwayTeam":"Serbia U17",
+        "FTHG":1,
+        "FTAG":3
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"12:00",
+        "Liga":"Euro U17 - Qualification: Group 6",
+        "HomeTeam":"Portugal U17",
+        "AwayTeam":"Andorra U17",
+        "FTHG":4,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"10:00",
+        "Liga":"Germany - Regionalliga West",
+        "HomeTeam":"SC Paderborn 07 II",
+        "AwayTeam":"Bochum II",
+        "FTHG":2,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"19:00",
+        "Liga":"Guatemala - Liga Nacional: Apertura",
+        "HomeTeam":"Aurora FC",
+        "AwayTeam":"Mixco",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"23:00",
+        "Liga":"Mexico - Liga de Expansion MX: Apertura: Play-off",
+        "HomeTeam":"Atlético Morelia",
+        "AwayTeam":"Leones Negros",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"13:00",
+        "Liga":"Mexico - Primera Premier",
+        "HomeTeam":"Tritones Vallarta",
+        "AwayTeam":"H2O Purepechas",
+        "FTHG":0,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
         "Hora":"00:00",
         "Liga":"Mexico - Women's Liga MX: Apertura Play-off",
         "HomeTeam":"Pachuca W",
         "AwayTeam":"Monterrey W",
         "FTHG":0,
         "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"12:15",
+        "Liga":"Niger - Super Ligue",
+        "HomeTeam":"Urana",
+        "AwayTeam":"AS ZAM",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"20:00",
+        "Liga":"Uruguay - Primera División: Clausura",
+        "HomeTeam":"Cerro Largo",
+        "AwayTeam":"Club Atletico Progreso",
+        "FTHG":2,
+        "FTAG":2
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:30",
+        "Liga":"Uruguay - Segunda División",
+        "HomeTeam":"Atenas",
+        "AwayTeam":"Oriental",
+        "FTHG":1,
+        "FTAG":0
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:30",
+        "Liga":"Uruguay - Segunda División",
+        "HomeTeam":"Cerrito",
+        "AwayTeam":"Colon",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"16:30",
+        "Liga":"Uruguay - Segunda División",
+        "HomeTeam":"Plaza Colonia",
+        "AwayTeam":"Rentistas",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"19:00",
+        "Liga":"Venezuela - Primera Division: Clausura: Group B",
+        "HomeTeam":"Academia Puerto Cabello",
+        "AwayTeam":"Monagas SC",
+        "FTHG":0,
+        "FTAG":1
+    },
+    {
+        "Data":"2026-11-12",
+        "Hora":"21:30",
+        "Liga":"CONCACAF Nations League - League A: Quarter Finals",
+        "HomeTeam":"Curacao",
+        "AwayTeam":"Panama",
+        "FTHG":0,
+        "FTAG":0
     }
 ]
